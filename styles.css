@@ -724,22 +724,13 @@ body.light-theme .theme-toggle-btn .sun-icon {
     text-align: center;
     padding: 12px 8px;
     border-bottom: 3px solid var(--primary);
-    min-width: 70px;
+    min-width: 60px;
     letter-spacing: 1px;
     text-transform: lowercase;
 }
 
-.kana-vowel-label {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--primary);
+.kana-table thead tr {
     text-align: center;
-    padding: 12px 8px;
-    width: 48px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 /* Claymorphism kana cells */

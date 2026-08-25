@@ -382,13 +382,13 @@ function renderIntroView() {
           <h1>${t('home.heroTitle')}</h1>
           <p>${t('home.heroSubtitle')}</p>
           <div class="hero-actions">
-            <a href="#kana" class="btn-cta-primary">
-              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-              Start Learning Kana
-            </a>
-            <a href="#roadmap" class="btn-cta-secondary">
+            <a href="#roadmap" class="btn-cta-primary">
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
               View Learning Path
+            </a>
+            <a href="#kana" class="btn-cta-secondary">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              Start Learning Kana
             </a>
           </div>
         </div>
@@ -538,35 +538,28 @@ function renderKanaGrid() {
   //          a   k   s   t   n   h   m   y   r   w   n
   const vowelRows = [
     { vowel: 'a', chars: [0, 5, 10, 15, 20, 25, 30, 35, 38, 43, 45] },  // あ,か,さ,た,な,は,ま,や,ら,わ,ん
-    { vowel: 'i', chars: [null, 1, 6, 11, 16, 21, 26, 31, null, 39, null] },  // い,き,し,ち,に,ひ,み,り
-    { vowel: 'u', chars: [null, 2, 7, 12, 17, 22, 27, 32, 36, 40, null] }, // う,く,す,つ,ぬ,ふ,む,ゆ,る
-    { vowel: 'e', chars: [null, 3, 8, 13, 18, 23, 28, 33, null, 41, null] }, // え,け,せ,て,ね,へ,め,れ
-    { vowel: 'o', chars: [null, 4, 9, 14, 19, 24, 29, 34, 37, 42, 44] },  // お,こ,そ,と,の,ほ,も,よ,ろ,を
+    { vowel: 'i', chars: [1, 6, 11, 16, 21, 26, 31, null, 39, null, null] },  // い,き,し,ち,に,ひ,み,り
+    { vowel: 'u', chars: [2, 7, 12, 17, 22, 27, 32, 36, 40, null, null] }, // う,く,す,つ,ぬ,ふ,む,ゆ,る
+    { vowel: 'e', chars: [3, 8, 13, 18, 23, 28, 33, null, 41, null, null] }, // え,け,せ,て,ね,へ,め,れ
+    { vowel: 'o', chars: [4, 9, 14, 19, 24, 29, 34, 37, 42, 44, null] },  // お,こ,そ,と,の,ほ,も,よ,ろ,を
   ];
 
   const table = document.createElement('table');
   table.className = 'kana-table';
 
-  // Header row: corner + consonant group labels
+  // Header row: consonant group labels only
   const thead = document.createElement('thead');
   const headerRow = document.createElement('tr');
-  headerRow.innerHTML = '<th class="kana-corner"></th>' +
-    consonantLabels.map(c => `<th class="kana-consonant-header">${c}</th>`).join('');
+  headerRow.innerHTML = consonantLabels.map(c => `<th class="kana-consonant-header">${c}</th>`).join('');
   thead.appendChild(headerRow);
   table.appendChild(thead);
 
-  // Body rows: one per vowel
+  // Body rows: one per vowel (no vowel label column)
   const tbody = document.createElement('tbody');
-  vowelRows.forEach(({ vowel, chars }) => {
+  vowelRows.forEach(({ chars }) => {
     const tr = document.createElement('tr');
 
-    // Vowel label (first cell)
-    const vowelTd = document.createElement('td');
-    vowelTd.className = 'kana-vowel-label';
-    vowelTd.textContent = vowel;
-    tr.appendChild(vowelTd);
-
-    // 11 consonant columns
+    // 11 consonant columns only
     chars.forEach((charIndex, colIdx) => {
       const td = document.createElement('td');
 
