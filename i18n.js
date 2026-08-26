@@ -6,15 +6,17 @@ export const translations = {
     // Navigation
     nav: {
       intro: "Home",
-      kana: "Kana Charts",
-      kanjiRules: "Kanji Stroke Rules",
+      kana: "Hiragana & Katakana",
+      kanjiRules: "Kanji",
       anki: "Anki & Vocab Mining",
       roadmap: "Learning Path",
       grammar: "Grammar Library",
+      selfStudy: "Self Study Guide",
       culture: "Culture Lessons",
       blog: "Blog",
       resources: "Resources",
-      about: "About"
+      about: "About",
+      jlptInfo: "What is JLPT?"
     },
     // Header
     header: {
@@ -136,8 +138,49 @@ export const translations = {
     },
     // Kanji Stroke Rules
     kanjiRules: {
-      title: "Kanji Stroke Rules",
+      title: "Kanji",
       subtitle: "Learn the fundamentals of writing kanji correctly"
+    },
+    // JLPT Info
+    jlptInfo: {
+      title: "What is JLPT?",
+      subtitle: "Understanding the Japanese-Language Proficiency Test",
+      whatIs: {
+        title: "About JLPT",
+        description: "The Japanese-Language Proficiency Test (JLPT) is a standardized criterion-referenced test to evaluate and certify the proficiency of non-native Japanese speakers. It is administered by the Japan Foundation and Japan Educational Exchanges and Evaluation Services (JEES). The test is held twice a year in Japan and selected countries, and once a year in other regions."
+      },
+      levels: {
+        title: "JLPT Levels Explained",
+        beginner: "- Beginner",
+        elementary: "- Elementary",
+        intermediate: "- Intermediate",
+        n5Desc: "The most basic level of Japanese language proficiency. Tests knowledge of basic Japanese characters (hiragana and katakana) and everyday vocabulary.",
+        n5Kanji: "About 100 kanji",
+        n5Vocab: "About 800 vocabulary words",
+        n4Desc: "Elementary level, building on N5 knowledge. Tests ability to understand basic Japanese.",
+        n4Kanji: "About 300 kanji",
+        n4Vocab: "About 1,500 vocabulary words",
+        n3Desc: "Intermediate level. Tests ability to understand Japanese used in everyday situations to some extent.",
+        n3Kanji: "About 400 kanji",
+        n3Vocab: "About 3,000 vocabulary words"
+      },
+      format: {
+        title: "Test Format",
+        description: "Each level consists of multiple-choice questions divided into three sections:",
+        vocabulary: "Vocabulary",
+        vocabularyDesc: "Tests knowledge of Japanese vocabulary and correct usage of Japanese words in sentences.",
+        grammar: "Grammar",
+        grammarDesc: "Tests knowledge of Japanese grammatical structures and sentence composition.",
+        reading: "Reading Comprehension",
+        readingDesc: "Tests the ability to understand written materials from various contexts.",
+        listening: "Listening Comprehension",
+        listeningDesc: "Tests the ability to listen and comprehend everyday conversations and dialogues."
+      },
+      purpose: {
+        title: "Why Take the JLPT?",
+        description: "The JLPT is recognized worldwide as the standard for measuring Japanese language proficiency. It is used by universities, companies, and immigration authorities to evaluate Japanese language ability. Passing JLPT N5 or N4 can also fulfill Japanese visa requirements for certain visa categories.",
+        exploreResources: "Explore Learning Resources"
+      }
     },
     // Anki & Vocab Mining
     anki: {
@@ -146,6 +189,86 @@ export const translations = {
       recommendedDecks: "Recommended Decks",
       howToMine: "How to Mine Vocab",
       visit: "Visit"
+    },
+    // Self Study Guide
+    selfStudy: {
+      title: "Self Study Guide",
+      subtitle: "Tips and strategies for effective Japanese self-learning",
+      overview: {
+        title: "Why Self Study?",
+        description: "Self-study allows you to learn at your own pace, focus on what interests you most, and immerse yourself in Japanese culture through media you enjoy. Many learners find that combining self-study with occasional classes or tutoring sessions yields the best results."
+      },
+      principles: {
+        title: "Core Principles",
+        consistency: {
+          title: "Be Consistent",
+          desc: "Even 15-30 minutes of daily study is more effective than long irregular sessions. Build the habit first."
+        },
+        input: {
+          title: "Prioritize Input",
+          desc: "Read and listen to native content as much as possible. Understanding comes from massive exposure."
+        },
+        active: {
+          title: "Stay Active",
+          desc: "Don't just passively read or watch. Take notes, make flashcards, and use new vocabulary in sentences."
+        },
+        patience: {
+          title: "Be Patient",
+          desc: "Language acquisition takes time. Trust the process and don't compare yourself to others."
+        }
+      },
+      dailyRoutine: {
+        title: "Suggested Daily Routine",
+        morning: {
+          title: "Morning (15-20 min)",
+          desc: "Review flashcards (Anki) and study new grammar or vocabulary."
+        },
+        afternoon: {
+          title: "Afternoon (20-30 min)",
+          desc: "Read Japanese content — manga, news, or light novels suited to your level."
+        },
+        evening: {
+          title: "Evening (15-30 min)",
+          desc: "Watch or listen to Japanese media — anime, dramas, podcasts, or YouTube."
+        }
+      },
+      resources: {
+        title: "Recommended Resources by Level",
+        beginner: {
+          title: "Beginner (N5)",
+          items: [
+            "Genki I & II textbooks",
+            "Anki N5 vocabulary deck",
+            "Cure Dolly's Japanese YouTube channel",
+            "Japanese Ammo with Misa"
+          ]
+        },
+        intermediate: {
+          title: "Intermediate (N4-N3)",
+          items: [
+            "Tobira or Shin Nihongo textbooks",
+            "Native manga and novels",
+            "Comprehensible Japanese YouTube",
+            "Japanese podcasts for learners"
+          ]
+        },
+        advanced: {
+          title: "Advanced (N2-N1)",
+          items: [
+            "Native media without subtitles",
+            "Japanese news (NHK Easy)",
+            "Advanced grammar books",
+            "Shadowing practice"
+          ]
+        }
+      },
+      tips: {
+        title: "Pro Tips",
+        mining: "Mine vocabulary from content you enjoy — it makes learning feel less like studying.",
+        shadowing: "Practice shadowing (repeat after speakers) to improve pronunciation and speaking flow.",
+        writing: "Keep a Japanese diary. Even simple sentences help reinforce what you've learned.",
+        thinking: "Try to think in Japanese during your daily life. Describe objects around you in your head."
+      }
     }
   },
 
@@ -153,15 +276,17 @@ export const translations = {
     // Navigation
     nav: {
       intro: "Laman Utama",
-      kana: "Jadual Kana",
-      kanjiRules: "Peraturan Strok Kanji",
+      kana: "Hiragana & Katakana",
+      kanjiRules: "Kanji",
       anki: "Anki & Lombong Vocab",
       roadmap: "Laluan Pembelajaran",
       grammar: "Perpustakaan Tatabahasa",
+      selfStudy: "Panduan Belajar Sendiri",
       culture: "Pelajaran Budaya",
       blog: "Blog",
       resources: "Sumber",
-      about: "Tentang"
+      about: "Tentang",
+      jlptInfo: "Apa itu JLPT?"
     },
     // Header
     header: {
@@ -283,8 +408,49 @@ export const translations = {
     },
     // Kanji Stroke Rules
     kanjiRules: {
-      title: "Peraturan Strok Kanji",
+      title: "Kanji",
       subtitle: "Belajar asas menulis kanji dengan betul"
+    },
+    // JLPT Info
+    jlptInfo: {
+      title: "Apa itu JLPT?",
+      subtitle: "Memahami Ujian Kelayakan Bahasa Jepun",
+      whatIs: {
+        title: "Mengenai JLPT",
+        description: "Ujian Kelayakan Bahasa Jepun (JLPT) adalah ujian standard yang menilai dan mengesahkan kecekapan penutur bukan asli bahasa Jepun. Ujian ini dikendalikan oleh Japan Foundation dan Japan Educational Exchanges and Evaluation Services (JEES). Ujian ini diadakan dua kali setahun di Jepun dan negara terpilih, dan sekali setahun di wilayah lain."
+      },
+      levels: {
+        title: "Tahap JLPT Diterangkan",
+        beginner: "- Pemula",
+        elementary: "- Asas",
+        intermediate: "- Pertengahan",
+        n5Desc: "Tahap paling asas kecekapan bahasa Jepun. Menguji pengetahuan aksara Jepun asas (hiragana dan katakana) dan perkataan harian.",
+        n5Kanji: "Kira-kira 100 kanji",
+        n5Vocab: "Kira-kira 800 perkataan",
+        n4Desc: "Tahap asas, membina pengetahuan N5. Menguji keupayaan memahami bahasa Jepun asas.",
+        n4Kanji: "Kira-kira 300 kanji",
+        n4Vocab: "Kira-kira 1,500 perkataan",
+        n3Desc: "Tahap pertengahan. Menguji keupayaan memahami bahasa Jepun yang digunakan dalam situasi harian hingga tahap tertentu.",
+        n3Kanji: "Kira-kira 400 kanji",
+        n3Vocab: "Kira-kira 3,000 perkataan"
+      },
+      format: {
+        title: "Format Ujian",
+        description: "Setiap tahap terdiri daripada soalan pilihan ganda yang dibahagikan kepada tiga bahagian:",
+        vocabulary: "Perkataan",
+        vocabularyDesc: "Menguji pengetahuan perkataan Jepun dan penggunaan perkataan Jepun yang betul dalam ayat.",
+        grammar: "Tatabahasa",
+        grammarDesc: "Menguji pengetahuan struktur tatabahasa Jepun dan komposisi ayat.",
+        reading: "Pemahaman Bacaan",
+        readingDesc: "Menguji keupayaan memahami bahan bertulis dari pelbagai konteks.",
+        listening: "Pemahaman Pendengaran",
+        listeningDesc: "Menguji keupayaan mendengar dan memahami perbualan dan dialog harian."
+      },
+      purpose: {
+        title: "Mengapa Ambil JLPT?",
+        description: "JLPT diiktiraf di seluruh dunia sebagai standard untuk mengukur kecekapan bahasa Jepun. Ia digunakan oleh universiti, syarikat, dan pihak berkuasa imigresen untuk menilai keupayaan bahasa Jepun. Lulus JLPT N5 atau N4 juga boleh memenuhi syarat visa Jepun untuk kategori visa tertentu.",
+        exploreResources: "Terokai Sumber Pembelajaran"
+      }
     },
     // Anki & Vocab Mining
     anki: {
@@ -293,6 +459,86 @@ export const translations = {
       recommendedDecks: "Dek Disyorkan",
       howToMine: "Cara Mining Vocab",
       visit: "Lawati"
+    },
+    // Self Study Guide
+    selfStudy: {
+      title: "Panduan Belajar Sendiri",
+      subtitle: "Tips dan strategi untuk pembelajaran bahasa Jepun secara efektif",
+      overview: {
+        title: "Mengapa Belajar Sendiri?",
+        description: "Belajar sendiri membolehkan anda belajar pada kelajuan sendiri, fokus pada apa yang menarik minat anda, dan浸自己在日本文化媒介中享受。Ramai pelajar mendapati gabungan belajar sendiri dengan kelas atau sesi tutoring sekali-sekala memberikan hasil terbaik."
+      },
+      principles: {
+        title: "Prinsip Teras",
+        consistency: {
+          title: "Jadi Konsisten",
+          desc: "Malah 15-30 min belajar harian lebih efektif daripada sesi panjang yang tidak teratur. Bina habit dulu."
+        },
+        input: {
+          title: "Utamakan Input",
+          desc: "Baca dan dengar kandungan asli sebanyak mungkin. Pemahaman datang dari pendedahan yang meluas."
+        },
+        active: {
+          title: "Tetap Aktif",
+          desc: "Jangan sekadar baca atau tengok secara pasif. Buat nota, kad flashcard, dan guna vocabulary baru dalam ayat."
+        },
+        patience: {
+          title: "Bersabar",
+          desc: "Pemerolehan bahasa ambil masa. Trust the process dan jangan bandingkan diri dengan orang lain."
+        }
+      },
+      dailyRoutine: {
+        title: "Rutin Harian Cadangan",
+        morning: {
+          title: "Pagi (15-20 min)",
+          desc: "Ulangkaji flashcard (Anki) dan belajar tatabahasa atau vocabulary baru."
+        },
+        afternoon: {
+          title: "Petang (20-30 min)",
+          desc: "Baca kandungan Jepun — manga, berita, atau novel ringan yang sesuai dengan tahap anda."
+        },
+        evening: {
+          title: "Malam (15-30 min)",
+          desc: "Tengok atau dengar media Jepun — anime, drama, podcast, atau YouTube."
+        }
+      },
+      resources: {
+        title: "Sumber Disyorkan mengikut Tahap",
+        beginner: {
+          title: "Pemula (N5)",
+          items: [
+            "Buku teks Genki I & II",
+            "Dek vocabulary Anki N5",
+            "YouTube channel Cure Dolly's Japanese",
+            "Japanese Ammo with Misa"
+          ]
+        },
+        intermediate: {
+          title: "Pertengahan (N4-N3)",
+          items: [
+            "Buku teks Tobira atau Shin Nihongo",
+            "Manga dan novel asli",
+            "YouTube Comprehensible Japanese",
+            "Podcast Jepun untuk pelajar"
+          ]
+        },
+        advanced: {
+          title: "Lanjutan (N2-N1)",
+          items: [
+            "Media asli tanpa sari kata",
+            "Berita Jepun (NHK Easy)",
+            "Buku tatabahasa lanjutan",
+            "Latihan shadowing"
+          ]
+        }
+      },
+      tips: {
+        title: "Tips Pro",
+        mining: "Mining vocabulary dari kandungan yang anda enjoy — ia buat pembelajaran rasa kurang macam study.",
+        shadowing: "Practice shadowing (ulang selepas penutur) untuk improve sebutan dan kelancaran pertuturan.",
+        writing: "Keep diary Jepun. Malah ayat simple bantu reinforce apa yang anda dah belajar.",
+        thinking: "Cuba think dalam Jepun masa kehidupan harian. Huraikan objek di sekeliling anda dalam kepala."
+      }
     }
   }
 };

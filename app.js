@@ -1,6 +1,10 @@
-import { KANA_DATA, JLPT_DATA } from './data.js';
+import { KANA_DATA } from './kana.js';
+import { KANJI_DATA } from './kanji.js';
+import { VOCAB_DATA } from './vocab.js';
+import { GRAMMAR_DATA } from './grammar.js';
 import { t, setLanguage, getLanguage, toggleLanguage, initI18n } from './i18n.js';
-import { GRAMMAR_DATA, CULTURE_LESSONS, BLOG_POSTS, RESOURCES, KANJI_STROKE_RULES, ANKI_CONTENT } from './content.js';
+import { CULTURE_LESSONS, BLOG_POSTS, RESOURCES, KANJI_STROKE_RULES, ANKI_CONTENT } from './content.js';
+import { fetchStrokeData, renderStrokeOrderSVG, showStrokeUpTo, setupStrokeControls, playStrokeAnimation } from './strokeOrder.js';
 import { supabase } from './supabase.js';
 
 // Application State
@@ -10,8 +14,12 @@ const state = {
   vocabCardIndex: 0,
   activeKanaTab: "hiragana",
   furiganaVisible: true,
-  learnedItems: JSON.parse(localStorage.getItem("learnedItems")) || { grammar: [], vocab: [], culture: [] }
+  learnedItems: JSON.parse(localStorage.getItem("learnedItems")) || { grammar: [], vocab: [], culture: [], auto: [] },
+  userJlptLevel: localStorage.getItem("userJlptLevel") || ""
 };
+
+// JLPT Level hierarchy (lower index = easier, auto-learn below selected level)
+const JLPT_LEVELS = ["n5", "n4", "n3", "n2", "n1"];
 
 // Canvas Drawing State
 let isDrawing = false;
@@ -29,8 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initModals();
   initRouter();
   initLanguageToggle();
+  initJLPTLevel();
   updateSidebarProgress();
   updateI18nText();
+  lucide.createIcons();
 });
 
 // Sidebar events (menu toggles, responsive menus)
@@ -133,6 +143,90 @@ function initLanguageToggle() {
   });
 }
 
+// JLPT Level selector initialization
+function initJLPTLevel() {
+  const select = document.getElementById("jlpt-level-select");
+  if (!select) return;
+
+  // Set initial value from localStorage
+  select.value = state.userJlptLevel;
+
+  // Apply auto-learn on page load if user has a level set
+  if (state.userJlptLevel) {
+    applyAutoLearn();
+  }
+
+  // Listen for changes
+  select.addEventListener("change", () => {
+    state.userJlptLevel = select.value;
+    localStorage.setItem("userJlptLevel", state.userJlptLevel);
+
+    // Auto-mark content below selected level as learned
+    applyAutoLearn();
+    updateSidebarProgress();
+  });
+}
+
+// Check if a content level is below user's selected level
+function isLevelBelowUserLevel(contentLevel) {
+  if (!state.userJlptLevel || !contentLevel) return false;
+
+  const userLevelIndex = JLPT_LEVELS.indexOf(state.userJlptLevel);
+  const contentLevelIndex = JLPT_LEVELS.indexOf(contentLevel.toLowerCase());
+
+  // Content is below user's level if its index is LESS than user's level index
+  // (N5=0, N4=1, N3=2, N2=3, N1=4)
+  return contentLevelIndex >= 0 && userLevelIndex >= 0 && contentLevelIndex < userLevelIndex;
+}
+
+// Auto-mark content below user's level as learned
+function applyAutoLearn() {
+  if (!state.userJlptLevel) return;
+
+  const levelsBelowUser = JLPT_LEVELS.slice(0, JLPT_LEVELS.indexOf(state.userJlptLevel));
+
+  // Mark grammar items (GRAMMAR_DATA from content.js has array per level)
+  Object.keys(GRAMMAR_DATA).forEach(level => {
+    if (levelsBelowUser.includes(level)) {
+      GRAMMAR_DATA[level].forEach(g => {
+        if (!state.learnedItems.grammar.includes(g.slug)) {
+          state.learnedItems.grammar.push(g.slug);
+        }
+      });
+    }
+  });
+
+  // Mark vocab items for each JLPT level
+  Object.keys(VOCAB_DATA).forEach(level => {
+    if (levelsBelowUser.includes(level)) {
+      VOCAB_DATA[level].vocabulary.forEach(v => {
+        if (!state.learnedItems.vocab.includes(v.word)) {
+          state.learnedItems.vocab.push(v.word);
+        }
+      });
+    }
+  });
+
+  // Mark kanji items for each JLPT level (using kanji as the key)
+  Object.keys(KANJI_DATA).forEach(level => {
+    if (levelsBelowUser.includes(level)) {
+      KANJI_DATA[level].kanji.forEach(k => {
+        const key = `kanji_${k.kanji}`;
+        if (!state.learnedItems.auto.includes(key)) {
+          state.learnedItems.auto.push(key);
+        }
+      });
+    }
+  });
+
+  // Mark culture lessons as learned if their level is below user's level
+  CULTURE_LESSONS.forEach(lesson => {
+    // Culture lessons don't have JLPT levels per se, but we can skip them
+  });
+
+  localStorage.setItem("learnedItems", JSON.stringify(state.learnedItems));
+}
+
 // Update all i18n text elements
 function updateI18nText() {
   const lang = getLanguage();
@@ -162,8 +256,6 @@ function reRenderCurrentView() {
     renderAnkiView();
   } else if (route === "roadmap") {
     renderRoadmapView();
-  } else if (route === "grammar" || route.startsWith("grammar/")) {
-    handleGrammarRoute(route);
   } else if (route === "culture" || route.startsWith("culture/")) {
     handleCultureRoute(route);
   } else if (route === "blog" || route.startsWith("blog/")) {
@@ -174,6 +266,10 @@ function reRenderCurrentView() {
     renderAboutView();
   } else if (route === "n5" || route === "n4" || route === "n3") {
     renderJLPTView(route);
+  } else if (route === "jlpt-info") {
+    renderJLPTInfoView();
+  } else if (route === "self-study") {
+    renderSelfStudyView();
   } else {
     renderIntroView();
   }
@@ -197,52 +293,54 @@ function initModals() {
 
   // Canvas context setups
   canvas = document.getElementById("stroke-canvas");
-  ctx = canvas.getContext("2d");
-  
-  // Stroke styling
-  ctx.strokeStyle = "#ff4757"; // accent-red
-  ctx.lineJoin = "round";
-  ctx.lineCap = "round";
-  ctx.lineWidth = 10;
+  if (canvas) {
+    ctx = canvas.getContext("2d");
 
-  // Clear Canvas Button
-  const clearBtn = document.getElementById("canvas-clear");
-  clearBtn.addEventListener("click", () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  });
+    // Stroke styling
+    ctx.strokeStyle = "#ff4757"; // accent-red
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.lineWidth = 10;
 
-  // Drawing mouse events
-  canvas.addEventListener("mousedown", startDrawing);
-  canvas.addEventListener("mousemove", draw);
-  canvas.addEventListener("mouseup", stopDrawing);
-  canvas.addEventListener("mouseout", stopDrawing);
+    // Clear Canvas Button
+    const clearBtn = document.getElementById("canvas-clear");
+    clearBtn.addEventListener("click", () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
 
-  // Drawing touch events for mobile devices
-  canvas.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    isDrawing = true;
-    lastX = touch.clientX - rect.left;
-    lastY = touch.clientY - rect.top;
-  });
+    // Drawing mouse events
+    canvas.addEventListener("mousedown", startDrawing);
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mouseup", stopDrawing);
+    canvas.addEventListener("mouseout", stopDrawing);
 
-  canvas.addEventListener("touchmove", (e) => {
-    e.preventDefault();
-    if (!isDrawing) return;
-    const touch = e.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-    
-    ctx.beginPath();
-    ctx.moveTo(lastX, lastY);
-    ctx.lineTo(x, y);
-    ctx.stroke();
-    [lastX, lastY] = [x, y];
-  });
+    // Drawing touch events for mobile devices
+    canvas.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      isDrawing = true;
+      lastX = touch.clientX - rect.left;
+      lastY = touch.clientY - rect.top;
+    });
 
-  canvas.addEventListener("touchend", stopDrawing);
+    canvas.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      if (!isDrawing) return;
+      const touch = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      [lastX, lastY] = [x, y];
+    });
+
+    canvas.addEventListener("touchend", stopDrawing);
+  }
 }
 
 // Drawing routines
@@ -298,8 +396,6 @@ function initRouter() {
       renderAnkiView();
     } else if (route === "roadmap") {
       renderRoadmapView();
-    } else if (route === "grammar" || route.startsWith("grammar/")) {
-      handleGrammarRoute(route);
     } else if (route === "culture" || route.startsWith("culture/")) {
       handleCultureRoute(route);
     } else if (route === "blog" || route.startsWith("blog/")) {
@@ -312,6 +408,10 @@ function initRouter() {
       renderJLPTView(route);
     } else if (route === "admin") {
       renderAdminView();
+    } else if (route === "jlpt-info") {
+      renderJLPTInfoView();
+    } else if (route === "self-study") {
+      renderSelfStudyView();
     } else {
       renderIntroView(); // Fallback
     }
@@ -332,7 +432,8 @@ function updateSidebarProgress() {
   const grammarLearned = state.learnedItems.grammar.length;
   const vocabLearned = state.learnedItems.vocab.length;
   const cultureLearned = state.learnedItems.culture.length;
-  const totalLearned = grammarLearned + vocabLearned + cultureLearned;
+  const autoLearned = state.learnedItems.auto ? state.learnedItems.auto.length : 0;
+  const totalLearned = grammarLearned + vocabLearned + cultureLearned + autoLearned;
 
   if (countSpan) {
     countSpan.textContent = `${totalLearned}`;
@@ -481,13 +582,6 @@ function renderIntroView() {
             <p>Recommended decks and how to mine vocabulary from native content</p>
           </div>
         </a>
-        <a href="#grammar" class="home-section-card">
-          <div class="home-section-icon grammar-icon">文</div>
-          <div class="home-section-text">
-            <h3>Grammar Library</h3>
-            <p>Grammar patterns organized by JLPT level — N5 to N3</p>
-          </div>
-        </a>
         <a href="#n5" class="home-section-card">
           <div class="home-section-icon vocab-icon">詞</div>
           <div class="home-section-text">
@@ -519,6 +613,181 @@ function renderIntroView() {
           <p>Dictionaries, Anki decks, media players, and more — curated tools for Japanese learners</p>
           <span class="home-blog-link">Browse resources →</span>
         </a>
+      </div>
+    </div>
+  `;
+}
+
+// --- JLPT INFO VIEW ---
+function renderJLPTInfoView() {
+  state.currentView = "jlpt-info";
+  document.getElementById("section-title").textContent = t('jlptInfo.title');
+
+  const appView = document.getElementById("app-view");
+  const lang = getLanguage();
+
+  appView.innerHTML = `
+    <div class="fade-in">
+      <div class="page-header">
+        <h1>${t('jlptInfo.title')}</h1>
+        <p>${t('jlptInfo.subtitle')}</p>
+      </div>
+
+      <div class="jlpt-info-content">
+        <section class="jlpt-info-section">
+          <h2>${t('jlptInfo.whatIs.title')}</h2>
+          <p>${t('jlptInfo.whatIs.description')}</p>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2>${t('jlptInfo.levels.title')}</h2>
+          <div class="jlpt-levels-grid">
+            <div class="jlpt-level-card n5">
+              <h3>N5 ${t('jlptInfo.levels.beginner')}</h3>
+              <p>${t('jlptInfo.levels.n5Desc')}</p>
+              <ul>
+                <li>${t('jlptInfo.levels.n5Kanji')}</li>
+                <li>${t('jlptInfo.levels.n5Vocab')}</li>
+              </ul>
+            </div>
+            <div class="jlpt-level-card n4">
+              <h3>N4 ${t('jlptInfo.levels.elementary')}</h3>
+              <p>${t('jlptInfo.levels.n4Desc')}</p>
+              <ul>
+                <li>${t('jlptInfo.levels.n4Kanji')}</li>
+                <li>${t('jlptInfo.levels.n4Vocab')}</li>
+              </ul>
+            </div>
+            <div class="jlpt-level-card n3">
+              <h3>N3 ${t('jlptInfo.levels.intermediate')}</h3>
+              <p>${t('jlptInfo.levels.n3Desc')}</p>
+              <ul>
+                <li>${t('jlptInfo.levels.n3Kanji')}</li>
+                <li>${t('jlptInfo.levels.n3Vocab')}</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2>${t('jlptInfo.format.title')}</h2>
+          <p>${t('jlptInfo.format.description')}</p>
+          <div class="jlpt-format-grid">
+            <div class="jlpt-format-item">
+              <h4>${t('jlptInfo.format.vocabulary')}</h4>
+              <p>${t('jlptInfo.format.vocabularyDesc')}</p>
+            </div>
+            <div class="jlpt-format-item">
+              <h4>${t('jlptInfo.format.grammar')}</h4>
+              <p>${t('jlptInfo.format.grammarDesc')}</p>
+            </div>
+            <div class="jlpt-format-item">
+              <h4>${t('jlptInfo.format.reading')}</h4>
+              <p>${t('jlptInfo.format.readingDesc')}</p>
+            </div>
+            <div class="jlpt-format-item">
+              <h4>${t('jlptInfo.format.listening')}</h4>
+              <p>${t('jlptInfo.format.listeningDesc')}</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2>${t('jlptInfo.purpose.title')}</h2>
+          <p>${t('jlptInfo.purpose.description')}</p>
+          <a href="#resources" class="btn-cta-primary">${t('jlptInfo.purpose.exploreResources')}</a>
+        </section>
+      </div>
+    </div>
+  `;
+}
+
+// --- SELF STUDY GUIDE VIEW ---
+function renderSelfStudyView() {
+  state.currentView = "self-study";
+  document.getElementById("section-title").textContent = t('selfStudy.title');
+
+  const appView = document.getElementById("app-view");
+  const lang = getLanguage();
+
+  const principles = ['consistency', 'input', 'active', 'patience'];
+  const routineSlots = ['morning', 'afternoon', 'evening'];
+  const levelKeys = ['beginner', 'intermediate', 'advanced'];
+
+  let principlesHTML = principles.map(p => `
+    <div class="self-study-principle">
+      <h4>${t(`selfStudy.principles.${p}.title`)}</h4>
+      <p>${t(`selfStudy.principles.${p}.desc`)}</p>
+    </div>
+  `).join('');
+
+  let routineHTML = routineSlots.map(slot => `
+    <div class="routine-slot">
+      <h4>${t(`selfStudy.dailyRoutine.${slot}.title`)}</h4>
+      <p>${t(`selfStudy.dailyRoutine.${slot}.desc`)}</p>
+    </div>
+  `).join('');
+
+  let resourcesHTML = levelKeys.map(level => `
+    <div class="resource-level-card">
+      <h4>${t(`selfStudy.resources.${level}.title`)}</h4>
+      <ul>
+        ${t(`selfStudy.resources.${level}.items`).map(item => `<li>${item}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+
+  appView.innerHTML = `
+    <div class="fade-in">
+      <div class="page-header">
+        <h1>${t('selfStudy.title')}</h1>
+        <p>${t('selfStudy.subtitle')}</p>
+      </div>
+
+      <div class="self-study-content">
+        <section class="self-study-section">
+          <h2>${t('selfStudy.overview.title')}</h2>
+          <p>${t('selfStudy.overview.description')}</p>
+        </section>
+
+        <section class="self-study-section">
+          <h2>${t('selfStudy.principles.title')}</h2>
+          <div class="principles-grid">
+            ${principlesHTML}
+          </div>
+        </section>
+
+        <section class="self-study-section">
+          <h2>${t('selfStudy.dailyRoutine.title')}</h2>
+          <div class="routine-grid">
+            ${routineHTML}
+          </div>
+        </section>
+
+        <section class="self-study-section">
+          <h2>${t('selfStudy.resources.title')}</h2>
+          <div class="resources-level-grid">
+            ${resourcesHTML}
+          </div>
+        </section>
+
+        <section class="self-study-section">
+          <h2>${t('selfStudy.tips.title')}</h2>
+          <div class="tips-list">
+            <div class="tip-item">
+              <strong>Mining:</strong> ${t('selfStudy.tips.mining')}
+            </div>
+            <div class="tip-item">
+              <strong>Shadowing:</strong> ${t('selfStudy.tips.shadowing')}
+            </div>
+            <div class="tip-item">
+              <strong>Writing:</strong> ${t('selfStudy.tips.writing')}
+            </div>
+            <div class="tip-item">
+              <strong>Thinking:</strong> ${t('selfStudy.tips.thinking')}
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   `;
@@ -737,7 +1006,10 @@ function renderRoadmapView() {
 // --- 3. JLPT STUDY HUBS (N5, N4, N3) ---
 function renderJLPTView(level) {
   state.currentView = level;
-  const levelData = JLPT_DATA[level];
+  const kanjiLevelData = KANJI_DATA[level] || { title: `JLPT ${level.toUpperCase()}`, description: '', kanji: [] };
+  const vocabLevelData = VOCAB_DATA[level] || { title: '', description: '', vocabulary: [] };
+  const grammarLevelData = GRAMMAR_DATA[level] || { title: '', description: '', grammar: [] };
+
   document.getElementById("section-title").textContent = `JLPT ${level.toUpperCase()}`;
 
   const appView = document.getElementById("app-view");
@@ -747,10 +1019,10 @@ function renderJLPTView(level) {
       <div class="level-header">
         <div class="level-title-section">
           <h1>
-            <span>${levelData.title}</span>
+            <span>${kanjiLevelData.title}</span>
             <span class="level-badge ${level}">${level.toUpperCase()}</span>
           </h1>
-          <p>${levelData.description}</p>
+          <p>${kanjiLevelData.description}</p>
         </div>
       </div>
 
@@ -840,10 +1112,13 @@ function renderJLPTView(level) {
     </div>
   `;
 
+  // Apply auto-learn before rendering content
+  applyAutoLearn();
+
   // Render Sub-sections
-  renderKanjiPanel(levelData.kanji);
-  renderGrammarPanel(levelData.grammar);
-  renderVocabPanel(levelData.vocabulary);
+  renderKanjiPanel(kanjiLevelData.kanji);
+  renderGrammarPanel(grammarLevelData.grammar);
+  renderVocabPanel(vocabLevelData.vocabulary);
 
   // Tab switcher events
   const tabs = document.querySelectorAll(".hub-tab");
@@ -869,22 +1144,21 @@ function renderKanjiPanel(kanjiList) {
 
   kanjiList.forEach(k => {
     const card = document.createElement("div");
-    card.className = "kanji-box-card";
+    const key = `kanji_${k.kanji}`;
+    const isAutoLearned = state.learnedItems.auto && state.learnedItems.auto.includes(key);
+    card.className = `kanji-box-card${isAutoLearned ? ' learned' : ''}`;
+
     card.innerHTML = `
       <div class="kanji-character">${k.kanji}</div>
       <div class="kanji-meaning">${k.meaning}</div>
       <div class="kanji-readings-mini">
-        <span><strong>On:</strong> ${k.onyomi}</span>
         <span><strong>Kun:</strong> ${k.kunyomi}</span>
+        <span><strong>On:</strong> ${k.onyomi}</span>
       </div>
-      <button class="kanji-draw-btn">
-        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-        Tulis Kanji
-      </button>
     `;
 
     // Click handler to open draw modal
-    card.querySelector(".kanji-draw-btn").addEventListener("click", () => {
+    card.addEventListener("click", () => {
       openKanjiDrawModal(k);
     });
 
@@ -898,13 +1172,33 @@ function openKanjiDrawModal(kanjiObj) {
   document.getElementById("modal-kanji-onyomi").textContent = kanjiObj.onyomi;
   document.getElementById("modal-kanji-kunyomi").textContent = kanjiObj.kunyomi;
   document.getElementById("modal-kanji-strokes").textContent = kanjiObj.strokes;
-  document.getElementById("modal-kanji-examples").innerHTML = kanjiObj.examples;
+  document.getElementById("modal-kanji-examples").innerHTML = kanjiObj.examples || '';
 
-  // Reset Canvas drawing on show
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Load stroke order data
+  loadStrokeOrder(kanjiObj.kanji);
 
   const modal = document.getElementById("kanji-modal");
   modal.classList.add("active");
+}
+
+// Load and display stroke order for a kanji
+async function loadStrokeOrder(kanji) {
+  const container = document.getElementById("stroke-order-container");
+  container.innerHTML = '<p class="loading-stroke">Memuatkan...</p>';
+
+  try {
+    const strokeData = await fetchStrokeData(kanji);
+    if (strokeData && strokeData.strokes) {
+      renderStrokeOrderSVG(container, strokeData.strokes);
+      setupStrokeControls(container);
+      showStrokeUpTo(container, 0);
+    } else {
+      container.innerHTML = '<p class="no-stroke-data">Data strok tidak tersedia</p>';
+    }
+  } catch (error) {
+    console.warn('Error loading stroke order:', error);
+    container.innerHTML = '<p class="no-stroke-data">Data strok tidak tersedia</p>';
+  }
 }
 
 function renderGrammarPanel(grammarList) {
@@ -913,24 +1207,28 @@ function renderGrammarPanel(grammarList) {
 
   grammarList.forEach(g => {
     const card = document.createElement("div");
-    card.className = "grammar-item-card";
+    const isLearned = state.learnedItems.grammar.includes(g.slug);
+    card.className = `grammar-item-card${isLearned ? ' learned' : ''}`;
+    const lang = getLanguage();
 
     let examplesHTML = "";
     g.examples.forEach(ex => {
       examplesHTML += `
         <div class="grammar-ex-item">
-          <div class="grammar-japanese-sentence">${renderFuriganaSentence(ex.sentence, ex.furigana)}</div>
-          <div class="grammar-english-sentence">${ex.translation}</div>
+          <div class="grammar-japanese-sentence">${ex.japanese}</div>
+          <div class="grammar-romaji">${ex.romaji}</div>
+          <div class="grammar-english-sentence">${ex.malay}</div>
         </div>
       `;
     });
 
     card.innerHTML = `
       <div class="grammar-header-row">
-        <div class="grammar-title">${g.title}</div>
-        <div class="grammar-rule-badge">${g.rules}</div>
+        <div class="grammar-title">${g.pattern || g.title}</div>
+        <div class="grammar-rule-badge">${g.formation || g.rules || ''}</div>
       </div>
-      <p class="grammar-desc">${g.description}</p>
+      ${isLearned ? '<div class="grammar-learned-badge"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="3" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> Learned</div>' : ''}
+      <p class="grammar-desc">${typeof g.explanation === 'object' ? g.explanation[lang] : g.explanation || g.description || ''}</p>
       <div class="grammar-examples">
         ${examplesHTML}
       </div>
@@ -1094,15 +1392,6 @@ function updateFlashcard(vocabList) {
    NEW PAGE ROUTE HANDLERS
    ========================================================================== */
 
-function handleGrammarRoute(route) {
-  if (route.startsWith("grammar/")) {
-    const slug = route.split("/")[1];
-    renderGrammarDetailView(slug);
-  } else {
-    renderGrammarView();
-  }
-}
-
 function handleCultureRoute(route) {
   if (route.startsWith("culture/")) {
     const slug = route.split("/")[1];
@@ -1119,273 +1408,6 @@ function handleBlogRoute(route) {
   } else {
     renderBlogView();
   }
-}
-
-/* ==========================================================================
-   GRAMMAR LIBRARY VIEWS
-   ========================================================================== */
-
-function renderGrammarView() {
-  state.currentView = "grammar";
-  document.getElementById("section-title").textContent = t('grammar.title');
-
-  const appView = document.getElementById("app-view");
-  const lang = getLanguage();
-
-  // Group grammar by level
-  const levels = ['n5', 'n4', 'n3', 'n2', 'n1'];
-  const allGrammar = [];
-  levels.forEach(level => {
-    if (GRAMMAR_DATA[level]) {
-      GRAMMAR_DATA[level].forEach(g => {
-        allGrammar.push({ ...g, level });
-      });
-    }
-  });
-
-  appView.innerHTML = `
-    <div class="fade-in">
-      <div class="page-header">
-        <h1 data-i18n="grammar.title">${t('grammar.title')}</h1>
-        <p data-i18n="grammar.subtitle">${t('grammar.subtitle')}</p>
-      </div>
-
-      <div class="grammar-controls">
-        <div class="search-box">
-          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" id="grammar-search" placeholder="${t('grammar.searchPlaceholder')}" data-i18n-placeholder="grammar.searchPlaceholder">
-        </div>
-        <div class="level-filter-tabs">
-          <button class="level-filter-btn active" data-level="all">${t('grammar.allLevels')}</button>
-          ${levels.map(l => `<button class="level-filter-btn" data-level="${l}">${l.toUpperCase()}</button>`).join('')}
-        </div>
-      </div>
-
-      <div class="grammar-grid" id="grammar-grid">
-        ${renderGrammarCards(allGrammar)}
-      </div>
-    </div>
-  `;
-
-  // Bind search
-  document.getElementById('grammar-search').addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase();
-    const filtered = allGrammar.filter(g =>
-      g.pattern.toLowerCase().includes(query) ||
-      t(`grammar.${g.slug}`, lang).toLowerCase().includes(query) ||
-      g.explanation[lang].toLowerCase().includes(query)
-    );
-    document.getElementById('grammar-grid').innerHTML = renderGrammarCards(filtered);
-    bindGrammarCardClicks();
-  });
-
-  // Bind level filters
-  document.querySelectorAll('.level-filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.level-filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const level = btn.dataset.level;
-      const filtered = level === 'all' ? allGrammar : allGrammar.filter(g => g.level === level);
-      document.getElementById('grammar-grid').innerHTML = renderGrammarCards(filtered);
-      bindGrammarCardClicks();
-    });
-  });
-
-  bindGrammarCardClicks();
-}
-
-function renderGrammarCards(grammarList) {
-  const lang = getLanguage();
-  return grammarList.map(g => {
-    const isLearned = state.learnedItems.grammar.includes(g.slug);
-    return `
-      <div class="grammar-card" data-slug="${g.slug}" data-level="${g.level}">
-        <div class="grammar-card-header">
-          <span class="grammar-pattern">${g.pattern}</span>
-          <span class="grammar-level-badge ${g.level}">${g.level.toUpperCase()}</span>
-        </div>
-        <h3>${g.explanation[lang]}</h3>
-        <div class="grammar-card-footer">
-          ${isLearned ? `
-            <span class="grammar-learned">
-              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="3" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              ${t('grammar.markedLearned')}
-            </span>
-          ` : '<span></span>'}
-          <span class="grammar-card-link">
-            Lihat ${t('grammar.title')}
-            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </span>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-function bindGrammarCardClicks() {
-  document.querySelectorAll('.grammar-card').forEach(card => {
-    card.addEventListener('click', () => {
-      window.location.hash = `#grammar/${card.dataset.slug}`;
-    });
-  });
-}
-
-function renderGrammarDetailView(slug) {
-  state.currentView = "grammar-detail";
-  document.getElementById("section-title").textContent = t('grammar.title');
-
-  // Find grammar point
-  let grammarPoint = null;
-  let level = null;
-  const levels = ['n5', 'n4', 'n3', 'n2', 'n1'];
-  for (const l of levels) {
-    const found = GRAMMAR_DATA[l]?.find(g => g.slug === slug);
-    if (found) {
-      grammarPoint = found;
-      level = l;
-      break;
-    }
-  }
-
-  if (!grammarPoint) {
-    window.location.hash = '#grammar';
-    return;
-  }
-
-  const lang = getLanguage();
-  const isLearned = state.learnedItems.grammar.includes(slug);
-
-  const appView = document.getElementById("app-view");
-  appView.innerHTML = `
-    <div class="fade-in">
-      <div class="grammar-detail">
-        <div class="grammar-detail-header">
-          <a href="#grammar" class="grammar-detail-back">
-            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            ${t('grammar.backToList')}
-          </a>
-          <div class="grammar-detail-title">
-            <h1>${grammarPoint.pattern}</h1>
-            <span class="grammar-level-badge ${level}">${level.toUpperCase()}</span>
-          </div>
-        </div>
-
-        <div class="grammar-detail-content">
-          <!-- Formation -->
-          <div class="grammar-section">
-            <h2>
-              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path></svg>
-              ${t('grammar.formation')}
-            </h2>
-            <div class="formation-display">${grammarPoint.formation}</div>
-          </div>
-
-          <!-- Explanation (Bilingual) -->
-          <div class="grammar-section">
-            <h2>
-              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-              ${t('grammar.explanation')}
-            </h2>
-            <div class="bilingual-explanation">
-              <div class="lang-column en">
-                <h4>English</h4>
-                <p>${grammarPoint.explanation.en}</p>
-              </div>
-              <div class="lang-column my">
-                <h4>Bahasa Malaysia</h4>
-                <p>${grammarPoint.explanation.my}</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Examples -->
-          <div class="grammar-section">
-            <h2>
-              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-              ${t('grammar.examples')}
-            </h2>
-            <div class="example-sentences">
-              ${grammarPoint.examples.map(ex => `
-                <div class="example-item">
-                  <div class="example-japanese">${ex.japanese}</div>
-                  <div class="example-romaji">${ex.romaji}</div>
-                  <div class="example-malay">${ex.malay}</div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-
-          <!-- Common Mistakes -->
-          ${grammarPoint.commonMistakes ? `
-            <div class="grammar-section">
-              <h2>
-                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                ${t('grammar.commonMistakes')}
-              </h2>
-              <div class="mistakes-box">
-                <p>${grammarPoint.commonMistakes[lang]}</p>
-              </div>
-            </div>
-          ` : ''}
-
-          <!-- N4 Difference (for N3+) -->
-          ${grammarPoint.n4difference ? `
-            <div class="grammar-section">
-              <h2>
-                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                ${t('grammar.howDiffersN4')}
-              </h2>
-              <div class="bilingual-explanation">
-                <div class="lang-column en">
-                  <h4>English</h4>
-                  <p>${grammarPoint.n4difference.en}</p>
-                </div>
-                <div class="lang-column my">
-                  <h4>Bahasa Malaysia</h4>
-                  <p>${grammarPoint.n4difference.my}</p>
-                </div>
-              </div>
-            </div>
-          ` : ''}
-
-          <!-- Mark as Learned -->
-          <button class="mark-learned-btn ${isLearned ? 'learned' : ''}" id="mark-learned-btn" data-slug="${slug}">
-            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M20 6L9 17l-5-5"></path></svg>
-            ${isLearned ? t('grammar.markedLearned') : t('grammar.markLearned')}
-          </button>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // Bind mark as learned
-  document.getElementById('mark-learned-btn').addEventListener('click', () => {
-    toggleGrammarLearned(slug);
-  });
-}
-
-function toggleGrammarLearned(slug) {
-  const idx = state.learnedItems.grammar.indexOf(slug);
-  const btn = document.getElementById('mark-learned-btn');
-
-  if (idx > -1) {
-    state.learnedItems.grammar.splice(idx, 1);
-    btn.classList.remove('learned');
-    btn.innerHTML = `
-      <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M20 6L9 17l-5-5"></path></svg>
-      ${t('grammar.markLearned')}
-    `;
-  } else {
-    state.learnedItems.grammar.push(slug);
-    btn.classList.add('learned');
-    btn.innerHTML = `
-      <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M20 6L9 17l-5-5"></path></svg>
-      ${t('grammar.markedLearned')}
-    `;
-  }
-
-  localStorage.setItem('learnedItems', JSON.stringify(state.learnedItems));
-  updateSidebarProgress();
 }
 
 /* ==========================================================================
