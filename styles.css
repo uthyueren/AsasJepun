@@ -364,6 +364,42 @@ button {
     color: var(--primary);
 }
 
+/* Collapsible Nav Groups */
+.nav-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-item.has-subnav {
+    cursor: pointer;
+}
+
+.nav-item.has-subnav .subnav-arrow {
+    margin-left: auto;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+
+.nav-group.expanded .nav-item.has-subnav .subnav-arrow {
+    transform: rotate(90deg);
+}
+
+.nav-subitems {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+}
+
+.nav-subitems:not(.hidden) {
+    max-height: 200px;
+}
+
+.nav-item.subpage {
+    padding-left: 44px;
+    font-size: 14px;
+}
+
 .nav-divider {
     font-size: 11px;
     text-transform: uppercase;

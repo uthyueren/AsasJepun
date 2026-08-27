@@ -248,6 +248,7 @@ export const translations = {
       learnMore: "Learn More",
       start: "Start",
       continue: "Continue",
+      comingSoon: "Coming soon...",
       // Theme
       darkMode: "Dark Mode",
       lightMode: "Light Mode",
@@ -293,12 +294,16 @@ export const translations = {
       subtitle: "Interactive Hiragana & Katakana reference with audio pronunciation",
       hiragana: "Hiragana",
       katakana: "Katakana",
-      clickToLearn: "Click any character to hear its pronunciation"
+      clickToLearn: "Click any character to hear its pronunciation",
+      subpage1Title: "Kana Subpage 1",
+      subpage1Subtitle: ""
     },
     // Kanji Stroke Rules
     kanjiRules: {
       title: "Kanji",
-      subtitle: "Learn the fundamentals of writing kanji correctly"
+      subtitle: "Learn the fundamentals of writing kanji correctly",
+      subpage1Title: "Kanji Subpage 1",
+      subpage1Subtitle: ""
     },
     // JLPT Info
     jlptInfo: {
@@ -719,7 +724,8 @@ export const translations = {
       previous: "Sebelumnya",
       learnMore: "Ketahui Lagi",
       start: "Mula",
-      continue: "Teruskan"
+      continue: "Teruskan",
+      comingSoon: "Akan datang soon..."
     },
     // JLPT Levels
     levels: {
@@ -735,12 +741,16 @@ export const translations = {
       subtitle: "Rujukan interaktif Hiragana & Katakana dengan sebutan audio",
       hiragana: "Hiragana",
       katakana: "Katakana",
-      clickToLearn: "Klik mana-mana aksara untuk dengar sebutan"
+      clickToLearn: "Klik mana-mana aksara untuk dengar sebutan",
+      subpage1Title: "Kana Subpage 1",
+      subpage1Subtitle: ""
     },
     // Kanji Stroke Rules
     kanjiRules: {
       title: "Kanji",
-      subtitle: "Belajar asas menulis kanji dengan betul"
+      subtitle: "Belajar asas menulis kanji dengan betul",
+      subpage1Title: "Kanji Subpage 1",
+      subpage1Subtitle: ""
     },
     // JLPT Info
     jlptInfo: {

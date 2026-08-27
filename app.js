@@ -40,8 +40,29 @@ function initSidebar() {
     sidebar.classList.remove("active");
   });
 
-  // Close sidebar on item click (mobile responsive)
-  const navItems = document.querySelectorAll(".nav-item");
+  // Handle collapsible nav groups
+  const navGroups = document.querySelectorAll(".nav-group");
+  navGroups.forEach(group => {
+    const hasSubnav = group.querySelector(".has-subnav");
+    const subitems = group.querySelector(".nav-subitems");
+
+    hasSubnav.addEventListener("click", (e) => {
+      e.preventDefault();
+      const isExpanded = group.classList.contains("expanded");
+
+      // Toggle expanded state
+      if (isExpanded) {
+        group.classList.remove("expanded");
+        subitems.classList.add("hidden");
+      } else {
+        group.classList.add("expanded");
+        subitems.classList.remove("hidden");
+      }
+    });
+  });
+
+  // Close sidebar on item click (mobile responsive) - skip has-subnav
+  const navItems = document.querySelectorAll(".nav-item:not(.has-subnav)");
   navItems.forEach(item => {
     item.addEventListener("click", (e) => {
       // Remove active class from other items
@@ -149,9 +170,13 @@ function reRenderCurrentView() {
     renderIntroView();
   } else if (route === "kana") {
     renderKanaView();
+  } else if (route === "kana/subpage1") {
+    renderKanaSubpage1View();
   } else if (route === "kanji-rules") {
     renderKanjiRulesView();
-  } else if (route === "anki") {
+  } else if (route === "kanji-rules/subpage1") {
+    renderKanjiRulesSubpage1View();
+  } else if (route === "self-study/anki") {
     renderAnkiView();
   } else if (route === "roadmap") {
     renderRoadmapView();
@@ -271,13 +296,27 @@ function initRouter() {
     const hash = window.location.hash || "#intro";
     const route = hash.replace("#", "");
 
-    // Highlight sidebar active state manually (in case of deep links or direct access)
+    // Highlight sidebar active state and expand nav groups
     const navItems = document.querySelectorAll(".nav-item");
+    const navGroups = document.querySelectorAll(".nav-group");
+
+    navGroups.forEach(g => {
+      g.classList.remove("expanded");
+      const subitems = g.querySelector(".nav-subitems");
+      if (subitems) subitems.classList.add("hidden");
+    });
+
     navItems.forEach(item => {
       const target = item.getAttribute("data-target");
-      // Match route levels
       if (route.startsWith(target)) {
         item.classList.add("active");
+        // Expand parent nav group if this is a subpage
+        const parentGroup = item.closest(".nav-group");
+        if (parentGroup) {
+          parentGroup.classList.add("expanded");
+          const subitems = parentGroup.querySelector(".nav-subitems");
+          if (subitems) subitems.classList.remove("hidden");
+        }
       } else {
         item.classList.remove("active");
       }
@@ -287,9 +326,13 @@ function initRouter() {
       renderIntroView();
     } else if (route === "kana") {
       renderKanaView();
+    } else if (route === "kana/subpage1") {
+      renderKanaSubpage1View();
     } else if (route === "kanji-rules") {
       renderKanjiRulesView();
-    } else if (route === "anki") {
+    } else if (route === "kanji-rules/subpage1") {
+      renderKanjiRulesSubpage1View();
+    } else if (route === "self-study/anki") {
       renderAnkiView();
     } else if (route === "roadmap") {
       renderRoadmapView();
@@ -1569,6 +1612,48 @@ function renderKanjiRulesView() {
       </div>
       <div class="kanji-rules-container">
         ${sectionsHTML}
+      </div>
+    </div>
+  `;
+}
+
+// --- KANA SUBPAGE 1 ---
+function renderKanaSubpage1View() {
+  state.currentView = "kana-subpage1";
+  document.getElementById("section-title").textContent = t('kana.subpage1Title') || 'Kana Subpage 1';
+
+  const appView = document.getElementById("app-view");
+  const lang = getLanguage();
+
+  appView.innerHTML = `
+    <div class="fade-in">
+      <div class="page-header">
+        <h1>${t('kana.subpage1Title') || 'Kana Subpage 1'}</h1>
+        <p>${t('kana.subpage1Subtitle') || ''}</p>
+      </div>
+      <div class="content-section">
+        <p>${t('common.comingSoon')}</p>
+      </div>
+    </div>
+  `;
+}
+
+// --- KANJI SUBPAGE 1 ---
+function renderKanjiRulesSubpage1View() {
+  state.currentView = "kanji-rules-subpage1";
+  document.getElementById("section-title").textContent = t('kanjiRules.subpage1Title') || 'Kanji Subpage 1';
+
+  const appView = document.getElementById("app-view");
+  const lang = getLanguage();
+
+  appView.innerHTML = `
+    <div class="fade-in">
+      <div class="page-header">
+        <h1>${t('kanjiRules.subpage1Title') || 'Kanji Subpage 1'}</h1>
+        <p>${t('kanjiRules.subpage1Subtitle') || ''}</p>
+      </div>
+      <div class="content-section">
+        <p>${t('common.comingSoon')}</p>
       </div>
     </div>
   `;

@@ -46,6 +46,12 @@
       "computedHash": "34305420bba52f3fe7d1d3b2dd355b64ccf12de7411cbbf4557a1231e8ef8ddb",
       "wellKnownDigest": "sha256:461cf4d25b9e74840cb6f20ab81751ec5352dbcb28dac8e3bce001602965279e"
     },
+    "unslop": {
+      "source": "theclaymethod/unslop",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "8ca396860f862af43867a029f5f340427a685d0943f1b72e286913234d025442"
+    },
     "using-superpowers": {
       "source": "obra/superpowers",
       "sourceType": "github",
