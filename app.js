@@ -1,10 +1,6 @@
 import { KANA_DATA } from './kana.js';
-import { KANJI_DATA } from './kanji.js';
-import { VOCAB_DATA } from './vocab.js';
-import { GRAMMAR_DATA } from './grammar.js';
-import { t, setLanguage, getLanguage, toggleLanguage, initI18n } from './i18n.js';
+import { t, setLanguage, getLanguage, toggleLanguage, initI18n } from './siteText.js';
 import { CULTURE_LESSONS, BLOG_POSTS, RESOURCES, KANJI_STROKE_RULES, ANKI_CONTENT } from './content.js';
-import { fetchStrokeData, renderStrokeOrderSVG, showStrokeUpTo, setupStrokeControls, playStrokeAnimation } from './strokeOrder.js';
 import { supabase } from './supabase.js';
 
 // Application State
@@ -15,12 +11,6 @@ const state = {
   activeKanaTab: "hiragana",
   furiganaVisible: true
 };
-
-// Canvas Drawing State
-let isDrawing = false;
-let lastX = 0;
-let lastY = 0;
-let canvas, ctx;
 
 /* ==========================================================================
    APP INITIALIZATION & NAVIGATION
@@ -178,99 +168,101 @@ function reRenderCurrentView() {
   } else {
     renderIntroView();
   }
+
+  // Re-initialize Lucide icons for dynamically rendered content
+  lucide.createIcons();
 }
 
 // Modals management and handlers
 function initModals() {
-  const kanaModal = document.getElementById("kana-modal");
-  const kanaClose = document.getElementById("kana-modal-close");
-  const kanjiModal = document.getElementById("kanji-modal");
-  const kanjiClose = document.getElementById("kanji-modal-close");
+  const signupModal = document.getElementById("signup-modal");
+  const signupClose = document.getElementById("signup-modal-close");
+  const joinClassBtn = document.getElementById("join-class-btn");
 
-  kanaClose.addEventListener("click", () => kanaModal.classList.remove("active"));
-  kanjiClose.addEventListener("click", () => kanjiModal.classList.remove("active"));
+  signupClose.addEventListener("click", () => signupModal.classList.remove("active"));
+
+  // Join class button opens modal
+  joinClassBtn.addEventListener("click", () => {
+    signupModal.classList.add("active");
+  });
 
   // Click outside to close
   window.addEventListener("click", (e) => {
-    if (e.target === kanaModal) kanaModal.classList.remove("active");
-    if (e.target === kanjiModal) kanjiModal.classList.remove("active");
+    if (e.target === signupModal) signupModal.classList.remove("active");
   });
 
-  // Canvas context setups
-  canvas = document.getElementById("stroke-canvas");
-  if (canvas) {
-    ctx = canvas.getContext("2d");
+  // Signup form submission
+  const signupForm = document.getElementById("signup-form");
+  signupForm.addEventListener("submit", handleSignupSubmit);
+}
 
-    // Stroke styling
-    ctx.strokeStyle = "#ff4757"; // accent-red
-    ctx.lineJoin = "round";
-    ctx.lineCap = "round";
-    ctx.lineWidth = 10;
+// Handle class signup form submission
+async function handleSignupSubmit(e) {
+  e.preventDefault();
 
-    // Clear Canvas Button
-    const clearBtn = document.getElementById("canvas-clear");
-    clearBtn.addEventListener("click", () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
+  const form = e.target;
+  const submitBtn = form.querySelector(".signup-submit-btn");
+  const originalText = submitBtn.textContent;
 
-    // Drawing mouse events
-    canvas.addEventListener("mousedown", startDrawing);
-    canvas.addEventListener("mousemove", draw);
-    canvas.addEventListener("mouseup", stopDrawing);
-    canvas.addEventListener("mouseout", stopDrawing);
+  // Get form data
+  const name = form.querySelector("#signup-name").value.trim();
+  const age = form.querySelector("#signup-age").value.trim();
+  const phone = form.querySelector("#signup-phone").value.trim();
+  const classType = form.querySelector("#signup-class-type").value;
 
-    // Drawing touch events for mobile devices
-    canvas.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      const touch = e.touches[0];
-      const rect = canvas.getBoundingClientRect();
-      isDrawing = true;
-      lastX = touch.clientX - rect.left;
-      lastY = touch.clientY - rect.top;
-    });
+  // Get selected schedule
+  const scheduleCheckboxes = form.querySelectorAll('input[name="schedule"]:checked');
+  const schedule = Array.from(scheduleCheckboxes).map(cb => cb.value);
 
-    canvas.addEventListener("touchmove", (e) => {
-      e.preventDefault();
-      if (!isDrawing) return;
-      const touch = e.touches[0];
-      const rect = canvas.getBoundingClientRect();
-      const x = touch.clientX - rect.left;
-      const y = touch.clientY - rect.top;
-
-      ctx.beginPath();
-      ctx.moveTo(lastX, lastY);
-      ctx.lineTo(x, y);
-      ctx.stroke();
-      [lastX, lastY] = [x, y];
-    });
-
-    canvas.addEventListener("touchend", stopDrawing);
+  // Validate
+  if (!name || !age || !phone || !classType || schedule.length === 0) {
+    alert(t('common.fillAllRequired'));
+    return;
   }
-}
 
-// Drawing routines
-function startDrawing(e) {
-  isDrawing = true;
-  const rect = canvas.getBoundingClientRect();
-  lastX = e.clientX - rect.left;
-  lastY = e.clientY - rect.top;
-}
+  // Show loading state
+  submitBtn.textContent = t('common.submitting');
+  submitBtn.disabled = true;
 
-function draw(e) {
-  if (!isDrawing) return;
-  const rect = canvas.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
+  try {
+    const { data, error } = await supabase
+      .from('class_signups')
+      .insert([
+        {
+          name,
+          age,
+          phone,
+          class_type: classType,
+          schedule,
+          created_at: new Date().toISOString()
+        }
+      ]);
 
-  ctx.beginPath();
-  ctx.moveTo(lastX, lastY);
-  ctx.lineTo(x, y);
-  ctx.stroke();
-  [lastX, lastY] = [x, y];
-}
+    if (error) throw error;
 
-function stopDrawing() {
-  isDrawing = false;
+    // Success
+    submitBtn.textContent = t('signup.signupSuccess');
+    submitBtn.style.background = "linear-gradient(135deg, #05c46b, #0fbcf9)";
+
+    // Reset form
+    form.reset();
+
+    // Close modal after 2 seconds
+    setTimeout(() => {
+      document.getElementById("signup-modal").classList.remove("active");
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+      submitBtn.style.background = "";
+    }, 2000);
+
+  } catch (error) {
+    console.error("Signup error:", error);
+    submitBtn.textContent = t('signup.signupError');
+    submitBtn.disabled = false;
+    setTimeout(() => {
+      submitBtn.textContent = originalText;
+    }, 3000);
+  }
 }
 
 // Simple Hash Router
@@ -336,7 +328,7 @@ function playPronunciation(text) {
     utterance.rate = 0.8; // Learner pace
     window.speechSynthesis.speak(utterance);
   } else {
-    alert("Browser anda tidak menyokong fungsi sebutan audio.");
+    alert(t('common.audioNotSupported'));
   }
 }
 
@@ -361,66 +353,94 @@ function renderIntroView() {
           <h1>${t('home.heroTitle')}</h1>
           <p>${t('home.heroSubtitle')}</p>
           <div class="hero-actions">
-            <a href="#roadmap" class="btn-cta-primary">
+            <a href="#kana" class="btn-cta-primary">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              Start with Kana
+            </a>
+            <a href="#roadmap" class="btn-cta-secondary">
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
               View Learning Path
-            </a>
-            <a href="#kana" class="btn-cta-secondary">
-              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-              Start Learning Kana
             </a>
           </div>
         </div>
       </div>
 
-      <!-- Learning Sections Grid -->
-      <h2 class="home-section-title">Explore Learning Areas</h2>
-      <div class="home-sections-grid">
-        <a href="#kana" class="home-section-card">
-          <div class="home-section-icon kana-icon">あ</div>
-          <div class="home-section-text">
-            <h3>Kana Charts</h3>
-            <p>Hiragana & Katakana with audio — the essential first step</p>
+      <!-- Why Section -->
+      <div class="home-why-section">
+        <h2 class="home-section-title">${t('home.whyTitle')}</h2>
+        <div class="home-why-grid">
+          <div class="home-why-card">
+            <div class="home-why-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+            </div>
+            <h3>${t('home.whyPoint1Title')}</h3>
+            <p>${t('home.whyPoint1Desc')}</p>
           </div>
-        </a>
-        <a href="#kanji-rules" class="home-section-card">
-          <div class="home-section-icon kanji-icon">漢</div>
-          <div class="home-section-text">
-            <h3>Kanji Stroke Rules</h3>
-            <p>Master stroke order and direction for proper kanji writing</p>
+          <div class="home-why-card">
+            <div class="home-why-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            </div>
+            <h3>${t('home.whyPoint2Title')}</h3>
+            <p>${t('home.whyPoint2Desc')}</p>
           </div>
-        </a>
-        <a href="#anki" class="home-section-card">
-          <div class="home-section-icon anki-icon"><i data-lucide="gamepad-2"></i></div>
-          <div class="home-section-text">
-            <h3>Anki & Vocab Mining</h3>
-            <p>Recommended decks and how to mine vocabulary from native content</p>
+          <div class="home-why-card">
+            <div class="home-why-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <h3>${t('home.whyPoint3Title')}</h3>
+            <p>${t('home.whyPoint3Desc')}</p>
           </div>
-        </a>
-        <a href="#culture" class="home-section-card">
-          <div class="home-section-icon culture-icon">祭</div>
-          <div class="home-section-text">
-            <h3>Culture Lessons</h3>
-            <p>Learn Japanese through festivals, food, entertainment, and daily life</p>
-          </div>
-        </a>
+        </div>
       </div>
 
-      <!-- Featured Blog -->
-      <h2 class="home-section-title">Latest Articles</h2>
-      <div class="home-blog-row">
-        <a href="#blog" class="home-blog-card">
-          <div class="blog-card-tag">Blog</div>
-          <h3>Study Tips & Guides</h3>
-          <p>Articles on learning strategies, resource recommendations, and Japanese culture insights</p>
-          <span class="home-blog-link">Read articles →</span>
-        </a>
-        <a href="#resources" class="home-blog-card">
-          <div class="blog-card-tag">Resources</div>
-          <h3>External Tools & Links</h3>
-          <p>Dictionaries, Anki decks, media players, and more — curated tools for Japanese learners</p>
-          <span class="home-blog-link">Browse resources →</span>
-        </a>
+      <!-- Quick Nav Section -->
+      <div class="home-quick-nav">
+        <h2 class="home-section-title">${t('home.quickNavTitle')}</h2>
+        <p class="home-quick-nav-subtitle">${t('home.quickNavSubtitle')}</p>
+        <div class="home-sections-grid">
+          <a href="#kana" class="home-section-card">
+            <div class="home-section-icon kana-icon">あ</div>
+            <div class="home-section-text">
+              <h3>Kana Charts</h3>
+              <p>Hiragana & Katakana with audio — the essential first step</p>
+            </div>
+          </a>
+          <a href="#kanji-rules" class="home-section-card">
+            <div class="home-section-icon kanji-icon">漢</div>
+            <div class="home-section-text">
+              <h3>Kanji Stroke Rules</h3>
+              <p>Master stroke order and direction for proper kanji writing</p>
+            </div>
+          </a>
+          <a href="#self-study" class="home-section-card">
+            <div class="home-section-icon anki-icon"><i data-lucide="graduation-cap"></i></div>
+            <div class="home-section-text">
+              <h3>Self-Study Guide</h3>
+              <p>How to learn Japanese effectively on your own</p>
+            </div>
+          </a>
+          <a href="#culture" class="home-section-card">
+            <div class="home-section-icon culture-icon">祭</div>
+            <div class="home-section-text">
+              <h3>Culture Lessons</h3>
+              <p>Learn Japanese through festivals, food, entertainment, and daily life</p>
+            </div>
+          </a>
+          <a href="#jlpt-info" class="home-section-card">
+            <div class="home-section-icon"><i data-lucide="info"></i></div>
+            <div class="home-section-text">
+              <h3>What is JLPT?</h3>
+              <p>Understand the Japanese language proficiency test</p>
+            </div>
+          </a>
+          <a href="#resources" class="home-section-card">
+            <div class="home-section-icon"><i data-lucide="link"></i></div>
+            <div class="home-section-text">
+              <h3>Resources</h3>
+              <p>Curated tools: dictionaries, Anki decks, media players, and more</p>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   `;
@@ -444,15 +464,24 @@ function renderJLPTInfoView() {
 
       <div class="jlpt-info-content">
         <section class="jlpt-info-section">
-          <h2>${t('jlptInfo.whatIs.title')}</h2>
-          <p>${t('jlptInfo.whatIs.description')}</p>
+          <h2><i data-lucide="info"></i> ${t('jlptInfo.whatIs.title')}</h2>
+          <div class="jlpt-whatis-card">
+            <p>${t('jlptInfo.whatIs.description')}</p>
+          </div>
         </section>
 
         <section class="jlpt-info-section">
-          <h2>${t('jlptInfo.levels.title')}</h2>
+          <h2><i data-lucide="compass"></i> ${t('jlptInfo.purpose.title')}</h2>
+          <div class="jlpt-whatis-card">
+            <p>${t('jlptInfo.purpose.description')}</p>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="layers"></i> ${t('jlptInfo.levels.title')}</h2>
           <div class="jlpt-levels-grid">
             <div class="jlpt-level-card n5">
-              <h3>N5 ${t('jlptInfo.levels.beginner')}</h3>
+              <h3><i data-lucide="star"></i> N5 ${t('jlptInfo.levels.beginner')}</h3>
               <p>${t('jlptInfo.levels.n5Desc')}</p>
               <ul>
                 <li>${t('jlptInfo.levels.n5Kanji')}</li>
@@ -460,7 +489,7 @@ function renderJLPTInfoView() {
               </ul>
             </div>
             <div class="jlpt-level-card n4">
-              <h3>N4 ${t('jlptInfo.levels.elementary')}</h3>
+              <h3><i data-lucide="trending-up"></i> N4 ${t('jlptInfo.levels.elementary')}</h3>
               <p>${t('jlptInfo.levels.n4Desc')}</p>
               <ul>
                 <li>${t('jlptInfo.levels.n4Kanji')}</li>
@@ -468,7 +497,7 @@ function renderJLPTInfoView() {
               </ul>
             </div>
             <div class="jlpt-level-card n3">
-              <h3>N3 ${t('jlptInfo.levels.intermediate')}</h3>
+              <h3><i data-lucide="target"></i> N3 ${t('jlptInfo.levels.intermediate')}</h3>
               <p>${t('jlptInfo.levels.n3Desc')}</p>
               <ul>
                 <li>${t('jlptInfo.levels.n3Kanji')}</li>
@@ -479,32 +508,26 @@ function renderJLPTInfoView() {
         </section>
 
         <section class="jlpt-info-section">
-          <h2>${t('jlptInfo.format.title')}</h2>
+          <h2><i data-lucide="clipboard-list"></i> ${t('jlptInfo.format.title')}</h2>
           <p>${t('jlptInfo.format.description')}</p>
           <div class="jlpt-format-grid">
             <div class="jlpt-format-item">
-              <h4>${t('jlptInfo.format.vocabulary')}</h4>
+              <h4><i data-lucide="book-open"></i> ${t('jlptInfo.format.vocabulary')}</h4>
               <p>${t('jlptInfo.format.vocabularyDesc')}</p>
             </div>
             <div class="jlpt-format-item">
-              <h4>${t('jlptInfo.format.grammar')}</h4>
+              <h4><i data-lucide="file-text"></i> ${t('jlptInfo.format.grammar')}</h4>
               <p>${t('jlptInfo.format.grammarDesc')}</p>
             </div>
             <div class="jlpt-format-item">
-              <h4>${t('jlptInfo.format.reading')}</h4>
+              <h4><i data-lucide="eye"></i> ${t('jlptInfo.format.reading')}</h4>
               <p>${t('jlptInfo.format.readingDesc')}</p>
             </div>
             <div class="jlpt-format-item">
-              <h4>${t('jlptInfo.format.listening')}</h4>
+              <h4><i data-lucide="headphones"></i> ${t('jlptInfo.format.listening')}</h4>
               <p>${t('jlptInfo.format.listeningDesc')}</p>
             </div>
           </div>
-        </section>
-
-        <section class="jlpt-info-section">
-          <h2>${t('jlptInfo.purpose.title')}</h2>
-          <p>${t('jlptInfo.purpose.description')}</p>
-          <a href="#resources" class="btn-cta-primary">${t('jlptInfo.purpose.exploreResources')}</a>
         </section>
       </div>
     </div>
@@ -664,127 +687,198 @@ function renderKanaGrid() {
   container.appendChild(table);
 }
 
-function openKanaModal(char) {
-  document.getElementById("modal-kana-char").textContent = char.kana;
-  document.getElementById("modal-kana-romaji").textContent = char.romaji;
-  document.getElementById("modal-kana-example").innerHTML = char.example;
-  
-  const modal = document.getElementById("kana-modal");
-  modal.classList.add("active");
-
-  // Voice playback
-  const speakBtn = document.getElementById("modal-pronounce-btn");
-  // Remove old listeners to avoid multiple fires
-  const newSpeakBtn = speakBtn.cloneNode(true);
-  speakBtn.parentNode.replaceChild(newSpeakBtn, speakBtn);
-  
-  newSpeakBtn.addEventListener("click", () => {
-    playPronunciation(char.kana);
-  });
-}
-
 
 // --- 2. ROADMAP VIEW ---
 function renderRoadmapView() {
   state.currentView = "roadmap";
-  document.getElementById("section-title").textContent = "Laluan Pembelajaran";
+  document.getElementById("section-title").textContent = t('nav.roadmap');
 
   const appView = document.getElementById("app-view");
   appView.innerHTML = `
     <div class="fade-in">
       <div class="roadmap-intro">
-        <h1>Roadmap Pembelajaran Bahasa Jepun</h1>
-        <p>
-          Berikut adalah panduan langkah demi langkah yang kami sarankan untuk membawa anda dari sifar (zero) 
-          sehingga ke tahap pertengahan (N3). Klik pada setiap milestone untuk perincian fokus pembelajaran.
-        </p>
+        <h1>${t('roadmap.title')}</h1>
+        <p>${t('roadmap.intro')}</p>
+        <p class="roadmap-disclaimer">${t('roadmap.disclaimer')}</p>
       </div>
 
       <div class="roadmap-timeline">
-        <!-- Milestone 1 -->
+        <!-- Phase 1 -->
         <div class="timeline-container timeline-left">
           <div class="timeline-card" data-index="0">
-            <span class="timeline-phase">Fasa 1</span>
-            <h3>Sifar ke Asas Asas</h3>
-            <p>Memahami sistem penulisan Hiragana dan Katakana serta frasa sapaan harian.</p>
+            <span class="timeline-phase">${t('roadmap.phases.phase1')}</span>
+            <h3>${t('roadmap.kana.title')}</h3>
+            <p>${t('roadmap.kana.desc')}</p>
             <div class="timeline-meta">
-              <span><i data-lucide="timer"></i> 1 - 2 Minggu</span>
-              <span><i data-lucide="book-open"></i> Hiragana & Katakana</span>
+              <span><i data-lucide="timer"></i> ${t('roadmap.kana.duration')}</span>
+              <span><i data-lucide="book-open"></i> ${t('roadmap.kana.activity')}</span>
             </div>
-            
             <div class="roadmap-drawer" id="drawer-0">
-              <h4>Fokus Pembelajaran:</h4>
+              <h4>${t('roadmap.kana.focusTitle')}</h4>
               <ul>
-                <li>Menghafal 46 huruf Hiragana dan Katakana asas.</li>
-                <li>Mempelajari Dakuon, Handakuon, Yoon (bunyi berkembar/dipotong).</li>
-                <li>Sapaan asas (Aisatsu) seperti Konnichiwa, Arigatou, Sumimasen.</li>
+                ${t('roadmap.kana.items').map(item => `<li>${item}</li>`).join('')}
               </ul>
+              <a href="#kana" class="roadmap-go-btn">${t('roadmap.goTo')} →</a>
             </div>
           </div>
         </div>
 
-        <!-- Milestone 2 -->
+        <!-- Phase 2 -->
         <div class="timeline-container timeline-right">
           <div class="timeline-card" data-index="1">
-            <span class="timeline-phase">Fasa 2</span>
-            <h3>JLPT N5 (Asas Pemula)</h3>
-            <p>Memulakan pembelajaran tatabahasa formal, kosa kata asas dan Kanji pertama.</p>
+            <span class="timeline-phase">${t('roadmap.phases.phase2')}</span>
+            <h3>${t('roadmap.basic.title')}</h3>
+            <p>${t('roadmap.basic.desc')}</p>
             <div class="timeline-meta">
-              <span><i data-lucide="timer"></i> 2 - 3 Bulan</span>
-              <span><i data-lucide="book-open"></i> Kanji ~100 | Kosa Kata ~800</span>
+              <span><i data-lucide="timer"></i> ${t('roadmap.basic.duration')}</span>
+              <span><i data-lucide="book-open"></i> ${t('roadmap.basic.activity')}</span>
             </div>
-            
             <div class="roadmap-drawer" id="drawer-1">
-              <h4>Fokus Pembelajaran:</h4>
+              <h4>${t('roadmap.basic.focusTitle')}</h4>
               <ul>
-                <li>Memahami zarah (Particles) asas: は, が, を, に, で.</li>
-                <li>Mempelajari Kanji asas: Nombor, hari, masa, arah.</li>
-                <li>Membina ayat ringkas seperti "Saya makan nasi" atau "Ini buku saya".</li>
+                ${t('roadmap.basic.items').map(item => `<li>${item}</li>`).join('')}
               </ul>
+              <a href="#self-study" class="roadmap-go-btn">${t('roadmap.goTo')} →</a>
             </div>
           </div>
         </div>
 
-        <!-- Milestone 3 -->
+        <!-- Phase 3 -->
         <div class="timeline-container timeline-left">
           <div class="timeline-card" data-index="2">
-            <span class="timeline-phase">Fasa 3</span>
-            <h3>JLPT N4 (Pertengahan Rendah)</h3>
-            <p>Mula membina ayat majmuk, meluahkan perasaan, syarat, dan perbualan santai harian.</p>
+            <span class="timeline-phase">${t('roadmap.phases.phase3')}</span>
+            <h3>${t('roadmap.n5.title')}</h3>
+            <p>${t('roadmap.n5.desc')}</p>
             <div class="timeline-meta">
-              <span><i data-lucide="timer"></i> 3 - 5 Bulan</span>
-              <span><i data-lucide="book-open"></i> Kanji ~300 | Kosa Kata ~1,500</span>
+              <span><i data-lucide="timer"></i> ${t('roadmap.n5.duration')}</span>
+              <span><i data-lucide="book-open"></i> ${t('roadmap.n5.activity')}</span>
             </div>
-            
             <div class="roadmap-drawer" id="drawer-2">
-              <h4>Fokus Pembelajaran:</h4>
+              <h4>${t('roadmap.n5.focusTitle')}</h4>
               <ul>
-                <li>Mempelajari pelbagai bentuk konjugasi kata kerja (Plain Form, Volitional, Conditional).</li>
-                <li>Struktur memberi & menerima bantuan (Te-morau, Te-ageru, Te-kureru).</li>
-                <li>Keupayaan mendengar dan memahami perbualan santai berkelajuan sederhana.</li>
+                ${t('roadmap.n5.items').map(item => `<li>${item}</li>`).join('')}
               </ul>
+              <a href="#n5" class="roadmap-go-btn">${t('roadmap.goTo')} →</a>
             </div>
           </div>
         </div>
 
-        <!-- Milestone 4 -->
+        <!-- Phase 4 -->
         <div class="timeline-container timeline-right">
           <div class="timeline-card" data-index="3">
-            <span class="timeline-phase">Fasa 4</span>
-            <h3>JLPT N3 (Pertengahan/Intermediate)</h3>
-            <p>Menjejaki tahap perbualan biasa di pejabat, membaca rencana ringkas dan memahami bahasa Jepun natural.</p>
+            <span class="timeline-phase">${t('roadmap.phases.phase4')}</span>
+            <h3>${t('roadmap.n5mastery.title')}</h3>
+            <p>${t('roadmap.n5mastery.desc')}</p>
             <div class="timeline-meta">
-              <span><i data-lucide="timer"></i> 5 - 8 Bulan</span>
-              <span><i data-lucide="book-open"></i> Kanji ~650 | Kosa Kata ~3,700</span>
+              <span><i data-lucide="timer"></i> ${t('roadmap.n5mastery.duration')}</span>
+              <span><i data-lucide="book-open"></i> ${t('roadmap.n5mastery.activity')}</span>
             </div>
-            
             <div class="roadmap-drawer" id="drawer-3">
-              <h4>Fokus Pembelajaran:</h4>
+              <h4>${t('roadmap.n5mastery.focusTitle')}</h4>
               <ul>
-                <li>Mempelajari bentuk Keigo (bahasa sopan) dan Kenjougo (bahasa rendah diri).</li>
-                <li>Menghubungkan idea abstrak, menulis e-mel formal ringkas.</li>
-                <li>Mampu lulus peperiksaan kelayakan kerja bahasa Jepun peringkat N3.</li>
+                ${t('roadmap.n5mastery.items').map(item => `<li>${item}</li>`).join('')}
               </ul>
+              <a href="#n5" class="roadmap-go-btn">${t('roadmap.goTo')} →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 5 -->
+        <div class="timeline-container timeline-left">
+          <div class="timeline-card" data-index="4">
+            <span class="timeline-phase">${t('roadmap.phases.phase5')}</span>
+            <h3>${t('roadmap.n4bridge.title')}</h3>
+            <p>${t('roadmap.n4bridge.desc')}</p>
+            <div class="timeline-meta">
+              <span><i data-lucide="timer"></i> ${t('roadmap.n4bridge.duration')}</span>
+              <span><i data-lucide="book-open"></i> ${t('roadmap.n4bridge.activity')}</span>
+            </div>
+            <div class="roadmap-drawer" id="drawer-4">
+              <h4>${t('roadmap.n4bridge.focusTitle')}</h4>
+              <ul>
+                ${t('roadmap.n4bridge.items').map(item => `<li>${item}</li>`).join('')}
+              </ul>
+              <a href="#n4" class="roadmap-go-btn">${t('roadmap.goTo')} →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 6 -->
+        <div class="timeline-container timeline-right">
+          <div class="timeline-card" data-index="5">
+            <span class="timeline-phase">${t('roadmap.phases.phase6')}</span>
+            <h3>${t('roadmap.n3.title')}</h3>
+            <p>${t('roadmap.n3.desc')}</p>
+            <div class="timeline-meta">
+              <span><i data-lucide="timer"></i> ${t('roadmap.n3.duration')}</span>
+              <span><i data-lucide="book-open"></i> ${t('roadmap.n3.activity')}</span>
+            </div>
+            <div class="roadmap-drawer" id="drawer-5">
+              <h4>${t('roadmap.n3.focusTitle')}</h4>
+              <ul>
+                ${t('roadmap.n3.items').map(item => `<li>${item}</li>`).join('')}
+              </ul>
+              <a href="#n3" class="roadmap-go-btn">${t('roadmap.goTo')} →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 7 -->
+        <div class="timeline-container timeline-left">
+          <div class="timeline-card" data-index="6">
+            <span class="timeline-phase">${t('roadmap.phases.phase7')}</span>
+            <h3>${t('roadmap.n2prep.title')}</h3>
+            <p>${t('roadmap.n2prep.desc')}</p>
+            <div class="timeline-meta">
+              <span><i data-lucide="timer"></i> ${t('roadmap.n2prep.duration')}</span>
+              <span><i data-lucide="book-open"></i> ${t('roadmap.n2prep.activity')}</span>
+            </div>
+            <div class="roadmap-drawer" id="drawer-6">
+              <h4>${t('roadmap.n2prep.focusTitle')}</h4>
+              <ul>
+                ${t('roadmap.n2prep.items').map(item => `<li>${item}</li>`).join('')}
+              </ul>
+              <a href="#resources" class="roadmap-go-btn">${t('roadmap.goTo')} →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 8: N1 -->
+        <div class="timeline-container timeline-right">
+          <div class="timeline-card" data-index="7">
+            <span class="timeline-phase">${t('roadmap.phases.phase8')}</span>
+            <h3>${t('roadmap.n1.title')}</h3>
+            <p>${t('roadmap.n1.desc')}</p>
+            <div class="timeline-meta">
+              <span><i data-lucide="timer"></i> ${t('roadmap.n1.duration')}</span>
+              <span><i data-lucide="book-open"></i> ${t('roadmap.n1.activity')}</span>
+            </div>
+            <div class="roadmap-drawer" id="drawer-7">
+              <h4>${t('roadmap.n1.focusTitle')}</h4>
+              <ul>
+                ${t('roadmap.n1.items').map(item => `<li>${item}</li>`).join('')}
+              </ul>
+              <a href="#resources" class="roadmap-go-btn">${t('roadmap.goTo')} →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 9 -->
+        <div class="timeline-container timeline-left">
+          <div class="timeline-card" data-index="8">
+            <span class="timeline-phase">${t('roadmap.phases.phase9')}</span>
+            <h3>${t('roadmap.continues.title')}</h3>
+            <p>${t('roadmap.continues.desc')}</p>
+            <div class="timeline-meta">
+              <span><i data-lucide="timer"></i> ${t('roadmap.continues.duration')}</span>
+              <span><i data-lucide="book-open"></i> ${t('roadmap.continues.activity')}</span>
+            </div>
+            <div class="roadmap-drawer" id="drawer-8">
+              <h4>${t('roadmap.continues.focusTitle')}</h4>
+              <ul>
+                ${t('roadmap.continues.items').map(item => `<li>${item}</li>`).join('')}
+              </ul>
+              <a href="#resources" class="roadmap-go-btn">${t('roadmap.goTo')} →</a>
             </div>
           </div>
         </div>
@@ -831,48 +925,8 @@ function renderKanjiPanel(kanjiList) {
       </div>
     `;
 
-    // Click handler to open draw modal
-    card.addEventListener("click", () => {
-      openKanjiDrawModal(k);
-    });
-
     container.appendChild(card);
   });
-}
-
-function openKanjiDrawModal(kanjiObj) {
-  document.getElementById("modal-kanji-char").textContent = kanjiObj.kanji;
-  document.getElementById("modal-kanji-meaning").textContent = kanjiObj.meaning;
-  document.getElementById("modal-kanji-onyomi").textContent = kanjiObj.onyomi;
-  document.getElementById("modal-kanji-kunyomi").textContent = kanjiObj.kunyomi;
-  document.getElementById("modal-kanji-strokes").textContent = kanjiObj.strokes;
-  document.getElementById("modal-kanji-examples").innerHTML = kanjiObj.examples ? kanjiObj.examples.split(', ').map(e => `<span>${e.trim()}</span>`).join('') : '';
-
-  // Load stroke order data
-  loadStrokeOrder(kanjiObj.kanji);
-
-  const modal = document.getElementById("kanji-modal");
-  modal.classList.add("active");
-}
-
-// Load and display stroke order for a kanji
-async function loadStrokeOrder(kanji) {
-  const container = document.getElementById("stroke-order-container");
-  container.innerHTML = '<p class="loading-stroke">Memuatkan...</p>';
-
-  try {
-    const strokeData = await fetchStrokeData(kanji);
-    if (strokeData && strokeData.strokes) {
-      renderStrokeOrderSVG(container, strokeData.strokes);
-      setupStrokeControls(container);
-      showStrokeUpTo(container, 0);
-    } else {
-      container.innerHTML = '<p class="no-stroke-data">Data strok tidak tersedia</p>';
-    }
-  } catch (error) {
-    console.warn('Error loading stroke order:', error);
-    container.innerHTML = '<p class="no-stroke-data">Data strok tidak tersedia</p>';
-  }
 }
 
 function renderGrammarPanel(grammarList) {
@@ -1330,7 +1384,7 @@ function renderResourcesView() {
             <div class="resource-list">
               ${items.map(item => `
                 <div class="resource-item">
-                  <h4>${item.icon} ${item.name}</h4>
+                  <h4><i data-lucide="${item.icon}"></i> ${item.name}</h4>
                   <p>${item.description}</p>
                   <a href="${item.url}" target="_blank" rel="noopener" class="resource-link">
                     ${t('resources.visit')}
@@ -1369,17 +1423,9 @@ function renderAboutView() {
             <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             ${t('about.storyTitle')}
           </h3>
-          <p class="about-bio">
-            AsasJepun was created to help Malaysian learners discover Japanese through cultural context rather than rote memorization.
-            We believe that understanding why something works leads to lasting knowledge — not just test scores.
-          </p>
-          <p class="about-bio">
-            Our approach combines structured JLPT curriculum with real-world content: Hololive streams, J-dramas, seasonal festivals,
-            and daily conversations. This way, learners don't just pass exams — they genuinely connect with Japanese culture.
-          </p>
-          <p class="about-bio">
-            <strong>Belajar Jepun through culture, bukan hafalan.</strong>
-          </p>
+          <div class="about-bio">
+            ${t('about.storyContent')}
+          </div>
         </div>
 
         <div class="about-card">
@@ -1388,17 +1434,17 @@ function renderAboutView() {
             ${t('about.connectTitle')}
           </h3>
           <div class="social-links">
-            <a href="https://threads.net" target="_blank" rel="noopener" class="social-link">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098.774.597 1.45 1.286 2.014 2.049.136.185.252.378.364.571l-.096.098c-.537-.568-1.182-1.049-1.882-1.43-.66-.36-1.392-.644-2.177-.847C16.522.944 14.22.223 11.873.1 9.55.28 7.57 1.024 6.08 2.579 4.62 4.105 3.753 6.302 3.73 8.93v.085c.023 2.628.891 4.825 2.352 6.352 1.49 1.555 3.47 2.298 5.788 2.174 2.31-.123 4.304-.939 5.93-2.42.623-.57 1.163-1.218 1.606-1.927.114.459.207.923.276 1.386.112.752.163 1.515.17 2.283-.006.77-.057 1.528-.168 2.28-.07.464-.162.928-.276 1.383-.443-.71-.983-1.357-1.606-1.927-1.625-1.481-3.619-2.297-5.93-2.42-2.317-.124-4.298.62-5.788 2.175-1.46 1.527-2.329 3.724-2.352 6.35v.086c.023 2.627.89 4.824 2.35 6.35 1.49 1.555 3.471 2.3 5.79 2.175 2.193-.117 3.96-.904 5.45-2.42.35.35.74.68 1.16.99-.35.24-.73.46-1.13.67l-.37-.5c-.26.17-.52.33-.79.48l.28.36c-.29.15-.59.29-.88.42l-.33-.45c-.27.11-.55.21-.83.3l.28.38c-.29.09-.59.16-.89.23l-.35-.48-.87.2-.29.4c-.3.05-.61.08-.92.11l.17.5c-.32.02-.64.04-.96.04l.1.5c-.33 0-.66-.01-.98-.04l.07.5c-.32-.03-.64-.07-.95-.12l.03.5c-.31-.06-.62-.13-.92-.21l-.03.45c-.31-.09-.61-.19-.91-.3l.07.47c-.28-.11-.56-.23-.83-.36l-.16.43c-.27-.13-.53-.27-.79-.42l.2.45-.73-.42-.24.4c-.24-.14-.47-.3-.7-.46l.27.44c-.65-.48-1.21-1.02-1.67-1.62-.39-.51-.72-1.06-.98-1.64-.2-.44-.36-.9-.48-1.37-.1-.39-.17-.78-.22-1.18-.04-.33-.06-.66-.07-.99v-.03c-.01-.34 0-.67.03-1.01.02-.34.06-.67.11-1 .06-.33.13-.66.22-.98.08-.32.18-.64.29-.95.11-.31.24-.61.38-.91.14-.3.29-.59.45-.87.16-.28.34-.55.53-.82.19-.27.39-.53.61-.78.22-.25.44-.49.69-.72.24-.23.5-.45.77-.65.26-.21.54-.4.83-.58.28-.18.57-.35.88-.5.3-.16.61-.3.93-.43.31-.13.63-.25.96-.35.32-.11.65-.2.98-.28.33-.08.67-.15 1.01-.2.34-.06.69-.1 1.03-.13l1.02-.03h1.01l1.03.03c.34.03.68.07 1.02.13.34.05.67.12 1.01.2.33.08.66.17.98.28.32.1.64.22.95.35.32.13.63.27.93.43.29.18.57.37.83.58.27.2.53.42.77.65.25.23.47.47.69.72.22.25.42.52.61.78.19.27.37.55.53.82.16.28.31.57.45.87.14.3.27.6.38.91.11.31.21.63.29.95.09.32.16.65.22.98.05.33.09.66.11 1 .03.34.04.68.03 1.01v.03c-.01.33-.03.66-.07.99-.05.4-.12.79-.22 1.18-.12.47-.28.93-.48 1.37-.26.58-.59 1.13-.98 1.64-.46.6-1.02 1.14-1.67 1.62l.27-.44c-.23.16-.46.32-.7.46l-.24-.4-.73.42.2-.45c-.26.15-.52.29-.79.42l-.16-.43c-.27.13-.55.25-.83.36l.07-.47c-.3.11-.6.21-.91.3l-.03-.45c-.32.08-.64.15-.95.21l.03-.5c-.31.05-.63.09-.95.12l.07-.5c-.32.03-.65.04-.98.04l.1-.5c-.32 0-.64-.02-.96-.04l.17-.5c-.31-.03-.62-.06-.92-.11l-.29-.4-.87-.2-.35.48c-.3-.07-.6-.14-.89-.23l.28-.38c-.28-.09-.56-.19-.83-.3l-.33.45c-.29-.13-.59-.27-.88-.42l.28-.36c-.27-.15-.53-.31-.79-.48l-.37.5c-.4-.21-.78-.43-1.13-.67.42-.31.81-.64 1.16-.99 1.49 1.516 3.257 2.303 5.45 2.42 2.318.125 4.3-.62 5.79-2.175 1.46-1.526 2.329-3.723 2.351-6.35v-.086c-.023-2.626-.892-4.823-2.352-6.35-1.49-1.555-3.471-2.3-5.788-2.175-2.318.124-4.298.62-5.788 2.175-1.46 1.527-2.329 3.724-2.352 6.352v.085c.023 2.628.89 4.825 2.351 6.351 1.489 1.555 3.47 2.298 5.787 2.42-.11-.465-.203-.932-.275-1.397z"/></svg>
-              Follow on Threads
+            <a href="https://linktr.ee/uthmannn_" target="_blank" rel="noopener" class="social-link">
+              <img src="logos/Linktree_logo.png" alt="Linktree" width="20" height="20">
+              Linktree
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link">
-              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-              Follow on Instagram
+            <a href="https://www.threads.com/@uthmannn_" target="_blank" rel="noopener" class="social-link">
+              <img src="logos/Threads_logo.png" alt="Threads" width="20" height="20">
+              Threads
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener" class="social-link">
-              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-              Subscribe on YouTube
+            <a href="https://ko-fi.com/uthmannn_" target="_blank" rel="noopener" class="social-link">
+              <img src="logos/ko-fi-logotype-27349_512.png" alt="Ko-fi" width="20" height="20">
+              Ko-fi
             </a>
           </div>
         </div>
@@ -1637,7 +1683,7 @@ const ADMIN_PASSWORD = 'asaspw2024'; // Change this to your desired admin passwo
 
 function renderAdminView() {
   state.currentView = "admin";
-  document.getElementById("section-title").textContent = "Admin Dashboard";
+  document.getElementById("section-title").textContent = t('admin.title');
   const appView = document.getElementById("app-view");
 
   const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
@@ -1650,6 +1696,7 @@ function renderAdminView() {
 }
 
 function renderAdminLogin(appView) {
+  const lang = getLanguage();
   appView.innerHTML = `
     <div class="fade-in">
       <div class="admin-login-container">
@@ -1657,15 +1704,15 @@ function renderAdminLogin(appView) {
           <div class="admin-login-icon">
             <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
           </div>
-          <h1>Admin Login</h1>
-          <p>Enter your admin password to access the dashboard</p>
+          <h1>${t('admin.loginTitle')}</h1>
+          <p>${t('admin.loginSubtitle')}</p>
           <form id="admin-login-form" class="admin-login-form">
             <div class="form-group">
-              <label for="admin-password">Password</label>
-              <input type="password" id="admin-password" placeholder="Enter admin password" required>
+              <label for="admin-password">${t('admin.password')}</label>
+              <input type="password" id="admin-password" placeholder="${t('admin.password')}" required>
             </div>
             <div class="form-error" id="login-error" style="display:none;"></div>
-            <button type="submit" class="btn-admin-login">Login</button>
+            <button type="submit" class="btn-admin-login">${t('admin.login')}</button>
           </form>
         </div>
       </div>
@@ -1680,31 +1727,47 @@ function renderAdminLogin(appView) {
       renderAdminDashboard(document.getElementById('app-view'));
     } else {
       const err = document.getElementById('login-error');
-      err.textContent = 'Incorrect password. Please try again.';
+      err.textContent = lang === 'my' ? 'Password salah. Sila cuba lagi.' : 'Incorrect password. Please try again.';
       err.style.display = 'block';
     }
   });
 }
 
 async function renderAdminDashboard(appView) {
+  const lang = getLanguage();
   appView.innerHTML = `
     <div class="fade-in">
       <div class="admin-header">
         <div>
-          <h1>Blog Management</h1>
-          <p>Create and manage your blog posts</p>
+          <h1>${t('admin.title')}</h1>
+          <p>${lang === 'my' ? 'Urus blog posts dan signup kelas' : 'Manage your blog posts and class signups'}</p>
         </div>
         <div class="admin-header-actions">
-          <button class="btn-admin-logout" id="admin-logout-btn">Logout</button>
-          <button class="btn-cta-primary" id="new-post-btn">
-            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            New Post
-          </button>
+          <button class="btn-admin-logout" id="admin-logout-btn">${t('admin.logout')}</button>
         </div>
       </div>
 
-      <div class="admin-posts-list" id="admin-posts-list">
-        <div class="admin-loading">Loading posts...</div>
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" data-tab="blog">Blog</button>
+        <button class="admin-tab-btn" data-tab="signups">${t('admin.signupsTitle')}</button>
+      </div>
+
+      <div class="admin-tab-content active" id="tab-blog">
+        <div class="admin-section-header">
+          <button class="btn-cta-primary" id="new-post-btn">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            ${t('admin.newPost')}
+          </button>
+        </div>
+        <div class="admin-posts-list" id="admin-posts-list">
+          <div class="admin-loading">${t('admin.loadingPosts')}</div>
+        </div>
+      </div>
+
+      <div class="admin-tab-content" id="tab-signups">
+        <div class="admin-signups-list" id="admin-signups-list">
+          <div class="admin-loading">${t('admin.loadingSignups')}</div>
+        </div>
       </div>
 
       <!-- Post Editor Modal -->
@@ -1773,6 +1836,19 @@ async function renderAdminDashboard(appView) {
     renderAdminView();
   });
 
+  // Tab switching
+  document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      if (btn.dataset.tab === 'signups') {
+        loadAdminSignups();
+      }
+    });
+  });
+
   document.getElementById('new-post-btn').addEventListener('click', () => {
     openPostEditor();
   });
@@ -1837,7 +1913,7 @@ async function loadAdminPosts() {
 
 function renderAdminPostsList(container, posts) {
   if (!posts || posts.length === 0) {
-    container.innerHTML = '<div class="admin-empty"><p>No posts yet. Click "New Post" to create your first blog post.</p></div>';
+    container.innerHTML = `<div class="admin-empty"><p>${t('admin.noPosts')}</p></div>`;
     return;
   }
 
@@ -1879,6 +1955,62 @@ function renderAdminPostsList(container, posts) {
       const id = btn.dataset.id;
       if (confirm('Are you sure you want to delete this post?')) {
         await deletePost(id);
+      }
+    });
+  });
+}
+
+async function loadAdminSignups() {
+  const container = document.getElementById('admin-signups-list');
+
+  try {
+    const { data, error } = await supabase
+      .from('class_signups')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && data && data.length > 0) {
+      renderAdminSignupsList(container, data);
+    } else {
+      container.innerHTML = `<div class="admin-empty"><p>${t('admin.noSignups')}</p></div>`;
+    }
+  } catch (e) {
+    container.innerHTML = `<div class="admin-empty"><p>${t('common.error')}</p></div>`;
+  }
+}
+
+function renderAdminSignupsList(container, signups) {
+  if (!signups || signups.length === 0) {
+    container.innerHTML = `<div class="admin-empty"><p>${t('admin.noSignups')}</p></div>`;
+    return;
+  }
+
+  container.innerHTML = signups.map(signup => {
+    const scheduleList = Array.isArray(signup.schedule) ? signup.schedule.join(', ') : signup.schedule || '';
+    const classType = signup.class_type === '1on1' ? '1 on 1 (RM200/bulan)' : 'Berkumpulan (RM150/bulan)';
+
+    return `
+      <div class="admin-signup-item">
+        <div class="admin-signup-info">
+          <h3>${signup.name}</h3>
+          <p><strong>Umur:</strong> ${signup.age} | <strong>Phone:</strong> ${signup.phone}</p>
+          <p><strong>Kelas:</strong> ${classType}</p>
+          <p><strong>Jadual:</strong> ${scheduleList}</p>
+          <p class="signup-date">${new Date(signup.created_at).toLocaleString()}</p>
+        </div>
+        <div class="admin-signup-actions">
+          <button class="btn-delete-signup" data-id="${signup.id}">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.btn-delete-signup').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      if (confirm('Delete this signup?')) {
+        await supabase.from('class_signups').delete().eq('id', id);
+        loadAdminSignups();
       }
     });
   });
@@ -1938,7 +2070,7 @@ async function savePostFromForm() {
   };
 
   if (!title.en || !slug || !excerpt.en || !content.en) {
-    alert('Please fill in all required fields (English title, slug, excerpt, content).');
+    alert(t('admin.requiredFields'));
     return;
   }
 
@@ -1953,7 +2085,7 @@ async function savePostFromForm() {
 
     if (error) throw error;
 
-    alert('Post saved successfully!');
+    alert(t('admin.postSaved'));
     closePostEditor();
     await loadAdminPosts();
   } catch (e) {
@@ -1967,7 +2099,7 @@ async function savePostFromForm() {
     }
 
     localStorage.setItem('localBlogPosts', JSON.stringify(localPosts));
-    alert('Post saved locally (Supabase not configured). It will appear on this device.');
+    alert(t('admin.postSavedLocal'));
     closePostEditor();
     await loadAdminPosts();
   }

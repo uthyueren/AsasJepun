@@ -25,18 +25,154 @@ export const translations = {
     // Homepage
     home: {
       heroTag: "Konnichiwa! こんにちは",
-      heroTitle: "Learn Japanese through culture, not memorization",
-      heroSubtitle: "Master Japanese by understanding the context — from Hololive streams to J-dramas, seasonal festivals to daily conversations.",
+      heroTitle: "Your guide to learning Japanese the right way",
+      heroSubtitle: "Everything you need to self-study Japanese effectively.",
       featuredTitle: "Featured Content",
-      startQuiz: "Take the Level Check Quiz",
-      viewGrammar: "Explore Grammar Library",
-      viewCulture: "Culture Lessons",
-      readBlog: "Latest Articles",
-      statsGrammar: "Grammar Points",
-      statsVocab: "Vocabulary Words",
-      statsLessons: "Culture Lessons",
+      whyTitle: "How we help you",
+      whyPoint1Title: "No more random YouTube spirals",
+      whyPoint1Desc: "We give you a clear path. Follow the roadmap from zero to conversational, or jump to whatever level you're at.",
+      whyPoint2Title: "Learn what necessary",
+      whyPoint2Desc: "Guide and resources that actually help you learn, not just read.",
+      whyPoint3Title: "Understand culture to understand the language",
+      whyPoint3Desc: "Japanese makes more sense when you understand why things work that way. We teach through context  festivals, daily life, entertainment.",
+      quickNavTitle: "Where to start?",
+      quickNavSubtitle: "Pick a section and dive in",
       ctaWhereStart: "Not sure where to start?",
       ctaTakeQuiz: "Take our quick level check quiz"
+    },
+    // Roadmap
+    roadmap: {
+      title: "Japanese Language Learning Roadmap",
+      intro: "A step-by-step guide to take you from zero to intermediate level (N3) and beyond. Click on each phase for details on learning focus.",
+      disclaimer: "⚠️ These timelines are estimates assuming consistent daily study (1-2 hours). Your actual progress depends on consistency, not intensity.",
+      goTo: "Go to section",
+      phases: {
+        phase1: "Phase 1",
+        phase2: "Phase 2",
+        phase3: "Phase 3",
+        phase4: "Phase 4",
+        phase5: "Phase 5",
+        phase6: "Phase 6",
+        phase7: "Phase 7",
+        phase8: "Phase 8",
+        phase9: "Phase 9"
+      },
+      n1: {
+        title: "Consistent Routine + N1 Prep",
+        desc: "Master near-native level Japanese with business keigo and complex structures.",
+        duration: "8 - 12 Months",
+        activity: "~1,000 Kanji | ~5,000 Vocab",
+        focusTitle: "Learning Focus:",
+        items: [
+          "Business keigo and formal expressions",
+          "Complex sentence structures (倒置法, 強調, etc.)",
+          "~1,000 kanji total",
+          "Native-level reading and listening"
+        ]
+      },
+      kana: {
+        title: "Kana (Japanese Characters)",
+        desc: "Learn Hiragana and Katakana from scratch.",
+        duration: "2 - 3 Weeks",
+        activity: "Reading only",
+        focusTitle: "Learning Focus:",
+        items: [
+          "Hiragana and Katakana (reading, not writing yet)",
+          "Dakuon, Handakuon, Yoon sounds",
+          "Reading simple words and phrases"
+        ]
+      },
+      basic: {
+        title: "Basic Phrases + Particles + Sentence Building",
+        desc: "Build your first sentences and understand how Japanese works.",
+        duration: "1 - 2 Months",
+        activity: "Speaking & Writing",
+        focusTitle: "Learning Focus:",
+        items: [
+          "Daily essential phrases (greetings, self-intro, shopping, directions)",
+          "Basic particles: は, が, を, に, で, と, から, まで",
+          "Build your first sentence: Subject は Object を Verb",
+          "Te-form as gateway to conversation"
+        ]
+      },
+      n5: {
+        title: "N5 Grammar + Vocab + Basic Kanji",
+        desc: "Start formal grammar and learn your first Kanji.",
+        duration: "1 - 2 Months",
+        activity: "~100 Kanji | ~800 Vocab",
+        focusTitle: "Learning Focus:",
+        items: [
+          "Existence (いる/ある), possession, past tense",
+          "Basic Keigo (polite language)",
+          "~100 N5 Kanji (numbers, days, time, directions)",
+          "~800 essential vocab"
+        ]
+      },
+      n5mastery: {
+        title: "N5 Mastery + Habits + Immersion",
+        desc: "Master N5, build study habits, and start immersing.",
+        duration: "2 - 3 Months",
+        activity: "~250 Kanji | ~1,500 Vocab",
+        focusTitle: "Learning Focus:",
+        items: [
+          "All N5 grammar patterns",
+          "~150 additional Kanji (身体, 食べる, 行く, etc.)",
+          "SRS setup (Anki)",
+          "Daily immersion: what to watch, read, listen to"
+        ]
+      },
+      n4bridge: {
+        title: "N4 Grammar + Vocab",
+        desc: "Build on N5 foundation with intermediate grammar and vocabulary.",
+        duration: "3 - 4 Months",
+        activity: "~300 Kanji | ~3,000 Vocab",
+        focusTitle: "Learning Focus:",
+        items: [
+          "Conditionals (たら, なら, ば)",
+          "Causative + causative-passive",
+          "Casual vs polite speech register",
+          "~3,000 vocab total"
+        ]
+      },
+      n3: {
+        title: "N3 Grammar + Kanji + Comprehension",
+        desc: "Japanese becomes more natural and you understand more.",
+        duration: "6 - 8 Months",
+        activity: "~400 Kanji | ~3,000 Vocab",
+        focusTitle: "Learning Focus:",
+        items: [
+          "Passive, causative-passive, potential forms",
+          "Keigo refinement",
+          "~400 Kanji total",
+          "Native content with subtitles, listen to natural speech"
+        ]
+      },
+      n2prep: {
+        title: "N2 Prep + Sustained Immersion",
+        desc: "Pipeline to N2 with immersion as lifestyle.",
+        duration: "Ongoing",
+        activity: "Complex Keigo | Advanced Structures",
+        focusTitle: "Learning Focus:",
+        items: [
+          "Complex keigo and advanced sentence structures",
+          "Reading unformatted text (novels, articles)",
+          "Immersion as lifestyle",
+          "N2 prep and practice"
+        ]
+      },
+      continues: {
+        title: "Learning Continues",
+        desc: "Beyond structured levels. Native content, advanced reading, speaking practice.",
+        duration: "A Lifetime",
+        activity: "Journey never really ends",
+        focusTitle: "Learning Focus:",
+        items: [
+          "Native content you actually enjoy",
+          "Advanced reading and speaking",
+          "Fluency beyond textbook levels",
+          "The journey never really ends"
+        ]
+      }
     },
     // Grammar
     grammar: {
@@ -58,7 +194,7 @@ export const translations = {
     // Culture/Vocab
     culture: {
       title: "Culture & Vocabulary",
-      subtitle: "Learn Japanese through cultural context — from vtubers to seasonal festivals.",
+      subtitle: "Learn Japanese through cultural context  from vtubers to seasonal festivals.",
       themes: {
         entertainment: "Entertainment",
         food: "Food & Drink",
@@ -95,7 +231,8 @@ export const translations = {
     about: {
       title: "About AsasJepun",
       subtitle: "Your journey from learner to teacher.",
-      storyTitle: "Our Story",
+      storyTitle: "About Me",
+      storyContent: "Hi, I'm <strong>Uthman</strong>, fellow Japanese learner! I know exactly how frustrating learning Japanese can be when kanji looks like squiggles, grammar doesn't make sense, and nothing stays in your head.<br><br>I started learning Japanese in 2018 but <strong>quit</strong> after a few months. Kanji looked terrifying, and I couldn't see how any of it would stick. After a long break, I decided to <strong>push through anyway</strong>  and it wasn't as bad as I expected.<br><br>Since 2021, I've been learning off and on since I'm quite busy with university, but things didn't really come together until <strong>mid 2025</strong>. I started consuming Japanese content <strong>every single day</strong>  whether it was Hololive streams, J-dramas, whatever kept me in the language. My comprehension improved a lot using flashcards with SRS (Spaced Repetition System).<br><br>What works for me: <strong>immersion + flashcards + cultural context</strong>. <strong>No blind memorization</strong>. Just real Japanese.<br><br>If you're serious about learning, <strong>join my class</strong> and let's do this together.",
       connectTitle: "Connect",
       followThreads: "Follow on Threads",
       joinCommunity: "Join the Community"
@@ -110,7 +247,37 @@ export const translations = {
       previous: "Previous",
       learnMore: "Learn More",
       start: "Start",
-      continue: "Continue"
+      continue: "Continue",
+      // Theme
+      darkMode: "Dark Mode",
+      lightMode: "Light Mode",
+      // Status
+      success: "Success!",
+      error: "Error! Try again",
+      // Validation
+      fillAllRequired: "Please fill in all required fields.",
+      audioNotSupported: "Your browser does not support audio playback.",
+      // Signup specific
+      submitting: "Submitting...",
+      signupSuccess: "Signup successful!",
+      signupError: "Something went wrong. Please try again."
+    },
+    // Signup Modal
+    signup: {
+      title: "Nak kelas Jepun?",
+      subtitle: "Isi form ni, saya akan contact korang dalam 24 jam",
+      name: "Nama",
+      age: "Umur",
+      phone: "No Telefon",
+      classType: "Saya nak kelas",
+      selectClass: "Pilih jenis kelas",
+      oneOnOne: "1 on 1 (RM200/bulan)",
+      group: "Berkumpulan (RM150/bulan)",
+      schedule: "Pilih hari dan masa yang available",
+      submit: "Hantar",
+      required: "* Required fields",
+      success: "Berjaya! Saya akan contact korang soon.",
+      error: "Something went wrong. Try again."
     },
     // JLPT Levels
     levels: {
@@ -174,6 +341,50 @@ export const translations = {
         exploreResources: "Explore Learning Resources"
       }
     },
+    // Admin
+    admin: {
+      title: "Admin Dashboard",
+      loginTitle: "Admin Login",
+      loginSubtitle: "Enter your admin password to access the dashboard",
+      password: "Password",
+      login: "Login",
+      logout: "Logout",
+      loadingPosts: "Loading posts...",
+      loadingSignups: "Loading signups...",
+      noPosts: "No posts yet. Click \"New Post\" to create your first blog post.",
+      noSignups: "No signups yet.",
+      newPost: "New Post",
+      editPost: "Edit",
+      deletePost: "Delete",
+      postTitle: "Title",
+      postSlug: "Slug",
+      postExcerpt: "Excerpt",
+      postContent: "Content",
+      postTags: "Tags (comma separated)",
+      savePost: "Save Post",
+      cancel: "Cancel",
+      confirmDelete: "Are you sure you want to delete this post?",
+      signupsTitle: "Class Signups",
+      createNewPost: "Create New Post",
+      readingTime: "Reading Time (minutes)",
+      tagsPlaceholder: "n5, grammar, mindset",
+      contentEnLabel: "Content (English) * — Markdown supported",
+      contentMyLabel: "Content (Malay)",
+      contentPlaceholder: "# Heading\n\nYour content here...",
+      contentMyPlaceholder: "Malay content here (optional)...",
+      signups: {
+        name: "Name",
+        age: "Age",
+        phone: "Phone",
+        classType: "Class Type",
+        schedule: "Schedule",
+        date: "Date"
+      },
+      requiredFields: "Please fill in all required fields (English title, slug, excerpt, content).",
+      postSaved: "Post saved successfully!",
+      postSavedLocal: "Post saved locally (Supabase not configured). It will appear on this device.",
+      fillAllRequired: "Please fill in all required fields."
+    },
     // Anki & Vocab Mining
     anki: {
       title: "Anki & Vocab Mining",
@@ -217,11 +428,11 @@ export const translations = {
         },
         afternoon: {
           title: "Afternoon (20-30 min)",
-          desc: "Read Japanese content — manga, news, or light novels suited to your level."
+          desc: "Read Japanese content  manga, news, or light novels suited to your level."
         },
         evening: {
           title: "Evening (15-30 min)",
-          desc: "Watch or listen to Japanese media — anime, dramas, podcasts, or YouTube."
+          desc: "Watch or listen to Japanese media  anime, dramas, podcasts, or YouTube."
         }
       },
       resources: {
@@ -256,7 +467,7 @@ export const translations = {
       },
       tips: {
         title: "Pro Tips",
-        mining: "Mine vocabulary from content you enjoy — it makes learning feel less like studying.",
+        mining: "Mine vocabulary from content you enjoy  it makes learning feel less like studying.",
         shadowing: "Practice shadowing (repeat after speakers) to improve pronunciation and speaking flow.",
         writing: "Keep a Japanese diary. Even simple sentences help reinforce what you've learned.",
         thinking: "Try to think in Japanese during your daily life. Describe objects around you in your head."
@@ -287,18 +498,153 @@ export const translations = {
     // Homepage
     home: {
       heroTag: "Konnichiwa! こんにちは",
-      heroTitle: "Belajar Jepun melalui budaya, bukan hafalan",
-      heroSubtitle: "Kuasai bahasa Jepun dengan memahami konteks — dari strim Hololive ke drama J, perayaan bermusim hingga percakapan harian.",
+      heroTitle: "Panduan anda belajar bahasa Jepun dengan cara yang betul",
+      heroSubtitle: "Semua yang anda perlukan untuk belajar bahasa Jepun secara efektif.",
       featuredTitle: "Kandungan Pilihan",
-      startQuiz: "Ambik Kuiz Tahap",
-      viewGrammar: "Lihat Perpustakaan Tatabahasa",
-      viewCulture: "Pelajaran Budaya",
-      readBlog: "Artikel Terbaru",
-      statsGrammar: "Titik Tatabahasa",
-      statsVocab: "Perkataan Vocab",
-      statsLessons: "Pelajaran Budaya",
+      whyTitle: "Bagaimana kami bantu anda",
+      whyPoint1Title: "Tak ada lagi scroll YouTube tak ingat arah",
+      whyPoint1Desc: "Kami beri anda jalan yang jelas. Follow roadmap dari zero ke boleh converse, atau mula di tahap mana pun anda sekarang.",
+      whyPoint2Title: "Belajar apa yang perlu",
+      whyPoint2Desc: "Panduan dan sumber yang benar-benar bantu korang belajar, bukan sekadar baca je.",
+      whyPoint3Title: "Faham budaya untuk faham bahasa",
+      whyPoint3Desc: "Bahasa Jepun masuk akal bila anda faham kenapa ia macamtu. Kami ajar melalui konteks  perayaan, kehidupan harian, hiburan.",
+      quickNavTitle: "Nak mula dari mana?",
+      quickNavSubtitle: "Pilih seksyen dan mulakan",
       ctaWhereStart: "Tak pasti nak mula dari mana?",
       ctaTakeQuiz: "Ambik kuiz semakan tahap cepat kami"
+    },
+    // Roadmap
+    roadmap: {
+      title: "Roadmap Pembelajaran Bahasa Jepun",
+      intro: "Panduan langkah demi langkah untuk bawa anda dari zero ke tahap pertengahan (N3) dan ke semua yang lain. Klik pada setiap fasa untuk perincian fokus pembelajaran.",
+      disclaimer: "⚠️ Anggaran masa ni adalah berdasarkan anda konsisten belajar каждый hari (1-2 jam). Progress sebenar bergantung pada konsistensi, bukan intensity.",
+      phases: {
+        phase1: "Fasa 1",
+        phase2: "Fasa 2",
+        phase3: "Fasa 3",
+        phase4: "Fasa 4",
+        phase5: "Fasa 5",
+        phase6: "Fasa 6",
+        phase7: "Fasa 7",
+        phase8: "Fasa 8",
+        phase9: "Fasa 9"
+      },
+      n1: {
+        title: "Routine Konsisten + Prep N1",
+        desc: "Kuasai bahasa Jepun tahap hampir native dengan keigo bisnes dan struktur kompleks.",
+        duration: "8 - 12 Bulan",
+        activity: "~1,000 Kanji | ~5,000 Vocab",
+        focusTitle: "Fokus Pembelajaran:",
+        items: [
+          "Business keigo dan ekspresi formal",
+          "Struktur ayat kompleks (倒置法, 強調, dll)",
+          "~1,000 kanji total",
+          "Reading dan listening tahap native"
+        ]
+      },
+      kana: {
+        title: "Kana (Aksara Jepun)",
+        desc: "Belajar Hiragana dan Katakana dari sifar.",
+        duration: "2 - 3 Minggu",
+        activity: "Reading only",
+        focusTitle: "Fokus Pembelajaran:",
+        items: [
+          "Hiragana dan Katakana (reading, bukan writing dulu)",
+          "Dakuon, Handakuon, Yoon sounds",
+          "Membaca perkataan dan frasa ringkas"
+        ]
+      },
+      basic: {
+        title: "Frasa Asas + Zarah + Bina Ayat",
+        desc: "Bina ayat pertama anda dan faham cara Jepun berfungsi.",
+        duration: "1 - 2 Bulan",
+        activity: "Speaking & Writing",
+        focusTitle: "Fokus Pembelajaran:",
+        items: [
+          "Frasa harian penting (salam, intro diri, shopping, arah)",
+          "Zarah asas: は, が, を, に, で, と, から, まで",
+          "Bina ayat pertama: Subjek は Object を Verb",
+          "Te-form sebagai pintu masuk ke conversation"
+        ]
+      },
+      n5: {
+        title: "N5 Grammar + Vocab + Kanji Asas",
+        desc: "Mula belajar tatabahasa formal dan Kanji pertama.",
+        duration: "1 - 2 Bulan",
+        activity: "~100 Kanji | ~800 Vocab",
+        focusTitle: "Fokus Pembelajaran:",
+        items: [
+          "Existence (いる/ある), possession, past tense",
+          "Basic Keigo (bahasa sopan)",
+          "~100 Kanji N5 (nombor, hari, masa, arah)",
+          "~800 vocab esencial"
+        ]
+      },
+      n5mastery: {
+        title: "N5 Mastery + Habits + Immersion",
+        desc: "Kuasai N5, bina habit belajar, dan mulakan rendam diri.",
+        duration: "2 - 3 Bulan",
+        activity: "~250 Kanji | ~1,500 Vocab",
+        focusTitle: "Fokus Pembelajaran:",
+        items: [
+          "Semua pattern grammar N5",
+          "~150 Kanji tambahan (身体, 食べる, 行く, dll)",
+          "SRS setup (Anki)",
+          "Daily immersion: apa nak tengok, baca, dengar"
+        ]
+      },
+      n4bridge: {
+        title: "N4 Grammar + Vocab",
+        desc: "Bina atas asas N5 dengan tatabahasa dan vocabulary pertengahan.",
+        duration: "3 - 4 Bulan",
+        activity: "~300 Kanji | ~3,000 Vocab",
+        focusTitle: "Fokus Pembelajaran:",
+        items: [
+          "Conditionals (たら, なら, ば)",
+          "Causative + causative-passive",
+          "Casual vs polite speech register",
+          "~3,000 vocab total"
+        ]
+      },
+      n3: {
+        title: "N3 Grammar + Kanji + Comprehension",
+        desc: "Bahasa Jepun jadi lebih natural dan anda faham lebih banyak.",
+        duration: "6 - 8 Bulan",
+        activity: "~400 Kanji | ~3,000 Vocab",
+        focusTitle: "Fokus Pembelajaran:",
+        items: [
+          "Passive, causative-passive, potential forms",
+          "Keigo refinement",
+          "~400 Kanji total",
+          "Native content with subtitles, dengar natural speech"
+        ]
+      },
+      n2prep: {
+        title: "N2 Prep + Sustained Immersion",
+        desc: "Pipeline ke N2 dengan immersion sebagai lifestyle.",
+        duration: "Ongoing",
+        activity: "Complex Keigo | Advanced Structures",
+        focusTitle: "Fokus Pembelajaran:",
+        items: [
+          "Complex keigo dan advanced sentence structures",
+          "Reading unformatted text (novels, articles)",
+          "Immersion as lifestyle",
+          "N2 prep and practice"
+        ]
+      },
+      continues: {
+        title: "Learning Continues",
+        desc: "Di luar structured levels. Native content, advanced reading, speaking practice.",
+        duration: "Seumur Hidup",
+        activity: "Journey never really ends",
+        focusTitle: "Fokus Pembelajaran:",
+        items: [
+          "Native content you actually enjoy",
+          "Advanced reading and speaking",
+          "Fluency beyond textbook levels",
+          "The journey never really ends"
+        ]
+      }
     },
     // Grammar
     grammar: {
@@ -320,7 +666,7 @@ export const translations = {
     // Culture/Vocab
     culture: {
       title: "Budaya & Vocab",
-      subtitle: "Belajar Jepun melalui konteks budaya — dari vtuber hingga perayaan bermusim.",
+      subtitle: "Belajar Jepun melalui konteks budaya  dari vtuber hingga perayaan bermusim.",
       themes: {
         entertainment: "Hiburan",
         food: "Makanan & Minuman",
@@ -357,7 +703,8 @@ export const translations = {
     about: {
       title: "Tentang AsasJepun",
       subtitle: "Perjalanan anda dari pelajar ke guru.",
-      storyTitle: "Cerita Kami",
+      storyTitle: "Tentang Saya",
+      storyContent: "Hi, saya <strong>Uthman</strong>, student Jepun macam korang! Saya tahu betapa frustrasinya belajar Jepun bila kanji macam garis rawak, grammar tak masuk akal, dan nothing stays in your head.<br><br>Saya mula belajar Jepun pada 2018 tapi <strong>berhenti</strong> selepas beberapa bulan. Kanji kelihatan seram, dan saya tak nampak bagaimana ia akan melekat. Selepas rehat lama, saya decide untuk <strong>paksa belajar</strong>  dan tak jadi seberat yang saya bayang.<br><br>Sejak 2021, saya belajar secara on and off sebab busy dengan universiti, tapi sampai <strong>mid 2025</strong> baru semuanya masuk. Saya mula konsum kandungan Jepun <strong>setiap hari</strong>  sama ada Hololive streams, J-drama, apa je yang saya boleh jejek dalam bahasa tu. Pemahaman saya meningkat banyak dengan flashcards dan SRS (Spaced Repetition System).<br><br>Apa yang berkesan untuk saya: <strong>immersion + flashcards + konteks budaya</strong>. <strong>Jangan hafal secara buta</strong>. Hanya Jepun yang sebenar.<br><br>Kalau korang serius nak belajar, <strong>sertai kelas saya</strong> dan kita belajar sama-sama.",
       connectTitle: "Sambung",
       followThreads: "Ikuti di Threads",
       joinCommunity: " Sertai Komuniti"
@@ -436,6 +783,50 @@ export const translations = {
         exploreResources: "Terokai Sumber Pembelajaran"
       }
     },
+    // Admin
+    admin: {
+      title: "Dashboard Admin",
+      loginTitle: "Login Admin",
+      loginSubtitle: "Masukkan password admin untuk akses dashboard",
+      password: "Password",
+      login: "Login",
+      logout: "Logout",
+      loadingPosts: "Memuatkan posts...",
+      loadingSignups: "Memuatkan signups...",
+      noPosts: "Tiada post lagi. Klik \"Post Baru\" untuk buat post blog pertama.",
+      noSignups: "Tiada signup lagi.",
+      newPost: "Post Baru",
+      editPost: "Edit",
+      deletePost: "Delete",
+      postTitle: "Tajuk",
+      postSlug: "Slug",
+      postExcerpt: "Excerpt",
+      postContent: "Kandungan",
+      postTags: "Tags (comma separated)",
+      savePost: "Simpan Post",
+      cancel: "Batal",
+      confirmDelete: "Betul nak delete post ni?",
+      signupsTitle: "Signup Kelas",
+      createNewPost: "Buat Post Baru",
+      readingTime: "Masa baca (minit)",
+      tagsPlaceholder: "n5, tatabahasa, mindset",
+      contentEnLabel: "Kandungan (English) * — Markdown supported",
+      contentMyLabel: "Kandungan (Malay)",
+      contentPlaceholder: "# Heading\n\nKandungan anda di sini...",
+      contentMyPlaceholder: "Kandungan Malay di sini (optional)...",
+      signups: {
+        name: "Nama",
+        age: "Umur",
+        phone: "Telefon",
+        classType: "Jenis Kelas",
+        schedule: "Jadual",
+        date: "Tarikh"
+      },
+      requiredFields: "Sila isi semua ruangan yang diperlukan (tajuk English, slug, excerpt, content).",
+      postSaved: "Post berjaya disimpan!",
+      postSavedLocal: "Post disimpan secara lokal (Supabase tak dikonfiguras). Ia akan muncul pada peranti ini.",
+      fillAllRequired: "Sila isi semua ruangan yang diperlukan."
+    },
     // Anki & Vocab Mining
     anki: {
       title: "Anki & Lombong Vocab",
@@ -479,11 +870,11 @@ export const translations = {
         },
         afternoon: {
           title: "Petang (20-30 min)",
-          desc: "Baca kandungan Jepun — manga, berita, atau novel ringan yang sesuai dengan tahap anda."
+          desc: "Baca kandungan Jepun  manga, berita, atau novel ringan yang sesuai dengan tahap anda."
         },
         evening: {
           title: "Malam (15-30 min)",
-          desc: "Tengok atau dengar media Jepun — anime, drama, podcast, atau YouTube."
+          desc: "Tengok atau dengar media Jepun  anime, drama, podcast, atau YouTube."
         }
       },
       resources: {
@@ -518,7 +909,7 @@ export const translations = {
       },
       tips: {
         title: "Tips Pro",
-        mining: "Mining vocabulary dari kandungan yang anda enjoy — ia buat pembelajaran rasa kurang macam study.",
+        mining: "Mining vocabulary dari kandungan yang anda enjoy  ia buat pembelajaran rasa kurang macam study.",
         shadowing: "Practice shadowing (ulang selepas penutur) untuk improve sebutan dan kelancaran pertuturan.",
         writing: "Keep diary Jepun. Malah ayat simple bantu reinforce apa yang anda dah belajar.",
         thinking: "Cuba think dalam Jepun masa kehidupan harian. Huraikan objek di sekeliling anda dalam kepala."

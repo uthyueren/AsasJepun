@@ -496,7 +496,7 @@ export const RESOURCES = {
       name: 'Clozemaster',
       description: 'Fill-in-the-blank sentences for vocabulary and grammar practice. Gamified learning.',
       url: 'https://clozemaster.com',
-      icon: '🎮'
+      icon: 'gamepad-2'
     }
   ],
   media: [
@@ -504,19 +504,19 @@ export const RESOURCES = {
       name: 'Netflix (Japan)',
       description: 'Japanese Netflix has tons of J-dramas and anime with Japanese subtitles.',
       url: 'https://netflix.com',
-      icon: '📺'
+      icon: 'tv'
     },
     {
       name: 'AbemaTV',
       description: 'Free Japanese streaming service with live TV, dramas, and anime.',
       url: 'https://abema.tv',
-      icon: '📱'
+      icon: 'smartphone'
     },
     {
       name: 'YouTube - Japanese Learning Channels',
       description: 'Follow channels like Japanese Ammo with Misa, ToKini Andy, and Comprehensible Japanese.',
       url: 'https://youtube.com',
-      icon: '▶️'
+      icon: 'play'
     }
   ],
   tools: [
@@ -524,19 +524,19 @@ export const RESOURCES = {
       name: 'Bunpro',
       description: 'Grammar SRS system organized by JLPT level. Connects grammar to example sentences.',
       url: 'https://bunpro.jp',
-      icon: '📝'
+      icon: 'file-text'
     },
     {
       name: 'Migaku',
       description: 'Browser extension and Anki add-on for mining sentences from native content.',
       url: 'https://migaku.io',
-      icon: '🔧'
+      icon: 'wrench'
     },
     {
       name: 'Morphman',
       description: 'Anki add-on that automatically orders your cards for optimal learning.',
       url: 'https://massimmersionapproach.com/morphman',
-      icon: '⚙️'
+      icon: 'settings'
     }
   ]
 };
@@ -613,34 +613,16 @@ export const ANKI_CONTENT = {
   },
   recommendedDecks: [
     {
-      name: "N5 Core Grammar Deck",
-      description: { en: "Essential grammar patterns for JLPT N5 with example sentences", my: "Corak tatabahasa penting untuk JLPT N5 dengan contoh ayat" },
-      url: "https://ankiweb.net/shared/decks/japanese",
-      level: "N5"
-    },
-    {
-      name: "N4 Core Grammar Deck",
-      description: { en: "Intermediate grammar patterns with contextual example sentences", my: "Corak tatabahasa pertengahan dengan contoh ayat kontekstual" },
-      url: "https://ankiweb.net/shared/decks/japanese",
-      level: "N4"
-    },
-    {
-      name: "N3 Grammar Deck",
-      description: { en: "Advanced grammar patterns for intermediate-advanced learners", my: "Corak tatabahasa lanjutan untuk pelajar pertengahan-lanjutan" },
-      url: "https://ankiweb.net/shared/decks/japanese",
-      level: "N3"
-    },
-    {
-      name: "Kanji Damage",
-      description: { en: "Famous kanji deck using stories and mnemonics. Great for remembering kanji meanings and readings.", my: "Dek kanji famous menggunakan cerita dan mnemonik. Bagus untuk ingat makna dan bacaan kanji." },
-      url: "https://kanjidamage.github.io",
-      level: "All"
-    },
-    {
-      name: "Core 2K/6K Vocabulary Deck",
-      description: { en: "The most common 2000-6000 Japanese words with sentence context", my: "2000-6000 perkataan Jepun paling common dengan konteks ayat" },
+      name: "Core 2K/6K Deck",
+      description: { en: "The most common 2000-6000 Japanese words with sentence context. Essential vocabulary for any level.", my: "2000-6000 perkataan Jepun paling common dengan konteks ayat. Vocabulary penting untuk sebarang tahap." },
       url: "https://ankiweb.net/shared/decks/japanese",
       level: "N5-N3"
+    },
+    {
+      name: "Kaishi 1.5K Deck",
+      description: { en: "Curated 1500 most practical Japanese words, great for beginners moving beyond basics.", my: "1500 perkataan Jepun paling praktikal, bagus untuk pemula yang nak pergi lebih jauh." },
+      url: "https://ankiweb.net/shared/decks/kaishi",
+      level: "N5"
     }
   ],
   miningSection: {

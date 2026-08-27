@@ -102,18 +102,14 @@
                     <h2 class="current-section-title" id="section-title">Pengenalan</h2>
                 </div>
                 <div class="header-right">
-                    <!-- Login Button -->
-                    <a href="#admin" class="header-login-btn" id="login-btn" title="Admin Login">
-                        <i data-lucide="log-in"></i>
-                        <span>Login</span>
-                    </a>
-
+                    <!-- Join Class Button -->
+                    <button class="join-class-btn" id="join-class-btn" title="Join my class">
+                        Nak kelas?
+                    </button>
                     <!-- Ko-fi Button -->
                     <a href="https://ko-fi.com/uthmannn_" target="_blank" rel="noopener" class="kofi-btn" id="kofi-btn" title="Support on Ko-fi">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path d="M4.5 2C2.015 2 0 4.257 0 7.143v9.714C0 19.743 2.015 22 4.5 22H6v-7.143C6 12.9 7.12 11.4 9 11.4s3 .9 3 2.457V22h1.5c2.485 0 4.5-2.257 4.5-5.143V7.143C24 4.257 21.985 2 19.5 2H4.5z"/>
-                        </svg>
-                        <span>Donate ❤️</span>
+                        <img src="logos/ko-fi-logotype-27349_512.png" alt="Ko-fi" width="18" height="18">
+                        <span>Donate</span>
                     </a>
                 </div>
             </header>
@@ -126,61 +122,90 @@
     </div>
 
     <!-- Modals -->
-    <!-- Kana Detail Modal -->
-    <div class="modal-overlay" id="kana-modal">
-        <div class="modal-container animate-scale">
-            <button class="modal-close" id="kana-modal-close" aria-label="Close modal">
+    <!-- Class Signup Modal -->
+    <div class="modal-overlay" id="signup-modal">
+        <div class="modal-container signup-modal-container animate-scale">
+            <button class="modal-close" id="signup-modal-close" aria-label="Close modal">
                 <i data-lucide="x"></i>
             </button>
-            <div class="kana-detail-body">
-                <div class="kana-detail-header">
-                    <div class="kana-large-display" id="modal-kana-char">あ</div>
-                    <div class="kana-romaji-display" id="modal-kana-romaji">a</div>
-                </div>
-                <div class="kana-detail-content">
-                    <h3>Cara Sebutan & Contoh</h3>
-                    <div class="example-item">
-                        <strong>Contoh perkataan:</strong>
-                        <span id="modal-kana-example">朝 (asa) - morning</span>
+            <div class="signup-modal-body">
+                <h2 class="signup-title">Nak kelas Jepun?</h2>
+                <p class="signup-subtitle">Isi form ni, saya akan contact korang dalam 24 jam</p>
+                <form id="signup-form" class="signup-form">
+                    <div class="form-group">
+                        <label for="signup-name">Nama <span class="required">*</span></label>
+                        <input type="text" id="signup-name" name="name" required placeholder="Nama korang">
                     </div>
-                    <button class="pronounce-btn" id="modal-pronounce-btn">
-                        <i data-lucide="volume-2"></i>
-                        Dengar Sebutan
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Kanji Writing Practice Modal -->
-    <div class="modal-overlay" id="kanji-modal">
-        <div class="modal-container kanji-modal-container animate-scale">
-            <button class="modal-close" id="kanji-modal-close" aria-label="Close modal">
-                <i data-lucide="x"></i>
-            </button>
-            <div class="kanji-modal-body">
-                <div class="kanji-info-side">
-                    <div class="kanji-modal-char" id="modal-kanji-char">日</div>
-                    <div class="kanji-modal-mean" id="modal-kanji-meaning">day, sun</div>
-                    <div class="kanji-modal-readings">
-                        <div><strong>Kunyomi:</strong> <span id="modal-kanji-kunyomi">ひ, -び</span></div>
-                        <div><strong>Onyomi:</strong> <span id="modal-kanji-onyomi">ニチ, ジツ</span></div>
-                        <div><strong>Strokes:</strong> <span id="modal-kanji-strokes">4</span></div>
+                    <div class="form-group">
+                        <label for="signup-age">Umur <span class="required">*</span></label>
+                        <input type="text" id="signup-age" name="age" required placeholder="Berapa umur?">
                     </div>
-                    <div class="kanji-modal-examples">
-                        <strong>Example:</strong>
-                        <p id="modal-kanji-examples">日本 (Nihon - Japan)</p>
+                    <div class="form-group">
+                        <label for="signup-phone">No Telefon <span class="required">*</span></label>
+                        <input type="tel" id="signup-phone" name="phone" required placeholder="012-345 6789">
                     </div>
-                </div>
-                <div class="kanji-canvas-side">
-                    <!-- Stroke Order Display -->
-                    <div class="stroke-order-section">
-                        <h4>Susunan Loretan</h4>
-                        <div class="stroke-order-container" id="stroke-order-container">
-                            <p class="loading-stroke">Memuatkan...</p>
+                    <div class="form-group">
+                        <label for="signup-class-type">Saya nak kelas <span class="required">*</span></label>
+                        <select id="signup-class-type" name="classType" required>
+                            <option value="">Pilih jenis kelas</option>
+                            <option value="1on1">1 on 1 (RM200/bulan)</option>
+                            <option value="group">Berkumpulan (RM150/bulan)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Pilih hari dan masa yang available <span class="required">*</span></label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-10am"> Isnin 10am</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-12pm"> Isnin 12pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-2pm"> Isnin 2pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-5pm"> Isnin 5pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-8pm"> Isnin 8pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-10pm"> Isnin 10pm</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-10am"> Selasa 10am</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-12pm"> Selasa 12pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-2pm"> Selasa 2pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-5pm"> Selasa 5pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-8pm"> Selasa 8pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-10pm"> Selasa 10pm</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-10am"> Rabu 10am</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-12pm"> Rabu 12pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-2pm"> Rabu 2pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-5pm"> Rabu 5pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-8pm"> Rabu 8pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-10pm"> Rabu 10pm</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-10am"> Khamis 10am</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-12pm"> Khamis 12pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-2pm"> Khamis 2pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-5pm"> Khamis 5pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-8pm"> Khamis 8pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-10pm"> Khamis 10pm</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-10am"> Sabtu 10am</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-12pm"> Sabtu 12pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-2pm"> Sabtu 2pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-5pm"> Sabtu 5pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-8pm"> Sabtu 8pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-10pm"> Sabtu 10pm</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-10am"> Ahad 10am</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-12pm"> Ahad 12pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-2pm"> Ahad 2pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-5pm"> Ahad 5pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-8pm"> Ahad 8pm</label>
+                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-10pm"> Ahad 10pm</label>
                         </div>
                     </div>
-                </div>
+                    <button type="submit" class="signup-submit-btn">Hantar</button>
+                </form>
+                <p class="signup-note">* Required fields</p>
             </div>
         </div>
     </div>
