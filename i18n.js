@@ -100,14 +100,6 @@ export const translations = {
       followThreads: "Follow on Threads",
       joinCommunity: "Join the Community"
     },
-    // Progress
-    progress: {
-      title: "Learning Progress",
-      quizzesPassed: "Quizzes Passed",
-      itemsLearned: "Items Learned",
-      grammarLearned: "Grammar Learned",
-      vocabLearned: "Vocabulary Learned"
-    },
     // Common
     common: {
       loading: "Loading...",
@@ -369,14 +361,6 @@ export const translations = {
       connectTitle: "Sambung",
       followThreads: "Ikuti di Threads",
       joinCommunity: " Sertai Komuniti"
-    },
-    // Progress
-    progress: {
-      title: "Kemajuan Belajar",
-      quizzesPassed: "Kuiz Diluluskan",
-      itemsLearned: "Item Dipelajari",
-      grammarLearned: "Tatabahasa Dipelajari",
-      vocabLearned: "Vocabulary Dipelajari"
     },
     // Common
     common: {

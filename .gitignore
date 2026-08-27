@@ -10,3 +10,7 @@ test-results
 .claude/skills/*
 !.claude/skills/ui-ux-pro-max-skill
 .agents
+vocab.js
+kanji.js
+kanji_fixed.js
+grammar.js

@@ -711,16 +711,6 @@ export const GRAMMAR_DATA = {
         commonMistakes: { en: "Potential form conjugates as a godan verb.", my: "Bentuk keupayaan berkonjugasi seperti kata kerja godan." }
       },
       {
-        slug: "n4-te-aru",
-        title: { en: "〜てある - Resultant State (Preparation)", my: "〜てある - Keadaan Hasil (Penyediaan)" },
-        formation: "Verb て-form + ある",
-        explanation: { en: "Expresses something has been done in preparation.", my: "Meneritakan sesuatu telah dilakukan sebagai penyediaan." },
-        examples: [
-          { japanese: "予約してある。", romaji: "Yoyaku shite aru.", malay: "Sudah ditempah." }
-        ],
-        commonMistakes: { en: "てある implies someone did it intentionally.", my: "てある membayangkan seseorang buat dengan sengaja." }
-      },
-      {
         slug: "n4-te-ok",
         title: { en: "〜ておく - Do in advance", my: "〜ておく - Buat dulu" },
         formation: "Verb て-form + おく",
@@ -789,16 +779,6 @@ export const GRAMMAR_DATA = {
           { japanese: "彼は約束を忘れたみたいです。", romaji: "Kare wa yakusoku o wasureta mitai desu.", malay: "Dia macam dah lupa janji." }
         ],
         commonMistakes: { en: "みたい is more casual than ようだ.", my: "みたい lebih casual daripada ようだ." }
-      },
-      {
-        slug: "n4-sugiru",
-        title: { en: "〜すぎる - Too much", my: "〜すぎる - Terlalu" },
-        formation: "Verb stem / Adj + すぎる",
-        explanation: { en: "Expresses something is too much/excessive.", my: "Meneritakan sesuatu terlalu banyak/berlebihan." },
-        examples: [
-          { japanese: "食べすぎました。", romaji: "Tabesugimashita.", malay: "Saya makan terlalu banyak." }
-        ],
-        commonMistakes: { en: "すぎる is used when something is excessive.", my: "すぎる digunakan bila sesuatu berlebihan." }
       },
       {
         slug: "n4-hodo",
@@ -871,16 +851,6 @@ export const GRAMMAR_DATA = {
         commonMistakes: { en: "べきだ is quite strong - for lighter suggestions use 〜た方がいい.", my: "べきだ agak kuat - untuk cadangan ringan guna 〜た方がいい." }
       },
       {
-        slug: "n4-koto-ga-dekiru",
-        title: { en: "ことができる - Can/Be able to", my: "ることができる - Boleh" },
-        formation: "Verb dict + ことができる",
-        explanation: { en: "Expresses ability or possibility.", my: "Meneritakan keupayaan atau kemungkinan." },
-        examples: [
-          { japanese: "日本語を話すことができます。", romaji: "Nihongo wo hanasu koto ga dekimasu.", malay: "Saya boleh berbahasa Jepun." }
-        ],
-        commonMistakes: { en: "Use the dictionary form before こと.", my: "Guna bentuk kamus sebelum こと." }
-      },
-      {
         slug: "n4-node",
         title: { en: "〜ので - Because", my: "〜ので - sebab" },
         formation: "Plain sentence + ので",
@@ -899,16 +869,6 @@ export const GRAMMAR_DATA = {
           { japanese: "参加者のみ入場できます。", romaji: "Sankasha nomi nyuujou dekimasu.", malay: "Hanya peserta boleh masuk." }
         ],
         commonMistakes: { en: "のみ is a formal equivalent of だけ.", my: "のみ adalah formal equivalent bagi だけ." }
-      },
-      {
-        slug: "n4-hoshii",
-        title: { en: "ほしい - Want (for things)", my: "ほしい - Nak (untuk barang)" },
-        formation: "N + が + ほしい / Verb + ほしい",
-        explanation: { en: "Expresses wanting something or wanting to do something.", my: "Meneritakan nak sesuatu atau nak buat sesuatu." },
-        examples: [
-          { japanese: "水がほしい。", romaji: "Mizu ga hoshii.", malay: "Saya nak air." }
-        ],
-        commonMistakes: { en: "Use 〜たい for wanting to do verbs.", my: "Guna 〜たい untuk kata kerja." }
       },
       {
         slug: "n4-yasui",
@@ -1277,26 +1237,6 @@ export const GRAMMAR_DATA = {
         commonMistakes: { en: "Use dictionary form before ために, NOT て-form.", my: "Guna bentuk kamus sebelum ために, BUKAN て-form." }
       },
       {
-        slug: "n3-koto-ni-naru",
-        title: { en: "〜ことになる - It has been decided that", my: "〜ことになる - Sudah decided bahawa" },
-        formation: "Verb dictionary + ことになる",
-        explanation: { en: "A decision has been made or something arranged.", my: "Keputusan telah dibuat atau sesuatu telah diatur." },
-        examples: [
-          { japanese: "来月日本に行くことになった。", romaji: "Raigetsu Nihon ni iku koto ni natta.", malay: "Saya akan pergi ke Jepun bulan depan." }
-        ],
-        commonMistakes: { en: "For decisions made by others/circumstances.", my: "Untuk keputusan oleh orang lain/keadaan." }
-      },
-      {
-        slug: "n3-nakute-mo-ii",
-        title: { en: "〜なくてもいい - Don\\'t have to", my: "〜なくてもいい - Tak perlu" },
-        formation: "Verb ない-form + なくてもいい",
-        explanation: { en: "Something is not necessary.", my: "Sesuatu tidak diperlukan." },
-        examples: [
-          { japanese: "行かなくてもいい。", romaji: "Ik nakute mo ii.", malay: "Tak perlu pergi." }
-        ],
-        commonMistakes: { en: "Permission to NOT do something.", my: "Keizinan untuk TIDAK buat sesuatu." }
-      },
-      {
         slug: "n3-hodo",
         title: { en: "〜ほど - To the extent that", my: "〜ほど - sehingga tahap" },
         formation: "Sentence + ほど",
@@ -1357,16 +1297,6 @@ export const GRAMMAR_DATA = {
         commonMistakes: { en: "について focuses on the topic being discussed.", my: "について fokus pada topik yang dibincangkan." }
       },
       {
-        slug: "n3-ni-kansuru",
-        title: { en: "〜に関する - Regarding/Concerning", my: "〜に関する - Mengenai" },
-        formation: "Noun + に関する",
-        explanation: { en: "Regarding / concerning.", my: "Mengenai / Berkaitan." },
-        examples: [
-          { japanese: "日本文化に関する本を買いました。", romaji: "Nihon bunka ni kansuru hon wo kaimashita.", malay: "Saya beli buku mengenai budaya Jepun." }
-        ],
-        commonMistakes: { en: "に関する must be followed by a noun.", my: "に関する mestilah diikuti oleh kata nama." }
-      },
-      {
         slug: "n3-ta-koto-ga-aru",
         title: { en: "〜たことがある - Past Experience", my: "〜たことがある - Pernah" },
         formation: "Verb た-form + ことがある",
@@ -1397,16 +1327,6 @@ export const GRAMMAR_DATA = {
         commonMistakes: { en: "みたいだ is casual, ようだ is more formal.", my: "みたいだ casual, ようだ lebih formal." }
       },
       {
-        slug: "n3-beki",
-        title: { en: "〜べきだ - Should/Ought to", my: "〜べきだ - Patut" },
-        formation: "Verb plain form + べきだ",
-        explanation: { en: "Should / ought to.", my: "Patut / Seharusnya." },
-        examples: [
-          { japanese: "約束は守るべきだ。", romaji: "Yakusoku wa mamoru beki da.", malay: "Patut tunaikan janji." }
-        ],
-        commonMistakes: { en: "べきだ is strong obligation.", my: "べきだ adalah obligasi yang kuat." }
-      },
-      {
         slug: "n3-nai-kereba-narimasen",
         title: { en: "〜なければならない - Must/Necessary", my: "〜なければならない - Mesti" },
         formation: "Verb ない + なければならない",
@@ -1415,26 +1335,6 @@ export const GRAMMAR_DATA = {
           { japanese: "行かなければならない。", romaji: "Ikanakereba naranai.", malay: "Saya mestilah pergi." }
         ],
         commonMistakes: { en: "This is a strong obligation.", my: "Ini adalah obligasi yang kuat." }
-      },
-      {
-        slug: "n3-sou-desu",
-        title: { en: "〜そうです - It seems/I heard", my: "〜そうです - Nampaknya" },
-        formation: "Verb stem / Sentence + そう",
-        explanation: { en: "Appearance or hearsay.", my: "Rupa atau khabar." },
-        examples: [
-          { japanese: "雨が降りそうです。", romaji: "Ame ga furi sou desu.", malay: "Nampaknya akan hujan." }
-        ],
-        commonMistakes: { en: "〜そう with adjectives drops いい → 良さそう.", my: "〜そう dengan adjektif tukar いい → 良さそう." }
-      },
-      {
-        slug: "n3-wake-nai",
-        title: { en: "〜わけがない - There\\'s no way/Impossible", my: "〜わけがない - Tak mungkin" },
-        formation: "Plain sentence + わけがない",
-        explanation: { en: "Strong denial. 'There's no way'.", my: "Penafian kuat. 'Tak mungkin'." },
-        examples: [
-          { japanese: "彼が嘘をつくわけがない。", romaji: "Kare ga uso wo tsuku wake ga nai.", malay: "Tak mungkin dia tipu." }
-        ],
-        commonMistakes: { en: "〜わけがない is stronger than 〜ない.", my: "〜わけがない lebih kuat daripada 〜ない." }
       },
       {
         slug: "n3-hito",
@@ -1456,15 +1356,6 @@ export const GRAMMAR_DATA = {
         ],
         commonMistakes: { en: "ように uses dictionary/ない-form, not て-form.", my: "ように guna bentuk kamus/ない-form, bukan て-form." }
       },
-      {
-        slug: "n3-koto",
-        title: { en: "〜こと - Nominalizer", my: "〜こと - Pengkinian" },
-        formation: "Verb + こと",
-        explanation: { en: "Turns a verb into a noun phrase.", my: "Mengubah kata kerja kepada frasa nama." },
-        examples: [
-          { japanese: "日本語を勉強することは楽しい。", romaji: "Nihongo wo benkyou suru koto wa tanoshii.", malay: "Belajar bahasa Jepun adalah menyeronokkan." }
-        ]
-      }
     ]
   },
   n2: {
@@ -1851,16 +1742,6 @@ export const GRAMMAR_DATA = {
         commonMistakes: { en: "それから shows a sequence of events.", my: "それから menunjukkan urutan peristiwa." }
       },
       {
-        slug: "n2-nagara",
-        title: { en: "〜ながら - While doing (simultaneous)", my: "〜ながら - sambil" },
-        formation: "Verb stem + ながら",
-        explanation: { en: "Doing two things at the same time.", my: "Melakukan dua cosa pada masa yang sama." },
-        examples: [
-          { japanese: "音楽を聞きながら勉強する。", romaji: "Ongaku wo kikinagara benkyou suru.", malay: "Belajar sambil dengar muzik." }
-        ],
-        commonMistakes: { en: "ながら is for two simultaneous actions.", my: "ながら untuk dua tindakan simultan." }
-      },
-      {
         slug: "n2-you-ni",
         title: { en: "〜ように (you ni) - So that/In order to", my: "〜ように - Supaya/Agar" },
         formation: "Verb dict / Verb ない-form + ように",
@@ -1869,26 +1750,6 @@ export const GRAMMAR_DATA = {
           { japanese: "合格できるように勉強している。", romaji: "Goukaku dekiru you ni benkyou shite iru.", malay: "Saya belajar supaya boleh lulus." }
         ],
         commonMistakes: { en: "ように uses dictionary/ない-form, not て-form.", my: "ように guna bentuk kamus/ない-form, bukan て-form." }
-      },
-      {
-        slug: "n2-koto",
-        title: { en: "〜こと - Nominalizer", my: "〜こと - Pengkinian" },
-        formation: "Verb + こと",
-        explanation: { en: "Turns a verb into a noun phrase.", my: "Mengubah kata kerja kepada frasa nama." },
-        examples: [
-          { japanese: "日本語を勉強することは楽しい。", romaji: "Nihongo wo benkyou suru koto wa tanoshii.", malay: "Belajar bahasa Jepun adalah menyeronokkan." }
-        ],
-        commonMistakes: { en: "こと is for general truths, の for specific.", my: "こと untuk kebenaran umum, の untuk spesifik." }
-      },
-      {
-        slug: "n2-tame",
-        title: { en: "〜ために (tame) - For/In order to", my: "〜ために - Untuk/Bagi pihak" },
-        formation: "N + の + ために / Verb dict + ために",
-        explanation: { en: "For the sake of, in order to.", my: "Untuk, bagi pihak, supaya." },
-        examples: [
-          { japanese: "合格するために頑張ります。", romaji: "Goukaku suru tame ni ganbarimasu.", malay: "Saya akan bertungkus lumus untuk lulus." }
-        ],
-        commonMistakes: { en: "Use dictionary form before ために.", my: "Guna bentuk kamus sebelum ために." }
       },
       {
         slug: "n2-doushite",
@@ -2321,24 +2182,6 @@ export const GRAMMAR_DATA = {
         explanation: { en: "Far from being; not only...but also.", my: "Bukan sahaja... malah." },
         examples: [
           { japanese: "英語どころか、日本語も話せない。", romaji: "Eigo dokoro ka, nihongo mo hanasenai.", malay: "Bukan sahaja English, Japon pun tak boleh cakap." }
-        ]
-      },
-      {
-        slug: "n1-kurai",
-        title: { en: "〜くらい - About / to the extent", my: "〜くらい - Tentang" },
-        formation: "Sentence + くらい",
-        explanation: { en: "Approximately; to such an extent.", my: "Kira-kira; sehingga tahap tertentu." },
-        examples: [
-          { japanese: "死ぬくらい怖かった。", romaji: "Shinu kurai kowakatta.", malay: "Saya terlalu takut sehingga hampir mati." }
-        ]
-      },
-      {
-        slug: "n1-hodo",
-        title: { en: "〜ほど - To the degree that", my: "〜ほど - Sehinggakan" },
-        formation: "Sentence + ほど",
-        explanation: { en: "To such a degree that.", my: "Sehinggakan sesuatu." },
-        examples: [
-          { japanese: "喉が渇くほど走った。", romaji: "Nodo ga kawaku hodo hashitta.", malay: "Saya lari sehinggakan tekak kering." }
         ]
       },
       {

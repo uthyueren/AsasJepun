@@ -13,13 +13,8 @@ const state = {
   activeLevelTab: "kanji", // kanji | grammar | vocab
   vocabCardIndex: 0,
   activeKanaTab: "hiragana",
-  furiganaVisible: true,
-  learnedItems: JSON.parse(localStorage.getItem("learnedItems")) || { grammar: [], vocab: [], culture: [], auto: [] },
-  userJlptLevel: localStorage.getItem("userJlptLevel") || ""
+  furiganaVisible: true
 };
-
-// JLPT Level hierarchy (lower index = easier, auto-learn below selected level)
-const JLPT_LEVELS = ["n5", "n4", "n3", "n2", "n1"];
 
 // Canvas Drawing State
 let isDrawing = false;
@@ -37,8 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initModals();
   initRouter();
   initLanguageToggle();
-  initJLPTLevel();
-  updateSidebarProgress();
   updateI18nText();
   lucide.createIcons();
 });
@@ -143,90 +136,6 @@ function initLanguageToggle() {
   });
 }
 
-// JLPT Level selector initialization
-function initJLPTLevel() {
-  const select = document.getElementById("jlpt-level-select");
-  if (!select) return;
-
-  // Set initial value from localStorage
-  select.value = state.userJlptLevel;
-
-  // Apply auto-learn on page load if user has a level set
-  if (state.userJlptLevel) {
-    applyAutoLearn();
-  }
-
-  // Listen for changes
-  select.addEventListener("change", () => {
-    state.userJlptLevel = select.value;
-    localStorage.setItem("userJlptLevel", state.userJlptLevel);
-
-    // Auto-mark content below selected level as learned
-    applyAutoLearn();
-    updateSidebarProgress();
-  });
-}
-
-// Check if a content level is below user's selected level
-function isLevelBelowUserLevel(contentLevel) {
-  if (!state.userJlptLevel || !contentLevel) return false;
-
-  const userLevelIndex = JLPT_LEVELS.indexOf(state.userJlptLevel);
-  const contentLevelIndex = JLPT_LEVELS.indexOf(contentLevel.toLowerCase());
-
-  // Content is below user's level if its index is LESS than user's level index
-  // (N5=0, N4=1, N3=2, N2=3, N1=4)
-  return contentLevelIndex >= 0 && userLevelIndex >= 0 && contentLevelIndex < userLevelIndex;
-}
-
-// Auto-mark content below user's level as learned
-function applyAutoLearn() {
-  if (!state.userJlptLevel) return;
-
-  const levelsBelowUser = JLPT_LEVELS.slice(0, JLPT_LEVELS.indexOf(state.userJlptLevel));
-
-  // Mark grammar items (GRAMMAR_DATA from content.js has array per level)
-  Object.keys(GRAMMAR_DATA).forEach(level => {
-    if (levelsBelowUser.includes(level)) {
-      GRAMMAR_DATA[level].forEach(g => {
-        if (!state.learnedItems.grammar.includes(g.slug)) {
-          state.learnedItems.grammar.push(g.slug);
-        }
-      });
-    }
-  });
-
-  // Mark vocab items for each JLPT level
-  Object.keys(VOCAB_DATA).forEach(level => {
-    if (levelsBelowUser.includes(level)) {
-      VOCAB_DATA[level].vocabulary.forEach(v => {
-        if (!state.learnedItems.vocab.includes(v.word)) {
-          state.learnedItems.vocab.push(v.word);
-        }
-      });
-    }
-  });
-
-  // Mark kanji items for each JLPT level (using kanji as the key)
-  Object.keys(KANJI_DATA).forEach(level => {
-    if (levelsBelowUser.includes(level)) {
-      KANJI_DATA[level].kanji.forEach(k => {
-        const key = `kanji_${k.kanji}`;
-        if (!state.learnedItems.auto.includes(key)) {
-          state.learnedItems.auto.push(key);
-        }
-      });
-    }
-  });
-
-  // Mark culture lessons as learned if their level is below user's level
-  CULTURE_LESSONS.forEach(lesson => {
-    // Culture lessons don't have JLPT levels per se, but we can skip them
-  });
-
-  localStorage.setItem("learnedItems", JSON.stringify(state.learnedItems));
-}
-
 // Update all i18n text elements
 function updateI18nText() {
   const lang = getLanguage();
@@ -264,10 +173,6 @@ function reRenderCurrentView() {
     renderResourcesView();
   } else if (route === "about") {
     renderAboutView();
-  } else if (route === "n5" || route === "n4" || route === "n3") {
-    renderJLPTView(route);
-  } else if (route === "jlpt-info") {
-    renderJLPTInfoView();
   } else if (route === "self-study") {
     renderSelfStudyView();
   } else {
@@ -404,8 +309,6 @@ function initRouter() {
       renderResourcesView();
     } else if (route === "about") {
       renderAboutView();
-    } else if (route === "n5" || route === "n4" || route === "n3") {
-      renderJLPTView(route);
     } else if (route === "admin") {
       renderAdminView();
     } else if (route === "jlpt-info") {
@@ -422,25 +325,6 @@ function initRouter() {
 
   window.addEventListener("hashchange", handleRoute);
   handleRoute(); // Call once on load
-}
-
-// Progress tracker updates
-function updateSidebarProgress() {
-  const countSpan = document.getElementById("learned-count");
-  const progressBar = document.getElementById("sidebar-progress");
-
-  const grammarLearned = state.learnedItems.grammar.length;
-  const vocabLearned = state.learnedItems.vocab.length;
-  const cultureLearned = state.learnedItems.culture.length;
-  const autoLearned = state.learnedItems.auto ? state.learnedItems.auto.length : 0;
-  const totalLearned = grammarLearned + vocabLearned + cultureLearned + autoLearned;
-
-  if (countSpan) {
-    countSpan.textContent = `${totalLearned}`;
-  }
-
-  const learnPct = Math.min(totalLearned * 5, 100);
-  progressBar.style.width = `${learnPct}%`;
 }
 
 // Sound Utterance Helper
@@ -468,12 +352,6 @@ function renderIntroView() {
   const appView = document.getElementById("app-view");
   const lang = getLanguage();
 
-  // Count items for stats
-  let grammarCount = 0;
-  Object.values(GRAMMAR_DATA).forEach(level => grammarCount += level.length);
-  const cultureCount = CULTURE_LESSONS.length;
-  const vocabCount = CULTURE_LESSONS.reduce((acc, l) => acc + l.vocabList.length, 0);
-
   appView.innerHTML = `
     <div class="fade-in">
       <!-- Hero Section -->
@@ -491,69 +369,6 @@ function renderIntroView() {
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
               Start Learning Kana
             </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Start Section -->
-      <div class="home-quickstart">
-        <h2 class="home-section-title">Beginner? Start Here</h2>
-        <div class="quickstart-steps">
-          <a href="#kana" class="quickstart-card">
-            <div class="quickstart-num">1</div>
-            <div class="quickstart-content">
-              <h3>Learn Kana</h3>
-              <p>Hiragana & Katakana — the building blocks of Japanese reading</p>
-            </div>
-            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
-          <a href="#n5" class="quickstart-card">
-            <div class="quickstart-num">2</div>
-            <div class="quickstart-content">
-              <h3>JLPT N5 Grammar & Vocab</h3>
-              <p>Core grammar patterns and essential vocabulary for everyday Japanese</p>
-            </div>
-            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
-          <a href="#kanji-rules" class="quickstart-card">
-            <div class="quickstart-num">3</div>
-            <div class="quickstart-content">
-              <h3>Kanji Stroke Rules</h3>
-              <p>Learn the correct stroke order and direction — foundations of kanji mastery</p>
-            </div>
-            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Stats Row -->
-      <div class="stats-row">
-        <div class="stat-item">
-          <div class="stat-icon">📚</div>
-          <div class="stat-info">
-            <h4>${grammarCount}</h4>
-            <p>${t('home.statsGrammar')}</p>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">💬</div>
-          <div class="stat-info">
-            <h4>${vocabCount}</h4>
-            <p>${t('home.statsVocab')}</p>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">🎌</div>
-          <div class="stat-info">
-            <h4>${cultureCount}</h4>
-            <p>${t('home.statsLessons')}</p>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">🗾</div>
-          <div class="stat-info">
-            <h4>${Object.keys(KANA_DATA.hiragana).length}</h4>
-            <p>Kana Characters</p>
           </div>
         </div>
       </div>
@@ -576,17 +391,10 @@ function renderIntroView() {
           </div>
         </a>
         <a href="#anki" class="home-section-card">
-          <div class="home-section-icon anki-icon">📇</div>
+          <div class="home-section-icon anki-icon"><i data-lucide="gamepad-2"></i></div>
           <div class="home-section-text">
             <h3>Anki & Vocab Mining</h3>
             <p>Recommended decks and how to mine vocabulary from native content</p>
-          </div>
-        </a>
-        <a href="#n5" class="home-section-card">
-          <div class="home-section-icon vocab-icon">詞</div>
-          <div class="home-section-text">
-            <h3>Vocabulary</h3>
-            <p>Flashcards and word lists for JLPT N5, N4, and N3</p>
           </div>
         </a>
         <a href="#culture" class="home-section-card">
@@ -617,6 +425,7 @@ function renderIntroView() {
     </div>
   `;
 }
+
 
 // --- JLPT INFO VIEW ---
 function renderJLPTInfoView() {
@@ -701,6 +510,7 @@ function renderJLPTInfoView() {
     </div>
   `;
 }
+
 
 // --- SELF STUDY GUIDE VIEW ---
 function renderSelfStudyView() {
@@ -898,8 +708,8 @@ function renderRoadmapView() {
             <h3>Sifar ke Asas Asas</h3>
             <p>Memahami sistem penulisan Hiragana dan Katakana serta frasa sapaan harian.</p>
             <div class="timeline-meta">
-              <span>⏱ 1 - 2 Minggu</span>
-              <span>📚 Hiragana & Katakana</span>
+              <span><i data-lucide="timer"></i> 1 - 2 Minggu</span>
+              <span><i data-lucide="book-open"></i> Hiragana & Katakana</span>
             </div>
             
             <div class="roadmap-drawer" id="drawer-0">
@@ -920,8 +730,8 @@ function renderRoadmapView() {
             <h3>JLPT N5 (Asas Pemula)</h3>
             <p>Memulakan pembelajaran tatabahasa formal, kosa kata asas dan Kanji pertama.</p>
             <div class="timeline-meta">
-              <span>⏱ 2 - 3 Bulan</span>
-              <span>📚 Kanji ~100 | Kosa Kata ~800</span>
+              <span><i data-lucide="timer"></i> 2 - 3 Bulan</span>
+              <span><i data-lucide="book-open"></i> Kanji ~100 | Kosa Kata ~800</span>
             </div>
             
             <div class="roadmap-drawer" id="drawer-1">
@@ -942,8 +752,8 @@ function renderRoadmapView() {
             <h3>JLPT N4 (Pertengahan Rendah)</h3>
             <p>Mula membina ayat majmuk, meluahkan perasaan, syarat, dan perbualan santai harian.</p>
             <div class="timeline-meta">
-              <span>⏱ 3 - 5 Bulan</span>
-              <span>📚 Kanji ~300 | Kosa Kata ~1,500</span>
+              <span><i data-lucide="timer"></i> 3 - 5 Bulan</span>
+              <span><i data-lucide="book-open"></i> Kanji ~300 | Kosa Kata ~1,500</span>
             </div>
             
             <div class="roadmap-drawer" id="drawer-2">
@@ -964,8 +774,8 @@ function renderRoadmapView() {
             <h3>JLPT N3 (Pertengahan/Intermediate)</h3>
             <p>Menjejaki tahap perbualan biasa di pejabat, membaca rencana ringkas dan memahami bahasa Jepun natural.</p>
             <div class="timeline-meta">
-              <span>⏱ 5 - 8 Bulan</span>
-              <span>📚 Kanji ~650 | Kosa Kata ~3,700</span>
+              <span><i data-lucide="timer"></i> 5 - 8 Bulan</span>
+              <span><i data-lucide="book-open"></i> Kanji ~650 | Kosa Kata ~3,700</span>
             </div>
             
             <div class="roadmap-drawer" id="drawer-3">
@@ -1003,140 +813,6 @@ function renderRoadmapView() {
 }
 
 
-// --- 3. JLPT STUDY HUBS (N5, N4, N3) ---
-function renderJLPTView(level) {
-  state.currentView = level;
-  const kanjiLevelData = KANJI_DATA[level] || { title: `JLPT ${level.toUpperCase()}`, description: '', kanji: [] };
-  const vocabLevelData = VOCAB_DATA[level] || { title: '', description: '', vocabulary: [] };
-  const grammarLevelData = GRAMMAR_DATA[level] || { title: '', description: '', grammar: [] };
-
-  document.getElementById("section-title").textContent = `JLPT ${level.toUpperCase()}`;
-
-  const appView = document.getElementById("app-view");
-  appView.innerHTML = `
-    <div class="fade-in">
-      <!-- Level Description Header -->
-      <div class="level-header">
-        <div class="level-title-section">
-          <h1>
-            <span>${kanjiLevelData.title}</span>
-            <span class="level-badge ${level}">${level.toUpperCase()}</span>
-          </h1>
-          <p>${kanjiLevelData.description}</p>
-        </div>
-      </div>
-
-      <!-- Tabbed Workspace Menu -->
-      <div class="hub-tabs">
-        <button class="hub-tab ${state.activeLevelTab === 'kanji' ? 'active' : ''}" data-tab="kanji">Kanji</button>
-        <button class="hub-tab ${state.activeLevelTab === 'grammar' ? 'active' : ''}" data-tab="grammar">Grammar</button>
-        <button class="hub-tab ${state.activeLevelTab === 'vocab' ? 'active' : ''}" data-tab="vocab">Vocabulary</button>
-      </div>
-
-      <!-- Content Panels -->
-      <!-- Panel 1: Kanji -->
-      <div class="hub-panel ${state.activeLevelTab === 'kanji' ? 'active' : ''}" id="panel-kanji">
-        <div class="kanji-grid-layout" id="kanji-grid-container">
-          <!-- Kanji cards rendered here -->
-        </div>
-      </div>
-
-      <!-- Panel 2: Grammar -->
-      <div class="hub-panel ${state.activeLevelTab === 'grammar' ? 'active' : ''}" id="panel-grammar">
-        <div class="grammar-controls">
-          <span>Ketahui petunjuk tatabahasa beserta contoh ayat:</span>
-          <button class="furigana-toggle ${state.furiganaVisible ? 'active' : ''}" id="toggle-furigana">
-            <span class="toggle-switch"></span>
-            <span>Papar Furigana</span>
-          </button>
-        </div>
-        <div class="grammar-container" id="grammar-container">
-          <!-- Grammar cards rendered here -->
-        </div>
-      </div>
-
-      <!-- Panel 3: Vocabulary -->
-      <div class="hub-panel ${state.activeLevelTab === 'vocab' ? 'active' : ''}" id="panel-vocab">
-        <div class="vocab-workspace">
-          <!-- Flashcards Area -->
-          <div class="flashcard-deck">
-            <div class="flashcard" id="vocab-flashcard">
-              <div class="card-face card-front">
-                <div class="card-japanese" id="card-front-word">日本語</div>
-                <div class="card-furigana" id="card-front-furi">にほんご</div>
-                <span class="card-hint">Klik untuk lihat maksud</span>
-              </div>
-              <div class="card-face card-back">
-                <div class="card-meaning" id="card-back-mean">Japanese Language</div>
-                <div class="card-type" id="card-back-type">Noun</div>
-                <span class="card-hint">Klik untuk kembali</span>
-              </div>
-            </div>
-          </div>
-          <!-- Flashcard Deck Controls -->
-          <div class="deck-controls">
-            <button class="deck-btn" id="deck-prev" aria-label="Previous card">
-              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            <span class="deck-progress" id="deck-progress">1 / 5</span>
-            <button class="deck-btn" id="deck-next" aria-label="Next card">
-              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-          </div>
-
-          <!-- Vocabulary Table List -->
-          <div class="vocab-list-container">
-            <h3>Daftar Kosa Kata Penuh</h3>
-            <br>
-            <div class="vocab-table-wrapper">
-              <table class="vocab-table">
-                <thead>
-                  <tr>
-                    <th>Huruf / Kanji</th>
-                    <th>Furigana</th>
-                    <th>Romaji</th>
-                    <th>Maksud</th>
-                    <th>Golongan Kata</th>
-                    <th>Sebutan</th>
-                  </tr>
-                </thead>
-                <tbody id="vocab-table-body">
-                  <!-- Vocab items dynamically rendered -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  `;
-
-  // Apply auto-learn before rendering content
-  applyAutoLearn();
-
-  // Render Sub-sections
-  renderKanjiPanel(kanjiLevelData.kanji);
-  renderGrammarPanel(grammarLevelData.grammar);
-  renderVocabPanel(vocabLevelData.vocabulary);
-
-  // Tab switcher events
-  const tabs = document.querySelectorAll(".hub-tab");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      const tabTarget = tab.getAttribute("data-tab");
-      state.activeLevelTab = tabTarget;
-
-      // Update Active Tab Class
-      tabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-
-      // Hide all panels, show target
-      document.querySelectorAll(".hub-panel").forEach(p => p.classList.remove("active"));
-      document.getElementById(`panel-${tabTarget}`).classList.add("active");
-    });
-  });
-}
 
 function renderKanjiPanel(kanjiList) {
   const container = document.getElementById("kanji-grid-container");
@@ -1144,9 +820,7 @@ function renderKanjiPanel(kanjiList) {
 
   kanjiList.forEach(k => {
     const card = document.createElement("div");
-    const key = `kanji_${k.kanji}`;
-    const isAutoLearned = state.learnedItems.auto && state.learnedItems.auto.includes(key);
-    card.className = `kanji-box-card${isAutoLearned ? ' learned' : ''}`;
+    card.className = 'kanji-box-card';
 
     card.innerHTML = `
       <div class="kanji-character">${k.kanji}</div>
@@ -1172,7 +846,7 @@ function openKanjiDrawModal(kanjiObj) {
   document.getElementById("modal-kanji-onyomi").textContent = kanjiObj.onyomi;
   document.getElementById("modal-kanji-kunyomi").textContent = kanjiObj.kunyomi;
   document.getElementById("modal-kanji-strokes").textContent = kanjiObj.strokes;
-  document.getElementById("modal-kanji-examples").innerHTML = kanjiObj.examples || '';
+  document.getElementById("modal-kanji-examples").innerHTML = kanjiObj.examples ? kanjiObj.examples.split(', ').map(e => `<span>${e.trim()}</span>`).join('') : '';
 
   // Load stroke order data
   loadStrokeOrder(kanjiObj.kanji);
@@ -1207,8 +881,7 @@ function renderGrammarPanel(grammarList) {
 
   grammarList.forEach(g => {
     const card = document.createElement("div");
-    const isLearned = state.learnedItems.grammar.includes(g.slug);
-    card.className = `grammar-item-card${isLearned ? ' learned' : ''}`;
+    card.className = 'grammar-item-card';
     const lang = getLanguage();
 
     let examplesHTML = "";
@@ -1227,7 +900,6 @@ function renderGrammarPanel(grammarList) {
         <div class="grammar-title">${g.pattern || g.title}</div>
         <div class="grammar-rule-badge">${g.formation || g.rules || ''}</div>
       </div>
-      ${isLearned ? '<div class="grammar-learned-badge"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="3" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> Learned</div>' : ''}
       <p class="grammar-desc">${typeof g.explanation === 'object' ? g.explanation[lang] : g.explanation || g.description || ''}</p>
       <div class="grammar-examples">
         ${examplesHTML}
@@ -1526,21 +1198,10 @@ function renderCultureLessonView(slug) {
               </table>
             </div>
           </div>
-
-          <!-- Mark as Learned Button -->
-          <button class="mark-learned-btn ${state.learnedItems.culture.includes(slug) ? 'learned' : ''}" id="culture-learn-btn" style="align-self: flex-start;">
-            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M20 6L9 17l-5-5"></path></svg>
-            ${state.learnedItems.culture.includes(slug) ? 'Learned' : 'Mark as Learned'}
-          </button>
         </div>
       </div>
     </div>
   `;
-
-  // Bind mark as learned
-  document.getElementById('culture-learn-btn').addEventListener('click', () => {
-    toggleCultureLearned(slug);
-  });
 }
 
 /* ==========================================================================
@@ -1647,11 +1308,11 @@ function renderResourcesView() {
   const lang = getLanguage();
 
   const categoryIcons = {
-    dictionary: '📖',
-    anki: '🃏',
-    practice: '🎓',
-    media: '📺',
-    tools: '🔧'
+    dictionary: 'book-open',
+    anki: 'gamepad-2',
+    practice: 'graduation-cap',
+    media: 'tv',
+    tools: 'wrench'
   };
 
   appView.innerHTML = `
@@ -1664,7 +1325,7 @@ function renderResourcesView() {
       <div class="resources-grid">
         ${Object.entries(RESOURCES).map(([cat, items]) => `
           <div class="resource-category">
-            <h3>${categoryIcons[cat] || '📌'} ${t(`resources.categories.${cat}`)}</h3>
+            <h3><i data-lucide="${categoryIcons[cat] || 'pin'}"></i> ${t(`resources.categories.${cat}`)}</h3>
             <p>Tools for ${cat}</p>
             <div class="resource-list">
               ${items.map(item => `
@@ -1969,51 +1630,6 @@ function renderAnkiView() {
       </section>
     </div>
   `;
-}
-
-// --- TOGGLE FUNCTIONS ---
-function toggleVocabLearned(word) {
-  const idx = state.learnedItems.vocab.indexOf(word);
-  const btn = document.getElementById('vocab-learn-btn');
-
-  if (idx > -1) {
-    state.learnedItems.vocab.splice(idx, 1);
-    if (btn) {
-      btn.classList.remove('learned');
-      btn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M20 6L9 17l-5-5"></path></svg> Mark as Learned`;
-    }
-  } else {
-    state.learnedItems.vocab.push(word);
-    if (btn) {
-      btn.classList.add('learned');
-      btn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M20 6L9 17l-5-5"></path></svg> Learned`;
-    }
-  }
-
-  localStorage.setItem('learnedItems', JSON.stringify(state.learnedItems));
-  updateSidebarProgress();
-}
-
-function toggleCultureLearned(slug) {
-  const idx = state.learnedItems.culture.indexOf(slug);
-  const btn = document.getElementById('culture-learn-btn');
-
-  if (idx > -1) {
-    state.learnedItems.culture.splice(idx, 1);
-    if (btn) {
-      btn.classList.remove('learned');
-      btn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M20 6L9 17l-5-5"></path></svg> Mark as Learned`;
-    }
-  } else {
-    state.learnedItems.culture.push(slug);
-    if (btn) {
-      btn.classList.add('learned');
-      btn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M20 6L9 17l-5-5"></path></svg> Learned`;
-    }
-  }
-
-  localStorage.setItem('learnedItems', JSON.stringify(state.learnedItems));
-  updateSidebarProgress();
 }
 
 // --- ADMIN PAGE ---

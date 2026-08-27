@@ -385,45 +385,6 @@ button {
 .text-n4 { color: var(--n4-color); border: 1px solid rgba(255, 192, 72, 0.3); }
 .text-n3 { color: var(--n3-color); border: 1px solid rgba(255, 94, 87, 0.3); }
 
-/* Progress widget inside sidebar */
-.sidebar-progress-widget {
-    margin: 16px;
-    padding: 16px;
-    background-color: var(--bg-tertiary);
-    border-radius: var(--border-radius-md);
-    border: 1px solid var(--border-color);
-}
-
-.sidebar-progress-widget h4 {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: var(--text-primary);
-}
-
-.progress-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-}
-
-.progress-bar-container {
-    width: 100%;
-    height: 6px;
-    background-color: var(--border-color);
-    border-radius: 3px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-red), var(--accent-pink));
-    border-radius: 3px;
-    transition: width 0.5s ease-out;
-}
-
 /* Sidebar Footer */
 .sidebar-footer {
     padding: 16px;
@@ -663,31 +624,7 @@ body.light-theme .theme-toggle-btn .sun-icon {
     border-color: var(--primary);
 }
 
-/* Learned items */
-.kanji-box-card.learned {
-    border-color: var(--primary);
-    opacity: 0.85;
-}
-
-.learned-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    background: var(--primary);
-    border-radius: 50%;
-    color: var(--on-primary);
-}
-
-/* Grammar item learned */
-.grammar-item-card.learned {
-    border-color: var(--primary);
-    opacity: 0.85;
-}
-
-.grammar-learned-badge {
-    display: inline-flex;
+/* Stroke Order Display */
     align-items: center;
     gap: 4px;
     padding: 4px 8px;
@@ -2198,6 +2135,11 @@ body.light-theme .quiz-option.incorrect {
     line-height: 1.4;
 }
 
+.kanji-modal-examples p span {
+    display: block;
+    margin-bottom: 4px;
+}
+
 /* Canvas styles */
 .kanji-canvas-side {
     display: flex;
@@ -3234,16 +3176,6 @@ body.light-theme .home-section-card {
     color: var(--n5-color);
 }
 
-.mark-learned-btn.learned {
-    background-color: rgba(5, 196, 107, 0.1);
-    border-color: var(--n5-color);
-    color: var(--n5-color);
-}
-
-.mark-learned-btn.learned svg {
-    fill: var(--n5-color);
-}
-
 /* ==========================================================================
    CULTURE LESSONS PAGE
    ========================================================================== */
@@ -4082,12 +4014,6 @@ body.light-theme .kana-tab {
 .mark-learned-btn:hover {
   border-color: var(--accent-red);
   color: var(--accent-red);
-}
-
-.mark-learned-btn.learned {
-  background: var(--accent-red);
-  border-color: var(--accent-red);
-  color: white;
 }
 
 .vocab-learn-btn-small {

@@ -13,7 +13,7 @@ export const CULTURE_LESSONS = [
       my: 'Menonton Hololive: Vocabulary Penting untuk Pemula'
     },
     theme: 'entertainment',
-    icon: '🎮',
+    icon: 'gamepad-2',
     level: 'n5-n4',
     description: {
       en: 'Learn Japanese through the world of Vtubers. This lesson covers essential terms for understanding Hololive streams and Japanese internet culture.',
@@ -41,7 +41,7 @@ export const CULTURE_LESSONS = [
       my: 'Ungkapan Drama Jepun: Perkataan dari Rancangan Kegemaran'
     },
     theme: 'entertainment',
-    icon: '📺',
+    icon: 'tv',
     level: 'n4-n3',
     description: {
       en: 'Expand your vocabulary with words and expressions commonly heard in Japanese dramas. Perfect for intermediate learners who want to understand natural conversation.',
@@ -67,7 +67,7 @@ export const CULTURE_LESSONS = [
       my: 'Kehidupan Kedai Runcit: Vocabulary Membeli-belah di コンビニ'
     },
     theme: 'food',
-    icon: '🏪',
+    icon: 'store',
     level: 'n5',
     description: {
       en: 'Master the art of shopping at Japanese convenience stores (konbini). From buying onigiri to paying bills, this lesson covers everything you need.',
@@ -93,7 +93,7 @@ export const CULTURE_LESSONS = [
       my: 'Pesta Tanabata: Vocabulary Pesta Bintang'
     },
     theme: 'seasonal',
-    icon: '🌌',
+    icon: 'sparkles',
     level: 'n5-n4',
     description: {
       en: 'Learn about Tanabata, the Japanese star festival celebrated in July/August. Perfect for understanding seasonal Japanese cultural events.',
@@ -119,7 +119,7 @@ export const CULTURE_LESSONS = [
       my: 'Etiket Izakaya: Vocabulary Pub Jepun'
     },
     theme: 'food',
-    icon: '🍺',
+    icon: 'beer',
     level: 'n4-n3',
     description: {
       en: 'Navigate the exciting world of Japanese izakayas (pubs). Learn ordering phrases, social customs, and essential food vocabulary.',
@@ -145,7 +145,7 @@ export const CULTURE_LESSONS = [
       my: 'Ucaptama Jepun: Dari Relaxed ke Formal'
     },
     theme: 'daily',
-    icon: '🙇',
+    icon: 'heart',
     level: 'n5',
     description: {
       en: 'Master Japanese greetings for every situation. Learn when to use casual お疲れ様です versus formal ご紹介します.',
@@ -450,19 +450,19 @@ export const RESOURCES = {
       name: 'Jisho.org',
       description: 'The best English-Japanese dictionary for learners. Includes kanji lookup, example sentences, and stroke order.',
       url: 'https://jisho.org',
-      icon: '📖'
+      icon: 'book-open'
     },
     {
       name: 'Tangorin',
       description: 'Japanese dictionary with sentence search and example sentences. Great for finding words in context.',
       url: 'https://tangorin.com',
-      icon: '📚'
+      icon: 'book'
     },
     {
       name: 'Kamus Melayu-Jepun (Wikitionary)',
       description: 'Malay-Japanese dictionary for when English explanations don\'t quite click.',
       url: 'https://en.wiktionary.org/wiki',
-      icon: '📕'
+      icon: 'book-marked'
     }
   ],
   anki: [
@@ -470,13 +470,13 @@ export const RESOURCES = {
       name: 'N5 Core Grammar Deck',
       description: 'Essential grammar patterns for JLPT N5 with example sentences and audio.',
       url: 'https://ankiweb.net/shared/decks/japanese',
-      icon: '🃏'
+      icon: 'gamepad-2'
     },
     {
       name: 'Kanji Damage',
       description: 'Famous kanji deck using stories and mnemonics. Great for remembering kanji meanings.',
       url: 'https://kanjidamage.github.io',
-      icon: '✍️'
+      icon: 'pencil'
     }
   ],
   practice: [
@@ -484,13 +484,13 @@ export const RESOURCES = {
       name: 'iTalki',
       description: 'Book 1-on-1 lessons with tutors from around the world. Great for speaking practice.',
       url: 'https://italki.com',
-      icon: '🎓'
+      icon: 'graduation-cap'
     },
     {
       name: 'HelloTalk',
       description: 'Language exchange app to chat with native Japanese speakers learning your language.',
       url: 'https://hellotalk.com',
-      icon: '💬'
+      icon: 'message-circle'
     },
     {
       name: 'Clozemaster',
