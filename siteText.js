@@ -10,17 +10,16 @@ export const translations = {
       kanjiRules: "Kanji",
       anki: "Anki & Vocab Mining",
       roadmap: "Learning Path",
-      grammar: "Grammar Library",
+      introduction: "Introduction",
       selfStudy: "Self Study Guide",
       culture: "Culture Lessons",
       blog: "Blog",
       resources: "Resources",
       about: "About",
-      jlptInfo: "What is JLPT?"
-    },
-    // Header
-    header: {
-      likesJapanese: "Loves Japanese"
+      jlptInfo: "What is JLPT?",
+      kanaSubpage1: "Long Vowel",
+      kanaSubpage2: "Tenten & Maru",
+      kanaSubpage3: "Combination Hiragana"
     },
     // Homepage
     home: {
@@ -80,7 +79,89 @@ export const translations = {
           "Hiragana and Katakana (reading, not writing yet)",
           "Dakuon, Handakuon, Yoon sounds",
           "Reading simple words and phrases"
-        ]
+        ],
+        subpage1Title: "Long Vowel",
+        subpage1Subtitle: "Learn how to extend vowel sounds (chōon / 長音)",
+        subpage2Title: "Tenten & Maru",
+        subpage2Subtitle: "Understand dakuten (濁点) and handakuten (半濁点)",
+        subpage3Title: "Combination Hiragana",
+        subpage3Subtitle: "Learn small kana (っ, ゃ, ゅ, ょ) that modify sounds",
+        // Long Vowel content
+        subpage1: {
+          whatIsTitle: "What is Long Vowel?",
+          whatIsDesc: "Long vowels (長音 / chōon) are extended vowel sounds where a vowel is held for two morae instead of one. In Japanese, changing a vowel length can completely change the meaning of a word, so it's important to master this early.",
+          hiraganaTitle: "Writing Long Vowel in Hiragana",
+          katakanaTitle: "Writing Long Vowel in Katakana",
+          katakanaDesc: "Katakana uses a straight horizontal line called the long vowel mark (長音符 / chōonpu / ー) instead of adding extra letters. This line extends the vowel sound of the character before it.",
+          aRow: "A-row sounds (あ段)",
+          aRowRule: "Add an extra あ (a)",
+          iRow: "I-row sounds (い段)",
+          iRowRule: "Add an extra い (i)",
+          uRow: "U-row sounds (う段)",
+          uRowRule: "Add an extra う (u)",
+          eRow: "E-row sounds (え段)",
+          eRowRule: "Usually add い (i)",
+          oRow: "O-row sounds (お段)",
+          oRowRule: "Usually add う (u)",
+          // Examples
+          exOkaasan: "mother",
+          exOniisan: "older brother",
+          exKuuki: "air",
+          exSeito: "student",
+          exTokei: "clock",
+          exOokami: "wolf",
+          exKi: "From キ (ki) + ー",
+          exKiWord: "key",
+          exKu: "From ク (ku) + ー",
+          exKuWord: "air",
+          exShiito: "From キ (ki) + ー + パ (pa) + ー",
+          exShiitoWord: "keeper",
+          exTerebi: "From テ (te) + レ (re) + ビ (bi)",
+          exTerebiWord: "television"
+        },
+        // Tenten & Maru content
+        subpage2: {
+          whatIsTitle: "What are Tenten and Maru?",
+          whatIsDesc: "Tenten (濁点 / dakuten) and Maru (半濁点 / handakuten) are diacritical marks that change the pronunciation of kana characters. They look like small squares or circles placed at the top-right of a character.",
+          dakutenDesc: "Dakuten (濁点) is called tenten because it looks like two dots (〃). It adds a g sound to the consonant. Handakuten (半濁点) is called maru because it looks like a circle (゜). It changes a consonant to p.",
+          handakutenDesc: "The maru (゜) changes consonants to p sounds. Unlike dakuten which voices them (b, d, g), handakuten only goes to p.",
+          memoryTrickTitle: "Easy Memory Trick",
+          memoryTrickDesc: "Think of the tenten (゛) as adding daggy sound - it makes the consonant dirty or voiced. The maru (゜) is cleaner - it is just a little puff of air (unvoiced /p/).",
+          memoryTrickExceptions: "Remember: づ is d + u (sounds like doo), and じ is ji (not di). These are exceptions!",
+          dakutenTitle: "Dakuten (゛) - Voicing",
+          handakutenTitle: "Handakuten (゜) - Semi-voicing",
+          chartTitle: "Dakuten & Handakuten Chart",
+          columnBase: "Base",
+          columnVoiced: "Voiced",
+          columnSemi: "Semi-voiced",
+          exceptionsTitle: "Exceptions to Remember"
+        },
+        // Combination Hiragana content
+        subpage3: {
+          whatIsTitle: "What is Combination Kana?",
+          whatIsDesc: "Some consonant sounds in Japanese require two characters written together. The first character is written smaller to show it is part of a combination. These are essential for reading many common words.",
+          smallTSuTitle: "Small っ (Sokuon)",
+          smallTSuDesc: "A tiny っ signals a glottal stop, doubling the following consonant. It is the key to words like ちょっと (chotto) and よかった (yokatta).",
+          sokuonTitle: "Sokuon (っ) - Consonant Doubling",
+          sokuonDetail: "The small っ tells you to pause slightly and hold the next consonant. Example: まっすぐ (ma-ssu-gu), not masu-sugu.",
+          yoonTitle: "Small Yōon (ゃ, ゅ, ょ)",
+          yoonSmallTitle: "Small Yōon (ゃ, ゅ, ょ)",
+          yoonDesc: "These small vowels combine with certain consonants to create new sounds like きゃ (kya), にゅ (nyu), or しょ (sho).",
+          chartTitle: "Combination Chart",
+          columnConsonant: "Consonant",
+          columnCombo: "Combination",
+          columnSound: "Sound",
+          commonExamplesTitle: "Common Examples",
+          // Sokuon examples
+          sokuonBefore: "Before",
+          sokuonAfter: "After",
+          sokuonExample: "Example",
+          sokuonMeaning: "Meaning",
+          // Common examples
+          exChan: "chan (child ending)",
+          exHisho: "hisho (secretary)",
+          exKyu: "kyū (nine)"
+        }
       },
       basic: {
         title: "Basic Phrases + Particles + Sentence Building",
@@ -174,22 +255,32 @@ export const translations = {
         ]
       }
     },
-    // Grammar
-    grammar: {
-      title: "Grammar Library",
-      subtitle: "Organized by JLPT level. Each grammar point explained in depth.",
-      filterByLevel: "Filter by Level",
-      allLevels: "All Levels",
-      searchPlaceholder: "Search grammar points...",
-      formation: "Formation",
-      explanation: "Explanation",
-      examples: "Examples",
-      commonMistakes: "Common Mistakes",
-      howDiffersN4: "How this differs from N4",
-      markLearned: "Mark as Learned",
-      markedLearned: "Learned",
-      levelBadge: "JLPT Level",
-      backToList: "Back to Grammar List"
+    // Introduction Page
+    introduction: {
+      title: "Introduction to Japanese",
+      subtitle: "Your first step to understanding the Japanese language",
+      welcomeTitle: "What is Japanese?",
+      welcomeDesc: "Japanese is a language spoken by about 130 million people in Japan and Japanese communities worldwide. It belongs to the Japonic language family, which has no widely accepted genealogical relationship to any other language family.",
+      writingTitle: "The Writing System",
+      writingDesc: "Japanese uses three writing systems combined:",
+      writingPoint1: "Hiragana - Used for native Japanese words and grammatical elements",
+      writingPoint2: "Katakana - Used for foreign words, emphasis, and onomatopoeia",
+      writingPoint3: "Kanji - Chinese characters adopted for Japanese, used for nouns and verb roots",
+      structureTitle: "Language Structure",
+      structureDesc: "Japanese has a fundamentally different structure from English:",
+      structurePoint1: "Subject-Object-Verb word order (SOV) instead of SVO",
+      structurePoint2: "No spaces between words",
+      structurePoint3: "Complex politeness levels (keigo) based on social hierarchy",
+      structurePoint4: "No grammatical gender or plural articles",
+      soundTitle: "Sound System",
+      soundDesc: "Japanese has a relatively simple phonological system:",
+      soundPoint1: "Only 5 vowel sounds (a, i, u, e, o)",
+      soundPoint2: "No consonant clusters (e.g., \"st\", \"tr\", \"gl\")",
+      soundPoint3: "Each syllable is roughly equal in length",
+      soundPoint4: "Pitch accent instead of stress accent (differs by dialect)",
+      tipTitle: "Learning Tip",
+      tipDesc: "Don't try to translate word-for-word from English. Instead, try to understand concepts and patterns in their Japanese context.",
+      ctaRoadmap: "Learn Hiragana & Katakana"
     },
     // Culture/Vocab
     culture: {
@@ -240,7 +331,6 @@ export const translations = {
     // Common
     common: {
       loading: "Loading...",
-      error: "Something went wrong",
       close: "Close",
       back: "Back",
       next: "Next",
@@ -259,9 +349,7 @@ export const translations = {
       fillAllRequired: "Please fill in all required fields.",
       audioNotSupported: "Your browser does not support audio playback.",
       // Signup specific
-      submitting: "Submitting...",
-      signupSuccess: "Signup successful!",
-      signupError: "Something went wrong. Please try again."
+      submitting: "Submitting..."
     },
     // Signup Modal
     signup: {
@@ -278,15 +366,9 @@ export const translations = {
       submit: "Hantar",
       required: "* Required fields",
       success: "Berjaya! Saya akan contact korang soon.",
-      error: "Something went wrong. Try again."
-    },
-    // JLPT Levels
-    levels: {
-      n5: "N5 - Beginner",
-      n4: "N4 - Elementary",
-      n3: "N3 - Intermediate",
-      n2: "N2 - Upper Intermediate",
-      n1: "N1 - Advanced"
+      error: "Something went wrong. Try again.",
+      signupSuccess: "Signup successful!",
+      signupError: "Something went wrong. Please try again."
     },
     // Kana Charts
     kana: {
@@ -294,9 +376,7 @@ export const translations = {
       subtitle: "Interactive Hiragana & Katakana reference with audio pronunciation",
       hiragana: "Hiragana",
       katakana: "Katakana",
-      clickToLearn: "Click any character to hear its pronunciation",
-      subpage1Title: "Kana Subpage 1",
-      subpage1Subtitle: ""
+      clickToLearn: "Click any character to hear its pronunciation"
     },
     // Kanji Stroke Rules
     kanjiRules: {
@@ -304,9 +384,9 @@ export const translations = {
       subtitle: "Understand what kanji is and how it works",
       intro: "Kanji is one of the three writing systems used in Japanese. Each character represents a meaning or concept, unlike hiragana and katakana which represent sounds.",
       whyTitle: "Why Learn Kanji?",
-      whyPoint1: "Kanji makes reading Japanese possible — hiragana alone can't distinguish words like 橋 (bridge) from 箸 (chopsticks)",
-      whyPoint2: "Even at N5 level, you'll encounter about 100 kanji — that's why it's part of every JLPT level",
-      whyPoint3: "Once you recognize kanji, vocabulary becomes easier — many words are made of kanji combinations",
+      whyPoint1: "Kanji makes reading Japanese possible. Hiragana alone cannot distinguish words like 橋 (bridge) from 箸 (chopsticks)",
+      whyPoint2: "Even at N5 level, you will encounter about 100 kanji. That is why it is part of every JLPT level",
+      whyPoint3: "Once you recognize kanji, vocabulary becomes easier. Many words are made of kanji combinations",
       typesTitle: "Types of Kanji",
       onyomi: "Onyomi (Chinese Reading)",
       onyomiDesc: "The Chinese-derived pronunciation. Used in compound words.",
@@ -383,7 +463,7 @@ export const translations = {
       createNewPost: "Create New Post",
       readingTime: "Reading Time (minutes)",
       tagsPlaceholder: "n5, grammar, mindset",
-      contentEnLabel: "Content (English) * — Markdown supported",
+      contentEnLabel: "Content (English) * - Markdown supported",
       contentMyLabel: "Content (Malay)",
       contentPlaceholder: "# Heading\n\nYour content here...",
       contentMyPlaceholder: "Malay content here (optional)...",
@@ -498,17 +578,16 @@ export const translations = {
       kanjiRules: "Kanji",
       anki: "Anki & Lombong Vocab",
       roadmap: "Laluan Pembelajaran",
-      grammar: "Perpustakaan Tatabahasa",
+      introduction: "Pengenalan",
       selfStudy: "Panduan Belajar Sendiri",
       culture: "Pelajaran Budaya",
       blog: "Blog",
       resources: "Sumber",
       about: "Tentang",
-      jlptInfo: "Apa itu JLPT?"
-    },
-    // Header
-    header: {
-      likesJapanese: "Suka Jepun"
+      jlptInfo: "Apa itu JLPT?",
+      kanaSubpage1: "Vokal Panjang",
+      kanaSubpage2: "Tenten & Maru",
+      kanaSubpage3: "Hiragana Gabungan"
     },
     // Homepage
     home: {
@@ -564,10 +643,91 @@ export const translations = {
         activity: "Reading only",
         focusTitle: "Fokus Pembelajaran:",
         items: [
-          "Hiragana dan Katakana (reading, bukan writing dulu)",
+          "Hiragana dan Katatakana (reading, bukan writing dulu)",
           "Dakuon, Handakuon, Yoon sounds",
           "Membaca perkataan dan frasa ringkas"
-        ]
+        ],
+        subpage1Title: "Vokal Panjang",
+        subpage1Subtitle: "Belajar cara memanjangkan bunyi vokal (chōon / 長音)",
+        subpage2Title: "Tenten & Maru",
+        subpage2Subtitle: "Fahami dakuten (濁点) dan handakuten (半濁点)",
+        subpage3Title: "Hiragana Gabungan",
+        subpage3Subtitle: "Belajar kana kecil (っ, ゃ, ゅ, ょ) yang mengubah bunyi",
+        // Long Vowel content (MY)
+        subpage1: {
+          whatIsTitle: "Apakah Vokal Panjang?",
+          whatIsDesc: "Vokal panjang (長音 / chōon) adalah bunyi vokal yang dipegang untuk dua morae bukan satu. Dalam bahasa Jepun, menukar panjang vokal boleh menyebabkan perubahan makna sepenuhnya, jadi ia penting untuk dikuasai awal.",
+          hiraganaTitle: "Menulis Vokal Panjang dalam Hiragana",
+          katakanaTitle: "Menulis Vokal Panjang dalam Katakana",
+          katakanaDesc: "Katakana menggunakan garis lurus mendatar yang dipanggil tanda vokal panjang (長音符 / chōonpu / ー) вместо menambah huruf tambahan. Garis ini memanjangkan bunyi vokal aksara sebelumnya.",
+          aRow: "Bunyi baris あ (あ段)",
+          aRowRule: "Tambah satu aksara あ (a)",
+          iRow: "Bunyi baris い (い段)",
+          iRowRule: "Tambah satu aksara い (i)",
+          uRow: "Bunyi baris う (う段)",
+          uRowRule: "Tambah satu aksara う (u)",
+          eRow: "Bunyi baris え (え段)",
+          eRowRule: "Biasanya tambah い (i)",
+          oRow: "Bunyi baris お (お段)",
+          oRowRule: "Biasanya tambah う (u)",
+          exOkaasan: "makcik / ibu",
+          exOniisan: "abang lebih tua",
+          exKuuki: "udara",
+          exSeito: "pelajar",
+          exTokei: "jam",
+          exOokami: "serigala",
+          exKa: "Dari カ (ka) + ー",
+          exKaWord: "kereta",
+          exKi: "Dari キ (ki) + ー",
+          exKiWord: "kunci",
+          exKu: "Dari ク (ku) + ー",
+          exKuWord: "udara",
+          exShiito: "Dari キ (ki) + ー + パ (pa) + ー",
+          exShiitoWord: "penjaga gol",
+          exTerebi: "Dari テ (te) + レ (re) + ビ (bi)",
+          exTerebiWord: "televisyen"
+        },
+        // Tenten & Maru content (MY)
+        subpage2: {
+          whatIsTitle: "Apakah Tenten dan Maru?",
+          whatIsDesc: "Tenten (濁点 / dakuten) dan Maru (半濁点 / handakuten) adalah tanda kritik yang mengubah sebutan aksara kana. Mereka kelihatan seperti petak kecil atau bulatan di bahagian kanan atas aksara.",
+          dakutenDesc: "Dakuten (濁点) dipanggil tenten kerana ia kelihatan seperti dua titik (〃). Ia menambah bunyi g kepada konsonan. Handakuten (半濁点) dipanggil maru kerana ia kelihatan seperti bulatan (゜). Ia menukar konsonan kepada p.",
+          handakutenDesc: "Maru (゜) menukar konsonan kepada bunyi p. Berbeza dengan dakuten yang membvocalkan (b, d, g), handakuten hanya pergi ke p.",
+          memoryTrickTitle: "Trik Mudah Mengingat",
+          memoryTrickDesc: "Fikirkan tenten (゛) sebagai menambah bunyi berkapak - ia menjadikan konsonan kotor atau berbunyi. Maru (゜) lebih bersih - ia hanya sedikit tiupan udara (tak berbunyi /p/).",
+          memoryTrickExceptions: "Ingat: づ ialah d + u (bunyi seperti doo), dan じ ialah ji (bukan di). Ini adalah pengecualian!",
+          dakutenTitle: "Dakuten (゛) - Pembvocalan",
+          handakutenTitle: "Handakuten (゜) - Separuh Pembvocalan",
+          chartTitle: "Jadual Dakuten & Handakuten",
+          columnBase: "Asas",
+          columnVoiced: "Berbvocal",
+          columnSemi: "Separuh",
+          exceptionsTitle: "Pengecualian untuk Diingat"
+        },
+        // Combination Hiragana content (MY)
+        subpage3: {
+          whatIsTitle: "Apakah Kana Gabungan?",
+          whatIsDesc: "Sesetengah bunyi konsonan dalam bahasa Jepun memerlukan dua aksara ditulis bersama. Aksara pertama ditulis lebih kecil untuk menunjukkan ia adalah sebahagian daripada gabungan. Ini penting untuk membaca banyak perkataan biasa.",
+          smallTSuTitle: "っ kecil (Sokuon)",
+          smallTSuDesc: "っ kecil menandakan hentian glotis, menggandakan konsonan berikut. Ia adalah kunci untuk perkataan seperti ちょっと (chotto) dan よかった (yokatta).",
+          sokuonTitle: "Sokuon (っ) - Penggandaan Konsonan",
+          sokuonDetail: "Kecil っ memberitahu anda untuk jeda sedikit dan tahan konsonan berikutnya. Contoh: まっすぐ (ma-ssu-gu), bukan masu-sugu.",
+          yoonTitle: "Yōon Kecil (ゃ, ゅ, ょ)",
+          yoonSmallTitle: "Yōon Kecil (ゃ, ゅ, ょ)",
+          yoonDesc: "Vokal kecil ini bergabung dengan konsonan tertentu untuk membuat bunyi baru seperti きゃ (kya), にゅ (nyu), atau しょ (sho).",
+          chartTitle: "Jadual Gabungan",
+          columnConsonant: "Konsonan",
+          columnCombo: "Gabungan",
+          columnSound: "Bunyi",
+          commonExamplesTitle: "Contoh Biasa",
+          sokuonBefore: "Sebelum",
+          sokuonAfter: "Selepas",
+          sokuonExample: "Contoh",
+          sokuonMeaning: "Makna",
+          exChan: "chan (akhiran untuk kanak-kanak)",
+          exHisho: "hisho ( setiausaha)",
+          exKyu: "kyū (sembilan)"
+        }
       },
       basic: {
         title: "Frasa Asas + Zarah + Bina Ayat",
@@ -661,22 +821,32 @@ export const translations = {
         ]
       }
     },
-    // Grammar
-    grammar: {
-      title: "Perpustakaan Tatabahasa",
-      subtitle: "Disusun mengikut tahap JLPT. Setiap titik tatabahasa diterangkan dengan mendalam.",
-      filterByLevel: "Tapis mengikut Tahap",
-      allLevels: "Semua Tahap",
-      searchPlaceholder: "Cari titik tatabahasa...",
-      formation: "Pembentukan",
-      explanation: "Penjelasan",
-      examples: "Contoh",
-      commonMistakes: "Kesilapan Biasa",
-      howDiffersN4: "Bagaimana ini bezanya dari N4",
-      markLearned: "Tanda Sudah Belajar",
-      markedLearned: "Sudah Dipelajari",
-      levelBadge: "Tahap JLPT",
-      backToList: "Kembali ke Senarai Tatabahasa"
+    // Introduction Page
+    introduction: {
+      title: "Pengenalan kepada Bahasa Jepun",
+      subtitle: "Langkah pertama anda untuk memahami bahasa Jepun",
+      welcomeTitle: "Apa itu Bahasa Jepun?",
+      welcomeDesc: "Bahasa Jepun dituturkan oleh kira-kira 130 juta orang di Jepun dan komuniti Jepun di seluruh dunia. Ia tergolong dalam keluarga bahasa Japonic, yang tidak mempunyai hubungan geneologis yang luas diterima dengan mana-mana keluarga bahasa lain.",
+      writingTitle: "Sistem Penulisan",
+      writingDesc: "Bahasa Jepun menggunakan tiga sistem penulisan digabungkan:",
+      writingPoint1: "Hiragana - Digunakan untuk perkataan asli Jepun dan unsur tatabahasa",
+      writingPoint2: "Katakana - Digunakan untuk perkataan asing, penekanan, dan onomatopoeia",
+      writingPoint3: "Kanji - Aksara Cina yang diterima pakai untuk Jepun, digunakan untuk kata nama dan punca kata kerja",
+      structureTitle: "Struktur Bahasa",
+      structureDesc: "Bahasa Jepun mempunyai struktur yang berbeza dari Bahasa Inggeris:",
+      structurePoint1: "Tertib Subjek-Objek-Kata Kerja (SOV) bukan SVO",
+      structurePoint2: "Tiada ruang antara perkataan",
+      structurePoint3: "Tahap kesopanan yang kompleks (keigo) berdasarkan hierarki sosial",
+      structurePoint4: "Tiada jantina tatabahasa atau kata ganda",
+      soundTitle: "Sistem Bunyi",
+      soundDesc: "Bahasa Jepun mempunyai sistem fonologi yang agak mudah:",
+      soundPoint1: "Hanya 5 bunyi vokal (a, i, u, e, o)",
+      soundPoint2: "Tiada kluster konsonan (cth: \"st\", \"tr\", \"gl\")",
+      soundPoint3: "Setiap suku kata lebih kurang sama panjang",
+      soundPoint4: "Nilai nada bukan tekanan aksen (berbeza mengikut dialek)",
+      tipTitle: "Tip Pembelajaran",
+      tipDesc: "Jangan cuba menterjemah perkataan demi perkataan dari Bahasa Inggeris. Sebaliknya, cuba fahami konsep dan corak dalam konteks Jepun mereka.",
+      ctaRoadmap: "Belajar Hiragana & Katakana"
     },
     // Culture/Vocab
     culture: {
@@ -724,6 +894,11 @@ export const translations = {
       followThreads: "Ikuti di Threads",
       joinCommunity: " Sertai Komuniti"
     },
+    // Signup Modal
+    signup: {
+      signupSuccess: "Berjaya! Saya akan contact korang soon.",
+      signupError: "Something went wrong. Try again."
+    },
     // Common
     common: {
       loading: "Memuatkan...",
@@ -737,23 +912,13 @@ export const translations = {
       continue: "Teruskan",
       comingSoon: "Akan datang soon..."
     },
-    // JLPT Levels
-    levels: {
-      n5: "N5 - Permulaan",
-      n4: "N4 - Asas",
-      n3: "N3 - Pertengahan",
-      n2: "N2 - Pertengahan Atas",
-      n1: "N1 - Lanjutan"
-    },
     // Kana Charts
     kana: {
       title: "Jadual Kana",
       subtitle: "Rujukan interaktif Hiragana & Katakana dengan sebutan audio",
       hiragana: "Hiragana",
       katakana: "Katakana",
-      clickToLearn: "Klik mana-mana aksara untuk dengar sebutan",
-      subpage1Title: "Kana Subpage 1",
-      subpage1Subtitle: ""
+      clickToLearn: "Klik mana-mana aksara untuk dengar sebutan"
     },
     // Kanji Stroke Rules
     kanjiRules: {
@@ -761,9 +926,9 @@ export const translations = {
       subtitle: "Fahami apakah kanji dan bagaimana ia berfungsi",
       intro: "Kanji adalah satu daripada tiga sistem penulisan yang digunakan dalam bahasa Jepun. Setiap aksara mewakili satu makna atau konsep, berbeza dengan hiragana dan katakana yang mewakili bunyi.",
       whyTitle: "Kenapa Belajar Kanji?",
-      whyPoint1: "Kanji menjadikan pembacaan bahasa Jepun mungkin — hiragana sahaja tidak boleh membezakan perkataan seperti 橋 (jambatan) daripada 箸 (筷子)",
-      whyPoint2: "Walaupun di tahap N5, anda akanJumpai lebih kurang 100 kanji — itulah sebabnya ia adalah sebahagian daripada setiap tahap JLPT",
-      whyPoint3: "Sebaik sahaja anda mengenali kanji, vocabulary menjadi lebih mudah — banyak perkataan diperbuat daripada kombinasi kanji",
+      whyPoint1: "Kanji menjadikan pembacaan bahasa Jepun mungkin. Hiragana sahaja tidak boleh membezakan perkataan seperti 橋 (jambatan) daripada 箸 (筷子)",
+      whyPoint2: "Walaupun di tahap N5, anda akan Jumpai lebih kurang 100 kanji. Itulah sebabnya ia adalah sebahagian daripada setiap tahap JLPT",
+      whyPoint3: "Sebaik sahaja anda mengenali kanji, vocabulary menjadi lebih mudah. Banyak perkataan diperbuat daripada kombinasi kanji",
       typesTitle: "Jenis-jenis Kanji",
       onyomi: "Onyomi (Bacaan Cina)",
       onyomiDesc: "Pengelasan bunyi daripada Cina. Digunakan dalam perkataan kompaun.",
@@ -840,7 +1005,7 @@ export const translations = {
       createNewPost: "Buat Post Baru",
       readingTime: "Masa baca (minit)",
       tagsPlaceholder: "n5, tatabahasa, mindset",
-      contentEnLabel: "Kandungan (English) * — Markdown supported",
+      contentEnLabel: "Kandungan (English) * - Markdown supported",
       contentMyLabel: "Kandungan (Malay)",
       contentPlaceholder: "# Heading\n\nKandungan anda di sini...",
       contentMyPlaceholder: "Kandungan Malay di sini (optional)...",

@@ -173,6 +173,10 @@ function reRenderCurrentView() {
     renderKanaView();
   } else if (route === "kana/subpage1") {
     renderKanaSubpage1View();
+  } else if (route === "kana/subpage2") {
+    renderKanaSubpage2View();
+  } else if (route === "kana/subpage3") {
+    renderKanaSubpage3View();
   } else if (route === "kanji-rules") {
     renderKanjiRulesView();
   } else if (route === "kanji-rules/subpage1") {
@@ -181,6 +185,8 @@ function reRenderCurrentView() {
     renderAnkiView();
   } else if (route === "roadmap") {
     renderRoadmapView();
+  } else if (route === "introduction") {
+    renderIntroductionView();
   } else if (route === "culture" || route.startsWith("culture/")) {
     handleCultureRoute(route);
   } else if (route === "blog" || route.startsWith("blog/")) {
@@ -309,7 +315,7 @@ function initRouter() {
 
     navItems.forEach(item => {
       const target = item.getAttribute("data-target");
-      if (route.startsWith(target)) {
+      if (route === target || route.startsWith(target + "/")) {
         item.classList.add("active");
         // Expand parent nav group if this is a subpage
         const parentGroup = item.closest(".nav-group");
@@ -323,12 +329,18 @@ function initRouter() {
       }
     });
 
-    if (route === "intro") {
+    if (route === "introduction") {
+      renderIntroductionView();
+    } else if (route === "intro") {
       renderIntroView();
     } else if (route === "kana") {
       renderKanaView();
     } else if (route === "kana/subpage1") {
       renderKanaSubpage1View();
+    } else if (route === "kana/subpage2") {
+      renderKanaSubpage2View();
+    } else if (route === "kana/subpage3") {
+      renderKanaSubpage3View();
     } else if (route === "kanji-rules") {
       renderKanjiRulesView();
     } else if (route === "kanji-rules/subpage1") {
@@ -374,6 +386,16 @@ function playPronunciation(text) {
   } else {
     alert(t('common.audioNotSupported'));
   }
+}
+
+// Play local Kana audio file
+function playKanaAudio(romaji) {
+  const audioPath = `Audio/Kana Charts/${romaji}.mp3`;
+  const audio = new Audio(audioPath);
+  audio.play().catch(err => {
+    console.warn('Local audio not found, falling back to Web Speech API:', err);
+    playPronunciation(romaji);
+  });
 }
 
 /* ==========================================================================
@@ -442,11 +464,11 @@ function renderIntroView() {
         <h2 class="home-section-title">${t('home.quickNavTitle')}</h2>
         <p class="home-quick-nav-subtitle">${t('home.quickNavSubtitle')}</p>
         <div class="home-sections-grid">
-          <a href="#kana" class="home-section-card">
+          <a href="#introduction" class="home-section-card">
             <div class="home-section-icon kana-icon">あ</div>
             <div class="home-section-text">
-              <h3>Kana Charts</h3>
-              <p>Hiragana & Katakana with audio — the essential first step</p>
+              <h3>Introduction to Japanese</h3>
+              <p>The essential first step - learn how Japanese writing works</p>
             </div>
           </a>
           <a href="#kanji-rules" class="home-section-card">
@@ -717,7 +739,7 @@ function renderKanaGrid() {
           <div class="kana-romaji">${char.romaji}</div>
         `;
         td.addEventListener('click', () => {
-          playPronunciation(char.kana);
+          playKanaAudio(char.romaji);
         });
       } else {
         td.className = 'kana-cell empty';
@@ -1497,6 +1519,264 @@ function renderAboutView() {
   `;
 }
 
+// --- INTRODUCTION VIEW ---
+function renderIntroductionView() {
+  state.currentView = "introduction";
+  document.getElementById("section-title").textContent = t('introduction.title');
+
+  const appView = document.getElementById("app-view");
+  const lang = getLanguage();
+
+  appView.innerHTML = `
+    <div class="fade-in">
+      <div class="page-header page-header-icon">
+        <h1><i data-lucide="book-open"></i> ${t('introduction.title')}</h1>
+        <p>${t('introduction.subtitle')}</p>
+      </div>
+
+      <div class="jlpt-info-content">
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="globe"></i> ${t('introduction.welcomeTitle')}</h2>
+          <div class="jlpt-whatis-card">
+            <p>${t('introduction.welcomeDesc')}</p>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="pen-tool"></i> ${t('introduction.writingTitle')}</h2>
+          <div class="writing-examples" style="margin-bottom: 16px;">
+            <div class="writing-example-item">
+              <span class="example-char">あ</span>
+              <span class="example-label">Hiragana</span>
+              <span class="example-desc">Native words (e.g., あめ = rain)</span>
+            </div>
+            <div class="writing-example-item">
+              <span class="example-char">ア</span>
+              <span class="example-label">Katakana</span>
+              <span class="example-desc">Foreign words (e.g., テレビ = TV)</span>
+            </div>
+            <div class="writing-example-item">
+              <span class="example-char">日</span>
+              <span class="example-label">Kanji</span>
+              <span class="example-desc">Day / Sun (e.g., 日本 = Japan)</span>
+            </div>
+          </div>
+          <div class="jlpt-whatis-card">
+            <p><strong>${t('introduction.writingDesc')}</strong></p>
+            <ul style="margin-top: 12px; padding-left: 20px;">
+              <li>${t('introduction.writingPoint1')}</li>
+              <li>${t('introduction.writingPoint2')}</li>
+              <li>${t('introduction.writingPoint3')}</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="git-branch"></i> ${t('introduction.structureTitle')}</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 24px;">${t('introduction.structureDesc')}</p>
+
+          <div class="structure-compare">
+            <div class="structure-compare-row">
+              <div class="structure-compare-header">
+                <span class="structure-lang-label">English</span>
+                <span class="structure-lang-order">SVO - Subject -> Verb -> Object</span>
+              </div>
+              <div class="structure-compare-flow">
+                <div class="structure-box subject-box">I</div>
+                <i data-lucide="arrow-right" class="flow-arrow"></i>
+                <div class="structure-box verb-box">eat</div>
+                <i data-lucide="arrow-right" class="flow-arrow"></i>
+                <div class="structure-box object-box">rice</div>
+              </div>
+              <p class="structure-compare-sentence">"I eat rice"</p>
+            </div>
+
+            <div class="structure-compare-row">
+              <div class="structure-compare-header">
+                <span class="structure-lang-label">Japanese</span>
+                <span class="structure-lang-order">SOV - Subject -> Object -> Verb</span>
+              </div>
+              <div class="structure-compare-flow">
+                <div class="structure-box subject-box">Watashi</div>
+                <i data-lucide="arrow-right" class="flow-arrow"></i>
+                <div class="structure-box object-box">gohan</div>
+                <i data-lucide="arrow-right" class="flow-arrow"></i>
+                <div class="structure-box verb-box">tabemasu</div>
+              </div>
+              <p class="structure-compare-sentence">"Watashi wa gohan wo tabemasu" (I rice eat)</p>
+            </div>
+          </div>
+
+          <div class="structure-notes">
+            <div class="structure-note-item">
+              <div class="structure-note-icon"><i data-lucide="x-circle"></i></div>
+              <div class="structure-note-text">
+                <span class="structure-note-label">No spaces between words</span>
+                <span class="structure-note-example">私はご飯を食べます (I eat rice)</span>
+              </div>
+            </div>
+            <div class="structure-note-item">
+              <div class="structure-note-icon"><i data-lucide="users"></i></div>
+              <div class="structure-note-text">
+                <span class="structure-note-label">Politeness Levels (Keigo)</span>
+                <span class="structure-note-example">Casual → Polite → Formal</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="volume-2"></i> ${t('introduction.soundTitle')}</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 24px;">${t('introduction.soundDesc')}</p>
+
+          <div class="mora-explainer">
+            <div class="mora-intro">
+              <div class="mora-icon"><i data-lucide="circle-dot"></i></div>
+              <div class="mora-intro-text">
+                <h3>The Mora: Japanese Timing</h3>
+                <p>Japanese is not counted in syllables. It is counted in <strong>morae</strong> (拍 / ha-ku). Each mora is a single, evenly-timed beat. The whole rhythm of the language is built by giving every mora the same short duration.</p>
+                <p style="margin-top: 8px;">Getting the mora count right, and giving each beat equal length, is what separates a natural learner from one who is understood only with effort.</p>
+              </div>
+            </div>
+
+            <div class="mora-visual">
+              <div class="mora-visual-label">ともだち (friend)</div>
+              <div class="mora-breakdown">
+                <div class="mora-unit">
+                  <div class="mora-char">と</div>
+                  <div class="mora-label">to</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">も</div>
+                  <div class="mora-label">mo</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">だ</div>
+                  <div class="mora-label">da</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">ち</div>
+                  <div class="mora-label">chi</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-equals"><i data-lucide="equal"></i></div>
+                <div class="mora-total">
+                  <span class="mora-total-num">4</span>
+                  <span class="mora-total-label">morae</span>
+                </div>
+              </div>
+              <div class="mora-audio-player">
+                <button class="mora-audio-btn" id="mora-audio-btn">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                  Listen to this word
+                </button>
+                <span class="mora-audio-note">${lang === 'en' ? 'Notice each syllable takes equal time' : 'Perhatikan setiap suku ambil masa yang sama'}</span>
+              </div>
+            </div>
+
+            <div class="mora-rules">
+              <div class="mora-rule">
+                <div class="mora-rule-icon"><i data-lucide="check-circle"></i></div>
+                <div class="mora-rule-text">
+                  <strong>Each basic kana = 1 mora</strong>
+                  <span>ねこ (ne-ko) = 2 morae, さくら (sa-ku-ra) = 3 morae</span>
+                </div>
+              </div>
+              <div class="mora-rule">
+                <div class="mora-rule-icon"><i data-lucide="alert-circle"></i></div>
+                <div class="mora-rule-text">
+                  <strong>Small yōon (ゃ, ゅ, ょ) fuse into a single mora</strong>
+                  <span>きゃ = 1 mora, not 2. This is the first thing English speakers miscount.</span>
+                </div>
+              </div>
+              <div class="mora-rule">
+                <div class="mora-rule-icon"><i data-lucide="check-circle"></i></div>
+                <div class="mora-rule-text">
+                  <strong>ん = 1 mora</strong>
+                  <span>The nasal sound at the end (e.g., にほん = ni-ho-n = 3 morae)</span>
+                </div>
+              </div>
+              <div class="mora-rule">
+                <div class="mora-rule-icon"><i data-lucide="check-circle"></i></div>
+                <div class="mora-rule-text">
+                  <strong>Long vowels = 2 morae</strong>
+                  <span>おお (oo) = お + お = 2 beats, said at equal length</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sound-features">
+              <div class="sound-feature-card">
+                <div class="sound-feature-icon"><i data-lucide="trending-up"></i></div>
+                <div class="sound-feature-content">
+                  <h3>${t('introduction.soundPoint4')}</h3>
+                  <p>Pitch accent. The same word can have different meanings depending on which syllable has the high pitch. Differs between Tokyo, Kansai, and other dialects.</p>
+                  <div class="pitch-visual">
+                    <div class="pitch-example">
+                      <span class="pitch-word">はし (hashi)</span>
+                      <div class="pitch-bars">
+                        <div class="pitch-bar active"></div>
+                        <div class="pitch-bar"></div>
+                        <div class="pitch-bar"></div>
+                      </div>
+                      <span class="pitch-meaning">chopsticks</span>
+                    </div>
+                    <div class="pitch-example">
+                      <span class="pitch-word">はし (hashi)</span>
+                      <div class="pitch-bars">
+                        <div class="pitch-bar"></div>
+                        <div class="pitch-bar active"></div>
+                        <div class="pitch-bar active"></div>
+                      </div>
+                      <span class="pitch-meaning">bridge</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sound-feature-card">
+                <div class="sound-feature-icon"><i data-lucide="link-off"></i></div>
+                <div class="sound-feature-content">
+                  <h3>${t('introduction.soundPoint2')}</h3>
+                  <p>Every Japanese syllable always ends with a vowel or ん (n). No consonant clusters allowed. That means no "st", "tr", "gl" sounds. Instead, you break them into separate syllables. For example: "stop" becomes "su-to-ppu", "train" becomes "to-re-i-n".</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="lightbulb"></i> ${t('introduction.tipTitle')}</h2>
+          <div class="jlpt-whatis-card">
+            <p>${t('introduction.tipDesc')}</p>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <div style="text-align: center;">
+            <a href="#kana" class="btn-cta-primary">${t('introduction.ctaRoadmap')}</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  `;
+
+  // Mora audio button
+  const moraBtn = document.getElementById("mora-audio-btn");
+  if (moraBtn) {
+    moraBtn.addEventListener("click", () => {
+      const audio = new Audio("Audio/pronunciation_tomodachi_mora.mp3");
+      audio.play();
+    });
+  }
+}
+
 // --- KANA VIEW ---
 function renderKanaView() {
   state.currentView = "kana";
@@ -1527,7 +1807,80 @@ function renderKanaView() {
       </p>
 
       <!-- Kana Grid Container -->
-      <div class="kana-grid-container" id="kana-grid-container"></div>
+      <div class="kana-chart-wrapper">
+        <div class="kana-grid-container" id="kana-grid-container"></div>
+      </div>
+
+      <!-- Kana Tips -->
+      <div class="kana-tips-section">
+        <h2><i data-lucide="lightbulb"></i> ${lang === 'en' ? 'Pronunciation Tips' : 'Tips Sebutan'}</h2>
+
+        <div class="kana-tips-grid">
+          <div class="kana-tip-card tip-full">
+            <h3>${lang === 'en' ? 'し, ち, つ - Not "si, ti, tu"' : 'し, ち, つ - Bukan "si, ti, tu"'}</h3>
+            <p class="tip-desc">${lang === 'en'
+              ? 'Some kana look like they should follow English patterns, but they do not. These three are the most commonly mispronounced:'
+              : 'Sesetengah kana kelihatan seperti ikut pola Bahasa Inggeris, tetapi tidak. Ketiga-tiga ini adalah yang paling kerap salah disebut:'
+            }</p>
+            <div class="pronunciation-comparison">
+              <div class="pron-comparison-row">
+                <div class="pron-kana-box">
+                  <span class="pron-kana-char">し</span>
+                  <span class="pron-romaji">shi</span>
+                </div>
+                <div class="pron-vs">vs</div>
+                <div class="pron-wrong-box">
+                  <span class="pron-wrong-char">si</span>
+                  <span class="pron-wrong-label">English pattern</span>
+                </div>
+              </div>
+              <div class="pron-comparison-row">
+                <div class="pron-kana-box">
+                  <span class="pron-kana-char">ち</span>
+                  <span class="pron-romaji">chi</span>
+                </div>
+                <div class="pron-vs">vs</div>
+                <div class="pron-wrong-box">
+                  <span class="pron-wrong-char">ti</span>
+                  <span class="pron-wrong-label">English pattern</span>
+                </div>
+              </div>
+              <div class="pron-comparison-row">
+                <div class="pron-kana-box">
+                  <span class="pron-kana-char">つ</span>
+                  <span class="pron-romaji">tsu</span>
+                </div>
+                <div class="pron-vs">vs</div>
+                <div class="pron-wrong-box">
+                  <span class="pron-wrong-char">tu</span>
+                  <span class="pron-wrong-label">English pattern</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="kana-tip-card">
+            <h3>${lang === 'en' ? 'Why no Wi, Wu, Wo? (and Yi, Ye?)' : 'Kenapa tiada Wi, Wu, Wo? (dan Yi, Ye?)'}</h3>
+            <p>${lang === 'en'
+              ? 'Yi and Ye never existed in Japanese. They are not missing - they were simply never part of the sound system. Wi and We (ゐ, ヱ) existed historically but were abolished in 1946. を (wo) still exists but only as a particle (pronounced "o", same as お).'
+              : 'Yi dan Ye tidak pernah wujud dalam bahasa Jepun. Ia tidak hilang - ia tidak pernah menjadi sebahagian daripada sistem bunyi. Wi dan We (ゐ, ヱ) wujud secara historis tetapi dihapuskan pada 1946. を (wo) masih ada tetapi hanya sebagai partikel (disebut "o", sama seperti お).'
+            }</p>
+          </div>
+          <div class="kana-tip-card">
+            <h3>${lang === 'en' ? 'つ (tsu) - Glottal Stop' : 'つ (tsu) - Hentian Vokal'}</h3>
+            <p>${lang === 'en'
+              ? 'The small っ is NOT pronounced as "tsu". It signals a glottal stop. The sound cuts briefly before the next consonant. Practice: ちょっと (chotto) = "cho" + pause + "to".'
+              : 'Kecil っ senang TIDAK disebut sebagai "tsu". Ia menandakan hentian vokal. Bunyi dipotong seketika sebelum konsonan seterusnya.'
+            }</p>
+          </div>
+          <div class="kana-tip-card">
+            <h3>${lang === 'en' ? 'ふ (fu)' : 'ふ (fu)'}</h3>
+            <p>${lang === 'en'
+              ? '"ふ" is a difficult sound - it\'s NOT "hu" or "fu" as in English. The Japanese ふ is a soft bilabial fricative: breathe out gently through pursed lips. Listen to the audio repeatedly!'
+              : '"ふ" adalah bunyi yang sukar - ia BUKAN "hu" atau "fu" seperti dalam Bahasa Inggeris. ふ Jepun adalah frikatif bibihari yang lembut.'
+            }</p>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 
@@ -1612,10 +1965,10 @@ function renderKanjiRulesView() {
   `;
 }
 
-// --- KANA SUBPAGE 1 ---
+// --- KANA SUBPAGE 1: LONG VOWEL ---
 function renderKanaSubpage1View() {
   state.currentView = "kana-subpage1";
-  document.getElementById("section-title").textContent = t('kana.subpage1Title') || 'Kana Subpage 1';
+  document.getElementById("section-title").textContent = t('roadmap.kana.subpage1Title') || 'Long Vowel';
 
   const appView = document.getElementById("app-view");
   const lang = getLanguage();
@@ -1623,11 +1976,363 @@ function renderKanaSubpage1View() {
   appView.innerHTML = `
     <div class="fade-in">
       <div class="page-header">
-        <h1>${t('kana.subpage1Title') || 'Kana Subpage 1'}</h1>
-        <p>${t('kana.subpage1Subtitle') || ''}</p>
+        <h1>${t('roadmap.kana.subpage1Title')}</h1>
+        <p>${t('roadmap.kana.subpage1Subtitle')}</p>
       </div>
-      <div class="content-section">
-        <p>${t('common.comingSoon')}</p>
+
+      <div class="jlpt-info-content">
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="info"></i> ${lang === 'en' ? 'What is Long Vowel?' : 'Apakah Vokal Panjang?'}</h2>
+          <div class="jlpt-whatis-card">
+            <p>${lang === 'en'
+              ? 'Long vowels (長音 / chōon) are extended vowel sounds where a vowel is held for two morae instead of one. In Japanese, changing a vowel length can completely change the meaning of a word, so it\'s important to master this early.'
+              : 'Vokal panjang (長音 / chōon) adalah bunyi vokal yang dipegang untuk dua morae bukan satu. Dalam bahasa Jepun, menukar panjang vokal boleh menyebabkan perubahan makna sepenuhnya, jadi ia penting untuk dikuasai awal.'
+            }</p>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="pen-tool"></i> ${lang === 'en' ? 'Writing Long Vowel in Hiragana' : 'Menulis Vokal Panjang dalam Hiragana'}</h2>
+          <div class="jlpt-levels-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="jlpt-level-card n5">
+              <h3>Long "あ" (a) sound</h3>
+              <p>Add an extra あ after it</p>
+              <div class="long-vowel-compare">
+                <div class="long-vowel-box short">
+                  <span class="long-vowel-word">おばさん</span>
+                  <span class="long-vowel-romaji">obasan</span>
+                  <span class="long-vowel-meaning">aunt</span>
+                </div>
+                <span class="long-vowel-vs">vs</span>
+                <div class="long-vowel-box long">
+                  <span class="long-vowel-word">おばあさん</span>
+                  <span class="long-vowel-romaji">obaasan</span>
+                  <span class="long-vowel-meaning">grandmother</span>
+                </div>
+              </div>
+            </div>
+            <div class="jlpt-level-card n5">
+              <h3>Long "い" (i) sound</h3>
+              <p>Add an extra い after it</p>
+              <div class="long-vowel-compare">
+                <div class="long-vowel-box short">
+                  <span class="long-vowel-word">おじさん</span>
+                  <span class="long-vowel-romaji">ojisan</span>
+                  <span class="long-vowel-meaning">uncle</span>
+                </div>
+                <span class="long-vowel-vs">vs</span>
+                <div class="long-vowel-box long">
+                  <span class="long-vowel-word">おじいさん</span>
+                  <span class="long-vowel-romaji">ojiisan</span>
+                  <span class="long-vowel-meaning">grandfather</span>
+                </div>
+              </div>
+            </div>
+            <div class="jlpt-level-card n5">
+              <h3>Long "う" (u) sound</h3>
+              <p>Add an extra う after it</p>
+              <div class="long-vowel-compare">
+                <div class="long-vowel-box short">
+                  <span class="long-vowel-word">くき</span>
+                  <span class="long-vowel-romaji">kuki</span>
+                  <span class="long-vowel-meaning">stem</span>
+                </div>
+                <span class="long-vowel-vs">vs</span>
+                <div class="long-vowel-box long">
+                  <span class="long-vowel-word">くうき</span>
+                  <span class="long-vowel-romaji">kuuki</span>
+                  <span class="long-vowel-meaning">air</span>
+                </div>
+              </div>
+            </div>
+            <div class="jlpt-level-card n5">
+              <h3>Long "え" (e) sound</h3>
+              <p>Usually add い, sometimes え</p>
+              <div class="long-vowel-compare">
+                <div class="long-vowel-box short">
+                  <span class="long-vowel-word">おねさん</span>
+                  <span class="long-vowel-romaji">one-san</span>
+                  <span class="long-vowel-meaning">young woman</span>
+                </div>
+                <span class="long-vowel-vs">vs</span>
+                <div class="long-vowel-box long">
+                  <span class="long-vowel-word">おねえさん</span>
+                  <span class="long-vowel-romaji">onee-san</span>
+                  <span class="long-vowel-meaning">older sister</span>
+                </div>
+              </div>
+              <div class="long-vowel-compare" style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-color);">
+                <div class="long-vowel-box short">
+                  <span class="long-vowel-word">とうげ</span>
+                  <span class="long-vowel-romaji">touge</span>
+                  <span class="long-vowel-meaning">mountain pass</span>
+                </div>
+                <span class="long-vowel-vs">vs</span>
+                <div class="long-vowel-box long">
+                  <span class="long-vowel-word">とうげい</span>
+                  <span class="long-vowel-romaji">tougei</span>
+                  <span class="long-vowel-meaning">theatrical performance</span>
+                </div>
+              </div>
+            </div>
+            <div class="jlpt-level-card n5">
+              <h3>Long "お" (o) sound</h3>
+              <p>Usually add う, sometimes お</p>
+              <div class="long-vowel-compare">
+                <div class="long-vowel-box short">
+                  <span class="long-vowel-word">ここ</span>
+                  <span class="long-vowel-romaji">koko</span>
+                  <span class="long-vowel-meaning">here</span>
+                </div>
+                <span class="long-vowel-vs">vs</span>
+                <div class="long-vowel-box long">
+                  <span class="long-vowel-word">こうこう</span>
+                  <span class="long-vowel-romaji">koukou</span>
+                  <span class="long-vowel-meaning">high school</span>
+                </div>
+              </div>
+              <div class="long-vowel-compare" style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-color);">
+                <div class="long-vowel-box short">
+                  <span class="long-vowel-word">おきい</span>
+                  <span class="long-vowel-romaji">okii</span>
+                  <span class="long-vowel-meaning">big (rare)</span>
+                </div>
+                <span class="long-vowel-vs">vs</span>
+                <div class="long-vowel-box long">
+                  <span class="long-vowel-word">おおきい</span>
+                  <span class="long-vowel-romaji">ookii</span>
+                  <span class="long-vowel-meaning">big</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="pen-tool"></i> ${t('roadmap.kana.subpage1.katakanaTitle')}</h2>
+          <div class="jlpt-whatis-card">
+            <p>${t('roadmap.kana.subpage1.katakanaDesc')}</p>
+          </div>
+          <div class="jlpt-levels-grid" style="margin-top: 16px;">
+            <div class="jlpt-level-card n5">
+              <h3>ケーキ (kēki)</h3>
+              <p>From ケ (ke) + ー + キ (ki)</p>
+              <div class="long-vowel-example">
+                <span class="word-example">ケーキ</span>
+                <span class="romaji">kēki</span>
+                <span class="meaning">cake</span>
+              </div>
+            </div>
+            <div class="jlpt-level-card n5">
+              <h3>キーパー (kīpā)</h3>
+              <p>${t('roadmap.kana.subpage1.exShiito')}</p>
+              <div class="long-vowel-example">
+                <span class="word-example">キーパー</span>
+                <span class="romaji">kīpā</span>
+                <span class="meaning">${t('roadmap.kana.subpage1.exShiitoWord')}</span>
+              </div>
+            </div>
+            <div class="jlpt-level-card n5">
+              <h3>テレビ (terebi)</h3>
+              <p>${t('roadmap.kana.subpage1.exTerebi')}</p>
+              <div class="long-vowel-example">
+                <span class="word-example">テレビ</span>
+                <span class="romaji">terebi</span>
+                <span class="meaning">${t('roadmap.kana.subpage1.exTerebiWord')}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  `;
+}
+
+// --- KANA SUBPAGE 2: TENTEN & MARU ---
+function renderKanaSubpage2View() {
+  state.currentView = "kana-subpage2";
+  document.getElementById("section-title").textContent = t('roadmap.kana.subpage2Title') || 'Tenten & Maru';
+
+  const appView = document.getElementById("app-view");
+  const lang = getLanguage();
+
+  const dakutenRows = [
+    { base: "か", modified: "が", sound: "ga" },
+    { base: "き", modified: "ぎ", sound: "gi" },
+    { base: "く", modified: "ぐ", sound: "gu" },
+    { base: "け", modified: "げ", sound: "ge" },
+    { base: "こ", modified: "ご", sound: "go" },
+    { base: "さ", modified: "ざ", sound: "za" },
+    { base: "し", modified: "じ", sound: "ji" },
+    { base: "す", modified: "ず", sound: "zu" },
+    { base: "せ", modified: "ぜ", sound: "ze" },
+    { base: "そ", modified: "ぞ", sound: "zo" },
+    { base: "た", modified: "だ", sound: "da" },
+    { base: "ち", modified: "ぢ", sound: "di" },
+    { base: "つ", modified: "づ", sound: "du" },
+    { base: "て", modified: "で", sound: "de" },
+    { base: "と", modified: "ど", sound: "do" },
+    { base: "は", modified: "ば", sound: "ba" },
+    { base: "ひ", modified: "び", sound: "bi" },
+    { base: "ふ", modified: "ぶ", sound: "bu" },
+    { base: "へ", modified: "べ", sound: "be" },
+    { base: "ほ", modified: "ぼ", sound: "bo" },
+    { base: "ぱ", modified: "ぱ", sound: "pa" },
+    { base: "ぴ", modified: "ぴ", sound: "pi" },
+    { base: "ぷ", modified: "ぷ", sound: "pu" },
+    { base: "ぺ", modified: "ぺ", sound: "pe" },
+    { base: "ぽ", modified: "ぽ", sound: "po" }
+  ];
+
+  const dakutenHTML = dakutenRows.slice(0, 15).map(row => `
+    <div class="jlpt-level-card n5" style="padding: 16px; text-align: center;">
+      <h3 style="font-size: 24px; margin-bottom: 8px;">${row.base} + ゛ → ${row.modified}</h3>
+      <p style="color: var(--text-secondary);">${row.sound}</p>
+    </div>
+  `).join('');
+
+  const handakutenHTML = dakutenRows.slice(15).map(row => `
+    <div class="jlpt-level-card n4" style="padding: 16px; text-align: center;">
+      <h3 style="font-size: 24px; margin-bottom: 8px;">${row.base} + ゜ → ${row.modified}</h3>
+      <p style="color: var(--text-secondary);">${row.sound}</p>
+    </div>
+  `).join('');
+
+  appView.innerHTML = `
+    <div class="fade-in">
+      <div class="page-header">
+        <h1>${t('roadmap.kana.subpage2Title')}</h1>
+        <p>${t('roadmap.kana.subpage2Subtitle')}</p>
+      </div>
+
+      <div class="jlpt-info-content">
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="info"></i> ${t('roadmap.kana.subpage2.whatIsTitle')}</h2>
+          <div class="jlpt-whatis-card">
+            <p>${t('roadmap.kana.subpage2.dakutenDesc')}</p>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="circle"></i> ${t('roadmap.kana.subpage2.dakutenTitle')}</h2>
+          <div class="jlpt-levels-grid" style="grid-template-columns: repeat(5, 1fr);">
+            ${dakutenHTML}
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="circle-dot"></i> ${t('roadmap.kana.subpage2.handakutenTitle')}</h2>
+          <div class="jlpt-levels-grid" style="grid-template-columns: repeat(5, 1fr);">
+            ${handakutenHTML}
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="lightbulb"></i> ${t('roadmap.kana.subpage2.memoryTrickTitle')}</h2>
+          <div class="jlpt-purpose-cta">
+            <p>${t('roadmap.kana.subpage2.memoryTrickExceptions')}</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  `;
+}
+
+// --- KANA SUBPAGE 3: COMBINATION HIRAGANA ---
+function renderKanaSubpage3View() {
+  state.currentView = "kana-subpage3";
+  document.getElementById("section-title").textContent = t('roadmap.kana.subpage3Title') || 'Combination Hiragana';
+
+  const appView = document.getElementById("app-view");
+  const lang = getLanguage();
+
+  const sokuonRows = [
+    { char: "っk", before: "か", example: "まっすぐ (massugu)", meaning: "straight" },
+    { char: "っs", before: "さ", example: "rossei", meaning: "desperate" },
+    { char: "っt", before: "た", example: "あった (att)", meaning: "had" },
+    { char: "っr", before: "ら", example: "まった (matt)", meaning: "waited" },
+    { char: "っg", before: "が", example: "なかった (nakatta)", meaning: "did not exist" }
+  ];
+
+  const smallYoonRows = [
+    { char: "きゃ", sound: "kya", example: "さんきゃく (sankyou)", meaning: "thank you" },
+    { char: "しょ", sound: "sho", example: "ひしょ (hisho)", meaning: "secretary" },
+    { char: "ちゃ", sound: "cha", example: "ちゃん (chan)", meaning: "child" },
+    { char: "にゃ", sound: "nya", example: "にゃん (nyan)", meaning: "meow" },
+    { char: "ひゃ", sound: "hya", example: "ひゃく (hyaku)", meaning: "hundred" },
+    { char: "みゃ", sound: "mya", example: "みゃく (myaku)", meaning: "pulse" },
+    { char: "りゃ", sound: "rya", example: "りゃく (ryaku)", meaning: "abbreviation" },
+    { char: "ぎゃ", sound: "gya", example: "ぎゃく (gyaku)", meaning: "reverse" },
+    { char: "じゃ", sound: "ja", example: "じゃん (jan)", meaning: "isn\'t it?" },
+    { char: "びゃ", sound: "bya", example: "びゃく (byaku)", meaning: "white" },
+    { char: "ぴゃ", sound: "pya", example: "ぴゃん (pyan)", meaning: "meow" }
+  ];
+
+  const sokuonHTML = sokuonRows.map(row => `
+    <div class="jlpt-level-card n5" style="padding: 16px; text-align: center;">
+      <h3 style="font-size: 20px; margin-bottom: 8px;">${row.before} → ${row.char}</h3>
+      <p style="font-size: 13px; color: var(--text-secondary);">${row.example}</p>
+      <p style="font-size: 11px; color: var(--text-secondary);">(${row.meaning})</p>
+    </div>
+  `).join('');
+
+  const smallYoonHTML = smallYoonRows.map(row => `
+    <div class="jlpt-level-card n4" style="padding: 14px; text-align: center;">
+      <h3 style="font-size: 18px; margin-bottom: 4px;">${row.char}</h3>
+      <p style="color: var(--accent); font-size: 13px;">${row.sound}</p>
+      <p style="font-size: 11px; color: var(--text-secondary);">${row.example}</p>
+    </div>
+  `).join('');
+
+  appView.innerHTML = `
+    <div class="fade-in">
+      <div class="page-header">
+        <h1>${t('roadmap.kana.subpage3Title')}</h1>
+        <p>${t('roadmap.kana.subpage3Subtitle')}</p>
+      </div>
+
+      <div class="jlpt-info-content">
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="info"></i> ${t('roadmap.kana.subpage3.whatIsTitle')}</h2>
+          <div class="jlpt-whatis-card">
+            <p>${t('roadmap.kana.subpage3.whatIsDesc')}</p>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="zap"></i> ${t('roadmap.kana.subpage3.sokuonTitle')}</h2>
+          <div class="jlpt-levels-grid" style="grid-template-columns: repeat(5, 1fr);">
+            ${sokuonHTML}
+          </div>
+          <div class="jlpt-purpose-cta" style="margin-top: 16px;">
+            <p>${t('roadmap.kana.subpage3.sokuonDetail')}</p>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="link"></i> ${t('roadmap.kana.subpage3.yoonSmallTitle')}</h2>
+          <div class="jlpt-levels-grid" style="grid-template-columns: repeat(4, 1fr);">
+            ${smallYoonHTML}
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="book-open"></i> ${t('roadmap.kana.subpage3.commonExamplesTitle')}</h2>
+          <div class="jlpt-levels-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="jlpt-level-card n5">
+              <h3>ちゃ</h3>
+              <p>${t('roadmap.kana.subpage3.exChan')}</p>
+            </div>
+            <div class="jlpt-level-card n5">
+              <h3>しょ</h3>
+              <p>${t('roadmap.kana.subpage3.exHisho')}</p>
+            </div>
+            <div class="jlpt-level-card n5">
+              <h3>きゅ</h3>
+              <p>${t('roadmap.kana.subpage3.exKyu')}</p>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   `;
@@ -1945,7 +2650,7 @@ async function renderAdminDashboard(appView) {
               <input type="text" id="post-tags" placeholder="n5, grammar, mindset">
             </div>
             <div class="form-group">
-              <label for="post-content-en">Content (English) * — Markdown supported</label>
+              <label for="post-content-en">Content (English) * - Markdown supported</label>
               <textarea id="post-content-en" rows="12" placeholder="# Heading\n\nYour content here..." required></textarea>
             </div>
             <div class="form-group">

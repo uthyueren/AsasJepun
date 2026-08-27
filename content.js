@@ -194,10 +194,10 @@ You've nailed N5 and N4 grammar. You can hold basic conversations, read simple t
 ## Why N3 is Different
 
 ### 1. Density of Information
-N3 grammar isn't just "harder" — it's denser. Each grammar point connects to multiple concepts. Where N4 might have 1-2 usage patterns, N3 has 3-4.
+N3 grammar is not just "harder". It is denser. Each grammar point connects to multiple concepts. Where N4 might have 1-2 usage patterns, N3 has 3-4.
 
 ### 2. Nuance Over Rules
-N4 follows clear rules: use this form for this situation. N3 introduces nuance — this form works here BUT has these subtle implications.
+N4 follows clear rules: use this form for this situation. N3 introduces nuance. This form works here BUT has these subtle implications.
 
 ### 3. Passive Recognition Required
 Many N3 patterns you don't need to produce actively, but you DO need to recognize them when native speakers use them.
@@ -210,10 +210,10 @@ Think of N4 as learning individual tools. N3 is learning how to combine those to
 
 ## Practical Strategies
 
-1. **Read native material** — Novels, manga, light novels
-2. **Watch without subtitles** — Challenge your ears
-3. **Keep a grammar journal** — Write original example sentences
-4. **Teach N3 concepts** — Explaining helps you understand
+1. **Read native material** - Novels, manga, light novels
+2. **Watch without subtitles** - Challenge your ears
+3. **Keep a grammar journal** - Write original example sentences
+4. **Teach N3 concepts** - Explaining helps you understand
 
 The wall is real, but it's not permanent. Push through.`,
       my: `# Mengapa N3 Rasanya Seperti Dinding
@@ -227,10 +227,10 @@ Anda dah kuasai tatabahasa N5 dan N4. Anda boleh buat perbualan basic, baca teks
 ## Mengapa N3 Bezanya
 
 ### 1. Ketumpatan Maklumat
-Tatabahasa N3 bukan sekadar "lebih susah" — ia lebih padat. Setiap titik tatabahasa sambung ke multiple konsep. Mana N4 mungkin ada 1-2 corak penggunaan, N3 ada 3-4.
+Tatabahasa N3 bukan sekadar "lebih susah". Ia lebih padat. Setiap titik tatabahasa sambung ke multiple konsep. Mana N4 mungkin ada 1-2 corak penggunaan, N3 ada 3-4.
 
 ### 2. Nuance Lebih Dari Rules
-N4 ikut rules jelas: guna bentuk ini untuk situasi ini. N3 memperkenalkan nuance — bentuk ini berfungsi di sini TAPI ada implikasi subtle.
+N4 ikut rules jelas: guna bentuk ini untuk situasi ini. N3 memperkenalkan nuance. Bentuk ini berfungsi di sini TAPI ada implikasi subtle.
 
 ### 3. Passive Recognition Diperlukan
 Ramai corak N3 yang anda tak perlu produce aktif, tapi anda PERLU recognise bila penutur asli guna.
@@ -243,10 +243,10 @@ Fikir N4 sebagai belajar alatan individu. N3 adalah belajar bagaimana gabungkan 
 
 ## Strategi Praktikal
 
-1. **Baca bahan asli** — Novel, manga, light novels
-2. **Tengok tanpa sari kata** — Challenge telinga anda
-3. **Keep grammar journal** — Tulis contoh ayat original
-4. **Ajar konsep N3** — Explaination bantu anda faham
+1. **Baca bahan asli** - Novel, manga, light novels
+2. **Tengok tanpa sari kata** - Challenge telinga anda
+3. **Keep grammar journal** - Tulis contoh ayat original
+4. **Ajar konsep N3** - Explaination bantu anda faham
 
 Dinding tu real, tapi ia tak permanent. Pushing through.`
     }
@@ -261,15 +261,15 @@ Dinding tu real, tapi ia tak permanent. Pushing through.`
     readingTime: 6,
     tags: ['culture', 'motivation', 'input'],
     excerpt: {
-      en: 'Vtuber content isn\'t just entertaining — it\'s a goldmine for comprehensible input. Here\'s the science and strategy behind learning through streams.',
-      my: 'Kandungan Vtuber bukan sekadar entertaining — ia adalah lombong emas untuk comprehensible input. Ini science dan strategi di sebalik belajar melalui strim.'
+      en: 'Vtuber content is not just entertaining. It is a goldmine for comprehensible input. Here is the science and strategy behind learning through streams.',
+      my: 'Kandungan Vtuber bukan sekadar entertaining. Ia adalah lombong emas untuk comprehensible input. Ini science dan strategi di sebalik belajar melalui strim.'
     },
     content: {
       en: `# Learning Japanese Through Hololive
 
 ## The Comprehensible Input Theory
 
-Stephen Krashen's Input Hypothesis says we acquire language when we understand messages slightly above our current level. This is called "i+1" — input that's one step ahead.
+Stephen Krashen's Input Hypothesis says we acquire language when we understand messages slightly above our current level. This is called "i+1". Input that is one step ahead.
 
 Hololive streams provide exactly this.
 
@@ -282,7 +282,7 @@ When a streamer says "これ" while showing something, you get instant visual co
 When you're entertained, your brain is more receptive. You remember content linked to positive emotions.
 
 ### 3. Natural Speech Patterns
-Streams use casual Japanese — the kind textbooks rarely teach. You hear how people actually speak.
+Streams use casual Japanese. The kind textbooks rarely teach. You hear how people actually speak.
 
 ## Getting Started
 
@@ -309,7 +309,7 @@ Enjoy the journey!`,
 
 ## Teori Input yang Difahami
 
-Input Hypothesis Stephen Krashen kata kita acquire bahasa bila kita faham mesej sikit above tahap semasa. Ini dipanggil "i+1" — input yang satu langkah di hadapan.
+Input Hypothesis Stephen Krashen kata kita acquire bahasa bila kita faham mesej sikit above tahap semasa. Ini dipanggil "i+1". Input yang satu langkah di hadapan.
 
 Strim Hololive bagi exact ini.
 
@@ -322,7 +322,7 @@ Bila streamer cakap "これ" sambil tunjuk something, anda dapat context visual 
 Bila anda entertained, otak anda lebih receptive. Anda ingat kandungan yang linked dengan emosi positif.
 
 ### 3. Corak Pertuturan Natural
-Strim guna Japanese casual — jenis yang jarang buku teks ajar. Anda dengarcamana orang sebenarnye speak.
+Strim guna Japanese casual. Jenis yang jarang buku teks ajar. Anda dengarcamana orang sebenarnye speak.
 
 ## Cara Mula
 
@@ -357,8 +357,8 @@ Nikmati perjalanan!`
     readingTime: 5,
     tags: ['mindset', 'methodology'],
     excerpt: {
-      en: 'Should you learn Japanese alone or in a classroom? The answer isn\'t either/or — it\'s about finding the right balance.',
-      my: 'Patut ke belajar Jepun sorang atau dalam classroom? Jawapan bukan salah satu — ia tentang cari keseimbangan yang tepat.'
+      en: 'Should you learn Japanese alone or in a classroom? The answer is not either/or. It is about finding the right balance.',
+      my: 'Patut ke belajar Jepun sorang atau dalam classroom? Jawapan bukan salah satu. Ia tentang cari keseimbangan yang tepat.'
     },
     content: {
       en: `# Self-Study vs. Formal Classes
