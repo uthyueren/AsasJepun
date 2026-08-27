@@ -301,9 +301,19 @@ export const translations = {
     // Kanji Stroke Rules
     kanjiRules: {
       title: "Kanji",
-      subtitle: "Learn the fundamentals of writing kanji correctly",
-      subpage1Title: "Kanji Subpage 1",
-      subpage1Subtitle: ""
+      subtitle: "Understand what kanji is and how it works",
+      intro: "Kanji is one of the three writing systems used in Japanese. Each character represents a meaning or concept, unlike hiragana and katakana which represent sounds.",
+      whyTitle: "Why Learn Kanji?",
+      whyPoint1: "Kanji makes reading Japanese possible — hiragana alone can't distinguish words like 橋 (bridge) from 箸 (chopsticks)",
+      whyPoint2: "Even at N5 level, you'll encounter about 100 kanji — that's why it's part of every JLPT level",
+      whyPoint3: "Once you recognize kanji, vocabulary becomes easier — many words are made of kanji combinations",
+      typesTitle: "Types of Kanji",
+      onyomi: "Onyomi (Chinese Reading)",
+      onyomiDesc: "The Chinese-derived pronunciation. Used in compound words.",
+      kunyomi: "Kunyomi (Japanese Reading)",
+      kunyomiDesc: "The native Japanese pronunciation. Often used when kanji stands alone.",
+      subpage1Title: "Stroke Order",
+      subpage1Subtitle: "Learn the correct way to write kanji"
     },
     // JLPT Info
     jlptInfo: {
@@ -748,9 +758,19 @@ export const translations = {
     // Kanji Stroke Rules
     kanjiRules: {
       title: "Kanji",
-      subtitle: "Belajar asas menulis kanji dengan betul",
-      subpage1Title: "Kanji Subpage 1",
-      subpage1Subtitle: ""
+      subtitle: "Fahami apakah kanji dan bagaimana ia berfungsi",
+      intro: "Kanji adalah satu daripada tiga sistem penulisan yang digunakan dalam bahasa Jepun. Setiap aksara mewakili satu makna atau konsep, berbeza dengan hiragana dan katakana yang mewakili bunyi.",
+      whyTitle: "Kenapa Belajar Kanji?",
+      whyPoint1: "Kanji menjadikan pembacaan bahasa Jepun mungkin — hiragana sahaja tidak boleh membezakan perkataan seperti 橋 (jambatan) daripada 箸 (筷子)",
+      whyPoint2: "Walaupun di tahap N5, anda akanJumpai lebih kurang 100 kanji — itulah sebabnya ia adalah sebahagian daripada setiap tahap JLPT",
+      whyPoint3: "Sebaik sahaja anda mengenali kanji, vocabulary menjadi lebih mudah — banyak perkataan diperbuat daripada kombinasi kanji",
+      typesTitle: "Jenis-jenis Kanji",
+      onyomi: "Onyomi (Bacaan Cina)",
+      onyomiDesc: "Pengelasan bunyi daripada Cina. Digunakan dalam perkataan kompaun.",
+      kunyomi: "Kunyomi (Bacaan Jepun)",
+      kunyomiDesc: "Pengelasan bunyi asli Jepun. Sering digunakan apabila kanji berdiri sendiri.",
+      subpage1Title: "Susunan Loretan",
+      subpage1Subtitle: "Belajar cara yang betul untuk menulis kanji"
     },
     // JLPT Info
     jlptInfo: {

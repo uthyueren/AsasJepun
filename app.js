@@ -40,14 +40,15 @@ function initSidebar() {
     sidebar.classList.remove("active");
   });
 
-  // Handle collapsible nav groups
+  // Handle collapsible nav groups - only toggle button expands/collapses
   const navGroups = document.querySelectorAll(".nav-group");
   navGroups.forEach(group => {
-    const hasSubnav = group.querySelector(".has-subnav");
+    const toggleBtn = group.querySelector(".subnav-toggle");
     const subitems = group.querySelector(".nav-subitems");
 
-    hasSubnav.addEventListener("click", (e) => {
+    toggleBtn.addEventListener("click", (e) => {
       e.preventDefault();
+      e.stopPropagation();
       const isExpanded = group.classList.contains("expanded");
 
       // Toggle expanded state
@@ -61,8 +62,8 @@ function initSidebar() {
     });
   });
 
-  // Close sidebar on item click (mobile responsive) - skip has-subnav
-  const navItems = document.querySelectorAll(".nav-item:not(.has-subnav)");
+  // Close sidebar on item click (mobile responsive) - regular nav items only
+  const navItems = document.querySelectorAll(".nav-item:not(.subpage)");
   navItems.forEach(item => {
     item.addEventListener("click", (e) => {
       // Remove active class from other items
@@ -1553,6 +1554,93 @@ function renderKanjiRulesView() {
   const appView = document.getElementById("app-view");
   const lang = getLanguage();
 
+  appView.innerHTML = `
+    <div class="fade-in">
+      <div class="page-header">
+        <h1>${t('kanjiRules.title')}</h1>
+        <p>${t('kanjiRules.subtitle')}</p>
+      </div>
+
+      <div class="jlpt-info-content">
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="info"></i> ${lang === 'en' ? 'What is Kanji?' : 'Apakah Kanji?'}</h2>
+          <div class="jlpt-whatis-card">
+            <p>${t('kanjiRules.intro')}</p>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="help-circle"></i> ${t('kanjiRules.whyTitle')}</h2>
+          <div class="jlpt-levels-grid">
+            <div class="jlpt-level-card n5">
+              <h3><i data-lucide="book-open"></i> ${lang === 'en' ? 'Reading' : 'Membaca'}</h3>
+              <p>${t('kanjiRules.whyPoint1')}</p>
+            </div>
+            <div class="jlpt-level-card n4">
+              <h3><i data-lucide="award"></i> ${lang === 'en' ? 'JLPT' : 'JLPT'}</h3>
+              <p>${t('kanjiRules.whyPoint2')}</p>
+            </div>
+            <div class="jlpt-level-card n3">
+              <h3><i data-lucide="lightbulb"></i> ${lang === 'en' ? 'Vocabulary' : 'Vocabulary'}</h3>
+              <p>${t('kanjiRules.whyPoint3')}</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <h2><i data-lucide="type"></i> ${t('kanjiRules.typesTitle')}</h2>
+          <div class="jlpt-format-grid">
+            <div class="jlpt-format-item">
+              <h4><i data-lucide="book"></i> ${t('kanjiRules.onyomi')}</h4>
+              <p>${t('kanjiRules.onyomiDesc')}</p>
+            </div>
+            <div class="jlpt-format-item">
+              <h4><i data-lucide="home"></i> ${t('kanjiRules.kunyomi')}</h4>
+              <p>${t('kanjiRules.kunyomiDesc')}</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="jlpt-info-section">
+          <div class="jlpt-purpose-cta">
+            <p>${lang === 'en' ? 'Want to learn stroke order? Check out the Stroke Order page.' : 'Nak belajar susunan loretan? Lihat halaman Susunan Loretan.'}</p>
+            <a href="#kanji-rules/subpage1" class="btn-cta-primary">${lang === 'en' ? 'Go to Stroke Order' : 'Pergi ke Susunan Loretan'}</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  `;
+}
+
+// --- KANA SUBPAGE 1 ---
+function renderKanaSubpage1View() {
+  state.currentView = "kana-subpage1";
+  document.getElementById("section-title").textContent = t('kana.subpage1Title') || 'Kana Subpage 1';
+
+  const appView = document.getElementById("app-view");
+  const lang = getLanguage();
+
+  appView.innerHTML = `
+    <div class="fade-in">
+      <div class="page-header">
+        <h1>${t('kana.subpage1Title') || 'Kana Subpage 1'}</h1>
+        <p>${t('kana.subpage1Subtitle') || ''}</p>
+      </div>
+      <div class="content-section">
+        <p>${t('common.comingSoon')}</p>
+      </div>
+    </div>
+  `;
+}
+
+// --- KANJI SUBPAGE 1: STROKE ORDER ---
+function renderKanjiRulesSubpage1View() {
+  state.currentView = "kanji-rules-subpage1";
+  document.getElementById("section-title").textContent = t('kanjiRules.subpage1Title') || 'Stroke Order';
+
+  const appView = document.getElementById("app-view");
+  const lang = getLanguage();
+
   let sectionsHTML = "";
   KANJI_STROKE_RULES.sections.forEach((section) => {
     let rulesHTML = "";
@@ -1607,53 +1695,11 @@ function renderKanjiRulesView() {
   appView.innerHTML = `
     <div class="fade-in">
       <div class="page-header">
-        <h1>${t('kanjiRules.title')}</h1>
-        <p>${t('kanjiRules.subtitle')}</p>
+        <h1>${t('kanjiRules.subpage1Title') || 'Stroke Order'}</h1>
+        <p>${t('kanjiRules.subpage1Subtitle') || ''}</p>
       </div>
       <div class="kanji-rules-container">
         ${sectionsHTML}
-      </div>
-    </div>
-  `;
-}
-
-// --- KANA SUBPAGE 1 ---
-function renderKanaSubpage1View() {
-  state.currentView = "kana-subpage1";
-  document.getElementById("section-title").textContent = t('kana.subpage1Title') || 'Kana Subpage 1';
-
-  const appView = document.getElementById("app-view");
-  const lang = getLanguage();
-
-  appView.innerHTML = `
-    <div class="fade-in">
-      <div class="page-header">
-        <h1>${t('kana.subpage1Title') || 'Kana Subpage 1'}</h1>
-        <p>${t('kana.subpage1Subtitle') || ''}</p>
-      </div>
-      <div class="content-section">
-        <p>${t('common.comingSoon')}</p>
-      </div>
-    </div>
-  `;
-}
-
-// --- KANJI SUBPAGE 1 ---
-function renderKanjiRulesSubpage1View() {
-  state.currentView = "kanji-rules-subpage1";
-  document.getElementById("section-title").textContent = t('kanjiRules.subpage1Title') || 'Kanji Subpage 1';
-
-  const appView = document.getElementById("app-view");
-  const lang = getLanguage();
-
-  appView.innerHTML = `
-    <div class="fade-in">
-      <div class="page-header">
-        <h1>${t('kanjiRules.subpage1Title') || 'Kanji Subpage 1'}</h1>
-        <p>${t('kanjiRules.subpage1Subtitle') || ''}</p>
-      </div>
-      <div class="content-section">
-        <p>${t('common.comingSoon')}</p>
       </div>
     </div>
   `;

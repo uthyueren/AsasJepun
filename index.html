@@ -41,11 +41,15 @@
 
                 <!-- Collapsible: Kana -->
                 <div class="nav-group">
-                    <a href="#kana" class="nav-item has-subnav" data-target="kana">
-                        <i data-lucide="grid-3x3"></i>
-                        <span data-i18n="nav.kana">Hiragana & Katakana</span>
-                        <i data-lucide="chevron-right" class="subnav-arrow"></i>
-                    </a>
+                    <div class="nav-item-row">
+                        <a href="#kana" class="nav-item" data-target="kana">
+                            <i data-lucide="grid-3x3"></i>
+                            <span data-i18n="nav.kana">Hiragana & Katakana</span>
+                        </a>
+                        <button class="subnav-toggle" aria-label="Expand submenu">
+                            <i data-lucide="chevron-right" class="subnav-arrow"></i>
+                        </button>
+                    </div>
                     <div class="nav-subitems hidden">
                         <a href="#kana/subpage1" class="nav-item subpage" data-target="kana/subpage1">
                             <i data-lucide="grid-3x3"></i>
@@ -56,26 +60,34 @@
 
                 <!-- Collapsible: Kanji -->
                 <div class="nav-group">
-                    <a href="#kanji-rules" class="nav-item has-subnav" data-target="kanji-rules">
-                        <i data-lucide="pen-tool"></i>
-                        <span data-i18n="nav.kanjiRules">Kanji</span>
-                        <i data-lucide="chevron-right" class="subnav-arrow"></i>
-                    </a>
+                    <div class="nav-item-row">
+                        <a href="#kanji-rules" class="nav-item" data-target="kanji-rules">
+                            <i data-lucide="type"></i>
+                            <span data-i18n="nav.kanjiRules">Kanji</span>
+                        </a>
+                        <button class="subnav-toggle" aria-label="Expand submenu">
+                            <i data-lucide="chevron-right" class="subnav-arrow"></i>
+                        </button>
+                    </div>
                     <div class="nav-subitems hidden">
                         <a href="#kanji-rules/subpage1" class="nav-item subpage" data-target="kanji-rules/subpage1">
                             <i data-lucide="pen-tool"></i>
-                            <span>Subpage 1</span>
+                            <span>${t('kanjiRules.subpage1Title')}</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- Collapsible: Self Study -->
                 <div class="nav-group">
-                    <a href="#self-study" class="nav-item has-subnav" data-target="self-study">
-                        <i data-lucide="graduation-cap"></i>
-                        <span data-i18n="nav.selfStudy">Self Study Guide</span>
-                        <i data-lucide="chevron-right" class="subnav-arrow"></i>
-                    </a>
+                    <div class="nav-item-row">
+                        <a href="#self-study" class="nav-item" data-target="self-study">
+                            <i data-lucide="graduation-cap"></i>
+                            <span data-i18n="nav.selfStudy">Self Study Guide</span>
+                        </a>
+                        <button class="subnav-toggle" aria-label="Expand submenu">
+                            <i data-lucide="chevron-right" class="subnav-arrow"></i>
+                        </button>
+                    </div>
                     <div class="nav-subitems hidden">
                         <a href="#self-study/anki" class="nav-item subpage" data-target="self-study/anki">
                             <i data-lucide="layers"></i>
