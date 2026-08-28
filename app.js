@@ -388,15 +388,77 @@ function playPronunciation(text) {
   }
 }
 
+// Kana that use Tenten & Maru audio folder
+const TENTEN_MARU_KANA = ['ga', 'gi', 'gu', 'ge', 'go', 'za', 'ji', 'zu', 'ze', 'zo', 'da', 'di', 'du', 'de', 'do', 'ba', 'bi', 'bu', 'be', 'bo', 'pa', 'pi', 'pu', 'pe', 'po'];
+
 // Play local Kana audio file
-function playKanaAudio(romaji) {
-  const audioPath = `Audio/Kana Charts/${romaji}.mp3`;
+window.playKanaAudio = function(romaji) {
+  const folder = TENTEN_MARU_KANA.includes(romaji) ? 'Tenten & Maru' : '';
+  const audioPath = folder ? `Audio/Kana Charts/${folder}/${romaji}.mp3` : `Audio/Kana Charts/${romaji}.mp3`;
   const audio = new Audio(audioPath);
   audio.play().catch(err => {
     console.warn('Local audio not found, falling back to Web Speech API:', err);
     playPronunciation(romaji);
   });
-}
+};
+
+// Play Long Vowel audio
+window.playLongVowelAudio = function(filename) {
+  const audioPath = `Audio/Long Vowel/${filename}`;
+  const audio = new Audio(audioPath);
+  audio.play().catch(err => {
+    console.warn('Long vowel audio not found:', err);
+  });
+};
+
+// Play Youon & Sokuon audio
+window.playYouonSokuonAudio = function(filename) {
+  const audioPath = encodeURI(`Audio/Sokuon & Youon/${filename}`);
+  console.log('Trying to play:', audioPath);
+  const audio = new Audio(audioPath);
+  audio.play().then(() => console.log('Playing:', audioPath)).catch(err => {
+    console.warn('Audio play failed:', audioPath, err);
+    // Fallback: use Web Speech API for pronunciation
+    const word = filename.replace('.mp3', '');
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = 'ja-JP';
+      utterance.rate = 0.8;
+      window.speechSynthesis.speak(utterance);
+    }
+  });
+};
+
+// Toggle between hiragana and katakana charts
+window.toggleKanaSet = function(set) {
+  const hiraganaBtn = document.getElementById('toggle-hiragana-btn');
+  const katakanaBtn = document.getElementById('toggle-katakana-btn');
+
+  // Subpage 2 (Tenten & Maru)
+  const hiraganaSection2 = document.getElementById('subpage2-hiragana');
+  const katakanaSection2 = document.getElementById('subpage2-katakana');
+
+  // Subpage 3 (Sokuon & Youon)
+  const hiraganaSection3 = document.getElementById('subpage3-hiragana');
+  const katakanaSection3 = document.getElementById('subpage3-katakana');
+
+  if (set === 'hiragana') {
+    if (hiraganaSection2) hiraganaSection2.style.display = 'block';
+    if (katakanaSection2) katakanaSection2.style.display = 'none';
+    if (hiraganaSection3) hiraganaSection3.style.display = 'block';
+    if (katakanaSection3) katakanaSection3.style.display = 'none';
+    if (hiraganaBtn) hiraganaBtn.style.opacity = '1';
+    if (katakanaBtn) katakanaBtn.style.opacity = '0.5';
+  } else {
+    if (hiraganaSection2) hiraganaSection2.style.display = 'none';
+    if (katakanaSection2) katakanaSection2.style.display = 'block';
+    if (hiraganaSection3) hiraganaSection3.style.display = 'none';
+    if (katakanaSection3) katakanaSection3.style.display = 'block';
+    if (hiraganaBtn) hiraganaBtn.style.opacity = '0.5';
+    if (katakanaBtn) katakanaBtn.style.opacity = '1';
+  }
+};
 
 /* ==========================================================================
    VIEW RENDERERS
@@ -1691,7 +1753,7 @@ function renderIntroductionView() {
               <div class="mora-rule">
                 <div class="mora-rule-icon"><i data-lucide="alert-circle"></i></div>
                 <div class="mora-rule-text">
-                  <strong>Small yōon (ゃ, ゅ, ょ) fuse into a single mora</strong>
+                  <strong>Youon (ゃ, ゅ, ょ) fuse into a single mora</strong>
                   <span>きゃ = 1 mora, not 2. This is the first thing English speakers miscount.</span>
                 </div>
               </div>
@@ -1772,6 +1834,14 @@ function renderIntroductionView() {
   if (moraBtn) {
     moraBtn.addEventListener("click", () => {
       const audio = new Audio("Audio/pronunciation_tomodachi_mora.mp3");
+      audio.play();
+    });
+  }
+
+  const sokuonAudioBtn = document.getElementById("sokuon-audio-btn");
+  if (sokuonAudioBtn) {
+    sokuonAudioBtn.addEventListener("click", () => {
+      const audio = new Audio("Audio/Youon + Sokuon/まっすぐ.mp3");
       audio.play();
     });
   }
@@ -1998,13 +2068,13 @@ function renderKanaSubpage1View() {
               <h3>Long "あ" (a) sound</h3>
               <p>Add an extra あ after it</p>
               <div class="long-vowel-compare">
-                <div class="long-vowel-box short">
+                <div class="long-vowel-box short" onclick="playLongVowelAudio('おばさん.mp3')">
                   <span class="long-vowel-word">おばさん</span>
                   <span class="long-vowel-romaji">obasan</span>
                   <span class="long-vowel-meaning">aunt</span>
                 </div>
                 <span class="long-vowel-vs">vs</span>
-                <div class="long-vowel-box long">
+                <div class="long-vowel-box long" onclick="playLongVowelAudio('おばあさん.mp3')">
                   <span class="long-vowel-word">おばあさん</span>
                   <span class="long-vowel-romaji">obaasan</span>
                   <span class="long-vowel-meaning">grandmother</span>
@@ -2015,13 +2085,13 @@ function renderKanaSubpage1View() {
               <h3>Long "い" (i) sound</h3>
               <p>Add an extra い after it</p>
               <div class="long-vowel-compare">
-                <div class="long-vowel-box short">
+                <div class="long-vowel-box short" onclick="playLongVowelAudio('おじさん.mp3')">
                   <span class="long-vowel-word">おじさん</span>
                   <span class="long-vowel-romaji">ojisan</span>
                   <span class="long-vowel-meaning">uncle</span>
                 </div>
                 <span class="long-vowel-vs">vs</span>
-                <div class="long-vowel-box long">
+                <div class="long-vowel-box long" onclick="playLongVowelAudio('おじいさん.mp3')">
                   <span class="long-vowel-word">おじいさん</span>
                   <span class="long-vowel-romaji">ojiisan</span>
                   <span class="long-vowel-meaning">grandfather</span>
@@ -2032,13 +2102,13 @@ function renderKanaSubpage1View() {
               <h3>Long "う" (u) sound</h3>
               <p>Add an extra う after it</p>
               <div class="long-vowel-compare">
-                <div class="long-vowel-box short">
+                <div class="long-vowel-box short" onclick="playLongVowelAudio('くき.mp3')">
                   <span class="long-vowel-word">くき</span>
                   <span class="long-vowel-romaji">kuki</span>
                   <span class="long-vowel-meaning">stem</span>
                 </div>
                 <span class="long-vowel-vs">vs</span>
-                <div class="long-vowel-box long">
+                <div class="long-vowel-box long" onclick="playLongVowelAudio('くうき.mp3')">
                   <span class="long-vowel-word">くうき</span>
                   <span class="long-vowel-romaji">kuuki</span>
                   <span class="long-vowel-meaning">air</span>
@@ -2049,26 +2119,26 @@ function renderKanaSubpage1View() {
               <h3>Long "え" (e) sound</h3>
               <p>Usually add い, sometimes え</p>
               <div class="long-vowel-compare">
-                <div class="long-vowel-box short">
-                  <span class="long-vowel-word">おねさん</span>
-                  <span class="long-vowel-romaji">one-san</span>
-                  <span class="long-vowel-meaning">young woman</span>
+                <div class="long-vowel-box short" onclick="playLongVowelAudio('へ.mp3')">
+                  <span class="long-vowel-word">へ</span>
+                  <span class="long-vowel-romaji">he</span>
+                  <span class="long-vowel-meaning">direction (towards)</span>
                 </div>
                 <span class="long-vowel-vs">vs</span>
-                <div class="long-vowel-box long">
-                  <span class="long-vowel-word">おねえさん</span>
-                  <span class="long-vowel-romaji">onee-san</span>
-                  <span class="long-vowel-meaning">older sister</span>
+                <div class="long-vowel-box long" onclick="playLongVowelAudio('へえ.mp3')">
+                  <span class="long-vowel-word">へえ</span>
+                  <span class="long-vowel-romaji">hee</span>
+                  <span class="long-vowel-meaning">surprise (dialectal)</span>
                 </div>
               </div>
               <div class="long-vowel-compare" style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-color);">
-                <div class="long-vowel-box short">
+                <div class="long-vowel-box short" onclick="playLongVowelAudio('とうげ.mp3')">
                   <span class="long-vowel-word">とうげ</span>
                   <span class="long-vowel-romaji">touge</span>
                   <span class="long-vowel-meaning">mountain pass</span>
                 </div>
                 <span class="long-vowel-vs">vs</span>
-                <div class="long-vowel-box long">
+                <div class="long-vowel-box long" onclick="playLongVowelAudio('とうげい.mp3')">
                   <span class="long-vowel-word">とうげい</span>
                   <span class="long-vowel-romaji">tougei</span>
                   <span class="long-vowel-meaning">theatrical performance</span>
@@ -2079,29 +2149,29 @@ function renderKanaSubpage1View() {
               <h3>Long "お" (o) sound</h3>
               <p>Usually add う, sometimes お</p>
               <div class="long-vowel-compare">
-                <div class="long-vowel-box short">
+                <div class="long-vowel-box short" onclick="playLongVowelAudio('ここ.mp3')">
                   <span class="long-vowel-word">ここ</span>
                   <span class="long-vowel-romaji">koko</span>
                   <span class="long-vowel-meaning">here</span>
                 </div>
                 <span class="long-vowel-vs">vs</span>
-                <div class="long-vowel-box long">
+                <div class="long-vowel-box long" onclick="playLongVowelAudio('こうこう.mp3')">
                   <span class="long-vowel-word">こうこう</span>
                   <span class="long-vowel-romaji">koukou</span>
                   <span class="long-vowel-meaning">high school</span>
                 </div>
               </div>
               <div class="long-vowel-compare" style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-color);">
-                <div class="long-vowel-box short">
-                  <span class="long-vowel-word">おきい</span>
-                  <span class="long-vowel-romaji">okii</span>
-                  <span class="long-vowel-meaning">big (rare)</span>
+                <div class="long-vowel-box short" onclick="playLongVowelAudio('おみず.mp3')">
+                  <span class="long-vowel-word">おみず</span>
+                  <span class="long-vowel-romaji">omizu</span>
+                  <span class="long-vowel-meaning">water</span>
                 </div>
                 <span class="long-vowel-vs">vs</span>
-                <div class="long-vowel-box long">
-                  <span class="long-vowel-word">おおきい</span>
-                  <span class="long-vowel-romaji">ookii</span>
-                  <span class="long-vowel-meaning">big</span>
+                <div class="long-vowel-box long" onclick="playLongVowelAudio('おおみず.mp3')">
+                  <span class="long-vowel-word">おおみず</span>
+                  <span class="long-vowel-romaji">oomizu</span>
+                  <span class="long-vowel-meaning">big water</span>
                 </div>
               </div>
             </div>
@@ -2117,7 +2187,7 @@ function renderKanaSubpage1View() {
             <div class="jlpt-level-card n5">
               <h3>ケーキ (kēki)</h3>
               <p>From ケ (ke) + ー + キ (ki)</p>
-              <div class="long-vowel-example">
+              <div class="long-vowel-example" onclick="playLongVowelAudio('ケーキ.mp3')">
                 <span class="word-example">ケーキ</span>
                 <span class="romaji">kēki</span>
                 <span class="meaning">cake</span>
@@ -2126,7 +2196,7 @@ function renderKanaSubpage1View() {
             <div class="jlpt-level-card n5">
               <h3>キーパー (kīpā)</h3>
               <p>${t('roadmap.kana.subpage1.exShiito')}</p>
-              <div class="long-vowel-example">
+              <div class="long-vowel-example" onclick="playLongVowelAudio('キーパー.mp3')">
                 <span class="word-example">キーパー</span>
                 <span class="romaji">kīpā</span>
                 <span class="meaning">${t('roadmap.kana.subpage1.exShiitoWord')}</span>
@@ -2135,7 +2205,7 @@ function renderKanaSubpage1View() {
             <div class="jlpt-level-card n5">
               <h3>テレビ (terebi)</h3>
               <p>${t('roadmap.kana.subpage1.exTerebi')}</p>
-              <div class="long-vowel-example">
+              <div class="long-vowel-example" onclick="playLongVowelAudio('テレビ.mp3')">
                 <span class="word-example">テレビ</span>
                 <span class="romaji">terebi</span>
                 <span class="meaning">${t('roadmap.kana.subpage1.exTerebiWord')}</span>
@@ -2154,49 +2224,6 @@ function renderKanaSubpage2View() {
   document.getElementById("section-title").textContent = t('roadmap.kana.subpage2Title') || 'Tenten & Maru';
 
   const appView = document.getElementById("app-view");
-  const lang = getLanguage();
-
-  const dakutenRows = [
-    { base: "か", modified: "が", sound: "ga" },
-    { base: "き", modified: "ぎ", sound: "gi" },
-    { base: "く", modified: "ぐ", sound: "gu" },
-    { base: "け", modified: "げ", sound: "ge" },
-    { base: "こ", modified: "ご", sound: "go" },
-    { base: "さ", modified: "ざ", sound: "za" },
-    { base: "し", modified: "じ", sound: "ji" },
-    { base: "す", modified: "ず", sound: "zu" },
-    { base: "せ", modified: "ぜ", sound: "ze" },
-    { base: "そ", modified: "ぞ", sound: "zo" },
-    { base: "た", modified: "だ", sound: "da" },
-    { base: "ち", modified: "ぢ", sound: "di" },
-    { base: "つ", modified: "づ", sound: "du" },
-    { base: "て", modified: "で", sound: "de" },
-    { base: "と", modified: "ど", sound: "do" },
-    { base: "は", modified: "ば", sound: "ba" },
-    { base: "ひ", modified: "び", sound: "bi" },
-    { base: "ふ", modified: "ぶ", sound: "bu" },
-    { base: "へ", modified: "べ", sound: "be" },
-    { base: "ほ", modified: "ぼ", sound: "bo" },
-    { base: "ぱ", modified: "ぱ", sound: "pa" },
-    { base: "ぴ", modified: "ぴ", sound: "pi" },
-    { base: "ぷ", modified: "ぷ", sound: "pu" },
-    { base: "ぺ", modified: "ぺ", sound: "pe" },
-    { base: "ぽ", modified: "ぽ", sound: "po" }
-  ];
-
-  const dakutenHTML = dakutenRows.slice(0, 15).map(row => `
-    <div class="jlpt-level-card n5" style="padding: 16px; text-align: center;">
-      <h3 style="font-size: 24px; margin-bottom: 8px;">${row.base} + ゛ → ${row.modified}</h3>
-      <p style="color: var(--text-secondary);">${row.sound}</p>
-    </div>
-  `).join('');
-
-  const handakutenHTML = dakutenRows.slice(15).map(row => `
-    <div class="jlpt-level-card n4" style="padding: 16px; text-align: center;">
-      <h3 style="font-size: 24px; margin-bottom: 8px;">${row.base} + ゜ → ${row.modified}</h3>
-      <p style="color: var(--text-secondary);">${row.sound}</p>
-    </div>
-  `).join('');
 
   appView.innerHTML = `
     <div class="fade-in">
@@ -2209,28 +2236,276 @@ function renderKanaSubpage2View() {
         <section class="jlpt-info-section">
           <h2><i data-lucide="info"></i> ${t('roadmap.kana.subpage2.whatIsTitle')}</h2>
           <div class="jlpt-whatis-card">
-            <p>${t('roadmap.kana.subpage2.dakutenDesc')}</p>
+            <p>${t('roadmap.kana.subpage2.whatIsDesc')}</p>
           </div>
         </section>
 
         <section class="jlpt-info-section">
           <h2><i data-lucide="circle"></i> ${t('roadmap.kana.subpage2.dakutenTitle')}</h2>
-          <div class="jlpt-levels-grid" style="grid-template-columns: repeat(5, 1fr);">
-            ${dakutenHTML}
+          <div class="jlpt-whatis-card">
+            <p>${t('roadmap.kana.subpage2.dakutenDesc')}</p>
+            <p style="margin-top: 12px;">${t('roadmap.kana.subpage2.handakutenDesc')}</p>
           </div>
-        </section>
+          <div style="display: flex; gap: 8px; margin: 16px 0;">
+            <button id="toggle-hiragana-btn" onclick="toggleKanaSet('hiragana')" style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); cursor: pointer; font-weight: 600;">Hiragana</button>
+            <button id="toggle-katakana-btn" onclick="toggleKanaSet('katakana')" style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); cursor: pointer; font-weight: 600; opacity: 0.5;">Katakana</button>
+          </div>
 
-        <section class="jlpt-info-section">
-          <h2><i data-lucide="circle-dot"></i> ${t('roadmap.kana.subpage2.handakutenTitle')}</h2>
-          <div class="jlpt-levels-grid" style="grid-template-columns: repeat(5, 1fr);">
-            ${handakutenHTML}
+          <div id="subpage2-hiragana">
+            <div class="dakuten-section">
+              <!-- K Row -->
+              <div class="dakuten-row">
+                <div class="dakuten-row-header">
+                  <div class="dakuten-row-badge">K</div>
+                  <span class="dakuten-row-label">か (ka) row</span>
+                </div>
+                <div class="dakuten-kana-group base">
+                  <div class="kana-card" onclick="playKanaAudio('ka')"><span class="kana-char">か</span><span class="kana-romaji">ka</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ki')"><span class="kana-char">き</span><span class="kana-romaji">ki</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ku')"><span class="kana-char">く</span><span class="kana-romaji">ku</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ke')"><span class="kana-char">け</span><span class="kana-romaji">ke</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ko')"><span class="kana-char">こ</span><span class="kana-romaji">ko</span></div>
+                </div>
+                <div class="dakuten-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+                <div class="dakuten-kana-group voiced">
+                  <div class="kana-card voiced" onclick="playKanaAudio('ga')"><span class="kana-char">が</span><span class="kana-romaji">ga</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('gi')"><span class="kana-char">ぎ</span><span class="kana-romaji">gi</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('gu')"><span class="kana-char">ぐ</span><span class="kana-romaji">gu</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('ge')"><span class="kana-char">げ</span><span class="kana-romaji">ge</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('go')"><span class="kana-char">ご</span><span class="kana-romaji">go</span></div>
+                </div>
+              </div>
+
+              <!-- S Row -->
+              <div class="dakuten-row">
+                <div class="dakuten-row-header">
+                  <div class="dakuten-row-badge">S</div>
+                  <span class="dakuten-row-label">さ (sa) row</span>
+                </div>
+                <div class="dakuten-kana-group base">
+                  <div class="kana-card" onclick="playKanaAudio('sa')"><span class="kana-char">さ</span><span class="kana-romaji">sa</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('shi')"><span class="kana-char">し</span><span class="kana-romaji">shi</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('su')"><span class="kana-char">す</span><span class="kana-romaji">su</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('se')"><span class="kana-char">せ</span><span class="kana-romaji">se</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('so')"><span class="kana-char">そ</span><span class="kana-romaji">so</span></div>
+                </div>
+                <div class="dakuten-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+                <div class="dakuten-kana-group voiced">
+                  <div class="kana-card voiced" onclick="playKanaAudio('za')"><span class="kana-char">ざ</span><span class="kana-romaji">za</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('ji')"><span class="kana-char">じ</span><span class="kana-romaji">ji</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('zu')"><span class="kana-char">ず</span><span class="kana-romaji">zu</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('ze')"><span class="kana-char">ぜ</span><span class="kana-romaji">ze</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('zo')"><span class="kana-char">ぞ</span><span class="kana-romaji">zo</span></div>
+                </div>
+              </div>
+
+              <!-- T Row -->
+              <div class="dakuten-row">
+                <div class="dakuten-row-header">
+                  <div class="dakuten-row-badge">T</div>
+                  <span class="dakuten-row-label">た (ta) row</span>
+                </div>
+                <div class="dakuten-kana-group base">
+                  <div class="kana-card" onclick="playKanaAudio('ta')"><span class="kana-char">た</span><span class="kana-romaji">ta</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('chi')"><span class="kana-char">ち</span><span class="kana-romaji">chi</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('tsu')"><span class="kana-char">つ</span><span class="kana-romaji">tsu</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('te')"><span class="kana-char">て</span><span class="kana-romaji">te</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('to')"><span class="kana-char">と</span><span class="kana-romaji">to</span></div>
+                </div>
+                <div class="dakuten-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+                <div class="dakuten-kana-group voiced">
+                  <div class="kana-card voiced" onclick="playKanaAudio('da')"><span class="kana-char">だ</span><span class="kana-romaji">da</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('di')"><span class="kana-char">ぢ</span><span class="kana-romaji">di</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('zu')"><span class="kana-char">づ</span><span class="kana-romaji">zu</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('de')"><span class="kana-char">で</span><span class="kana-romaji">de</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('do')"><span class="kana-char">ど</span><span class="kana-romaji">do</span></div>
+                </div>
+              </div>
+
+              <!-- H Row (Dakuten) -->
+              <div class="dakuten-row">
+                <div class="dakuten-row-header">
+                  <div class="dakuten-row-badge">H</div>
+                  <span class="dakuten-row-label">は (ha) row</span>
+                </div>
+                <div class="dakuten-kana-group base">
+                  <div class="kana-card" onclick="playKanaAudio('ha')"><span class="kana-char">は</span><span class="kana-romaji">ha</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('hi')"><span class="kana-char">ひ</span><span class="kana-romaji">hi</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('fu')"><span class="kana-char">ふ</span><span class="kana-romaji">fu</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('he')"><span class="kana-char">へ</span><span class="kana-romaji">he</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ho')"><span class="kana-char">ほ</span><span class="kana-romaji">ho</span></div>
+                </div>
+                <div class="dakuten-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+                <div class="dakuten-kana-group voiced">
+                  <div class="kana-card voiced" onclick="playKanaAudio('ba')"><span class="kana-char">ば</span><span class="kana-romaji">ba</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('bi')"><span class="kana-char">び</span><span class="kana-romaji">bi</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('bu')"><span class="kana-char">ぶ</span><span class="kana-romaji">bu</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('be')"><span class="kana-char">べ</span><span class="kana-romaji">be</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('bo')"><span class="kana-char">ぼ</span><span class="kana-romaji">bo</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Handakuten Section -->
+            <div class="handakuten-section">
+              <div class="handakuten-header">
+                <div class="handakuten-badge">゜</div>
+                <h3 class="handakuten-title">${t('roadmap.kana.subpage2.handakutenTitle')} (Handakuten)</h3>
+              </div>
+              <div class="dakuten-row">
+                <div class="dakuten-row-header">
+                  <div class="dakuten-row-badge" style="background: var(--tertiary);">H</div>
+                  <span class="dakuten-row-label">は (ha) row</span>
+                </div>
+                <div class="dakuten-kana-group base">
+                  <div class="kana-card" onclick="playKanaAudio('ha')"><span class="kana-char">は</span><span class="kana-romaji">ha</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('hi')"><span class="kana-char">ひ</span><span class="kana-romaji">hi</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('fu')"><span class="kana-char">ふ</span><span class="kana-romaji">fu</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('he')"><span class="kana-char">へ</span><span class="kana-romaji">he</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ho')"><span class="kana-char">ほ</span><span class="kana-romaji">ho</span></div>
+                </div>
+                <div class="dakuten-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+                <div class="dakuten-kana-group semivoiced">
+                  <div class="kana-card semivoiced" onclick="playKanaAudio('pa')"><span class="kana-char">ぱ</span><span class="kana-romaji">pa</span></div>
+                  <div class="kana-card semivoiced" onclick="playKanaAudio('pi')"><span class="kana-char">ぴ</span><span class="kana-romaji">pi</span></div>
+                  <div class="kana-card semivoiced" onclick="playKanaAudio('pu')"><span class="kana-char">ぷ</span><span class="kana-romaji">pu</span></div>
+                  <div class="kana-card semivoiced" onclick="playKanaAudio('pe')"><span class="kana-char">ぺ</span><span class="kana-romaji">pe</span></div>
+                  <div class="kana-card semivoiced" onclick="playKanaAudio('po')"><span class="kana-char">ぽ</span><span class="kana-romaji">po</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="subpage2-katakana" style="display: none;">
+            <div class="dakuten-section">
+              <!-- K Row -->
+              <div class="dakuten-row">
+                <div class="dakuten-row-header">
+                  <div class="dakuten-row-badge">K</div>
+                  <span class="dakuten-row-label">か (ka) row</span>
+                </div>
+                <div class="dakuten-kana-group base">
+                  <div class="kana-card" onclick="playKanaAudio('ka')"><span class="kana-char">カ</span><span class="kana-romaji">ka</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ki')"><span class="kana-char">キ</span><span class="kana-romaji">ki</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ku')"><span class="kana-char">ク</span><span class="kana-romaji">ku</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ke')"><span class="kana-char">ケ</span><span class="kana-romaji">ke</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ko')"><span class="kana-char">コ</span><span class="kana-romaji">ko</span></div>
+                </div>
+                <div class="dakuten-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+                <div class="dakuten-kana-group voiced">
+                  <div class="kana-card voiced" onclick="playKanaAudio('ga')"><span class="kana-char">ガ</span><span class="kana-romaji">ga</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('gi')"><span class="kana-char">ギ</span><span class="kana-romaji">gi</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('gu')"><span class="kana-char">グ</span><span class="kana-romaji">gu</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('ge')"><span class="kana-char">ゲ</span><span class="kana-romaji">ge</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('go')"><span class="kana-char">ゴ</span><span class="kana-romaji">go</span></div>
+                </div>
+              </div>
+
+              <!-- S Row -->
+              <div class="dakuten-row">
+                <div class="dakuten-row-header">
+                  <div class="dakuten-row-badge">S</div>
+                  <span class="dakuten-row-label">さ (sa) row</span>
+                </div>
+                <div class="dakuten-kana-group base">
+                  <div class="kana-card" onclick="playKanaAudio('sa')"><span class="kana-char">サ</span><span class="kana-romaji">sa</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('shi')"><span class="kana-char">シ</span><span class="kana-romaji">shi</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('su')"><span class="kana-char">ス</span><span class="kana-romaji">su</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('se')"><span class="kana-char">セ</span><span class="kana-romaji">se</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('so')"><span class="kana-char">ソ</span><span class="kana-romaji">so</span></div>
+                </div>
+                <div class="dakuten-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+                <div class="dakuten-kana-group voiced">
+                  <div class="kana-card voiced" onclick="playKanaAudio('za')"><span class="kana-char">ザ</span><span class="kana-romaji">za</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('ji')"><span class="kana-char">ジ</span><span class="kana-romaji">ji</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('zu')"><span class="kana-char">ズ</span><span class="kana-romaji">zu</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('ze')"><span class="kana-char">ゼ</span><span class="kana-romaji">ze</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('zo')"><span class="kana-char">ゾ</span><span class="kana-romaji">zo</span></div>
+                </div>
+              </div>
+
+              <!-- T Row -->
+              <div class="dakuten-row">
+                <div class="dakuten-row-header">
+                  <div class="dakuten-row-badge">T</div>
+                  <span class="dakuten-row-label">た (ta) row</span>
+                </div>
+                <div class="dakuten-kana-group base">
+                  <div class="kana-card" onclick="playKanaAudio('ta')"><span class="kana-char">タ</span><span class="kana-romaji">ta</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('chi')"><span class="kana-char">チ</span><span class="kana-romaji">chi</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('tsu')"><span class="kana-char">ツ</span><span class="kana-romaji">tsu</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('te')"><span class="kana-char">テ</span><span class="kana-romaji">te</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('to')"><span class="kana-char">ト</span><span class="kana-romaji">to</span></div>
+                </div>
+                <div class="dakuten-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+                <div class="dakuten-kana-group voiced">
+                  <div class="kana-card voiced" onclick="playKanaAudio('da')"><span class="kana-char">ダ</span><span class="kana-romaji">da</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('di')"><span class="kana-char">ヂ</span><span class="kana-romaji">di</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('zu')"><span class="kana-char">ヅ</span><span class="kana-romaji">zu</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('de')"><span class="kana-char">デ</span><span class="kana-romaji">de</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('do')"><span class="kana-char">ド</span><span class="kana-romaji">do</span></div>
+                </div>
+              </div>
+
+              <!-- H Row (Dakuten) -->
+              <div class="dakuten-row">
+                <div class="dakuten-row-header">
+                  <div class="dakuten-row-badge">H</div>
+                  <span class="dakuten-row-label">は (ha) row</span>
+                </div>
+                <div class="dakuten-kana-group base">
+                  <div class="kana-card" onclick="playKanaAudio('ha')"><span class="kana-char">ハ</span><span class="kana-romaji">ha</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('hi')"><span class="kana-char">ヒ</span><span class="kana-romaji">hi</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('fu')"><span class="kana-char">フ</span><span class="kana-romaji">fu</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('he')"><span class="kana-char">ヘ</span><span class="kana-romaji">he</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ho')"><span class="kana-char">ホ</span><span class="kana-romaji">ho</span></div>
+                </div>
+                <div class="dakuten-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+                <div class="dakuten-kana-group voiced">
+                  <div class="kana-card voiced" onclick="playKanaAudio('ba')"><span class="kana-char">バ</span><span class="kana-romaji">ba</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('bi')"><span class="kana-char">ビ</span><span class="kana-romaji">bi</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('bu')"><span class="kana-char">ブ</span><span class="kana-romaji">bu</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('be')"><span class="kana-char">ベ</span><span class="kana-romaji">be</span></div>
+                  <div class="kana-card voiced" onclick="playKanaAudio('bo')"><span class="kana-char">ボ</span><span class="kana-romaji">bo</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Handakuten Section -->
+            <div class="handakuten-section">
+              <div class="handakuten-header">
+                <div class="handakuten-badge">゜</div>
+                <h3 class="handakuten-title">${t('roadmap.kana.subpage2.handakutenTitle')} (Handakuten)</h3>
+              </div>
+              <div class="dakuten-row">
+                <div class="dakuten-row-header">
+                  <div class="dakuten-row-badge" style="background: var(--tertiary);">H</div>
+                  <span class="dakuten-row-label">は (ha) row</span>
+                </div>
+                <div class="dakuten-kana-group base">
+                  <div class="kana-card" onclick="playKanaAudio('ha')"><span class="kana-char">ハ</span><span class="kana-romaji">ha</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('hi')"><span class="kana-char">ヒ</span><span class="kana-romaji">hi</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('fu')"><span class="kana-char">フ</span><span class="kana-romaji">fu</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('he')"><span class="kana-char">ヘ</span><span class="kana-romaji">he</span></div>
+                  <div class="kana-card" onclick="playKanaAudio('ho')"><span class="kana-char">ホ</span><span class="kana-romaji">ho</span></div>
+                </div>
+                <div class="dakuten-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+                <div class="dakuten-kana-group semivoiced">
+                  <div class="kana-card semivoiced" onclick="playKanaAudio('pa')"><span class="kana-char">パ</span><span class="kana-romaji">pa</span></div>
+                  <div class="kana-card semivoiced" onclick="playKanaAudio('pi')"><span class="kana-char">ピ</span><span class="kana-romaji">pi</span></div>
+                  <div class="kana-card semivoiced" onclick="playKanaAudio('pu')"><span class="kana-char">プ</span><span class="kana-romaji">pu</span></div>
+                  <div class="kana-card semivoiced" onclick="playKanaAudio('pe')"><span class="kana-char">ペ</span><span class="kana-romaji">pe</span></div>
+                  <div class="kana-card semivoiced" onclick="playKanaAudio('po')"><span class="kana-char">ポ</span><span class="kana-romaji">po</span></div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         <section class="jlpt-info-section">
           <h2><i data-lucide="lightbulb"></i> ${t('roadmap.kana.subpage2.memoryTrickTitle')}</h2>
           <div class="jlpt-purpose-cta">
-            <p>${t('roadmap.kana.subpage2.memoryTrickExceptions')}</p>
+            <p>${t('roadmap.kana.subpage2.memoryTrickDesc')}</p>
           </div>
         </section>
       </div>
@@ -2241,46 +2516,34 @@ function renderKanaSubpage2View() {
 // --- KANA SUBPAGE 3: COMBINATION HIRAGANA ---
 function renderKanaSubpage3View() {
   state.currentView = "kana-subpage3";
-  document.getElementById("section-title").textContent = t('roadmap.kana.subpage3Title') || 'Combination Hiragana';
+  document.getElementById("section-title").textContent = t('roadmap.kana.subpage3Title') || 'Youon & Sokuon';
 
   const appView = document.getElementById("app-view");
   const lang = getLanguage();
 
   const sokuonRows = [
-    { char: "っk", before: "か", example: "まっすぐ (massugu)", meaning: "straight" },
-    { char: "っs", before: "さ", example: "rossei", meaning: "desperate" },
-    { char: "っt", before: "た", example: "あった (att)", meaning: "had" },
-    { char: "っr", before: "ら", example: "まった (matt)", meaning: "waited" },
-    { char: "っg", before: "が", example: "なかった (nakatta)", meaning: "did not exist" }
+    { example: "きっぷ", meaning: "ticket", audio: "きっぷ.mp3" },
+    { example: "サッカー", meaning: "soccer", audio: "サッカー.mp3" },
+    { example: "かった", meaning: "won", audio: "かった.mp3" }
   ];
 
   const smallYoonRows = [
-    { char: "きゃ", sound: "kya", example: "さんきゃく (sankyou)", meaning: "thank you" },
-    { char: "しょ", sound: "sho", example: "ひしょ (hisho)", meaning: "secretary" },
-    { char: "ちゃ", sound: "cha", example: "ちゃん (chan)", meaning: "child" },
-    { char: "にゃ", sound: "nya", example: "にゃん (nyan)", meaning: "meow" },
-    { char: "ひゃ", sound: "hya", example: "ひゃく (hyaku)", meaning: "hundred" },
-    { char: "みゃ", sound: "mya", example: "みゃく (myaku)", meaning: "pulse" },
-    { char: "りゃ", sound: "rya", example: "りゃく (ryaku)", meaning: "abbreviation" },
-    { char: "ぎゃ", sound: "gya", example: "ぎゃく (gyaku)", meaning: "reverse" },
-    { char: "じゃ", sound: "ja", example: "じゃん (jan)", meaning: "isn\'t it?" },
-    { char: "びゃ", sound: "bya", example: "びゃく (byaku)", meaning: "white" },
-    { char: "ぴゃ", sound: "pya", example: "ぴゃん (pyan)", meaning: "meow" }
+    { example: "きゅうり", meaning: "cucumber", audio: "きゅうり.mp3" },
+    { example: "ギャル", meaning: "gal", audio: "ギャル.mp3" },
+    { example: "ひゃく", meaning: "hundred", audio: "ひゃく.mp3" }
   ];
 
   const sokuonHTML = sokuonRows.map(row => `
-    <div class="jlpt-level-card n5" style="padding: 16px; text-align: center;">
-      <h3 style="font-size: 20px; margin-bottom: 8px;">${row.before} → ${row.char}</h3>
-      <p style="font-size: 13px; color: var(--text-secondary);">${row.example}</p>
-      <p style="font-size: 11px; color: var(--text-secondary);">(${row.meaning})</p>
+    <div class="jlpt-level-card n5" style="padding: 14px; text-align: center; cursor: pointer;" onclick="playYouonSokuonAudio('${row.audio}')">
+      <div style="font-size: 24px; color: var(--primary); margin-bottom: 4px;">${row.example}</div>
+      <div style="font-size: 11px; color: var(--text-muted);">${row.meaning}</div>
     </div>
   `).join('');
 
   const smallYoonHTML = smallYoonRows.map(row => `
-    <div class="jlpt-level-card n4" style="padding: 14px; text-align: center;">
-      <h3 style="font-size: 18px; margin-bottom: 4px;">${row.char}</h3>
-      <p style="color: var(--accent); font-size: 13px;">${row.sound}</p>
-      <p style="font-size: 11px; color: var(--text-secondary);">${row.example}</p>
+    <div class="jlpt-level-card n5" style="padding: 14px; text-align: center; cursor: pointer;" onclick="playYouonSokuonAudio('${row.audio}')">
+      <div style="font-size: 24px; color: var(--primary); margin-bottom: 4px;">${row.example}</div>
+      <div style="font-size: 11px; color: var(--text-muted);">${row.meaning}</div>
     </div>
   `).join('');
 
@@ -2292,47 +2555,478 @@ function renderKanaSubpage3View() {
       </div>
 
       <div class="jlpt-info-content">
-        <section class="jlpt-info-section">
-          <h2><i data-lucide="info"></i> ${t('roadmap.kana.subpage3.whatIsTitle')}</h2>
-          <div class="jlpt-whatis-card">
-            <p>${t('roadmap.kana.subpage3.whatIsDesc')}</p>
-          </div>
-        </section>
+        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+          <button id="toggle-hiragana-btn" onclick="toggleKanaSet('hiragana')" style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); cursor: pointer; font-weight: 600;">Hiragana</button>
+          <button id="toggle-katakana-btn" onclick="toggleKanaSet('katakana')" style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); cursor: pointer; font-weight: 600; opacity: 0.5;">Katakana</button>
+        </div>
 
-        <section class="jlpt-info-section">
-          <h2><i data-lucide="zap"></i> ${t('roadmap.kana.subpage3.sokuonTitle')}</h2>
-          <div class="jlpt-levels-grid" style="grid-template-columns: repeat(5, 1fr);">
-            ${sokuonHTML}
-          </div>
-          <div class="jlpt-purpose-cta" style="margin-top: 16px;">
-            <p>${t('roadmap.kana.subpage3.sokuonDetail')}</p>
-          </div>
-        </section>
+        <div id="subpage3-hiragana">
+          <section class="jlpt-info-section">
+            <h2><i data-lucide="zap"></i> ${t('roadmap.kana.subpage3.sokuonTitle')}</h2>
+            <div class="jlpt-whatis-card" style="margin-bottom: 16px;">
+              <p>${t('roadmap.kana.subpage3.sokuonDetail')}</p>
+            </div>
+            <div class="mora-visual" style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: center; gap: 40px;">
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; margin-bottom: 8px;">つ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Normal tsu</div>
+                  <div style="font-size: 12px; color: var(--text-muted);">has sound</div>
+                </div>
+                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">っ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Small tsu</div>
+                  <div style="font-size: 12px; color: var(--text-muted);">no sound, just a stop</div>
+                </div>
+              </div>
+            </div>
+            <div class="jlpt-whatis-card" style="margin-top: 12px;">
+              <p>${lang === 'en' ? 'っ counts as 1 full mora even though it has no sound — it just adds a short stop before the next consonant.' : 'っ dikira sebagai 1 mora penuh walaupun tidak berbunyi — ia hanya menambah hentian singkat sebelum konsonan berikutnya.'}</p>
+            </div>
+            <div class="mora-visual" style="margin-top: 16px; cursor: pointer;" onclick="playYouonSokuonAudio('まっすぐ.mp3')">
+              <div class="mora-visual-label">まっすぐ (massugu - straight)</div>
+              <div class="mora-breakdown">
+                <div class="mora-unit">
+                  <div class="mora-char">ま</div>
+                  <div class="mora-label">ma</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char" style="background: var(--accent-purple);">っ</div>
+                  <div class="mora-label">s</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">す</div>
+                  <div class="mora-label">su</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">ぐ</div>
+                  <div class="mora-label">gu</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-equals"><i data-lucide="equal"></i></div>
+                <div class="mora-total">
+                  <span class="mora-total-num">4</span>
+                  <span class="mora-total-label">morae</span>
+                </div>
+              </div>
+              <div class="mora-audio-player" style="margin-top: 16px;">
+                <button class="mora-audio-btn" id="sokuon-audio-btn">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                  Listen
+                </button>
+              </div>
+            </div>
+            <div class="jlpt-levels-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 20px;">
+              ${sokuonHTML}
+            </div>
+          </section>
 
-        <section class="jlpt-info-section">
-          <h2><i data-lucide="link"></i> ${t('roadmap.kana.subpage3.yoonSmallTitle')}</h2>
-          <div class="jlpt-levels-grid" style="grid-template-columns: repeat(4, 1fr);">
-            ${smallYoonHTML}
-          </div>
-        </section>
+          <section class="jlpt-info-section">
+            <h2><i data-lucide="link"></i> ${t('roadmap.kana.subpage3.yoonSmallTitle')}</h2>
+            <div class="jlpt-whatis-card">
+              <p>${t('roadmap.kana.subpage3.yoonDesc')}</p>
+            </div>
+            <div class="mora-visual" style="margin: 20px 0;">
+              <div style="display: flex; justify-content: center; gap: 40px;">
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; margin-bottom: 8px;">や</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Normal ya</div>
+                </div>
+                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ゃ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Small ya</div>
+                </div>
+                <div style="width: 1px; height: 80px; background: var(--border-color); align-self: center;"></div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; margin-bottom: 8px;">ゆ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Normal yu</div>
+                </div>
+                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ゅ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Small yu</div>
+                </div>
+                <div style="width: 1px; height: 80px; background: var(--border-color); align-self: center;"></div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; margin-bottom: 8px;">よ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Normal yo</div>
+                </div>
+                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ょ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Small yo</div>
+                </div>
+              </div>
+            </div>
+            <div class="mora-visual" style="margin: 20px 0; text-align: center;">
+              <div style="margin-bottom: 12px;">
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">い-row + small ゃ/ゅ/ょ</div>
+                <div style="font-size: 20px; color: var(--text-secondary);">き, し, ち, に, ひ, み, り, ぎ, じ, び, ぴ</div>
+              </div>
+              <div style="font-size: 28px; color: var(--text-muted);">+</div>
+              <div style="font-size: 24px; color: var(--accent-purple); margin: 8px 0;">ゃ / ゅ / ょ</div>
+              <div style="font-size: 28px; color: var(--text-muted);">=</div>
+              <div style="margin-top: 12px;">
+                <div style="font-size: 18px; color: var(--primary); margin-bottom: 4px;">きゃ, しゃ, ちゃ, にゃ, ひゃ, みゃ, りゃ, ぎゃ, じゃ, びゃ, ぴゃ</div>
+                <div style="font-size: 14px; color: var(--accent-purple); margin-bottom: 8px;">with ゃ</div>
+                <div style="width: 100%; height: 1px; background: #312E81; margin: 12px 0;"></div>
+                <div style="font-size: 18px; color: var(--primary); margin-bottom: 4px;">きゅ, しゅ, ちゅ, にゅ, ひゅ, みゅ, りゅ, ぎゅ, じゅ, びゅ, ぴゅ</div>
+                <div style="font-size: 14px; color: var(--accent-purple); margin-bottom: 8px;">with ゅ</div>
+                <div style="width: 100%; height: 1px; background: #312E81; margin: 12px 0;"></div>
+                <div style="font-size: 18px; color: var(--primary); margin-bottom: 4px;">きょ, しょ, ちょ, にょ, ひょ, みょ, りょ, ぎょ, じょ, びょ, ぴょ</div>
+                <div style="font-size: 14px; color: var(--accent-purple);">with ょ</div>
+              </div>
+            </div>
+            <div class="jlpt-whatis-card" style="margin-top: 12px;">
+              <p>${lang === 'en' ? 'Even though youon is written with two characters, it counts as just 1 mora.' : 'Walaupun youon ditulis dengan dua aksara, ia dikira sebagai 1 mora sahaja.'}</p>
+            </div>
 
-        <section class="jlpt-info-section">
-          <h2><i data-lucide="book-open"></i> ${t('roadmap.kana.subpage3.commonExamplesTitle')}</h2>
-          <div class="jlpt-levels-grid" style="grid-template-columns: repeat(3, 1fr);">
-            <div class="jlpt-level-card n5">
-              <h3>ちゃ</h3>
-              <p>${t('roadmap.kana.subpage3.exChan')}</p>
+            <div class="mora-visual" style="margin-top: 20px;">
+              <div class="mora-visual-label">びょういん (byouin - hospital)</div>
+              <div class="mora-breakdown">
+                <div class="mora-unit">
+                  <div class="mora-char">びょ</div>
+                  <div class="mora-label">byo</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">う</div>
+                  <div class="mora-label">u</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">い</div>
+                  <div class="mora-label">i</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">ん</div>
+                  <div class="mora-label">n</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-equals"><i data-lucide="equal"></i></div>
+                <div class="mora-total">
+                  <span class="mora-total-num">4</span>
+                  <span class="mora-total-label">morae</span>
+                </div>
+              </div>
+              <div class="mora-audio-player" style="margin-top: 16px;">
+                <button class="mora-audio-btn" onclick="playYouonSokuonAudio('びょういん.mp3')">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                  Listen
+                </button>
+              </div>
             </div>
-            <div class="jlpt-level-card n5">
-              <h3>しょ</h3>
-              <p>${t('roadmap.kana.subpage3.exHisho')}</p>
+
+            <div class="mora-visual" style="margin-top: 16px;">
+              <div class="mora-visual-label">びよういん (biyouin - beauty salon)</div>
+              <div class="mora-breakdown">
+                <div class="mora-unit">
+                  <div class="mora-char">び</div>
+                  <div class="mora-label">bi</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">よ</div>
+                  <div class="mora-label">yo</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">う</div>
+                  <div class="mora-label">u</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">い</div>
+                  <div class="mora-label">i</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">ん</div>
+                  <div class="mora-label">n</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-equals"><i data-lucide="equal"></i></div>
+                <div class="mora-total">
+                  <span class="mora-total-num">5</span>
+                  <span class="mora-total-label">morae</span>
+                </div>
+              </div>
+              <div class="mora-audio-player" style="margin-top: 16px;">
+                <button class="mora-audio-btn" onclick="playYouonSokuonAudio('びよういん.mp3')">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                  Listen
+                </button>
+              </div>
             </div>
-            <div class="jlpt-level-card n5">
-              <h3>きゅ</h3>
-              <p>${t('roadmap.kana.subpage3.exKyu')}</p>
+
+            <div class="jlpt-levels-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 20px;">
+              ${smallYoonHTML}
             </div>
-          </div>
-        </section>
+          </section>
+
+        </div>
+
+        <div id="subpage3-katakana" style="display: none;">
+          <section class="jlpt-info-section">
+            <h2><i data-lucide="zap"></i> ${t('roadmap.kana.subpage3.sokuonTitle')}</h2>
+            <div class="jlpt-whatis-card" style="margin-bottom: 16px;">
+              <p>${t('roadmap.kana.subpage3.sokuonDetail')}</p>
+            </div>
+            <div class="mora-visual" style="margin-bottom: 16px;">
+              <div style="display: flex; justify-content: center; gap: 40px;">
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; margin-bottom: 8px;">ツ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Normal tsu</div>
+                  <div style="font-size: 12px; color: var(--text-muted);">has sound</div>
+                </div>
+                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ッ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Small tsu</div>
+                  <div style="font-size: 12px; color: var(--text-muted);">no sound, just a stop</div>
+                </div>
+              </div>
+            </div>
+            <div class="jlpt-whatis-card" style="margin-top: 12px;">
+              <p>${lang === 'en' ? 'ッ counts as 1 full mora even though it has no sound — it just adds a short stop before the next consonant.' : 'ッ dikira sebagai 1 mora penuh walaupun tidak berbunyi — ia hanya menambah hentian singkat sebelum konsonan berikutnya.'}</p>
+            </div>
+            <div class="mora-visual" style="margin-top: 16px; cursor: pointer;" onclick="playYouonSokuonAudio('まっすぐ.mp3')">
+              <div class="mora-visual-label">まっすぐ (massugu - straight)</div>
+              <div class="mora-breakdown">
+                <div class="mora-unit">
+                  <div class="mora-char">ま</div>
+                  <div class="mora-label">ma</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char" style="background: var(--accent-purple);">っ</div>
+                  <div class="mora-label">s</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">す</div>
+                  <div class="mora-label">su</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">ぐ</div>
+                  <div class="mora-label">gu</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-equals"><i data-lucide="equal"></i></div>
+                <div class="mora-total">
+                  <span class="mora-total-num">4</span>
+                  <span class="mora-total-label">morae</span>
+                </div>
+              </div>
+              <div class="mora-audio-player" style="margin-top: 16px;">
+                <button class="mora-audio-btn" id="sokuon-audio-btn-katakana">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                  Listen
+                </button>
+              </div>
+            </div>
+            <div class="jlpt-levels-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 20px;">
+              <div class="jlpt-level-card n5" style="padding: 14px; text-align: center; cursor: pointer;" onclick="playYouonSokuonAudio('きっぷ.mp3')">
+                <div style="font-size: 24px; color: var(--primary); margin-bottom: 4px;">きっぷ</div>
+                <div style="font-size: 11px; color: var(--text-muted);">ticket</div>
+              </div>
+              <div class="jlpt-level-card n5" style="padding: 14px; text-align: center; cursor: pointer;" onclick="playYouonSokuonAudio('サッカー.mp3')">
+                <div style="font-size: 24px; color: var(--primary); margin-bottom: 4px;">サッカー</div>
+                <div style="font-size: 11px; color: var(--text-muted);">soccer</div>
+              </div>
+              <div class="jlpt-level-card n5" style="padding: 14px; text-align: center; cursor: pointer;" onclick="playYouonSokuonAudio('かった.mp3')">
+                <div style="font-size: 24px; color: var(--primary); margin-bottom: 4px;">かった</div>
+                <div style="font-size: 11px; color: var(--text-muted);">won</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="jlpt-info-section">
+            <h2><i data-lucide="link"></i> ${t('roadmap.kana.subpage3.yoonSmallTitle')}</h2>
+            <div class="jlpt-whatis-card">
+              <p>${t('roadmap.kana.subpage3.yoonDesc')}</p>
+            </div>
+            <div class="mora-visual" style="margin: 20px 0;">
+              <div style="display: flex; justify-content: center; gap: 40px;">
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; margin-bottom: 8px;">ヤ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Normal ya</div>
+                </div>
+                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ャ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Small ya</div>
+                </div>
+                <div style="width: 1px; height: 80px; background: var(--border-color); align-self: center;"></div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; margin-bottom: 8px;">ユ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Normal yu</div>
+                </div>
+                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ュ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Small yu</div>
+                </div>
+                <div style="width: 1px; height: 80px; background: var(--border-color); align-self: center;"></div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; margin-bottom: 8px;">ヨ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Normal yo</div>
+                </div>
+                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
+                <div style="text-align: center;">
+                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ョ</div>
+                  <div style="font-size: 14px; color: var(--text-secondary);">Small yo</div>
+                </div>
+              </div>
+            </div>
+            <div class="mora-visual" style="margin: 20px 0; text-align: center;">
+              <div style="margin-bottom: 12px;">
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">イ-row + small ャ/ュ/ョ</div>
+                <div style="font-size: 20px; color: var(--text-secondary);">キ, シ, チ, ニ, ヒ, ミ, リ, ギ, ジ, ビ, ピ</div>
+              </div>
+              <div style="font-size: 28px; color: var(--text-muted);">+</div>
+              <div style="font-size: 24px; color: var(--accent-purple); margin: 8px 0;">ャ / ュ / ョ</div>
+              <div style="font-size: 28px; color: var(--text-muted);">=</div>
+              <div style="margin-top: 12px;">
+                <div style="font-size: 18px; color: var(--primary); margin-bottom: 4px;">キャ, シャ, チャ, ニャ, ヒャ, ミャ, リャ, ギャ, ジャ, ビャ, ピャ</div>
+                <div style="font-size: 14px; color: var(--accent-purple); margin-bottom: 8px;">with ャ</div>
+                <div style="width: 100%; height: 1px; background: #312E81; margin: 12px 0;"></div>
+                <div style="font-size: 18px; color: var(--primary); margin-bottom: 4px;">キュ, シュ, チュ, ニュ, ヒュ, ミュ, リュ, ギュ, ジュ, ビュ, ピュ</div>
+                <div style="font-size: 14px; color: var(--accent-purple); margin-bottom: 8px;">with ュ</div>
+                <div style="width: 100%; height: 1px; background: #312E81; margin: 12px 0;"></div>
+                <div style="font-size: 18px; color: var(--primary); margin-bottom: 4px;">キョ, ショ, チョ, ニョ, ヒョ, ミョ, リョ, ギョ, ジョ, ビョ, ピョ</div>
+                <div style="font-size: 14px; color: var(--accent-purple);">with ョ</div>
+              </div>
+            </div>
+            <div class="jlpt-whatis-card" style="margin-top: 12px;">
+              <p>${lang === 'en' ? 'Even though youon is written with two characters, it counts as just 1 mora.' : 'Walaupun youon ditulis dengan dua aksara, ia dikira sebagai 1 mora sahaja.'}</p>
+            </div>
+
+            <div class="mora-visual" style="margin-top: 20px;">
+              <div class="mora-visual-label">びょういん (byouin - hospital)</div>
+              <div class="mora-breakdown">
+                <div class="mora-unit">
+                  <div class="mora-char">びょ</div>
+                  <div class="mora-label">byo</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">う</div>
+                  <div class="mora-label">u</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">い</div>
+                  <div class="mora-label">i</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">ん</div>
+                  <div class="mora-label">n</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-equals"><i data-lucide="equal"></i></div>
+                <div class="mora-total">
+                  <span class="mora-total-num">4</span>
+                  <span class="mora-total-label">morae</span>
+                </div>
+              </div>
+              <div class="mora-audio-player" style="margin-top: 16px;">
+                <button class="mora-audio-btn" onclick="playYouonSokuonAudio('びょういん.mp3')">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                  Listen
+                </button>
+              </div>
+            </div>
+
+            <div class="mora-visual" style="margin-top: 16px;">
+              <div class="mora-visual-label">びよういん (biyouin - beauty salon)</div>
+              <div class="mora-breakdown">
+                <div class="mora-unit">
+                  <div class="mora-char">び</div>
+                  <div class="mora-label">bi</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">よ</div>
+                  <div class="mora-label">yo</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">う</div>
+                  <div class="mora-label">u</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">い</div>
+                  <div class="mora-label">i</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-connector"><i data-lucide="plus"></i></div>
+                <div class="mora-unit">
+                  <div class="mora-char">ん</div>
+                  <div class="mora-label">n</div>
+                  <div class="mora-count">1 mora</div>
+                </div>
+                <div class="mora-equals"><i data-lucide="equal"></i></div>
+                <div class="mora-total">
+                  <span class="mora-total-num">5</span>
+                  <span class="mora-total-label">morae</span>
+                </div>
+              </div>
+              <div class="mora-audio-player" style="margin-top: 16px;">
+                <button class="mora-audio-btn" onclick="playYouonSokuonAudio('びよういん.mp3')">
+                  <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                  Listen
+                </button>
+              </div>
+            </div>
+
+            <div class="jlpt-levels-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 20px;">
+              <div class="jlpt-level-card card-indigo" style="padding: 14px; text-align: center; cursor: pointer;" onclick="playYouonSokuonAudio('きゅうり.mp3')">
+                <h3 style="font-size: 18px; margin-bottom: 4px;">キュ</h3>
+                <p style="color: var(--primary); font-size: 13px;">kyu</p>
+                <p style="font-size: 11px; color: var(--text-secondary);">きゅうり (kyuuri)</p>
+              </div>
+              <div class="jlpt-level-card card-indigo" style="padding: 14px; text-align: center; cursor: pointer;" onclick="playYouonSokuonAudio('ギャル.mp3')">
+                <h3 style="font-size: 18px; margin-bottom: 4px;">ギャ</h3>
+                <p style="color: var(--primary); font-size: 13px;">gya</p>
+                <p style="font-size: 11px; color: var(--text-secondary);">ギャル (gal)</p>
+              </div>
+              <div class="jlpt-level-card card-indigo" style="padding: 14px; text-align: center; cursor: pointer;" onclick="playYouonSokuonAudio('ひゃく.mp3')">
+                <h3 style="font-size: 18px; margin-bottom: 4px;">ヒャ</h3>
+                <p style="color: var(--primary); font-size: 13px;">hya</p>
+                <p style="font-size: 11px; color: var(--text-secondary);">ひゃく (hyaku)</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   `;
