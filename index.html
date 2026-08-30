@@ -17,157 +17,129 @@
 <body class="dark-theme">
     <!-- App Layout Container -->
     <div class="app-layout">
-        <!-- Sidebar Navigation -->
-        <aside class="app-sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <span class="logo-icon">あ</span>
-                    <span class="logo-text">Asas<span>Jepun</span></span>
-                </div>
-                <button class="mobile-close-btn" id="mobile-close-btn" aria-label="Close menu">
-                    <i data-lucide="x"></i>
-                </button>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <a href="#home" class="nav-item active" data-target="home">
-                    <i data-lucide="home"></i>
-                    <span data-i18n="nav.intro">Laman Utama</span>
-                </a>
-                <a href="#roadmap" class="nav-item" data-target="roadmap">
-                    <i data-lucide="map"></i>
-                    <span data-i18n="nav.roadmap">Laluan Pembelajaran</span>
-                </a>
-                <a href="#introduction" class="nav-item" data-target="introduction">
-                    <i data-lucide="book-open"></i>
-                    <span data-i18n="nav.introduction">Pengenalan</span>
-                </a>
-
-                <!-- Collapsible: Kana -->
-                <div class="nav-group">
-                    <div class="nav-item-row">
-                        <a href="#kana" class="nav-item" data-target="kana">
-                            <i data-lucide="grid-3x3"></i>
-                            <span data-i18n="nav.kana">Hiragana & Katakana</span>
-                        </a>
-                        <button class="subnav-toggle" aria-label="Expand submenu">
-                            <i data-lucide="chevron-right" class="subnav-arrow"></i>
-                        </button>
-                    </div>
-                    <div class="nav-subitems hidden">
-                        <a href="#kana/subpage1" class="nav-item subpage" data-target="kana/subpage1">
-                            <i data-lucide="volume-2"></i>
-                            <span data-i18n="nav.kanaSubpage1">Vocal Lengthening</span>
-                        </a>
-                        <a href="#kana/subpage2" class="nav-item subpage" data-target="kana/subpage2">
-                            <i data-lucide="circle-dot"></i>
-                            <span data-i18n="nav.kanaSubpage2">Tenten & Maru</span>
-                        </a>
-                        <a href="#kana/subpage3" class="nav-item subpage" data-target="kana/subpage3">
-                            <i data-lucide="link"></i>
-                            <span data-i18n="nav.kanaSubpage3">Combination Hiragana</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Collapsible: Kanji -->
-                <div class="nav-group">
-                    <div class="nav-item-row">
-                        <a href="#kanji-rules" class="nav-item" data-target="kanji-rules">
-                            <i data-lucide="type"></i>
-                            <span data-i18n="nav.kanjiRules">Kanji</span>
-                        </a>
-                        <button class="subnav-toggle" aria-label="Expand submenu">
-                            <i data-lucide="chevron-right" class="subnav-arrow"></i>
-                        </button>
-                    </div>
-                    <div class="nav-subitems hidden">
-                        <a href="#kanji-rules/subpage2" class="nav-item subpage" data-target="kanji-rules/subpage2">
-                            <i data-lucide="book-open"></i>
-                            <span data-i18n="kanjiRules.subpage2Title">Radical</span>
-                        </a>
-                        <a href="#kanji-rules/subpage1" class="nav-item subpage" data-target="kanji-rules/subpage1">
-                            <i data-lucide="pen-tool"></i>
-                            <span data-i18n="kanjiRules.subpage1Title">Stroke Order</span>
-                        </a>
-                        <a href="#kanji-rules/subpage3" class="nav-item subpage" data-target="kanji-rules/subpage3">
-                            <i data-lucide="user"></i>
-                            <span data-i18n="kanjiRules.subpage3Title">Kanji in Names</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Collapsible: Self Study -->
-                <div class="nav-group">
-                    <div class="nav-item-row">
-                        <a href="#self-study" class="nav-item" data-target="self-study">
-                            <i data-lucide="graduation-cap"></i>
-                            <span data-i18n="nav.selfStudy">Self Study Guide</span>
-                        </a>
-                        <button class="subnav-toggle" aria-label="Expand submenu">
-                            <i data-lucide="chevron-right" class="subnav-arrow"></i>
-                        </button>
-                    </div>
-                    <div class="nav-subitems hidden">
-                        <a href="#self-study/anki" class="nav-item subpage" data-target="self-study/anki">
-                            <i data-lucide="layers"></i>
-                            <span data-i18n="nav.anki">Anki & Vocab Mining</span>
-                        </a>
-                        <a href="#self-study/immersion" class="nav-item subpage" data-target="self-study/immersion">
-                            <i data-lucide="brain"></i>
-                            <span data-i18n="nav.immersion">Comprehensible Input & Immersion</span>
-                        </a>
-                    </div>
-                </div>
-
-                <a href="#jlpt-info" class="nav-item" data-target="jlpt-info">
-                    <i data-lucide="info"></i>
-                    <span data-i18n="nav.jlptInfo">What is JLPT?</span>
-                </a>
-                <a href="#culture" class="nav-item" data-target="culture">
-                    <i data-lucide="globe"></i>
-                    <span data-i18n="nav.culture">Pelajaran Budaya</span>
-                </a>
-                <a href="#blog" class="nav-item" data-target="blog">
-                    <i data-lucide="file-text"></i>
-                    <span data-i18n="nav.blog">Blog</span>
-                </a>
-                <a href="#resources" class="nav-item" data-target="resources">
-                    <i data-lucide="link"></i>
-                    <span data-i18n="nav.resources">Sumber</span>
-                </a>
-                <a href="#about" class="nav-item" data-target="about">
-                    <i data-lucide="user"></i>
-                    <span data-i18n="nav.about">Tentang</span>
-                </a>
-            </nav>
-
-            <!-- Sidebar Footer -->
-            <div class="sidebar-footer">
-                <!-- Language Toggle -->
-                <div class="sidebar-lang-toggle" id="sidebar-lang-toggle">
-                    <button class="lang-btn active" data-lang="en">EN</button>
-                    <button class="lang-btn" data-lang="my">MY</button>
-                </div>
-                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark/light theme">
-                    <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                    <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                    <span class="theme-text">Light Mode</span>
-                </button>
-            </div>
-        </aside>
-
         <!-- Main Content Area -->
         <main class="app-main">
             <!-- Header Bar -->
             <header class="app-header">
                 <div class="header-left">
-                    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">
-                        <i data-lucide="menu"></i>
-                    </button>
-                    <h2 class="current-section-title" id="section-title">Pengenalan</h2>
+                    <div class="logo">
+                        <span class="logo-icon">あ</span>
+                        <span class="logo-text">Asas<span>Jepun</span></span>
+                    </div>
+                    <nav class="header-nav">
+                        <a href="#home" class="nav-item active" data-target="home">
+                            <i data-lucide="home"></i>
+                            <span data-i18n="nav.intro">Laman Utama</span>
+                        </a>
+                        <a href="#roadmap" class="nav-item" data-target="roadmap">
+                            <i data-lucide="map"></i>
+                            <span data-i18n="nav.roadmap">Laluan Pembelajaran</span>
+                        </a>
+                        <a href="#introduction" class="nav-item" data-target="introduction">
+                            <i data-lucide="book-open"></i>
+                            <span data-i18n="nav.introduction">Pengenalan</span>
+                        </a>
+
+                        <!-- Dropdown: Kana -->
+                        <div class="nav-dropdown">
+                            <a href="#kana" class="nav-item nav-dropdown-toggle" data-target="kana">
+                                <i data-lucide="grid-3x3"></i>
+                                <span data-i18n="nav.kana">Hiragana & Katakana</span>
+                                <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                            </a>
+                            <div class="nav-dropdown-menu">
+                                <a href="#kana/subpage1" class="nav-item subpage" data-target="kana/subpage1">
+                                    <i data-lucide="volume-2"></i>
+                                    <span data-i18n="nav.kanaSubpage1">Vocal Lengthening</span>
+                                </a>
+                                <a href="#kana/subpage2" class="nav-item subpage" data-target="kana/subpage2">
+                                    <i data-lucide="circle-dot"></i>
+                                    <span data-i18n="nav.kanaSubpage2">Tenten & Maru</span>
+                                </a>
+                                <a href="#kana/subpage3" class="nav-item subpage" data-target="kana/subpage3">
+                                    <i data-lucide="link"></i>
+                                    <span data-i18n="nav.kanaSubpage3">Combination Hiragana</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown: Kanji -->
+                        <div class="nav-dropdown">
+                            <a href="#kanji-rules" class="nav-item nav-dropdown-toggle" data-target="kanji-rules">
+                                <i data-lucide="type"></i>
+                                <span data-i18n="nav.kanjiRules">Kanji</span>
+                                <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                            </a>
+                            <div class="nav-dropdown-menu">
+                                <a href="#kanji-rules/subpage2" class="nav-item subpage" data-target="kanji-rules/subpage2">
+                                    <i data-lucide="book-open"></i>
+                                    <span data-i18n="kanjiRules.subpage2Title">Radical</span>
+                                </a>
+                                <a href="#kanji-rules/subpage1" class="nav-item subpage" data-target="kanji-rules/subpage1">
+                                    <i data-lucide="pen-tool"></i>
+                                    <span data-i18n="kanjiRules.subpage1Title">Stroke Order</span>
+                                </a>
+                                <a href="#kanji-rules/subpage3" class="nav-item subpage" data-target="kanji-rules/subpage3">
+                                    <i data-lucide="user"></i>
+                                    <span data-i18n="kanjiRules.subpage3Title">Kanji in Names</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown: Self Study -->
+                        <div class="nav-dropdown">
+                            <a href="#self-study" class="nav-item nav-dropdown-toggle" data-target="self-study">
+                                <i data-lucide="graduation-cap"></i>
+                                <span data-i18n="nav.selfStudy">Self Study Guide</span>
+                                <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                            </a>
+                            <div class="nav-dropdown-menu">
+                                <a href="#self-study/anki" class="nav-item subpage" data-target="self-study/anki">
+                                    <i data-lucide="layers"></i>
+                                    <span data-i18n="nav.anki">Anki & Vocab Mining</span>
+                                </a>
+                                <a href="#self-study/immersion" class="nav-item subpage" data-target="self-study/immersion">
+                                    <i data-lucide="brain"></i>
+                                    <span data-i18n="nav.immersion">Comprehensible Input & Immersion</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <a href="#jlpt-info" class="nav-item" data-target="jlpt-info">
+                            <i data-lucide="info"></i>
+                            <span data-i18n="nav.jlptInfo">What is JLPT?</span>
+                        </a>
+                        <a href="#culture" class="nav-item" data-target="culture">
+                            <i data-lucide="globe"></i>
+                            <span data-i18n="nav.culture">Pelajaran Budaya</span>
+                        </a>
+                        <a href="#blog" class="nav-item" data-target="blog">
+                            <i data-lucide="file-text"></i>
+                            <span data-i18n="nav.blog">Blog</span>
+                        </a>
+                        <a href="#resources" class="nav-item" data-target="resources">
+                            <i data-lucide="link"></i>
+                            <span data-i18n="nav.resources">Sumber</span>
+                        </a>
+                        <a href="#about" class="nav-item" data-target="about">
+                            <i data-lucide="user"></i>
+                            <span data-i18n="nav.about">Tentang</span>
+                        </a>
+                    </nav>
+                    <h2 class="current-section-title" id="section-title">Laman Utama</h2>
                 </div>
                 <div class="header-right">
+                    <!-- Language Toggle -->
+                    <div class="header-lang-toggle" id="header-lang-toggle">
+                        <button class="lang-btn active" data-lang="en">EN</button>
+                        <button class="lang-btn" data-lang="my">MY</button>
+                    </div>
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark/light theme">
+                        <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                        <span class="theme-text">Light Mode</span>
+                    </button>
                     <!-- Join Class Button -->
                     <button class="join-class-btn" id="join-class-btn" title="Join my class">
                         Nak kelas?

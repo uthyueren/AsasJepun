@@ -537,6 +537,18 @@ export const RESOURCES = {
       description: 'Anki add-on that automatically orders your cards for optimal learning.',
       url: 'https://massimmersionapproach.com/morphman',
       icon: 'settings'
+    },
+    {
+      name: 'Yomitan',
+      description: 'Browser popup dictionary for mining vocabulary from any Japanese webpage. Works with AnkiConnect to create cards instantly.',
+      url: 'https://yomitan.org',
+      icon: 'book-open'
+    },
+    {
+      name: 'Language Reactor',
+      description: 'Dual subtitles browser extension for Netflix, YouTube, and more. Mine vocabulary and view grammar explanations while watching.',
+      url: 'https://www.languagereactor.com',
+      icon: 'tv'
     }
   ]
 };

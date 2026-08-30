@@ -17,7 +17,7 @@ const state = {
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize UI & Bind event listeners
-  initSidebar();
+  initHeaderNav();
   initTheme();
   initModals();
   initRouter();
@@ -36,52 +36,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Sidebar events (menu toggles, responsive menus)
-function initSidebar() {
-  const sidebar = document.getElementById("sidebar");
-  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-  const mobileCloseBtn = document.getElementById("mobile-close-btn");
-
-  mobileMenuBtn.addEventListener("click", () => {
-    sidebar.classList.add("active");
-  });
-
-  mobileCloseBtn.addEventListener("click", () => {
-    sidebar.classList.remove("active");
-  });
-
-  // Handle collapsible nav groups - only toggle button expands/collapses
-  const navGroups = document.querySelectorAll(".nav-group");
-  navGroups.forEach(group => {
-    const toggleBtn = group.querySelector(".subnav-toggle");
-    const subitems = group.querySelector(".nav-subitems");
-
-    toggleBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const isExpanded = group.classList.contains("expanded");
-
-      // Toggle expanded state
-      if (isExpanded) {
-        group.classList.remove("expanded");
-        subitems.classList.add("hidden");
-      } else {
-        group.classList.add("expanded");
-        subitems.classList.remove("hidden");
-      }
-    });
-  });
-
-  // Close sidebar on item click (mobile responsive) - regular nav items only
-  const navItems = document.querySelectorAll(".nav-item:not(.subpage)");
+// Header navigation events
+function initHeaderNav() {
+  // Active nav item on click - regular nav items only
+  const navItems = document.querySelectorAll(".header-nav > .nav-item");
   navItems.forEach(item => {
     item.addEventListener("click", (e) => {
+      // Skip dropdown toggle items
+      if (item.classList.contains("nav-dropdown-toggle")) return;
       // Remove active class from other items
       navItems.forEach(nav => nav.classList.remove("active"));
       // Add active to current
       item.classList.add("active");
-      // Close sidebar
-      sidebar.classList.remove("active");
     });
   });
 }
@@ -117,12 +83,12 @@ function initTheme() {
   });
 }
 
-// Language Toggle initialization and handlers (both header and sidebar)
+// Language Toggle initialization and handlers
 function initLanguageToggle() {
   const savedLang = getLanguage();
 
-  // Handle both header and sidebar language toggles
-  const langToggles = document.querySelectorAll("#lang-toggle, #sidebar-lang-toggle");
+  // Handle language toggle buttons
+  const langToggles = document.querySelectorAll("#lang-toggle, #header-lang-toggle, #sidebar-lang-toggle");
 
   langToggles.forEach(langToggle => {
     const langBtns = langToggle.querySelectorAll(".lang-btn");
@@ -319,27 +285,13 @@ function initRouter() {
     const hash = window.location.hash || "#home";
     const route = hash.replace("#", "");
 
-    // Highlight sidebar active state and expand nav groups
-    const navItems = document.querySelectorAll(".nav-item");
-    const navGroups = document.querySelectorAll(".nav-group");
-
-    navGroups.forEach(g => {
-      g.classList.remove("expanded");
-      const subitems = g.querySelector(".nav-subitems");
-      if (subitems) subitems.classList.add("hidden");
-    });
+    // Highlight header nav active state
+    const navItems = document.querySelectorAll(".header-nav > .nav-item");
 
     navItems.forEach(item => {
       const target = item.getAttribute("data-target");
       if (route === target || route.startsWith(target + "/")) {
         item.classList.add("active");
-        // Expand parent nav group if this is a subpage
-        const parentGroup = item.closest(".nav-group");
-        if (parentGroup) {
-          parentGroup.classList.add("expanded");
-          const subitems = parentGroup.querySelector(".nav-subitems");
-          if (subitems) subitems.classList.remove("hidden");
-        }
       } else {
         item.classList.remove("active");
       }
@@ -757,29 +709,29 @@ function renderSelfStudyView() {
         <p>${t('selfStudy.subtitle')}</p>
       </div>
 
-      <div class="self-study-content">
-        <section class="self-study-section">
+      <div class="info-content">
+        <section class="info-content">
           <h2>${t('selfStudy.overview.title')}</h2>
           <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
             ${t('selfStudy.overview.points').map(point => `<li style="margin-bottom: 8px;">${point}</li>`).join('')}
           </ul>
         </section>
 
-        <section class="self-study-section">
+        <section class="info-content">
           <h2>${t('selfStudy.principles.title')}</h2>
           <div class="principles-grid">
             ${principlesHTML}
           </div>
         </section>
 
-        <section class="self-study-section">
+        <section class="info-content">
           <h2>${t('selfStudy.dailyRoutine.title')}</h2>
           <div class="routine-grid">
             ${routineHTML}
           </div>
         </section>
 
-        <section class="self-study-section">
+        <section class="info-content">
           <h2>${t('selfStudy.tips.title')}</h2>
           <div class="tips-list">
             <div class="tip-item">
@@ -3692,7 +3644,7 @@ function renderKanjiRulesSubpage1View() {
         <h1>${t('kanjiRules.subpage1Title') || 'Stroke Order'}</h1>
         <p>${t('kanjiRules.subpage1Subtitle') || ''}</p>
       </div>
-      <div class="kanji-rules-container">
+      <div class="info-content">
         ${sectionsHTML}
       </div>
 
@@ -3866,7 +3818,7 @@ function renderAnkiView() {
         <p>${t('anki.subtitle')}</p>
       </div>
 
-      <div class="anki-content-wrapper">
+      <div class="info-content">
         <!-- Introduction -->
         <div class="anki-intro-section">
           <p>${ANKI_CONTENT.intro[lang]}</p>
@@ -3958,6 +3910,24 @@ function renderImmersionView() {
           <h2><i data-lucide="zap"></i> ${lang === 'en' ? 'The i+1 Theory' : 'Teori i+1'}</h2>
           <div class="info-card">
             <p>${lang === 'en' ? 'Language acquisition happens when you encounter input that is slightly beyond your current level (i+1). If the content is too easy (i+0), you learn nothing new. If it is too hard (i+2 or beyond), you learn nothing either. The sweet spot is when you can grasp the general meaning while encountering new structures naturally.' : 'Perolehan bahasa berlaku apabila anda Jumpa input yang sedikit melebihi tahap semasa anda (i+1). Jika kandungan terlalu mudah (i+0), anda tidak mempelajari apa-apa yang baru. Jika terlalu susah (i+2 atau lebih), anda juga tidak mempelajari apa-apa. Titik manis adalah apabila anda boleh memahami maksud umum sambil encountering struktur baru secara semula jadi.'}</p>
+            <div class="i1-scale-visual">
+              <div class="i1-scale-labels">
+                <span class="i1-label i1-too-easy">${lang === 'en' ? 'Too Easy' : 'Terlalu Mudah'}</span>
+                <span class="i1-label i1-sweet-spot">${lang === 'en' ? 'Sweet Spot' : 'Titik Manis'}</span>
+                <span class="i1-label i1-too-hard">${lang === 'en' ? 'Too Hard' : 'Terlalu Susah'}</span>
+              </div>
+              <div class="i1-scale-bar">
+                <div class="i1-scale-segment i1-easy"></div>
+                <div class="i1-scale-segment i1-target"></div>
+                <div class="i1-scale-segment i1-hard"></div>
+                <div class="i1-scale-marker"></div>
+              </div>
+              <div class="i1-scale-levels">
+                <span class="i1-level">i+0</span>
+                <span class="i1-level i1-level-center">i+1</span>
+                <span class="i1-level">i+2+</span>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -3986,6 +3956,49 @@ function renderImmersionView() {
           <div class="info-card">
             <p>${lang === 'en' ? '<strong>Passive immersion</strong> means having Japanese play in the background while you do other things. It helps your ear adapt to the rhythm and sounds, but the acquisition is limited.' : '<strong>Penjerapan pasif</strong> bermaksud mempunyai Jepun bermain di latar belakang semasa anda melakukan perkara lain. Ia membantu telinga anda menyesuaikan dengan irama dan bunyi, tetapi perolehan adalah terhad.'}</p>
             <p style="margin-top: 12px;">${lang === 'en' ? '<strong>Active immersion</strong> means paying full attention to the content, trying to understand what is happening, looking up unknown words, and making mental connections. This is where real acquisition happens.' : '<strong>Penjerapan aktif</strong> bermaksud memberikan perhatian penuh kepada kandungan, cuba memahami apa yang berlaku, mencari perkataan yang tidak dikenali, dan membuat sambungan mental. Di sinilah perolehan sebenar berlaku.'}</p>
+            <div class="immersion-comparison">
+              <div class="immersion-type passive">
+                <div class="immersion-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+                </div>
+                <div class="immersion-label">${lang === 'en' ? 'Passive' : 'Pasif'}</div>
+                <div class="immersion-tags">
+                  <span class="tag">${lang === 'en' ? 'Background' : 'Latar Belakang'}</span>
+                  <span class="tag">${lang === 'en' ? 'Low Focus' : 'Fokus Rendah'}</span>
+                </div>
+                <ul class="immersion-traits">
+                  <li>${lang === 'en' ? 'Music while working' : 'Musik semasa bekerja'}</li>
+                  <li>${lang === 'en' ? 'Anime as entertainment' : 'Anime sebagai hiburan'}</li>
+                  <li>${lang === 'en' ? 'Podcasts on the go' : 'Podcast semasa bergerak'}</li>
+                </ul>
+                <div class="immersion-result">
+                  <span class="result-label">${lang === 'en' ? 'Result:' : 'Keputusan:'}</span>
+                  <span class="result-value limited">${lang === 'en' ? 'Limited acquisition' : 'Perolehan terhad'}</span>
+                </div>
+              </div>
+              <div class="immersion-divider">
+                <span>${lang === 'en' ? 'vs' : 'lwn'}</span>
+              </div>
+              <div class="immersion-type active">
+                <div class="immersion-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" y1="8" x2="12" y2="8"></line><line x1="3.95" y1="6.06" x2="8.54" y2="14"></line><line x1="10.88" y1="21.94" x2="15.46" y2="14"></line></svg>
+                </div>
+                <div class="immersion-label">${lang === 'en' ? 'Active' : 'Aktif'}</div>
+                <div class="immersion-tags">
+                  <span class="tag">${lang === 'en' ? 'Focused' : 'Fokus'}</span>
+                  <span class="tag">${lang === 'en' ? 'Intentional' : 'Sengaja'}</span>
+                </div>
+                <ul class="immersion-traits">
+                  <li>${lang === 'en' ? 'Watching with intent' : 'Menonton dengan tujuan'}</li>
+                  <li>${lang === 'en' ? 'Looking up words' : 'Mencari perkataan'}</li>
+                  <li>${lang === 'en' ? 'Taking notes' : 'Membuat nota'}</li>
+                </ul>
+                <div class="immersion-result">
+                  <span class="result-label">${lang === 'en' ? 'Result:' : 'Keputusan:'}</span>
+                  <span class="result-value real">${lang === 'en' ? 'Real acquisition' : 'Perolehan sebenar'}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
