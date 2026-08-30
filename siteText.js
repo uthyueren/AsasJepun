@@ -387,13 +387,18 @@ export const translations = {
       whyPoint1: "Kanji makes reading Japanese possible. Hiragana alone cannot distinguish words like 橋 (bridge) from 箸 (chopsticks)",
       whyPoint2: "Even at N5 level, you will encounter about 100 kanji. That is why it is part of every JLPT level",
       whyPoint3: "Once you recognize kanji, vocabulary becomes easier. Many words are made of kanji combinations",
+      radicalsTitle: "Common Radicals",
+      radicalsIntro: "Radicals are the building blocks of kanji. Most kanji are composed of a radical (which gives a hint about meaning) and other components.",
       typesTitle: "Types of Kanji",
       onyomi: "Onyomi (Chinese Reading)",
       onyomiDesc: "The Chinese-derived pronunciation. Used in compound words.",
       kunyomi: "Kunyomi (Japanese Reading)",
       kunyomiDesc: "The native Japanese pronunciation. Often used when kanji stands alone.",
       subpage1Title: "Stroke Order",
-      subpage1Subtitle: "Learn the correct way to write kanji"
+      subpage1Subtitle: "Learn the correct way to write kanji",
+      subpage2Title: "Radical",
+      subpage2Subtitle: "Learn about kanji radicals and their meanings",
+      subpage3Title: "Kanji in Names"
     },
     // JLPT Info
     jlptInfo: {
@@ -408,6 +413,8 @@ export const translations = {
         beginner: "- Beginner",
         elementary: "- Elementary",
         intermediate: "- Intermediate",
+        upperIntermediate: "- Upper Intermediate",
+        advanced: "- Advanced",
         n5Desc: "The most basic level of Japanese language proficiency. Tests knowledge of basic Japanese characters (hiragana and katakana) and everyday vocabulary.",
         n5Kanji: "About 100 kanji",
         n5Vocab: "About 800 vocabulary words",
@@ -416,18 +423,25 @@ export const translations = {
         n4Vocab: "About 1,500 vocabulary words",
         n3Desc: "Intermediate level. Tests ability to understand Japanese used in everyday situations to some extent.",
         n3Kanji: "About 400 kanji",
-        n3Vocab: "About 3,000 vocabulary words"
+        n3Vocab: "About 3,000 vocabulary words",
+        n2Desc: "Upper-intermediate level. Tests ability to understand Japanese used in everyday situations and more complex contexts.",
+        n2Kanji: "About 650 kanji",
+        n2Vocab: "About 6,000 vocabulary words",
+        n1Desc: "Advanced level. Tests ability to understand Japanese used in a wide range of academic and formal contexts.",
+        n1Kanji: "About 2,000 kanji",
+        n1Vocab: "About 10,000 vocabulary words"
       },
       format: {
         title: "Test Format",
-        description: "Each level consists of multiple-choice questions divided into three sections:",
+        descriptionN5N3: "N5-N3 consists of three sections:",
+        descriptionN2N1: "N2-N1 consists of two sections:",
         vocabulary: "Vocabulary",
         vocabularyDesc: "Tests knowledge of Japanese vocabulary and correct usage of Japanese words in sentences.",
-        grammar: "Grammar",
-        grammarDesc: "Tests knowledge of Japanese grammatical structures and sentence composition.",
+        grammarReading: "Grammar & Reading",
+        grammarReadingDesc: "Tests knowledge of Japanese grammatical structures and reading comprehension.",
         reading: "Reading Comprehension",
         readingDesc: "Tests the ability to understand written materials from various contexts.",
-        listening: "Listening Comprehension",
+        listening: "Listening",
         listeningDesc: "Tests the ability to listen and comprehend everyday conversations and dialogues."
       },
       purpose: {
@@ -484,6 +498,8 @@ export const translations = {
     anki: {
       title: "Anki & Vocab Mining",
       subtitle: "Recommended decks and how to mine vocabulary from native content",
+      howItWorks: "How Anki Works",
+      howItWorksDesc: "Anki is a spaced repetition system that helps you memorize anything efficiently. It works by showing you cards at increasing intervals just before you'd forget them. New cards appear once a day, and reviews are based on how well you remember each card. The more you struggle with a card, the more often it appears. This method, called spaced repetition, is proven to build long-term memory much faster than cramming.",
       recommendedDecks: "Recommended Decks",
       howToMine: "How to Mine Vocab",
       visit: "Visit"
@@ -494,7 +510,11 @@ export const translations = {
       subtitle: "Tips and strategies for effective Japanese self-learning",
       overview: {
         title: "Why Self Study?",
-        description: "Self-study allows you to learn at your own pace, focus on what interests you most, and immerse yourself in Japanese culture through media you enjoy. Many learners find that combining self-study with occasional classes or tutoring sessions yields the best results."
+        points: [
+          "Formal classes for N2 and N1 are rarely available outside major cities, making self-study essential for advanced learners.",
+          "Self-study allows you to learn at your own pace, focus on what interests you most, and immerse yourself in Japanese culture through media you enjoy.",
+          "Many learners find that combining self-study with occasional classes or tutoring sessions yields the best results."
+        ]
       },
       principles: {
         title: "Core Principles",
@@ -564,7 +584,7 @@ export const translations = {
         title: "Pro Tips",
         mining: "Mine vocabulary from content you enjoy  it makes learning feel less like studying.",
         shadowing: "Practice shadowing (repeat after speakers) to improve pronunciation and speaking flow.",
-        writing: "Keep a Japanese diary. Even simple sentences help reinforce what you've learned.",
+        writing: "Keep a Japanese diary using a notes app on your phone. Even simple sentences help reinforce what you've learned.",
         thinking: "Try to think in Japanese during your daily life. Describe objects around you in your head."
       }
     }
@@ -929,13 +949,18 @@ export const translations = {
       whyPoint1: "Kanji menjadikan pembacaan bahasa Jepun mungkin. Hiragana sahaja tidak boleh membezakan perkataan seperti 橋 (jambatan) daripada 箸 (筷子)",
       whyPoint2: "Walaupun di tahap N5, anda akan Jumpai lebih kurang 100 kanji. Itulah sebabnya ia adalah sebahagian daripada setiap tahap JLPT",
       whyPoint3: "Sebaik sahaja anda mengenali kanji, vocabulary menjadi lebih mudah. Banyak perkataan diperbuat daripada kombinasi kanji",
+      radicalsTitle: "Radikal Biasa",
+      radicalsIntro: "Radikal adalah blok bangunan kanji. Kebanyakan kanji terdiri daripada radikal (yang memberikan petunjuk tentang makna) dan komponen lain.",
       typesTitle: "Jenis-jenis Kanji",
       onyomi: "Onyomi (Bacaan Cina)",
       onyomiDesc: "Pengelasan bunyi daripada Cina. Digunakan dalam perkataan kompaun.",
       kunyomi: "Kunyomi (Bacaan Jepun)",
       kunyomiDesc: "Pengelasan bunyi asli Jepun. Sering digunakan apabila kanji berdiri sendiri.",
       subpage1Title: "Susunan Loretan",
-      subpage1Subtitle: "Belajar cara yang betul untuk menulis kanji"
+      subpage1Subtitle: "Belajar cara yang betul untuk menulis kanji",
+      subpage2Title: "Radikal",
+      subpage2Subtitle: "Pelajari tentang radikal kanji dan maknanya",
+      subpage3Title: "Kanji dalam Nama"
     },
     // JLPT Info
     jlptInfo: {
@@ -950,6 +975,8 @@ export const translations = {
         beginner: "- Pemula",
         elementary: "- Asas",
         intermediate: "- Pertengahan",
+        upperIntermediate: "- Pertengahan Atas",
+        advanced: "- Lanjutan",
         n5Desc: "Tahap paling asas kecekapan bahasa Jepun. Menguji pengetahuan aksara Jepun asas (hiragana dan katakana) dan perkataan harian.",
         n5Kanji: "Kira-kira 100 kanji",
         n5Vocab: "Kira-kira 800 perkataan",
@@ -958,18 +985,25 @@ export const translations = {
         n4Vocab: "Kira-kira 1,500 perkataan",
         n3Desc: "Tahap pertengahan. Menguji keupayaan memahami bahasa Jepun yang digunakan dalam situasi harian hingga tahap tertentu.",
         n3Kanji: "Kira-kira 400 kanji",
-        n3Vocab: "Kira-kira 3,000 perkataan"
+        n3Vocab: "Kira-kira 3,000 perkataan",
+        n2Desc: "Tahap pertengahan atas. Menguji keupayaan memahami bahasa Jepun yang digunakan dalam situasi harian dan konteks yang lebih kompleks.",
+        n2Kanji: "Kira-kira 650 kanji",
+        n2Vocab: "Kira-kira 6,000 perkataan",
+        n1Desc: "Tahap lanjutan. Menguji keupayaan memahami bahasa Jepun yang digunakan dalam pelbagai konteks akademik dan formal.",
+        n1Kanji: "Kira-kira 2,000 kanji",
+        n1Vocab: "Kira-kira 10,000 perkataan"
       },
       format: {
         title: "Format Ujian",
-        description: "Setiap tahap terdiri daripada soalan pilihan ganda yang dibahagikan kepada tiga bahagian:",
+        descriptionN5N3: "N5-N3 terdiri daripada tiga bahagian:",
+        descriptionN2N1: "N2-N1 terdiri daripada dua bahagian:",
         vocabulary: "Perkataan",
         vocabularyDesc: "Menguji pengetahuan perkataan Jepun dan penggunaan perkataan Jepun yang betul dalam ayat.",
-        grammar: "Tatabahasa",
-        grammarDesc: "Menguji pengetahuan struktur tatabahasa Jepun dan komposisi ayat.",
+        grammarReading: "Tatabahasa & Bacaan",
+        grammarReadingDesc: "Menguji pengetahuan struktur tatabahasa dan pemahaman bacaan Jepun.",
         reading: "Pemahaman Bacaan",
         readingDesc: "Menguji keupayaan memahami bahan bertulis dari pelbagai konteks.",
-        listening: "Pemahaman Pendengaran",
+        listening: "Pendengaran",
         listeningDesc: "Menguji keupayaan mendengar dan memahami perbualan dan dialog harian."
       },
       purpose: {
@@ -1026,6 +1060,8 @@ export const translations = {
     anki: {
       title: "Anki & Lombong Vocab",
       subtitle: "Dek yang disyorkan dan cara mining vocabulary dari kandungan asli",
+      howItWorks: "Bagaimana Anki Berfungsi",
+      howItWorksDesc: "Anki adalah sistem repetisi jarak yang bantu anda menghafal apa-apa dengan efisien. Ia berfungsi dengan menunjukkan kad pada selang yang meningkat tepat sebelum anda lupa. Kad baru muncul sekali sehari, dan ulangkaji berdasarkan betapa bagus anda ingat setiap kad. Lebih anda挣扎 dengan kad, lebih kerap ia muncul. Kaedah ini, dipanggil repetisi jarak, terbukti bina memori jangka panjang lebih cepat daripada cram.",
       recommendedDecks: "Dek Disyorkan",
       howToMine: "Cara Mining Vocab",
       visit: "Lawati"
@@ -1036,7 +1072,11 @@ export const translations = {
       subtitle: "Tips dan strategi untuk pembelajaran bahasa Jepun secara efektif",
       overview: {
         title: "Mengapa Belajar Sendiri?",
-        description: "Belajar sendiri membolehkan anda belajar pada kelajuan sendiri, fokus pada apa yang menarik minat anda, dan浸自己在日本文化媒介中享受。Ramai pelajar mendapati gabungan belajar sendiri dengan kelas atau sesi tutoring sekali-sekala memberikan hasil terbaik."
+        points: [
+          "Kelas formal untuk N2 dan N1 jarang tersedia di luarbandar utama, menjadikan belajar sendiri penting untuk pelajar lanjutan.",
+          "Belajar sendiri membolehkan anda belajar pada kelajuan sendiri, fokus pada apa yang menarik minat anda, dan menyelami budaya Jepun melalui media yang anda suka.",
+          "Ramai pelajar mendapati gabungan belajar sendiri dengan kelas atau sesi tutoring sekali-sekala memberikan hasil terbaik."
+        ]
       },
       principles: {
         title: "Prinsip Teras",
@@ -1106,7 +1146,7 @@ export const translations = {
         title: "Tips Pro",
         mining: "Mining vocabulary dari kandungan yang anda enjoy  ia buat pembelajaran rasa kurang macam study.",
         shadowing: "Practice shadowing (ulang selepas penutur) untuk improve sebutan dan kelancaran pertuturan.",
-        writing: "Keep diary Jepun. Malah ayat simple bantu reinforce apa yang anda dah belajar.",
+        writing: "Keep diary Jepun guna notes app kat telefon. Malah ayat simple bantu reinforce apa yang anda dah belajar.",
         thinking: "Cuba think dalam Jepun masa kehidupan harian. Huraikan objek di sekeliling anda dalam kepala."
       }
     }

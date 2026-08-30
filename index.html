@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn Japanese for beginners. Explore our interactive Hiragana/Katakana charts, roadmap guide, and JLPT N5, N4, and N3 levels with cards, grammar rules, and quizzes.">
+    <meta name="description" content="Learn Japanese for beginners. Explore our interactive Hiragana/Katakana charts, roadmap guide, and JLPT N5 to N1 levels with cards, grammar rules, and quizzes.">
     <title>AsasJepun - Learn Japanese from Scratch</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,7 @@
             </div>
             
             <nav class="sidebar-nav">
-                <a href="#intro" class="nav-item active" data-target="intro">
+                <a href="#home" class="nav-item active" data-target="home">
                     <i data-lucide="home"></i>
                     <span data-i18n="nav.intro">Laman Utama</span>
                 </a>
@@ -82,9 +82,17 @@
                         </button>
                     </div>
                     <div class="nav-subitems hidden">
+                        <a href="#kanji-rules/subpage2" class="nav-item subpage" data-target="kanji-rules/subpage2">
+                            <i data-lucide="book-open"></i>
+                            <span data-i18n="kanjiRules.subpage2Title">Radical</span>
+                        </a>
                         <a href="#kanji-rules/subpage1" class="nav-item subpage" data-target="kanji-rules/subpage1">
                             <i data-lucide="pen-tool"></i>
-                            <span>${t('kanjiRules.subpage1Title')}</span>
+                            <span data-i18n="kanjiRules.subpage1Title">Stroke Order</span>
+                        </a>
+                        <a href="#kanji-rules/subpage3" class="nav-item subpage" data-target="kanji-rules/subpage3">
+                            <i data-lucide="user"></i>
+                            <span data-i18n="kanjiRules.subpage3Title">Kanji in Names</span>
                         </a>
                     </div>
                 </div>
@@ -104,6 +112,10 @@
                         <a href="#self-study/anki" class="nav-item subpage" data-target="self-study/anki">
                             <i data-lucide="layers"></i>
                             <span data-i18n="nav.anki">Anki & Vocab Mining</span>
+                        </a>
+                        <a href="#self-study/immersion" class="nav-item subpage" data-target="self-study/immersion">
+                            <i data-lucide="brain"></i>
+                            <span data-i18n="nav.immersion">Comprehensible Input & Immersion</span>
                         </a>
                     </div>
                 </div>

@@ -547,26 +547,27 @@ export const RESOURCES = {
 export const KANJI_STROKE_RULES = {
   sections: [
     {
-      title: { en: "The Three Principles of Kanji Strokes", my: "Tiga Prinsip Strok Kanji" },
+      title: { en: "Why Stroke Order Matters", my: "Mengapa Urutan Strok Penting" },
       content: {
-        en: "All kanji follow three fundamental rules that make writing consistent and readable. Mastering these will dramatically improve your handwriting and recognition skills.",
-        my: "Semua kanji mengikut tiga peraturan asas yang menjadikan penulisan konsisten dan mudah dibaca. Menguasai ini akan meningkatkan tulisan dan kemahiran pengecaman anda dengan ketara."
+        en: "While you might not need to write kanji by hand every day, knowing stroke order is still essential. Even if you memorize kanji through other methods, stroke order helps you write whenever needed. Japanese characters are easier to write when you use the right stroke order. Stroke order reflects the most efficient way of writing.",
+        my: "Walau mungkin anda tak perlu menulis kanji dengan tangan setiap hari, mengetahui urutan strok masih penting. Juga kalau anda menghafal kanji melalui cara lain, urutan strok membantu anda menulis bila perlu. Aksara Jepun lebih mudah ditulis bila anda menggunakan urutan strok yang betul. Urutan strok mencerminkan cara paling cekap untuk menulis."
       },
-      rules: [
+      reasons: [
         {
-          name: { en: "Top to Bottom", my: "Atas ke Bawah" },
-          description: { en: "Horizontal strokes come before vertical strokes when they cross.", my: "Strok mendatar sebelum strok mencancang bila ia bersilang." },
-          example: "十 (juu) - ten: horizontal first, then vertical"
+          title: { en: "Characters Look Wrong Without Correct Order", my: "Aksara Nampak Salah Tanpa Urutan Yang Betul" },
+          description: { en: "An experienced Japanese teacher can tell if you use the correct stroke order just by looking at your written work. The end result isn't the same if you write strokes in a different order, especially when writing faster and joining strokes together.", my: "Guru Jepun berpengalaman boleh tahu jika anda menggunakan urutan strok yang betul hanya dengan melihat tulisan anda. Hasil akhir tidak sama jika anda menulis strok dalam urutan berbeza, terutamanya bila menulis lebih laju dan menyambung strok." }
         },
         {
-          name: { en: "Left to Right", my: "Kiri ke Kanan" },
-          description: { en: "When strokes are parallel and not connected, write left to right.", my: "Bila strok selari dan tidak bersambung, tulis dari kiri ke kanan." },
-          example: "川 (kawa) - river: three vertical strokes left to right"
+          title: { en: "Helps You Read Handwriting", my: "Membantu Anda Membaca Tulisan Tangan" },
+          description: { en: "Learning to read other people's handwriting in Japanese is hard. Knowing stroke order helps you figure out which strokes are joined together when native speakers write quickly.", my: "Belajar membaca tulisan tangan orang lain dalam Jepun adalah susah. Mengetahui urutan strok membantu anda kenal pasti strok mana yang disambung bila orang asli menulis dengan laju." }
         },
         {
-          name: { en: "Outside to Inside", my: "Luar ke Dalam" },
-          description: { en: "The enclosing frame is drawn before the contents.", my: "Bingkai enclosing dilukis sebelum kandungan." },
-          example: "日 (hi) - day: top, right, bottom, then left vertical last"
+          title: { en: "Essential for Character Lookup", my: "Penting untuk Mencari Aksara" },
+          description: { en: "The quickest way to look up an unknown character is handwriting recognition on your phone or computer. Stroke order is an important factor the system uses to identify what you wrote. Wrong stroke order often fails to match.", my: "Cara paling pantas untuk mencari aksara tidak dikenali adalah pengecaman tulisan tangan pada telefon atau komputer anda. Urutan strok adalah faktor penting yang digunakan sistem untuk mengenal pasti apa yang anda tulis. Urutan strok yang salah sering gagal dipadankan." }
+        },
+        {
+          title: { en: "Muscle Memory is Key", my: "Memori Otot Adalah Kunci" },
+          description: { en: "You want to write characters the same way every time because muscle memory matters. The more you write a character correctly, the more likely you will remember it without thinking. If you want to improve your penmanship, consistency is a must.", my: "Anda nak menulis aksara dengan cara yang sama setiap kali kerana memori otot penting. Lebih banyak anda menulis aksara dengan betul, lebih likely anda ingat tanpa fikir. Jika anda nak提高 penmanship anda, konsistensi adalah perlu." }
         }
       ]
     },
@@ -598,6 +599,39 @@ export const KANJI_STROKE_RULES = {
         { num: 2, rule: { en: "Vertical strokes go top to bottom", my: "Strok mencancang atas ke bawah" } },
         { num: 3, rule: { en: "Diagonal strokes go top to bottom", my: "Strok diagonal atas ke bawah" } },
         { num: 4, rule: { en: "The dot stroke usually goes top-left to bottom-right", my: "Strok titik biasanya kiri-atas ke kanan-bawah" } }
+      ]
+    },
+    {
+      title: { en: "The Three Principles of Kanji Strokes", my: "Tiga Prinsip Strok Kanji" },
+      content: {
+        en: "All kanji follow three fundamental rules that make writing consistent and readable. Mastering these will dramatically improve your handwriting and recognition skills.",
+        my: "Semua kanji mengikut tiga peraturan asas yang menjadikan penulisan konsisten dan mudah dibaca. Menguasai ini akan meningkatkan tulisan dan kemahiran pengecaman anda dengan ketara."
+      },
+      rules: [
+        {
+          name: { en: "Horizontal to Vertical", my: "Mendatar ke Mencancang" },
+          description: { en: "Horizontal strokes come before vertical strokes when they cross.", my: "Strok mendatar sebelum strok mencancang bila ia bersilang." },
+          example: "十 (juu) - ten: horizontal first, then vertical",
+          svg: `<div style="display: flex; gap: 16px; align-items: center; margin-top: 12px;">
+            <img src="references/十 stroke order.jpg" alt="十 stroke order" style="height: 120px; width: auto; border-radius: 8px;">
+          </div>`
+        },
+        {
+          name: { en: "Left to Right", my: "Kiri ke Kanan" },
+          description: { en: "When strokes are parallel and not connected, write left to right.", my: "Bila strok selari dan tidak bersambung, tulis dari kiri ke kanan." },
+          example: "川 (kawa) - river: three vertical strokes left to right",
+          svg: `<div style="display: flex; gap: 16px; align-items: center; margin-top: 12px;">
+            <img src="references/川 stroke order.jpg" alt="川 stroke order" style="height: 120px; width: auto; border-radius: 8px;">
+          </div>`
+        },
+        {
+          name: { en: "Outside to Inside", my: "Luar ke Dalam" },
+          description: { en: "The enclosing frame is drawn before the contents.", my: "Bingkai enclosing dilukis sebelum kandungan." },
+          example: "国 (kuni) - country: outside box first, then inside contents",
+          svg: `<div style="display: flex; gap: 16px; align-items: center; margin-top: 12px;">
+            <img src="references/国 stroke order.jpg" alt="国 stroke order" style="height: 120px; width: auto; border-radius: 8px;">
+          </div>`
+        }
       ]
     }
   ]
@@ -661,8 +695,8 @@ export const ANKI_CONTENT = {
       }
     ],
     recommendedTools: [
-      { name: "Migaku", description: { en: "Browser extension + Anki add-on for mining from any webpage or video", my: "Extension browser + add-on Anki untuk mining dari mana-mana webpage atau video" } },
-      { name: "Morphman", description: { en: "Anki add-on that orders cards by difficulty for optimal learning", my: "Add-on Anki yang order kad mengikut kesukaran untuk pembelajaran optimal" } }
+      { name: "Yomitan + AnkiConnect", description: { en: "Yomitan is a browser popup dictionary. AnkiConnect bridges Yomitan and Anki, letting you send vocabulary cards directly to Anki with one click.", my: "Yomitan adalah popup kamus browser. AnkiConnect penghubung antara Yomitan dan Anki, benarkan hantar kad vocabulary ke Anki dengan satu klik." } },
+      { name: "Language Reactor", description: { en: "Browser extension for Netflix, YouTube, and more. Shows dual subtitles and lets you mine vocabulary from videos easily.", my: "Extension browser untuk Netflix, YouTube, dan banyak lagi. Tunjuk dual subtitles dan benarkan korang mining vocabulary dari video dengan mudah." } }
     ]
   }
 };
