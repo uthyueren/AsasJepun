@@ -1,3 +1,54 @@
+-- Create class_signups table in Supabase
+CREATE TABLE IF NOT EXISTS class_signups (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  age TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  level TEXT,
+  class_type TEXT,
+  schedule TEXT[],
+  studied_before TEXT,
+  studied_duration TEXT,
+  studied_methods TEXT[],
+  studied_methods_other TEXT,
+  jlpt_taken TEXT,
+  jlpt_level TEXT,
+  exposure TEXT[],
+  why_japanese TEXT[],
+  why_japanese_other TEXT,
+  goal TEXT,
+  goal_other TEXT,
+  study_hours TEXT,
+  activities TEXT[],
+  quit_before TEXT,
+  quit_reason TEXT[],
+  quit_reason_other TEXT,
+  challenges TEXT[],
+  challenges_other TEXT,
+  expectations TEXT[],
+  expectations_other TEXT,
+  referral TEXT,
+  referral_other TEXT,
+  questions TEXT,
+  notes TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Enable Row Level Security
+ALTER TABLE class_signups ENABLE ROW LEVEL SECURITY;
+
+-- Allow public read access (for admin)
+CREATE POLICY "Allow admin read" ON class_signups
+  FOR SELECT USING (true);
+
+-- Allow public inserts (for students signing up)
+CREATE POLICY "Allow public insert" ON class_signups
+  FOR INSERT WITH CHECK (true);
+
+-- Allow admin deletes
+CREATE POLICY "Allow admin delete" ON class_signups
+  FOR DELETE USING (true);
+
 -- Create blog_posts table in Supabase
 CREATE TABLE IF NOT EXISTS blog_posts (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,

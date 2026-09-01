@@ -22,23 +22,32 @@
             <!-- Header Bar -->
             <header class="app-header">
                 <div class="header-left">
-                    <div class="logo">
+                    <a href="#home" class="logo">
                         <span class="logo-icon">あ</span>
                         <span class="logo-text">Asas<span>Jepun</span></span>
-                    </div>
+                    </a>
+                    <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open menu">
+                        <i data-lucide="menu"></i>
+                    </button>
                     <nav class="header-nav">
-                        <a href="#home" class="nav-item active" data-target="home">
-                            <i data-lucide="home"></i>
-                            <span data-i18n="nav.intro">Laman Utama</span>
-                        </a>
                         <a href="#roadmap" class="nav-item" data-target="roadmap">
                             <i data-lucide="map"></i>
                             <span data-i18n="nav.roadmap">Laluan Pembelajaran</span>
                         </a>
-                        <a href="#introduction" class="nav-item" data-target="introduction">
-                            <i data-lucide="book-open"></i>
-                            <span data-i18n="nav.introduction">Pengenalan</span>
-                        </a>
+                        <!-- Dropdown: Introduction -->
+                        <div class="nav-dropdown">
+                            <a href="#introduction" class="nav-item nav-dropdown-toggle" data-target="introduction">
+                                <i data-lucide="book-open"></i>
+                                <span data-i18n="nav.introduction">Pengenalan</span>
+                                <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                            </a>
+                            <div class="nav-dropdown-menu">
+                                <a href="#introduction/jlpt" class="nav-item subpage" data-target="introduction/jlpt">
+                                    <i data-lucide="info"></i>
+                                    <span data-i18n="nav.jlptInfo">What is JLPT?</span>
+                                </a>
+                            </div>
+                        </div>
 
                         <!-- Dropdown: Kana -->
                         <div class="nav-dropdown">
@@ -58,7 +67,7 @@
                                 </a>
                                 <a href="#kana/subpage3" class="nav-item subpage" data-target="kana/subpage3">
                                     <i data-lucide="link"></i>
-                                    <span data-i18n="nav.kanaSubpage3">Combination Hiragana</span>
+                                    <span data-i18n="nav.kanaSubpage3">Small Kana</span>
                                 </a>
                             </div>
                         </div>
@@ -102,24 +111,20 @@
                                     <i data-lucide="brain"></i>
                                     <span data-i18n="nav.immersion">Comprehensible Input & Immersion</span>
                                 </a>
+                                <a href="#self-study/ai" class="nav-item subpage" data-target="self-study/ai">
+                                    <i data-lucide="bot"></i>
+                                    <span data-i18n="nav.ai">Using AI</span>
+                                </a>
+                                <a href="#resources" class="nav-item subpage" data-target="resources">
+                                    <i data-lucide="link"></i>
+                                    <span data-i18n="nav.resources">Resources</span>
+                                </a>
                             </div>
                         </div>
 
-                        <a href="#jlpt-info" class="nav-item" data-target="jlpt-info">
-                            <i data-lucide="info"></i>
-                            <span data-i18n="nav.jlptInfo">What is JLPT?</span>
-                        </a>
-                        <a href="#culture" class="nav-item" data-target="culture">
-                            <i data-lucide="globe"></i>
-                            <span data-i18n="nav.culture">Pelajaran Budaya</span>
-                        </a>
                         <a href="#blog" class="nav-item" data-target="blog">
-                            <i data-lucide="file-text"></i>
-                            <span data-i18n="nav.blog">Blog</span>
-                        </a>
-                        <a href="#resources" class="nav-item" data-target="resources">
-                            <i data-lucide="link"></i>
-                            <span data-i18n="nav.resources">Sumber</span>
+                            <i data-lucide="book-open"></i>
+                            <span data-i18n="nav.blogCulture">Blog & Culture</span>
                         </a>
                         <a href="#about" class="nav-item" data-target="about">
                             <i data-lucide="user"></i>
@@ -129,19 +134,25 @@
                     <h2 class="current-section-title" id="section-title">Laman Utama</h2>
                 </div>
                 <div class="header-right">
-                    <!-- Language Toggle -->
-                    <div class="header-lang-toggle" id="header-lang-toggle">
-                        <button class="lang-btn active" data-lang="en">EN</button>
-                        <button class="lang-btn" data-lang="my">MY</button>
+                    <!-- Language Dropdown -->
+                    <div class="lang-dropdown" id="lang-dropdown">
+                        <button class="lang-dropdown-btn" id="lang-dropdown-btn">
+                            <i data-lucide="globe"></i>
+                            <span class="lang-current">EN</span>
+                            <i data-lucide="chevron-down" class="dropdown-arrow"></i>
+                        </button>
+                        <div class="lang-dropdown-menu" id="lang-dropdown-menu">
+                            <button class="lang-option active" data-lang="en">English</button>
+                            <button class="lang-option" data-lang="my">Bahasa Malaysia</button>
+                        </div>
                     </div>
                     <!-- Theme Toggle -->
                     <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark/light theme">
-                        <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                        <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                        <span class="theme-text">Light Mode</span>
+                        <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                     </button>
                     <!-- Join Class Button -->
-                    <button class="join-class-btn" id="join-class-btn" title="Join my class">
+                    <button class="join-class-btn" id="join-class-btn" title="Join my class" data-i18n="signup.joinClassBtn">
                         Nak kelas?
                     </button>
                     <!-- Ko-fi Button -->
@@ -150,12 +161,116 @@
                         <span>Donate</span>
                     </a>
                 </div>
+
+                <!-- Mobile Nav Drawer -->
+                <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+                <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+                    <div class="mobile-nav-header">
+                        <span class="mobile-nav-title">Menu</span>
+                        <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">
+                            <i data-lucide="x"></i>
+                        </button>
+                    </div>
+                    <nav class="mobile-nav-menu">
+                        <a href="#roadmap" class="mobile-nav-item" data-target="roadmap">
+                            <i data-lucide="map"></i>
+                            <span data-i18n="nav.roadmap">Learning Path</span>
+                        </a>
+                        <a href="#introduction" class="mobile-nav-item" data-target="introduction">
+                            <i data-lucide="book-open"></i>
+                            <span data-i18n="nav.introduction">Introduction</span>
+                        </a>
+                        <a href="#introduction/jlpt" class="mobile-nav-item" data-target="introduction/jlpt">
+                            <i data-lucide="info"></i>
+                            <span data-i18n="nav.jlptInfo">What is JLPT?</span>
+                        </a>
+                        <a href="#kana" class="mobile-nav-item" data-target="kana">
+                            <i data-lucide="grid-3x3"></i>
+                            <span data-i18n="nav.kana">Hiragana & Katakana</span>
+                        </a>
+                        <a href="#kana/subpage1" class="mobile-nav-item" data-target="kana/subpage1">
+                            <i data-lucide="volume-2"></i>
+                            <span data-i18n="nav.kanaSubpage1">Long Vowel</span>
+                        </a>
+                        <a href="#kana/subpage2" class="mobile-nav-item" data-target="kana/subpage2">
+                            <i data-lucide="circle-dot"></i>
+                            <span data-i18n="nav.kanaSubpage2">Tenten & Maru</span>
+                        </a>
+                        <a href="#kana/subpage3" class="mobile-nav-item" data-target="kana/subpage3">
+                            <i data-lucide="link"></i>
+                            <span data-i18n="nav.kanaSubpage3">Small Characters</span>
+                        </a>
+                        <a href="#kanji-rules" class="mobile-nav-item" data-target="kanji-rules">
+                            <i data-lucide="type"></i>
+                            <span data-i18n="nav.kanjiRules">Kanji</span>
+                        </a>
+                        <a href="#kanji-rules/subpage2" class="mobile-nav-item" data-target="kanji-rules/subpage2">
+                            <i data-lucide="book-open"></i>
+                            <span data-i18n="kanjiRules.subpage2Title">Radical</span>
+                        </a>
+                        <a href="#kanji-rules/subpage1" class="mobile-nav-item" data-target="kanji-rules/subpage1">
+                            <i data-lucide="pen-tool"></i>
+                            <span data-i18n="kanjiRules.subpage1Title">Stroke Order</span>
+                        </a>
+                        <a href="#kanji-rules/subpage3" class="mobile-nav-item" data-target="kanji-rules/subpage3">
+                            <i data-lucide="user"></i>
+                            <span data-i18n="kanjiRules.subpage3Title">Kanji in Names</span>
+                        </a>
+                        <a href="#self-study" class="mobile-nav-item" data-target="self-study">
+                            <i data-lucide="graduation-cap"></i>
+                            <span data-i18n="nav.selfStudy">Self Study Guide</span>
+                        </a>
+                        <a href="#self-study/anki" class="mobile-nav-item" data-target="self-study/anki">
+                            <i data-lucide="layers"></i>
+                            <span data-i18n="nav.anki">Anki & Vocab Mining</span>
+                        </a>
+                        <a href="#self-study/immersion" class="mobile-nav-item" data-target="self-study/immersion">
+                            <i data-lucide="brain"></i>
+                            <span data-i18n="nav.immersion">Comprehensible Input & Immersion</span>
+                        </a>
+                        <a href="#self-study/ai" class="mobile-nav-item" data-target="self-study/ai">
+                            <i data-lucide="bot"></i>
+                            <span data-i18n="nav.ai">Using AI</span>
+                        </a>
+                        <a href="#resources" class="mobile-nav-item" data-target="resources">
+                            <i data-lucide="link"></i>
+                            <span data-i18n="nav.resources">Resources</span>
+                        </a>
+                        <a href="#blog" class="mobile-nav-item" data-target="blog">
+                            <i data-lucide="book-open"></i>
+                            <span data-i18n="nav.blogCulture">Blog & Culture</span>
+                        </a>
+                        <a href="#about" class="mobile-nav-item" data-target="about">
+                            <i data-lucide="user"></i>
+                            <span data-i18n="nav.about">About</span>
+                        </a>
+                    </nav>
+                </div>
             </header>
 
             <!-- Dynamic View Container -->
             <div class="app-body" id="app-view">
                 <!-- Content gets dynamically injected here -->
             </div>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <span class="logo-icon">あ</span>
+                            <span class="logo-text">Asas<span>Jepun</span></span>
+                        </div>
+                        <p class="footer-tagline" data-i18n="footer.tagline">Learn Japanese the right way</p>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#about" data-target="about">About</a>
+                        <a href="#resources" data-target="resources">Resources</a>
+                        <a href="#blog" data-target="blog">Blog</a>
+                    </div>
+                    <p class="footer-copyright">&copy; 2026 AsasJepun. All rights reserved.</p>
+                </div>
+            </footer>
         </main>
     </div>
 
@@ -167,83 +282,351 @@
                 <i data-lucide="x"></i>
             </button>
             <div class="signup-modal-body">
-                <h2 class="signup-title">Nak kelas Jepun?</h2>
-                <p class="signup-subtitle">Isi form ni, saya akan contact korang dalam 24 jam</p>
+                <h2 class="signup-title" data-i18n="signup.title">Want to learn Japanese?</h2>
+                <p class="signup-subtitle" data-i18n="signup.subtitle">Fill out the form and I'll contact you within 24 hours</p>
                 <form id="signup-form" class="signup-form">
-                    <div class="form-group">
-                        <label for="signup-name">Nama <span class="required">*</span></label>
-                        <input type="text" id="signup-name" name="name" required placeholder="Nama korang">
+                    <!-- Step Indicator -->
+                    <div class="form-step-indicator">
+                        <div class="step-item active" data-step="1"><span>1</span></div>
+                        <div class="step-item" data-step="2"><span>2</span></div>
+                        <div class="step-item" data-step="3"><span>3</span></div>
+                        <div class="step-item" data-step="4"><span>4</span></div>
+                        <div class="step-item" data-step="5"><span>5</span></div>
                     </div>
-                    <div class="form-group">
-                        <label for="signup-age">Umur <span class="required">*</span></label>
-                        <input type="text" id="signup-age" name="age" required placeholder="Berapa umur?">
+
+                    <!-- Section 1: Current Status -->
+                    <div class="form-section active" data-section="1">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="signup-name" data-i18n="signup.name">Name</label>
+                                <input type="text" id="signup-name" name="name" required placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="signup-age" data-i18n="signup.age">Age</label>
+                                <input type="text" id="signup-age" name="age" required placeholder="Your age">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-phone" data-i18n="signup.phone">Phone Number</label>
+                            <input type="tel" id="signup-phone" name="phone" required placeholder="012-345 6789">
+                        </div>
+                        <div class="form-group">
+                            <label>Current Japanese Level</label>
+                            <div class="card-selector" data-name="level">
+                                <button type="button" class="card-option" value="beginner">Complete Beginner</button>
+                                <button type="button" class="card-option" value="n5">N5</button>
+                                <button type="button" class="card-option" value="n4">N4</button>
+                                <button type="button" class="card-option" value="n3">N3</button>
+                            </div>
+                            <input type="hidden" name="level" id="signup-level">
+                        </div>
+                        <div class="form-group">
+                            <label>Class Type</label>
+                            <div class="card-selector" data-name="classType">
+                                <button type="button" class="card-option" value="1on1">
+                                    <span class="card-title">1 on 1</span>
+                                    <span class="card-sub">RM200/month</span>
+                                </button>
+                                <button type="button" class="card-option" value="group">
+                                    <span class="card-title">Group</span>
+                                    <span class="card-sub">RM150/month</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="classType" id="signup-class-type">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="signup.schedule">Available Days & Times</label>
+                            <div class="schedule-grid">
+                                <div class="schedule-header">
+                                    <span></span>
+                                    <span>10am</span>
+                                    <span>12pm</span>
+                                    <span>2pm</span>
+                                    <span>5pm</span>
+                                    <span>8pm</span>
+                                    <span>10pm</span>
+                                </div>
+                                <div class="schedule-row">
+                                    <span class="day-label">Mon</span>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Monday-10am"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Monday-12pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Monday-2pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Monday-5pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Monday-8pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Monday-10pm"></label>
+                                </div>
+                                <div class="schedule-row">
+                                    <span class="day-label">Tue</span>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Tuesday-10am"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Tuesday-12pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Tuesday-2pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Tuesday-5pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Tuesday-8pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Tuesday-10pm"></label>
+                                </div>
+                                <div class="schedule-row">
+                                    <span class="day-label">Wed</span>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Wednesday-10am"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Wednesday-12pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Wednesday-2pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Wednesday-5pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Wednesday-8pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Wednesday-10pm"></label>
+                                </div>
+                                <div class="schedule-row">
+                                    <span class="day-label">Thu</span>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Thursday-10am"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Thursday-12pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Thursday-2pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Thursday-5pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Thursday-8pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Thursday-10pm"></label>
+                                </div>
+                                <div class="schedule-row">
+                                    <span class="day-label">Sat</span>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Saturday-10am"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Saturday-12pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Saturday-2pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Saturday-5pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Saturday-8pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Saturday-10pm"></label>
+                                </div>
+                                <div class="schedule-row">
+                                    <span class="day-label">Sun</span>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sunday-10am"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sunday-12pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sunday-2pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sunday-5pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sunday-8pm"></label>
+                                    <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sunday-10pm"></label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="signup-phone">No Telefon <span class="required">*</span></label>
-                        <input type="tel" id="signup-phone" name="phone" required placeholder="012-345 6789">
+
+                    <!-- Section 2: Background & Experience -->
+                    <div class="form-section" data-section="2">
+                        <div class="form-group">
+                            <label>Have you studied Japanese before?</label>
+                            <div class="card-selector" data-name="studiedBefore">
+                                <button type="button" class="card-option" value="yes">Yes</button>
+                                <button type="button" class="card-option" value="no">No</button>
+                            </div>
+                            <input type="hidden" name="studiedBefore">
+                        </div>
+                        <div class="form-group sub-field" id="studiedDurationGroup" style="display:none;">
+                            <label>How long did you study?</label>
+                            <div class="card-selector compact" data-name="studiedDuration">
+                                <button type="button" class="card-option" value="less-3m">&lt; 3 months</button>
+                                <button type="button" class="card-option" value="3-6m">3-6 months</button>
+                                <button type="button" class="card-option" value="6-12m">6-12 months</button>
+                                <button type="button" class="card-option" value="1y+">1+ year</button>
+                            </div>
+                            <input type="hidden" name="studiedDuration">
+                        </div>
+                        <div class="form-group sub-field" id="studiedMethodsGroup" style="display:none;">
+                            <label>What did you use?</label>
+                            <div class="chip-selector" data-name="studiedMethods">
+                                <button type="button" class="chip-option" value="textbooks">Textbooks</button>
+                                <button type="button" class="chip-option" value="apps">Apps</button>
+                                <button type="button" class="chip-option" value="youtube">YouTube</button>
+                                <button type="button" class="chip-option" value="school">School / Course</button>
+                                <button type="button" class="chip-option" value="tutor">Tutor</button>
+                                <button type="button" class="chip-option" value="anime">Anime / Manga</button>
+                                <button type="button" class="chip-option" value="other">Other</button>
+                            </div>
+                            <input type="hidden" name="studiedMethods">
+                            <div class="sub-field" id="studiedMethodsOtherGroup" style="display:none;">
+                                <input type="text" name="studiedMethodsOther" placeholder="Tell me more..." class="sub-text-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Have you taken JLPT?</label>
+                            <div class="card-selector" data-name="jlptTaken">
+                                <button type="button" class="card-option" value="yes">Yes</button>
+                                <button type="button" class="card-option" value="no">No</button>
+                            </div>
+                            <input type="hidden" name="jlptTaken">
+                        </div>
+                        <div class="form-group sub-field" id="jlptLevelGroup" style="display:none;">
+                            <label>What level did you pass?</label>
+                            <div class="card-selector compact" data-name="jlptLevel">
+                                <button type="button" class="card-option" value="n5">N5</button>
+                                <button type="button" class="card-option" value="n4">N4</button>
+                                <button type="button" class="card-option" value="n3">N3</button>
+                                <button type="button" class="card-option" value="n2">N2</button>
+                                <button type="button" class="card-option" value="n1">N1</button>
+                                <button type="button" class="card-option" value="none">Didn't pass</button>
+                            </div>
+                            <input type="hidden" name="jlptLevel">
+                        </div>
+                        <div class="form-group">
+                            <label>What Japanese content do you consume?</label>
+                            <div class="chip-selector" data-name="exposure">
+                                <button type="button" class="chip-option" value="anime">Anime</button>
+                                <button type="button" class="chip-option" value="manga">Manga</button>
+                                <button type="button" class="chip-option" value="drama">J-Drama</button>
+                                <button type="button" class="chip-option" value="music">J-Pop / Music</button>
+                                <button type="button" class="chip-option" value="games">Games</button>
+                                <button type="button" class="chip-option" value="youtube">YouTube</button>
+                                <button type="button" class="chip-option" value="vtubers">VTubers</button>
+                                <button type="button" class="chip-option" value="travel">Travel to Japan</button>
+                            </div>
+                            <input type="hidden" name="exposure">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="signup-class-type">Saya nak kelas <span class="required">*</span></label>
-                        <select id="signup-class-type" name="classType" required>
-                            <option value="">Pilih jenis kelas</option>
-                            <option value="1on1">1 on 1 (RM200/bulan)</option>
-                            <option value="group">Berkumpulan (RM150/bulan)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Pilih hari dan masa yang available <span class="required">*</span></label>
-                        <div class="checkbox-group">
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-10am"> Isnin 10am</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-12pm"> Isnin 12pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-2pm"> Isnin 2pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-5pm"> Isnin 5pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-8pm"> Isnin 8pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Isnin-10pm"> Isnin 10pm</label>
+
+                    <!-- Section 3: Motivation & Goals -->
+                    <div class="form-section" data-section="3">
+                        <div class="form-group">
+                            <label>Why do you want to learn Japanese?</label>
+                            <div class="chip-selector" data-name="whyJapanese">
+                                <button type="button" class="chip-option" value="anime">Anime / Manga</button>
+                                <button type="button" class="chip-option" value="travel">Travel</button>
+                                <button type="button" class="chip-option" value="work">Work / Career</button>
+                                <button type="button" class="chip-option" value="university">University</button>
+                                <button type="button" class="chip-option" value="culture">Culture</button>
+                                <button type="button" class="chip-option" value="friends">Friends / Family</button>
+                                <button type="button" class="chip-option" value="other">Other</button>
+                            </div>
+                            <input type="hidden" name="whyJapanese">
+                            <div class="sub-field" id="whyJapaneseOtherGroup" style="display:none;">
+                                <input type="text" name="whyJapaneseOther" placeholder="Tell me more..." class="sub-text-input">
+                            </div>
                         </div>
-                        <div class="checkbox-group">
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-10am"> Selasa 10am</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-12pm"> Selasa 12pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-2pm"> Selasa 2pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-5pm"> Selasa 5pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-8pm"> Selasa 8pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Selasa-10pm"> Selasa 10pm</label>
+                        <div class="form-group">
+                            <label>What is your main goal?</label>
+                            <div class="card-selector" data-name="goal">
+                                <button type="button" class="card-option" value="jlpt">Pass JLPT</button>
+                                <button type="button" class="card-option" value="fluency">Conversational Fluency</button>
+                                <button type="button" class="card-option" value="travel">Travel / Live in Japan</button>
+                                <button type="button" class="card-option" value="work">Work / Business</button>
+                                <button type="button" class="card-option" value="anime">Understand Anime Raw</button>
+                                <button type="button" class="card-option" value="other">Other</button>
+                            </div>
+                            <input type="hidden" name="goal">
+                            <div class="sub-field" id="goalOtherGroup" style="display:none;">
+                                <input type="text" name="goalOther" placeholder="Tell me more..." class="sub-text-input">
+                            </div>
                         </div>
-                        <div class="checkbox-group">
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-10am"> Rabu 10am</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-12pm"> Rabu 12pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-2pm"> Rabu 2pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-5pm"> Rabu 5pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-8pm"> Rabu 8pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Rabu-10pm"> Rabu 10pm</label>
+                        <div class="form-group">
+                            <label>Study hours per week?</label>
+                            <div class="card-selector compact" data-name="studyHours">
+                                <button type="button" class="card-option" value="1-3">1-3 hrs</button>
+                                <button type="button" class="card-option" value="4-7">4-7 hrs</button>
+                                <button type="button" class="card-option" value="8-14">8-14 hrs</button>
+                                <button type="button" class="card-option" value="15+">15+ hrs</button>
+                            </div>
+                            <input type="hidden" name="studyHours">
                         </div>
-                        <div class="checkbox-group">
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-10am"> Khamis 10am</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-12pm"> Khamis 12pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-2pm"> Khamis 2pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-5pm"> Khamis 5pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-8pm"> Khamis 8pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Khamis-10pm"> Khamis 10pm</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-10am"> Sabtu 10am</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-12pm"> Sabtu 12pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-2pm"> Sabtu 2pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-5pm"> Sabtu 5pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-8pm"> Sabtu 8pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Sabtu-10pm"> Sabtu 10pm</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-10am"> Ahad 10am</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-12pm"> Ahad 12pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-2pm"> Ahad 2pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-5pm"> Ahad 5pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-8pm"> Ahad 8pm</label>
-                            <label class="checkbox-label"><input type="checkbox" name="schedule" value="Ahad-10pm"> Ahad 10pm</label>
+                        <div class="form-group">
+                            <label>Learning activities you enjoy?</label>
+                            <div class="chip-selector" data-name="activities">
+                                <button type="button" class="chip-option" value="reading">Reading</button>
+                                <button type="button" class="chip-option" value="listening">Listening</button>
+                                <button type="button" class="chip-option" value="speaking">Speaking</button>
+                                <button type="button" class="chip-option" value="writing">Writing</button>
+                                <button type="button" class="chip-option" value="flashcards">Flashcards</button>
+                                <button type="button" class="chip-option" value="watching">Watching</button>
+                            </div>
+                            <input type="hidden" name="activities">
                         </div>
                     </div>
-                    <button type="submit" class="signup-submit-btn">Hantar</button>
+
+                    <!-- Section 4: Mindset & Expectations -->
+                    <div class="form-section" data-section="4">
+                        <div class="form-group">
+                            <label>Have you tried learning and quit before?</label>
+                            <div class="card-selector" data-name="quitBefore">
+                                <button type="button" class="card-option" value="yes">Yes</button>
+                                <button type="button" class="card-option" value="no">No</button>
+                            </div>
+                            <input type="hidden" name="quitBefore">
+                        </div>
+                        <div class="form-group sub-field" id="quitReasonGroup" style="display:none;">
+                            <label>Why do you think you quit?</label>
+                            <div class="chip-selector" data-name="quitReason">
+                                <button type="button" class="chip-option" value="nostructure">No structure</button>
+                                <button type="button" class="chip-option" value="motivation">Lost motivation</button>
+                                <button type="button" class="chip-option" value="toohard">Too hard</button>
+                                <button type="button" class="chip-option" value="notime">No time</button>
+                                <button type="button" class="chip-option" value="noimmersion">Not enough immersion</button>
+                                <button type="button" class="chip-option" value="other">Other</button>
+                            </div>
+                            <input type="hidden" name="quitReason">
+                            <div class="sub-field" id="quitReasonOtherGroup" style="display:none;">
+                                <input type="text" name="quitReasonOther" placeholder="Tell me what happened..." class="sub-text-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>What challenges do you expect?</label>
+                            <div class="chip-selector" data-name="challenges">
+                                <button type="button" class="chip-option" value="kanji">Kanji</button>
+                                <button type="button" class="chip-option" value="vocab">Vocabulary</button>
+                                <button type="button" class="chip-option" value="grammar">Grammar</button>
+                                <button type="button" class="chip-option" value="listening">Listening</button>
+                                <button type="button" class="chip-option" value="speaking">Speaking</button>
+                                <button type="button" class="chip-option" value="consistency">Staying consistent</button>
+                                <button type="button" class="chip-option" value="other">Other</button>
+                            </div>
+                            <input type="hidden" name="challenges">
+                            <div class="sub-field" id="challengesOtherGroup" style="display:none;">
+                                <input type="text" name="challengesOther" placeholder="Tell me more..." class="sub-text-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>What do you expect from class?</label>
+                            <div class="chip-selector" data-name="expectations">
+                                <button type="button" class="chip-option" value="structure">Structured lessons</button>
+                                <button type="button" class="chip-option" value="homework">Homework</button>
+                                <button type="button" class="chip-option" value="feedback">Feedback</button>
+                                <button type="button" class="chip-option" value="speaking">Speaking practice</button>
+                                <button type="button" class="chip-option" value="immersion">Immersion activities</button>
+                                <button type="button" class="chip-option" value="other">Other</button>
+                            </div>
+                            <input type="hidden" name="expectations">
+                            <div class="sub-field" id="expectationsOtherGroup" style="display:none;">
+                                <input type="text" name="expectationsOther" placeholder="Tell me more..." class="sub-text-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: End -->
+                    <div class="form-section" data-section="5">
+                        <div class="form-group">
+                            <label>How did you find out about this class?</label>
+                            <div class="card-selector compact" data-name="referral">
+                                <button type="button" class="card-option" value="instagram">IG</button>
+                                <button type="button" class="card-option" value="threads">Threads</button>
+                                <button type="button" class="card-option" value="twitter">X / Twitter</button>
+                                <button type="button" class="card-option" value="youtube">YouTube</button>
+                                <button type="button" class="card-option" value="friend">Friend</button>
+                                <button type="button" class="card-option" value="google">Google</button>
+                                <button type="button" class="card-option" value="other">Other</button>
+                            </div>
+                            <input type="hidden" name="referral">
+                            <div class="sub-field" id="referralOtherGroup" style="display:none;">
+                                <input type="text" name="referralOther" placeholder="Where from?" class="sub-text-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-questions">Any questions for me?</label>
+                            <textarea id="signup-questions" name="questions" rows="3" placeholder="Ask me anything..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-notes">Anything else you want to share?</label>
+                            <textarea id="signup-notes" name="notes" rows="3" placeholder="Final thoughts, special circumstances, etc."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="form-nav">
+                        <button type="button" class="form-nav-btn back-btn" id="form-back-btn" style="display:none;">Back</button>
+                        <button type="button" class="form-nav-btn next-btn" id="form-next-btn">Next</button>
+                        <button type="submit" class="form-nav-btn submit-btn" id="form-submit-btn" style="display:none;" data-i18n="signup.submit">Submit</button>
+                    </div>
                 </form>
-                <p class="signup-note">* Required fields</p>
+                <p class="signup-note" data-i18n="signup.required">* Required fields</p>
             </div>
         </div>
     </div>
