@@ -234,6 +234,8 @@ function initLangDropdown() {
 
       setLanguage(lang);
 
+      updateLangDropdown(lang);
+
       updateI18nText();
 
       reRenderCurrentView();
@@ -371,6 +373,14 @@ function initLanguageToggle() {
         // Update all i18n text on page
 
         updateI18nText();
+
+
+
+        // Update copy buttons text
+
+        document.querySelectorAll(".prompt-copy-btn").forEach(btn => {
+          btn.textContent = newLang === 'en' ? 'Copy' : 'Salin';
+        });
 
 
 
@@ -1092,6 +1102,10 @@ function initRouter() {
     } else if (route === "admin") {
 
       renderAdminView();
+
+    } else if (route.startsWith("new-post")) {
+
+      renderPostEditorView();
 
     } else if (route === "self-study") {
 
@@ -2961,11 +2975,14 @@ function handleBlogCultureRoute(route) {
 
   const appView = document.getElementById("app-view");
 
+  // Strip query string for slug extraction
+  const baseRoute = route.split('?')[0];
 
 
-  if (route.startsWith("blog/")) {
 
-    const slug = route.split("/")[1];
+  if (baseRoute.startsWith("blog/")) {
+
+    const slug = baseRoute.split("/")[1];
 
     renderBlogArticleView(slug);
 
@@ -2975,9 +2992,9 @@ function handleBlogCultureRoute(route) {
 
 
 
-  if (route.startsWith("culture/")) {
+  if (baseRoute.startsWith("culture/")) {
 
-    const slug = route.split("/")[1];
+    const slug = baseRoute.split("/")[1];
 
     renderCultureLessonView(slug);
 
@@ -8895,102 +8912,6 @@ function renderSelfStudyAIView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="sparkles"></i> ${lang === 'en' ? 'Recommended AI Prompts' : 'Prompt AI yang Disyorkan'}</h2>
-
-          <div class="info-card">
-
-            <div class="prompt-examples">
-
-              <div class="prompt-box">
-
-                <div class="prompt-label">${lang === 'en' ? 'Grammar Explanation' : 'Penjelasan Tatabahasa'}</div>
-
-                <code>${lang === 'en' ? '"Explain the の particle in simple terms for a beginner, with 3 examples"' : '"Terangkan particle の dalam istilah mudah untuk pemula, dengan 3 contoh"'}</code>
-
-              </div>
-
-              <div class="prompt-box">
-
-                <div class="prompt-label">${lang === 'en' ? 'Conversation Practice' : 'Latihan Perbualan'}</div>
-
-                <code>${lang === 'en' ? '"Have a simple conversation with me about my day. Use only N5 vocabulary."' : '"Ada perbualan ringkas dengan saya tentang hari saya. Guna vocabulary N5 sahaja."'}</code>
-
-              </div>
-
-              <div class="prompt-box">
-
-                <div class="prompt-label">${lang === 'en' ? 'Writing Correction' : 'Pembetulan Penulisan'}</div>
-
-                <code>${lang === 'en' ? '"Correct this text: [your text]. Explain each correction."' : '"Betulkan teks ini: [teks anda]. Terangkan setiap pembetulan."'}</code>
-
-              </div>
-
-              <div class="prompt-box">
-
-                <div class="prompt-label">${lang === 'en' ? 'Vocabulary Flashcards' : 'Kad Imbasan Vocab'}</div>
-
-                <code>${lang === 'en' ? '"Create 10 flashcards for N5 vocabulary about food and drinks"' : '"Buat 10 kad imbasan untuk vocabulary N5 tentang makanan dan minuman"'}</code>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-
-        <section class="info-section">
-
-          <h2><i data-lucide="globe"></i> ${lang === 'en' ? 'Recommended AI Tools' : 'Alat AI yang Disyorkan'}</h2>
-
-          <div class="info-card">
-
-            <div class="ai-tools-grid">
-
-              <div class="ai-tool-card">
-
-                <h4>ChatGPT</h4>
-
-                <p>${lang === 'en' ? 'Great for conversations and grammar explanations. Use GPT-4 for better Japanese.' : 'Bagus untuk perbualan dan penjelasan tatabahasa. Guna GPT-4 untuk Jepun yang lebih baik.'}</p>
-
-              </div>
-
-              <div class="ai-tool-card">
-
-                <h4>Claude</h4>
-
-                <p>${lang === 'en' ? 'Excellent for writing feedback and detailed explanations. Very natural Japanese.' : 'Cemerlang untuk feedback penulisan dan penjelasan terperinci. Jepun yang sangat natural.'}</p>
-
-              </div>
-
-              <div class="ai-tool-card">
-
-                <h4>Gemini</h4>
-
-                <p>${lang === 'en' ? 'Good for research and can access current information. Useful for cultural questions.' : 'Baik untuk kajian dan boleh akses maklumat semasa. Berguna untuk soalan budaya.'}</p>
-
-              </div>
-
-              <div class="ai-tool-card">
-
-                <h4>Perplexity</h4>
-
-                <p>${lang === 'en' ? 'Good for looking up Japanese phrases and getting sources. Great for research.' : 'Baik untuk mencari frasa Jepun dan dapat sumber. Bagus untuk kajian.'}</p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-
-        <section class="info-section">
-
           <h2><i data-lucide="alert-triangle"></i> ${lang === 'en' ? 'Important Caveats' : 'Amaran Penting'}</h2>
 
           <div class="info-card">
@@ -9009,6 +8930,87 @@ function renderSelfStudyAIView() {
 
         </section>
 
+
+        <section class="info-section">
+
+          <h2><i data-lucide="sparkles"></i> ${lang === 'en' ? 'Recommended AI Prompts' : 'Prompt AI yang Disyorkan'}</h2>
+
+          <div class="info-card">
+
+            <p class="prompt-description">${lang === 'en' ? 'Before using the prompt, read it first so that you understand the output. Also, there is a part where you need to change for it to reply based on your level.<br><br>This prompt has been used by me. If you have a better prompt, use the better prompt.' : 'Sebelum menggunakan prompt, baca dulu supaya anda faham output. Juga, ada bahagian yang anda perlu tukar supaya ia reply berdasarkan tahap anda.<br><br>Prompt ini telah digunakan oleh saya. Jika anda ada prompt yang lebih baik, gunakan prompt yang lebih baik.'}</p>
+
+            <div class="prompt-examples">
+
+              <div class="prompt-box">
+
+                <div class="prompt-header">
+
+                  <div class="prompt-label">${lang === 'en' ? 'Grammar Explanation' : 'Penjelasan Tatabahasa'}</div>
+
+                  <span class="prompt-copied">${lang === 'en' ? 'Copied!' : 'Disalin!'}</span>
+
+                  <button class="prompt-copy-btn" type="button">${lang === 'en' ? 'Copy' : 'Salin'}</button>
+
+                </div>
+
+                <code>${lang === 'en' ? '"Act as a native Japanese language tutor for (Your JLPT Level) candidate.\n\nWhenever I give you a Japanese grammar point provide a breakdown using the following structure:\n\nBrief Introduction: State the grammar point, its JLPT level, and its core function/meaning in 1-2 bold sentences.\n\nStructure Breakdown: Show the conjugation/connection pattern (e.g., Verb-plain + ~からには), explain each component\'s role, then show how they combine logically to create the meaning.\n\nDirect Translations: List equivalent English phrasings or structures.\n\nPopular Usage: Provide categorized bullet points with example sentences, Kanji, Romaji, and English translations - cover at least 2-3 different contexts (formal, casual, written).\n\nMemory Tricks and Nuance Comparisons: Give a vivid mental picture/mnemonic to remember when to use it, and compare it against 2-3 similar grammar points to highlight subtle differences in nuance, formality, or usage restrictions (use a table for this).\n\nCommon Pitfalls: Note 1-2 mistakes learners typically make with this grammar point (e.g., wrong verb form, confusing it with a similar-sounding structure).\n\nTone and Style:\n\nWrite in informal, conversational English (using casual pronouns).\n\nKeep it punchy, visual, and easy to read with Markdown formatting (bolding and bullet points).\n\nAvoid fluff. Jump straight into the explanation."' : '"Terangkan particle の dalam istilah mudah untuk pemula, dengan 3 contoh"'}</code>
+
+              </div>
+
+              <div class="prompt-box">
+
+                <div class="prompt-header">
+
+                  <div class="prompt-label">${lang === 'en' ? 'Conversation Practice' : 'Latihan Perbualan'}</div>
+
+                  <span class="prompt-copied">${lang === 'en' ? 'Copied!' : 'Disalin!'}</span>
+
+                  <button class="prompt-copy-btn" type="button">${lang === 'en' ? 'Copy' : 'Salin'}</button>
+
+                </div>
+
+                <code>${lang === 'en' ? '"Act as a native Japanese conversation partner for (Your JLPT Level) candidates who wants me to actually improve, not just chat.\n\nRespond to me naturally in Japanese first, like a real conversation partner would.\n\nWhen I said "practice complete", respond using the following structure:\n\nCorrection Check: If my message had any errors (grammar, word choice, naturalness, particle usage), point them out clearly. Show my original phrase, the corrected version, and a one line explanation of why. If there were no errors, say so briefly and instead offer a more native or nuanced way I could have phrased it.\n\nLevel Up Suggestion: Offer one alternative expression, idiom, or grammar point I could use next time to sound more natural or advanced in that context.\n\nTone and Style:\n\nSpeak to me like a friend, not a textbook. Casual pronouns and natural phrasing in English.\n\nKeep the Japanese in your Natural Reply, something an actual native speaker would say, not textbook perfect.\n\nAvoid fluff. Jump straight into the reply.\n\nYou start first"' : '"Ada perbualan ringkas dengan saya tentang hari saya. Guna vocabulary N5 sahaja."'}</code>
+
+              </div>
+
+              <div class="prompt-box">
+
+                <div class="prompt-header">
+
+                  <div class="prompt-label">${lang === 'en' ? 'Writing Correction' : 'Pembetulan Penulisan'}</div>
+
+                  <span class="prompt-copied">${lang === 'en' ? 'Copied!' : 'Disalin!'}</span>
+
+                  <button class="prompt-copy-btn" type="button">${lang === 'en' ? 'Copy' : 'Salin'}</button>
+
+                </div>
+
+                <code>${lang === 'en' ? '"Act as a native Japanese writing tutor for (Your JLPT Level) candidate.\n\nWhenever I give you a piece of Japanese writing (a sentence, paragraph, or essay), provide a breakdown using the following structure:\n\nOverall Impression: In 1 to 2 bold sentences, tell me what level this writing reads at and whether the meaning came through clearly.\n\nLine by Line Corrections: Go through the text and for each issue, show the original phrase, the corrected phrase, and a short explanation covering what was wrong (grammar, particle, word choice, naturalness, or tone).\n\nNative Rewrite: Provide a full rewritten version of my text the way a native speaker would actually phrase it, keeping my original intent and meaning intact.\n\nStyle and Register Notes: Point out any mismatches in formality or tone (e.g. mixing casual and formal speech, using spoken grammar in written form).\n\nGrowth Focus: Highlight one recurring pattern in my mistakes (if any) that I should focus on improving, with a quick tip or grammar point to study.\n\nTone and Style:\n\nWrite in informal, conversational English with casual pronouns.\n\nBe encouraging but honest. Do not sugarcoat real errors.\n\nKeep it punchy and easy to scan with Markdown formatting (bolding, bullet points, tables where useful for comparing original vs corrected).\n\nAvoid fluff. Jump straight into the breakdown."' : '"Betulkan teks ini: [teks anda]. Terangkan setiap pembetulan."'}</code>
+
+              </div>
+
+              <div class="prompt-box">
+
+                <div class="prompt-header">
+
+                  <div class="prompt-label">${lang === 'en' ? 'Vocab Definition/Difference' : 'Definisi/Bezakan Vocab'}</div>
+
+                  <span class="prompt-copied">${lang === 'en' ? 'Copied!' : 'Disalin!'}</span>
+
+                  <button class="prompt-copy-btn" type="button">${lang === 'en' ? 'Copy' : 'Salin'}</button>
+
+                </div>
+
+                <code>${lang === 'en' ? '"Act as a native Japanese language tutor for (Your JLPT Level) candidates.\n\nWhenever I give you a Japanese vocabulary word or a comparison between similar words, provide a breakdown using the following structure:\n\nBrief Introduction: State the word, its JLPT level, and its core English meaning in 1-2 bold sentences.\n\nKanji Breakdown: Break down each individual kanji, explain its core visual meaning and provide another common word containing it, then show how they combine logically.\n\nDirect Translations: List equivalent terms in English.\n\nPopular Usage: Provide categorized bullet points with common collocations/phrases, Kanji, Romaji, and English translations.\n\nMemory Tricks and Nuance Comparisons: Give a vivid mental picture/mnemonic to remember the word, and compare it against 2-3 similar Japanese words to highlight subtle differences in usage.\n\nTone and Style:\n\nWrite in informal, conversational English (using casual pronouns).\n\nKeep it punchy, visual, and easy to read with Markdown formatting (bolding, bullet points, and tables when comparing words).\n\nAvoid fluff. Jump straight into the explanation."' : '"Buat 10 kad imbasan untuk vocabulary N5 tentang makanan dan minuman"'}</code>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
       </div>
 
     </div>
@@ -9017,6 +9019,119 @@ function renderSelfStudyAIView() {
 
   lucide.createIcons();
 
+
+  // Add click-to-copy functionality for prompt boxes
+  document.querySelectorAll(".prompt-copy-btn").forEach(btn => {
+    btn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      const box = this.closest(".prompt-box");
+      const code = box.querySelector("code");
+      if (!code) return;
+
+      const text = code.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const copiedEl = box.querySelector(".prompt-copied");
+        copiedEl.classList.add("show");
+        this.textContent = "Copied!";
+        setTimeout(() => {
+          copiedEl.classList.remove("show");
+          this.textContent = getLanguage() === 'en' ? 'Copy' : 'Salin';
+        }, 1500);
+      }).catch(() => {
+        // Fallback for older browsers
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        const copiedEl = box.querySelector(".prompt-copied");
+        copiedEl.classList.add("show");
+        this.textContent = "Copied!";
+        setTimeout(() => {
+          copiedEl.classList.remove("show");
+          this.textContent = getLanguage() === 'en' ? 'Copy' : 'Salin';
+        }, 1500);
+      });
+    });
+  });
+}
+
+
+
+// --- POST EDITOR HELPERS ---
+
+const tagColors = {};
+
+function getTagColor(tag) {
+  if (tagColors[tag]) return tagColors[tag];
+  // Generate deterministic pastel from tag name
+  let hash = 0;
+  for (let i = 0; i < tag.length; i++) {
+    hash = tag.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const h = Math.abs(hash % 360);
+  tagColors[tag] = `hsl(${h}, 65%, 82%)`;
+  return tagColors[tag];
+}
+
+function getAllExistingTags() {
+  const tags = new Set();
+  BLOG_POSTS.forEach(p => (p.tags || []).forEach(t => tags.add(t)));
+  CULTURE_LESSONS.forEach(l => (l.tags || []).forEach(t => tags.add(t)));
+  CULTURE_LESSONS.forEach(l => (l.theme ? tags.add(l.theme) : null));
+  return Array.from(tags).sort();
+}
+
+function simpleMarkdownRender(text) {
+  if (!text) return '';
+  const lines = text.split('\n');
+  let html = '';
+  let inPre = false;
+  let inBlockquote = false;
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i];
+    if (line.startsWith('```')) {
+      if (inPre) { html += '</pre>'; inPre = false; }
+      else { html += '<pre>'; inPre = true; }
+      continue;
+    }
+    if (inPre) { html += line + '\n'; continue; }
+    if (line.startsWith('> ')) {
+      if (!inBlockquote) { html += '<blockquote>'; inBlockquote = true; }
+      html += '<p>' + line.slice(2) + '</p>';
+      continue;
+    } else if (inBlockquote) { html += '</blockquote>'; inBlockquote = false; }
+    if (line.startsWith('### ')) html += '<h3>' + line.slice(4) + '</h3>';
+    else if (line.startsWith('## ')) html += '<h2>' + line.slice(3) + '</h2>';
+    else if (line.startsWith('# ')) html += '<h1>' + line.slice(2) + '</h1>';
+    else if (line.startsWith('| ')) html += '<p>' + line + '</p>';
+    else if (line.trim() === '') html += '<br>';
+    else html += '<p>' + line + '</p>';
+  }
+  if (inBlockquote) html += '</blockquote>';
+  return html;
+}
+
+function renderTagChips() {
+  const tagChips = document.getElementById('tag-chips');
+  if (!tagChips) return;
+  tagChips.innerHTML = '';
+  editorTags.forEach((tag, i) => {
+    const chip = document.createElement('span');
+    chip.className = 'tag-chip';
+    chip.style.backgroundColor = getTagColor(tag);
+    chip.innerHTML = tag + '<button type="button" class="tag-chip-remove" data-index="' + i + '">&times;</button>';
+    tagChips.appendChild(chip);
+  });
+  tagChips.querySelectorAll('.tag-chip-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      editorTags.splice(parseInt(btn.dataset.index), 1);
+      renderTagChips();
+    });
+  });
 }
 
 
@@ -9024,6 +9139,429 @@ function renderSelfStudyAIView() {
 // --- ADMIN PAGE ---
 
 const ADMIN_PASSWORD = 'asaspw2024'; // Change this to your desired admin password
+
+
+
+function renderPostEditorView() {
+  state.currentView = "admin";
+  const appView = document.getElementById("app-view");
+  const post = editingPostData;
+  const isEditing = !!post;
+
+  // Determine post type from URL hash or existing post
+  const hash = window.location.hash;
+  const typeParam = new URLSearchParams(hash.split('?')[1] || '').get('type');
+  const postType = post?.type || typeParam || 'blog';
+
+  if (post) {
+    editingPostId = post.id || post.slug || null;
+  } else {
+    editingPostId = null;
+  }
+
+  appView.innerHTML = `<div class="fade-in post-editor-page">
+  <div class="post-editor-header">
+    <a href="#admin" class="btn-back">
+      <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      ${t('common.back')}
+    </a>
+    <h1>${isEditing ? t('admin.editPostTitle') : t('admin.createNewPost')}
+      <select id="post-type-select" class="type-select">
+        <option value="blog" ${postType === 'blog' ? 'selected' : ''}>Blog</option>
+        <option value="culture" ${postType === 'culture' ? 'selected' : ''}>Culture</option>
+      </select>
+    </h1>
+  </div>
+  <form id="post-editor-form" class="post-editor-full-form">
+    <input type="hidden" id="post-type" value="${postType}">
+    <div class="editor-layout">
+      <div class="editor-meta-column">
+        <div class="form-group">
+          <label for="post-cover-url">${t('admin.coverImageLabel')}</label>
+          <input type="url" id="post-cover-url" placeholder="${t('admin.coverImagePlaceholder')}">
+        </div>
+        <div class="form-group">
+          <label for="post-status">${t('admin.statusLabel')}</label>
+          <select id="post-status">
+            <option value="draft">${t('admin.statusDraft')}</option>
+            <option value="published">${t('admin.statusPublished')}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="post-slug">${t('admin.slugLabel')}</label>
+          <div class="slug-input-row">
+            <input type="text" id="post-slug" placeholder="${t('admin.slugPlaceholder')}" required>
+            <button type="button" id="slug-lock-btn" class="slug-lock-btn" title="${t('admin.slugLockedHint')}">
+              <svg id="slug-lock-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+              </svg>
+            </button>
+          </div>
+          <small class="slug-hint hidden">${t('admin.slugLockedHint')}</small>
+        </div>
+        <div class="form-group">
+          <label>${t('admin.tagsLabel')}</label>
+          <div class="tag-input-wrapper" id="tag-input-wrapper">
+            <div class="tag-chips" id="tag-chips"></div>
+            <input type="text" id="post-tags-input" placeholder="${t('admin.tagsPlaceholder')}" autocomplete="off">
+            <div class="tag-suggestions hidden" id="tag-suggestions"></div>
+          </div>
+          <small>${t('admin.tagsHint')}</small>
+        </div>
+      </div>
+      <div class="editor-content-column">
+        <div class="lang-section">
+          <div class="lang-tabs">
+            <button type="button" class="lang-tab-btn active" data-lang="en">English</button>
+            <button type="button" class="lang-tab-btn" data-lang="my">Malay</button>
+          </div>
+          <div class="lang-panel" data-lang="en">
+            <div class="form-group">
+              <label for="post-title-en">Title *</label>
+              <input type="text" id="post-title-en" placeholder="Post title" required>
+              <span class="field-error" id="error-post-title-en"></span>
+            </div>
+            <div class="form-group">
+              <label for="post-excerpt-en">Excerpt *</label>
+              <textarea id="post-excerpt-en" rows="2" placeholder="Brief description" required></textarea>
+              <span class="field-error" id="error-post-excerpt-en"></span>
+            </div>
+            <div class="form-group">
+              <label for="post-content-en">Content *</label>
+              <div class="content-editor-wrapper">
+                <div class="content-toolbar">
+                  <div class="content-format-buttons">
+                    <button type="button" class="content-format-btn" id="format-h1-btn-en" title="Heading 1">H1</button>
+                    <button type="button" class="content-format-btn" id="format-image-btn-en" title="Insert Image">
+                      <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    </button>
+                    <button type="button" class="content-format-btn" id="format-link-btn-en" title="Insert Link">
+                      <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                    </button>
+                  </div>
+                  <div class="content-mode-buttons">
+                    <button type="button" class="content-mode-btn active" data-mode="write" id="content-write-btn-en">${t('admin.writeTab')}</button>
+                    <button type="button" class="content-mode-btn" data-mode="preview" id="content-preview-btn-en">${t('admin.previewTab')}</button>
+                  </div>
+                </div>
+                <textarea id="post-content-en" rows="10" placeholder="${t('admin.contentPlaceholder')}"></textarea>
+                <div class="content-preview hidden" id="content-preview-en"></div>
+              </div>
+              <span class="field-error" id="error-post-content-en"></span>
+            </div>
+          </div>
+          <div class="lang-panel hidden" data-lang="my">
+            <div class="form-group">
+              <label for="post-title-my">Tajuk</label>
+              <input type="text" id="post-title-my" placeholder="Tajuk pos">
+            </div>
+            <div class="form-group">
+              <label for="post-excerpt-my">Ringkasan</label>
+              <textarea id="post-excerpt-my" rows="2" placeholder="Penerangan ringkas"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="post-content-my">Kandungan</label>
+              <div class="content-editor-wrapper">
+                <div class="content-toolbar">
+                  <div class="content-format-buttons">
+                    <button type="button" class="content-format-btn" id="format-h1-btn-my" title="Heading 1">H1</button>
+                    <button type="button" class="content-format-btn" id="format-image-btn-my" title="Insert Image">
+                      <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    </button>
+                    <button type="button" class="content-format-btn" id="format-link-btn-my" title="Insert Link">
+                      <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                    </button>
+                  </div>
+                  <div class="content-mode-buttons">
+                    <button type="button" class="content-mode-btn active" data-mode="write" id="content-write-btn-my">${t('admin.writeTab')}</button>
+                    <button type="button" class="content-mode-btn" data-mode="preview" id="content-preview-btn-my">${t('admin.previewTab')}</button>
+                  </div>
+                </div>
+                <textarea id="post-content-my" rows="10" placeholder="${t('admin.contentMyPlaceholder')}"></textarea>
+                <div class="content-preview hidden" id="content-preview-my"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="post-date">Publish Date</label>
+            <input type="date" id="post-date">
+          </div>
+          <div class="form-group">
+            <label for="post-reading-time">${t('admin.readingTime')}</label>
+            <input type="number" id="post-reading-time" value="5" min="1">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <a href="#admin" class="btn-cancel">${t('admin.cancel')}</a>
+      <button type="submit" class="btn-cta-primary">${t('admin.savePost')}</button>
+    </div>
+  </form>
+</div>`;
+
+  if (post) {
+    document.getElementById('post-title-en').value = post.title?.en || '';
+    document.getElementById('post-title-my').value = post.title?.my || '';
+    document.getElementById('post-slug').value = post.slug || '';
+    document.getElementById('post-excerpt-en').value = post.excerpt?.en || '';
+    document.getElementById('post-excerpt-my').value = post.excerpt?.my || '';
+    document.getElementById('post-date').value = post.publishDate || '';
+    document.getElementById('post-reading-time').value = post.readingTime || 5;
+    document.getElementById('post-status').value = post.status || 'draft';
+    document.getElementById('post-cover-url').value = post.coverImage || '';
+    document.getElementById('post-content-en').value = post.content?.en || '';
+    document.getElementById('post-content-my').value = post.content?.my || '';
+    editorTags = post.tags ? [...post.tags] : [];
+  } else {
+    document.getElementById('post-date').value = new Date().toISOString().split('T')[0];
+    editorTags = [];
+  }
+
+  renderTagChips();
+  slugLocked = false;
+
+  document.getElementById('slug-lock-btn').addEventListener('click', () => {
+    slugLocked = !slugLocked;
+    const icon = document.getElementById('slug-lock-icon');
+    const hint = document.querySelector('.slug-hint');
+    if (slugLocked) {
+      icon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
+      icon.parentElement.classList.add('locked');
+      hint.classList.remove('hidden');
+    } else {
+      icon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>';
+      icon.parentElement.classList.remove('locked');
+      hint.classList.add('hidden');
+    }
+  });
+
+  document.getElementById('post-title-en').addEventListener('input', (e) => {
+    if (!slugLocked) {
+      const slug = e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      document.getElementById('post-slug').value = slug;
+    }
+  });
+
+  document.getElementById('post-tags-input').addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ',') && e.target.value.trim()) {
+      e.preventDefault();
+      const tag = e.target.value.trim().replace(/,/g, '');
+      if (tag && !editorTags.includes(tag)) {
+        editorTags.push(tag);
+        renderTagChips();
+      }
+      e.target.value = '';
+      document.getElementById('tag-suggestions').classList.add('hidden');
+    }
+  });
+
+  // Tag suggestions as user types
+  document.getElementById('post-tags-input').addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
+    const suggestions = document.getElementById('tag-suggestions');
+    if (!query) {
+      suggestions.classList.add('hidden');
+      return;
+    }
+    const allTags = getAllExistingTags();
+    const matches = allTags.filter(t => t.toLowerCase().includes(query) && !editorTags.includes(t));
+    if (matches.length === 0) {
+      suggestions.classList.add('hidden');
+      return;
+    }
+    suggestions.innerHTML = matches.map(t =>
+      '<button type="button" class="tag-suggestion-item">' + t + '</button>'
+    ).join('');
+    suggestions.querySelectorAll('.tag-suggestion-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tag = btn.textContent;
+        if (!editorTags.includes(tag)) {
+          editorTags.push(tag);
+          renderTagChips();
+        }
+        e.target.value = '';
+        suggestions.classList.add('hidden');
+      });
+    });
+    suggestions.classList.remove('hidden');
+  });
+
+  // Hide suggestions on blur (with small delay to allow click)
+  document.getElementById('post-tags-input').addEventListener('blur', () => {
+    setTimeout(() => {
+      document.getElementById('tag-suggestions').classList.add('hidden');
+    }, 150);
+  });
+
+  document.querySelectorAll('.lang-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.lang;
+      document.querySelectorAll('.lang-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      document.querySelectorAll('.lang-panel').forEach(p => p.classList.toggle('hidden', p.dataset.lang !== lang));
+    });
+  });
+
+  ['en', 'my'].forEach(lang => {
+    document.getElementById('content-write-btn-' + lang).addEventListener('click', () => {
+      document.getElementById('content-write-btn-' + lang).classList.add('active');
+      document.getElementById('content-preview-btn-' + lang).classList.remove('active');
+      document.getElementById('post-content-' + lang).classList.remove('hidden');
+      document.getElementById('content-preview-' + lang).classList.add('hidden');
+    });
+    document.getElementById('content-preview-btn-' + lang).addEventListener('click', () => {
+      document.getElementById('content-preview-btn-' + lang).classList.add('active');
+      document.getElementById('content-write-btn-' + lang).classList.remove('active');
+      const content = document.getElementById('post-content-' + lang).value;
+      document.getElementById('content-preview-' + lang).innerHTML = simpleMarkdownRender(content);
+      document.getElementById('content-preview-' + lang).classList.remove('hidden');
+      document.getElementById('post-content-' + lang).classList.add('hidden');
+    });
+
+    // H1: prefix selected lines with #
+    document.getElementById('format-h1-btn-' + lang).addEventListener('click', () => {
+      const ta = document.getElementById('post-content-' + lang);
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      if (start === end) return;
+      const selected = ta.value.substring(start, end);
+      const lines = selected.split('\n').map(line => '# ' + line).join('\n');
+      ta.setRangeText(lines, start, end, 'select');
+      ta.focus();
+    });
+
+    // Image: insert ![alt](url) at cursor
+    document.getElementById('format-image-btn-' + lang).addEventListener('click', () => {
+      const ta = document.getElementById('post-content-' + lang);
+      const url = prompt('Enter image URL:');
+      if (!url) return;
+      const alt = prompt('Enter alt text (optional):') || '';
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      ta.setRangeText('![' + alt + '](' + url + ')', start, end, 'select');
+      ta.focus();
+    });
+
+    // Link: wrap selection in [text](url)
+    document.getElementById('format-link-btn-' + lang).addEventListener('click', () => {
+      const ta = document.getElementById('post-content-' + lang);
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      const selected = ta.value.substring(start, end);
+      if (!selected) return;
+      const url = prompt('Enter link URL:');
+      if (!url) return;
+      ta.setRangeText('[' + selected + '](' + url + ')', start, end, 'select');
+      ta.focus();
+    });
+  });
+
+  document.getElementById('post-type-select').addEventListener('change', (e) => {
+    document.getElementById('post-type').value = e.target.value;
+  });
+
+  document.getElementById('post-editor-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await savePostFromForm();
+  });
+}
+
+
+
+async function loadAnalytics() {
+  const container = document.getElementById('analytics-container');
+
+  async function fetchStat(startDate, endDate, metric = 'sessions') {
+    try {
+      const res = await fetch(`/api/analytics?startDate=${startDate}&endDate=${endDate}&metric=${metric}`);
+      const data = await res.json();
+      if (data.error) return '—';
+      const rows = data.rows || [];
+      if (!rows.length) return '0';
+      return parseInt(rows[0].metricValues?.[0]?.value || 0).toLocaleString();
+    } catch {
+      return '—';
+    }
+  }
+
+  async function fetchTopPages(startDate, endDate) {
+    try {
+      const res = await fetch(`/api/analytics?startDate=${startDate}&endDate=${endDate}&metric=screenPageViews&dimension=pagePath`);
+      const data = await res.json();
+      if (data.error) return [];
+      return (data.rows || []).map(r => ({
+        path: r.dimensionValues?.[0]?.value || '',
+        views: parseInt(r.metricValues?.[0]?.value || 0).toLocaleString()
+      })).slice(0, 5);
+    } catch {
+      return [];
+    }
+  }
+
+  const [today, yesterday, last7, last28, last30, last90, last365, allTime] = await Promise.all([
+    fetchStat('today', 'today'),
+    fetchStat('yesterday', 'yesterday'),
+    fetchStat('7daysAgo', 'today'),
+    fetchStat('28daysAgo', 'today'),
+    fetchStat('30daysAgo', '30daysAgo'),
+    fetchStat('90daysAgo', '90daysAgo'),
+    fetchStat('365daysAgo', '365daysAgo'),
+    fetchStat('2010-01-01', 'today'),
+  ]);
+
+  const topPages = await fetchTopPages('365daysAgo', 'today');
+
+  container.innerHTML = `
+    <div class="analytics-header">
+      <h2>Website Analytics</h2>
+      <p class="analytics-subtitle">Your website traffic overview from Google Analytics 4</p>
+    </div>
+    <div class="analytics-grid">
+      <div class="analytics-card">
+        <div class="analytics-card-label">Today</div>
+        <div class="analytics-card-value">${today}</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-card-label">Yesterday</div>
+        <div class="analytics-card-value">${yesterday}</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-card-label">Last 7 days</div>
+        <div class="analytics-card-value">${last7}</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-card-label">Last 30 days</div>
+        <div class="analytics-card-value">${last30}</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-card-label">Last 90 days</div>
+        <div class="analytics-card-value">${last90}</div>
+      </div>
+      <div class="analytics-card">
+        <div class="analytics-card-label">Last 365 days</div>
+        <div class="analytics-card-value">${last365}</div>
+      </div>
+      <div class="analytics-card highlight">
+        <div class="analytics-card-label">All Time</div>
+        <div class="analytics-card-value">${allTime}</div>
+      </div>
+    </div>
+    <div class="analytics-section">
+      <h3>Top Pages (Last 365 Days)</h3>
+      ${topPages.length ? `
+        <table class="analytics-table">
+          <thead><tr><th>Page</th><th>Views</th></tr></thead>
+          <tbody>
+            ${topPages.map(p => `<tr><td>${p.path || '/'}</td><td>${p.views}</td></tr>`).join('')}
+          </tbody>
+        </table>
+      ` : '<p class="analytics-no-data">No data available yet</p>'}
+    </div>
+  `;
+}
 
 
 
@@ -9161,9 +9699,11 @@ async function renderAdminDashboard(appView) {
 
       <div class="admin-tabs">
 
-        <button class="admin-tab-btn active" data-tab="blog">Blog</button>
+        <button class="admin-tab-btn active" data-tab="blog">Blog & Culture</button>
 
         <button class="admin-tab-btn" data-tab="signups">${t('admin.signupsTitle')}</button>
+
+        <button class="admin-tab-btn" data-tab="analytics">Analytics</button>
 
       </div>
 
@@ -9171,15 +9711,21 @@ async function renderAdminDashboard(appView) {
 
       <div class="admin-tab-content active" id="tab-blog">
 
+        <div class="admin-type-filter">
+          <button class="type-filter-btn active" data-type="all">All</button>
+          <button class="type-filter-btn" data-type="blog">Blog</button>
+          <button class="type-filter-btn" data-type="culture">Culture</button>
+        </div>
+
         <div class="admin-section-header">
 
-          <button class="btn-cta-primary" id="new-post-btn">
+          <a href="#new-post?type=blog" class="btn-cta-primary" id="new-post-btn">
 
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
 
             ${t('admin.newPost')}
 
-          </button>
+          </a>
 
         </div>
 
@@ -9198,6 +9744,16 @@ async function renderAdminDashboard(appView) {
         <div class="admin-signups-list" id="admin-signups-list">
 
           <div class="admin-loading">${t('admin.loadingSignups')}</div>
+
+        </div>
+
+      </div>
+
+      <div class="admin-tab-content" id="tab-analytics">
+
+        <div class="analytics-page" id="analytics-container">
+
+          <div class="analytics-loading">Loading analytics...</div>
 
         </div>
 
@@ -9355,6 +9911,10 @@ async function renderAdminDashboard(appView) {
 
         loadAdminSignups();
 
+      } else if (btn.dataset.tab === 'analytics') {
+
+        loadAnalytics();
+
       }
 
     });
@@ -9363,19 +9923,11 @@ async function renderAdminDashboard(appView) {
 
 
 
-  document.getElementById('new-post-btn').addEventListener('click', () => {
+  document.getElementById('editor-close-btn')?.addEventListener('click', closePostEditor);
 
-    openPostEditor();
+  document.getElementById('editor-cancel-btn')?.addEventListener('click', closePostEditor);
 
-  });
-
-
-
-  document.getElementById('editor-close-btn').addEventListener('click', closePostEditor);
-
-  document.getElementById('editor-cancel-btn').addEventListener('click', closePostEditor);
-
-  document.getElementById('post-editor-modal').addEventListener('click', (e) => {
+  document.getElementById('post-editor-modal')?.addEventListener('click', (e) => {
 
     if (e.target.id === 'post-editor-modal') closePostEditor();
 
@@ -9383,7 +9935,7 @@ async function renderAdminDashboard(appView) {
 
 
 
-  document.getElementById('post-title-en').addEventListener('input', (e) => {
+  document.getElementById('post-title-en')?.addEventListener('input', (e) => {
 
     const slug = e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
@@ -9403,13 +9955,48 @@ async function renderAdminDashboard(appView) {
 
 
 
+  // Content type filter (All / Blog / Culture)
+  document.querySelectorAll('.type-filter-btn').forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+      document.querySelectorAll('.type-filter-btn').forEach(b => b.classList.remove('active'));
+
+      btn.classList.add('active');
+
+      adminContentType = btn.dataset.type;
+
+      loadAdminPosts(adminContentType);
+
+      // Update New Post button href to include type
+      const newPostBtn = document.getElementById('new-post-btn');
+
+      newPostBtn.href = '#new-post?type=' + (adminContentType === 'all' ? 'blog' : adminContentType);
+
+    });
+
+  });
+
+  // New post button click handler
+  document.getElementById('new-post-btn').addEventListener('click', (e) => {
+
+    e.preventDefault();
+
+    editingPostData = null;
+
+    window.location.hash = '#new-post?type=' + (adminContentType === 'all' ? 'blog' : adminContentType);
+
+  });
+
+
+
   await loadAdminPosts();
 
 }
 
 
 
-async function loadAdminPosts() {
+async function loadAdminPosts(type = 'all') {
 
   const container = document.getElementById('admin-posts-list');
 
@@ -9417,13 +10004,15 @@ async function loadAdminPosts() {
 
   try {
 
-    const { data, error } = await supabase
+    let query = supabase.from('blog_posts').select('*').order('created_at', { ascending: false });
 
-      .from('blog_posts')
+    if (type && type !== 'all') {
 
-      .select('*')
+      query = query.eq('type', type);
 
-      .order('created_at', { ascending: false });
+    }
+
+    const { data, error } = await query;
 
 
 
@@ -9433,53 +10022,71 @@ async function loadAdminPosts() {
 
     } else {
 
-      renderAdminPostsList(container, BLOG_POSTS.map(p => ({
+      const localPosts = [];
 
-        id: p.slug,
+      if (type !== 'culture') {
 
-        slug: p.slug,
+        localPosts.push(...BLOG_POSTS.map(p => ({
 
-        title: p.title,
+          id: p.slug,
 
-        excerpt: p.excerpt,
+          slug: p.slug,
 
-        publishDate: p.publishDate,
+          title: p.title,
 
-        readingTime: p.readingTime,
+          excerpt: p.excerpt,
 
-        tags: p.tags,
+          publishDate: p.publishDate,
 
-        content: p.content,
+          readingTime: p.readingTime,
 
-        isLocal: true
+          tags: p.tags,
 
-      })));
+          content: p.content,
+
+          type: 'blog',
+
+          isLocal: true
+
+        })));
+
+      }
+
+      if (type !== 'blog') {
+
+        localPosts.push(...CULTURE_LESSONS.map(l => ({
+
+          id: l.slug,
+
+          slug: l.slug,
+
+          title: l.title,
+
+          excerpt: l.description,
+
+          publishDate: l.publishDate || '',
+
+          readingTime: 5,
+
+          tags: [l.theme].filter(Boolean),
+
+          content: { en: '', my: '' },
+
+          type: 'culture',
+
+          isLocal: true
+
+        })));
+
+      }
+
+      renderAdminPostsList(container, localPosts);
 
     }
 
   } catch (e) {
 
-    renderAdminPostsList(container, BLOG_POSTS.map(p => ({
-
-      id: p.slug,
-
-      slug: p.slug,
-
-      title: p.title,
-
-      excerpt: p.excerpt,
-
-      publishDate: p.publishDate,
-
-      readingTime: p.readingTime,
-
-      tags: p.tags,
-
-      content: p.content,
-
-      isLocal: true
-
-    })));
+    renderAdminPostsList(container, []);
 
   }
 
@@ -9507,7 +10114,9 @@ function renderAdminPostsList(container, posts) {
 
     const date = post.publishDate || post.created_at || '';
 
-    const tagList = post.tags ? post.tags.join(', ') : '';
+    const tagHtml = (post.tags || []).map(tag =>
+      `<span class="tag-chip" style="background:${getTagColor(tag)}">${tag}</span>`
+    ).join('');
 
 
 
@@ -9525,7 +10134,9 @@ function renderAdminPostsList(container, posts) {
 
             <span>${date}</span>
 
-            ${tagList ? `<span>${tagList}</span>` : ''}
+            ${tagHtml}
+
+            ${post.type ? `<span class="type-badge ${post.type}">${post.type === 'blog' ? 'Blog' : 'Culture'}</span>` : ''}
 
             ${post.isLocal ? '<span class="local-badge">Local</span>' : '<span class="cloud-badge">Cloud</span>'}
 
@@ -9557,7 +10168,10 @@ function renderAdminPostsList(container, posts) {
 
       const post = posts.find(p => p.id == id || p.slug === id);
 
-      if (post) openPostEditor(post);
+      if (post) {
+        editingPostData = post;
+        window.location.hash = '#new-post?type=' + (post.type || 'blog');
+      }
 
     });
 
@@ -9698,6 +10312,10 @@ function renderAdminSignupsList(container, signups) {
 
 
 let editingPostId = null;
+let editingPostData = null;
+let editorTags = [];
+let slugLocked = false;
+let adminContentType = 'all';
 
 
 
@@ -9791,7 +10409,13 @@ async function savePostFromForm() {
 
   const readingTime = parseInt(document.getElementById('post-reading-time').value) || 5;
 
-  const tags = document.getElementById('post-tags').value.split(',').map(t => t.trim()).filter(Boolean);
+  const status = document.getElementById('post-status').value;
+
+  const coverImage = document.getElementById('post-cover-url').value;
+
+  const tags = editorTags;
+
+  const type = document.getElementById('post-type').value || 'blog';
 
   const content = {
 
@@ -9813,7 +10437,7 @@ async function savePostFromForm() {
 
 
 
-  const postData = { title, slug, excerpt, publishDate, readingTime, tags, content };
+  const postData = { title, slug, excerpt, publishDate, readingTime, status, coverImage, tags, type, content };
 
 
 
@@ -9837,9 +10461,9 @@ async function savePostFromForm() {
 
     alert(t('admin.postSaved'));
 
-    closePostEditor();
+    editingPostData = null;
 
-    await loadAdminPosts();
+    window.location.hash = '#admin';
 
   } catch (e) {
 
@@ -9865,9 +10489,9 @@ async function savePostFromForm() {
 
     alert(t('admin.postSavedLocal'));
 
-    closePostEditor();
+    editingPostData = null;
 
-    await loadAdminPosts();
+    window.location.hash = '#admin';
 
   }
 
