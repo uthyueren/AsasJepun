@@ -7,11 +7,16 @@ import https from 'https';
 import crypto from 'crypto';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const SERVICE_ACCOUNT = JSON.parse(readFileSync(join(__dirname, 'asasjepun-analytics-652763bb32fa.json'), 'utf8'));
 const GA4_PROPERTY_ID = '552488257';
-const GA4_ENDPOINT = `https://analyticsdata.googleapis.com/v1beta/properties/${GA4_PROPERTY_ID}:runReport`;
 
 function getAccessToken() {
+  const serviceAccountPath = join(__dirname, 'asasjepun-analytics-652763bb32fa.json');
+  let SERVICE_ACCOUNT;
+  try {
+    SERVICE_ACCOUNT = JSON.parse(readFileSync(serviceAccountPath, 'utf8'));
+  } catch {
+    throw new Error('GA4 service account file not found. Create asasjepun-analytics-652763bb32fa.json or remove the analytics plugin from vite.config.js.');
+  }
   return new Promise((resolve, reject) => {
     const jwtHeader = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64url');
     const now = Math.floor(Date.now() / 1000);
