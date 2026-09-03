@@ -9138,7 +9138,20 @@ function renderTagChips() {
 
 // --- ADMIN PAGE ---
 
-const ADMIN_PASSWORD = 'asaspw2024'; // Change this to your desired admin password
+// Server-side admin action wrapper
+async function adminAction(action, data = {}) {
+  const password = localStorage.getItem('adminPassword') || '';
+  const response = await fetch('/.netlify/functions/admin-auth', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action, password, ...data })
+  });
+  if (!response.ok) {
+    const err = await response.json();
+    throw new Error(err.error || 'Unauthorized');
+  }
+  return response.json();
+}
 
 
 
@@ -9647,9 +9660,10 @@ function renderAdminLogin(appView) {
 
     const pw = document.getElementById('admin-password').value;
 
-    if (pw === ADMIN_PASSWORD) {
+    if (pw === 'asaspw2024') {
 
       localStorage.setItem('adminLoggedIn', 'true');
+      localStorage.setItem('adminPassword', pw);
 
       renderAdminDashboard(document.getElementById('app-view'));
 
@@ -9886,6 +9900,7 @@ async function renderAdminDashboard(appView) {
   document.getElementById('admin-logout-btn').addEventListener('click', () => {
 
     localStorage.removeItem('adminLoggedIn');
+    localStorage.removeItem('adminPassword');
 
     renderAdminView();
 
@@ -10297,7 +10312,7 @@ function renderAdminSignupsList(container, signups) {
 
       if (confirm('Delete this signup?')) {
 
-        await supabase.from('class_signups').delete().eq('id', id);
+        await adminAction('delete_signup', { id });
 
         loadAdminSignups();
 
@@ -10443,19 +10458,7 @@ async function savePostFromForm() {
 
   try {
 
-    const { error } = await supabase.from('blog_posts').upsert([{
-
-      ...postData,
-
-      id: editingPostId,
-
-      updated_at: new Date().toISOString()
-
-    }]);
-
-
-
-    if (error) throw error;
+    await adminAction('upsert_post', { postData: { ...postData, id: editingPostId } });
 
 
 
@@ -10503,7 +10506,7 @@ async function deletePost(id) {
 
   try {
 
-    await supabase.from('blog_posts').delete().eq('id', id);
+    await adminAction('delete_post', { id });
 
   } catch (e) {
 

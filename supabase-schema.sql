@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS class_signups (
 -- Enable Row Level Security
 ALTER TABLE class_signups ENABLE ROW LEVEL SECURITY;
 
--- Allow public read access (for admin)
+-- Allow public read access (for admin viewing signups)
 CREATE POLICY "Allow admin read" ON class_signups
   FOR SELECT USING (true);
 
@@ -45,9 +45,9 @@ CREATE POLICY "Allow admin read" ON class_signups
 CREATE POLICY "Allow public insert" ON class_signups
   FOR INSERT WITH CHECK (true);
 
--- Allow admin deletes
-CREATE POLICY "Allow admin delete" ON class_signups
-  FOR DELETE USING (true);
+-- NOTE: Delete operations are handled server-side only via Netlify Function
+-- No delete policy = no one can delete via client-side queries
+
 
 -- Create blog_posts table in Supabase
 CREATE TABLE IF NOT EXISTS blog_posts (
@@ -71,17 +71,9 @@ ALTER TABLE blog_posts ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow public read" ON blog_posts
   FOR SELECT USING (true);
 
--- Allow authenticated inserts (for admin)
-CREATE POLICY "Allow admin insert" ON blog_posts
-  FOR INSERT WITH CHECK (true);
+-- NOTE: Insert/Update/Delete operations are handled server-side only via Netlify Function
+-- No insert/update/delete policies = no one can modify via client-side queries
 
--- Allow authenticated updates (for admin)
-CREATE POLICY "Allow admin update" ON blog_posts
-  FOR UPDATE USING (true);
-
--- Allow authenticated deletes (for admin)
-CREATE POLICY "Allow admin delete" ON blog_posts
-  FOR DELETE USING (true);
 
 -- Insert sample blog posts
 INSERT INTO blog_posts (slug, title, excerpt, content, tags, reading_time) VALUES
