@@ -9654,27 +9654,32 @@ function renderAdminLogin(appView) {
 
 
 
-  document.getElementById('admin-login-form').addEventListener('submit', (e) => {
+  document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
 
     e.preventDefault();
 
     const pw = document.getElementById('admin-password').value;
 
-    if (pw === 'asaspw2024') {
+    try {
+      const response = await fetch('/.netlify/functions/admin-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'login', password: pw })
+      });
 
-      localStorage.setItem('adminLoggedIn', 'true');
-      localStorage.setItem('adminPassword', pw);
-
-      renderAdminDashboard(document.getElementById('app-view'));
-
-    } else {
-
+      if (response.ok) {
+        localStorage.setItem('adminLoggedIn', 'true');
+        localStorage.setItem('adminPassword', pw);
+        renderAdminDashboard(document.getElementById('app-view'));
+      } else {
+        const err = document.getElementById('login-error');
+        err.textContent = lang === 'my' ? 'Password salah. Sila cuba lagi.' : 'Incorrect password. Please try again.';
+        err.style.display = 'block';
+      }
+    } catch {
       const err = document.getElementById('login-error');
-
-      err.textContent = lang === 'my' ? 'Password salah. Sila cuba lagi.' : 'Incorrect password. Please try again.';
-
+      err.textContent = lang === 'my' ? 'Ralat sambungan. Sila cuba lagi.' : 'Connection error. Please try again.';
       err.style.display = 'block';
-
     }
 
   });

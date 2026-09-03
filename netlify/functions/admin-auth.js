@@ -1,4 +1,4 @@
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'asaspw2024';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') {
@@ -26,11 +26,16 @@ exports.handler = async (event) => {
   const { action, password, id, postData } = body;
 
   // Validate password server-side
-  if (password !== ADMIN_PASSWORD) {
+  if (!ADMIN_PASSWORD || password !== ADMIN_PASSWORD) {
     return {
       statusCode: 401,
       body: JSON.stringify({ error: 'Unauthorized' })
     };
+  }
+
+  // Handle login action (no Supabase needed)
+  if (action === 'login') {
+    return { statusCode: 200, body: JSON.stringify({ success: true }) };
   }
 
   // Use service role key to bypass RLS for admin operations
