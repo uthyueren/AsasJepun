@@ -911,8 +911,7 @@ async function handleSignupSubmit(e) {
         referral: rawData.referral,
         referral_other: getOtherInput("referralOther"),
         questions: rawData.questions,
-        notes: rawData.notes,
-        created_at: new Date().toISOString()
+        notes: rawData.notes
       }]);
 
 
