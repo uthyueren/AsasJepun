@@ -266,15 +266,15 @@ function initTheme() {
 
   if (savedTheme === "light") {
 
-    document.body.classList.add("light-theme");
+    document.documentElement.classList.add("light-theme");
 
-    document.body.classList.remove("dark-theme");
+    document.documentElement.classList.remove("dark-theme");
 
   } else {
 
-    document.body.classList.add("dark-theme");
+    document.documentElement.classList.add("dark-theme");
 
-    document.body.classList.remove("light-theme");
+    document.documentElement.classList.remove("light-theme");
 
   }
 
@@ -282,9 +282,9 @@ function initTheme() {
 
   themeToggle.addEventListener("click", () => {
 
-    const isLight = document.body.classList.toggle("light-theme");
+    const isLight = document.documentElement.classList.toggle("light-theme");
 
-    document.body.classList.toggle("dark-theme", !isLight);
+    document.documentElement.classList.toggle("dark-theme", !isLight);
 
 
 
