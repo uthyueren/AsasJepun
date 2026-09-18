@@ -3528,7 +3528,7 @@ function renderResourcesView() {
 
                         <h3>${item.name}</h3>
 
-                        <p>${item.description}</p>
+                        <p>${lang === 'my' ? (t(`resources.descriptions.${item.name}`) || item.description) : item.description}</p>
 
                       </div>
 

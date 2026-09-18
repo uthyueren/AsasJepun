@@ -18,14 +18,14 @@ Interactive Japanese learning website for Malaysian beginners, featuring Hiragan
 |---|---|
 | `index.html` | Main and only entry point |
 
-All share the same `app.js`, `kana.js`, `content.js`, `siteText.js`, `supabase.js`, and `styles.css`.
+All share the same `app.js`, `kana-data.js`, `content.js`, `siteText.js`, `supabase.js`, and `styles.css`.
 
 ### Source Files
 
 | File | Purpose |
 |---|---|
 | `app.js` | Main application logic — router, views, state, canvas drawing |
-| `kana.js` | KANA_DATA (Hiragana/Katakana charts) |
+| `kana-data.js` | KANA_DATA (Hiragana/Katakana charts) |
 | `content.js` | CULTURE_LESSONS, BLOG_POSTS, RESOURCES, KANJI_STROKE_RULES, ANKI_CONTENT |
 | `siteText.js` | `translations` object + `t()` helper, `setLanguage()`, `getLanguage()`, `toggleLanguage()` |
 | `styles.css` | Single stylesheet |

@@ -365,6 +365,14 @@ export const translations = {
     footer: {
       tagline: "Learn Japanese the right way"
     },
+    // Privacy Policy
+    privacyPolicy: {
+      title: "Privacy Policy"
+    },
+    // Terms
+    terms: {
+      title: "Terms & Conditions"
+    },
     // Common
     common: {
       loading: "Loading...",
@@ -814,19 +822,19 @@ export const translations = {
         title: "Kana (Aksara Jepun)",
         desc: "Belajar Hiragana dan Katakana dari sifar.",
         duration: "2 - 3 Minggu",
-        activity: "Reading only",
+        activity: "Membaca sahaja",
         focusTitle: "Fokus Pembelajaran:",
         items: [
-          "Hiragana dan Katatakana (reading, bukan writing dulu)",
-          "Dakuon, Handakuon, Yoon sounds",
+          "Hiragana dan Katatakana (membaca, bukan menulis dulu)",
+          "Dakuon, Handakuon, Yoon bunyi",
           "Membaca perkataan dan frasa ringkas"
         ],
         subpage1Title: "Vokal Panjang",
         subpage1Subtitle: "Belajar cara memanjangkan bunyi vokal (chōon / 長音)",
         subpage2Title: "Tenten & Maru",
         subpage2Subtitle: "Fahami dakuten (濁点) dan handakuten (半濁点)",
-        subpage3Title: "Small Characters",
-        subpage3Subtitle: "Learn small kana (ァ, ィ, ォ, っ, ゃ, ゅ, ょ) that modify sounds",
+        subpage3Title: "Kana Kecil",
+        subpage3Subtitle: "Pelajari kana kecil (ァ, ィ, ゥ, ェ, ォ, っ, ゃ, ゅ, ょ) yang mengubah bunyi",
         // Long Vowel content (MY)
         subpage1: {
           whatIsTitle: "Apakah Vokal Panjang?",
@@ -905,10 +913,10 @@ export const translations = {
         activity: "~100 Kanji | ~800 Vocab",
         focusTitle: "Fokus Pembelajaran:",
         items: [
-          "Existence (いる/ある), possession, past tense",
+          "Kehidupan (いる/ある), pemilikan, masa lalu",
           "Basic Keigo (bahasa sopan)",
           "~100 Kanji N5 (nombor, hari, masa, arah)",
-          "~800 vocab esencial"
+          "~800 vocab penting"
         ]
       },
       n5mastery: {
@@ -921,7 +929,7 @@ export const translations = {
           "Semua pattern grammar N5",
           "~150 Kanji tambahan (身体, 食べる, 行く, dll)",
           "SRS setup (Anki)",
-          "Daily immersion: apa nak tengok, baca, dengar"
+          "Penyerapan harian: apa nak tengok, baca, dengar"
         ]
       },
       n4bridge: {
@@ -931,9 +939,9 @@ export const translations = {
         activity: "~300 Kanji | ~3,000 Vocab",
         focusTitle: "Fokus Pembelajaran:",
         items: [
-          "Conditionals (たら, なら, ば)",
-          "Causative + causative-passive",
-          "Casual vs polite speech register",
+          "Pengloquent (たら, なら, ば)",
+          "Kausatif + kausatif-pasif",
+          "Daftar pertuturan kasual vs sopan",
           "~3,000 vocab total"
         ]
       },
@@ -944,23 +952,23 @@ export const translations = {
         activity: "~400 Kanji | ~3,000 Vocab",
         focusTitle: "Fokus Pembelajaran:",
         items: [
-          "Passive, causative-passive, potential forms",
-          "Keigo refinement",
+          "Bentuk pasif, kausatif-pasif, potential",
+          "Penambahbaikan keigo",
           "~400 Kanji total",
-          "Native content with subtitles, dengar natural speech"
+          "Kandungan asli dengan sari kata, dengar pertuturan natural"
         ]
       },
       n2prep: {
         title: "N2 Prep + Sustained Immersion",
         desc: "Pipeline ke N2 dengan immersion sebagai lifestyle.",
-        duration: "Ongoing",
-        activity: "Complex Keigo | Advanced Structures",
+        duration: "Berterusan",
+        activity: "Keigo Kompleks | Struktur Lanjutan",
         focusTitle: "Fokus Pembelajaran:",
         items: [
-          "Complex keigo dan advanced sentence structures",
-          "Reading unformatted text (novels, articles)",
-          "Immersion as lifestyle",
-          "N2 prep and practice"
+          "Keigo kompleks dan struktur ayat lanjutan",
+          "Membaca teks tanpa format (novel, artikel)",
+          "Penyerapan sebagai gaya hidup",
+          "Prep N2 dan latihan"
         ]
       },
       continues: {
@@ -1060,7 +1068,85 @@ export const translations = {
         articles: "Artikel Jepun",
         otherResources: "Sumber Lain"
       },
-      visit: "Lawati"
+      visit: "Lawati",
+      descriptions: {
+        // Dictionary
+        "Jisho.org": "Kamus Japanese-English percuma, boleh cari perkataan, kanji, atau radikal.",
+        "Takoboto": "App kamus yang mesra offline dengan contoh ayat, popular di Android.",
+        "Weblio": "Aggregator kamus berbahasa Jepun yang mengambil dari pelbagai sumber, bagus untuk carian lanjutan.",
+        // Anki
+        "Anki": "Perisian kad imbas repetisi jarak yang CORE yang kebanyakan pelajar immersion bina routine mereka.",
+        "Wani Kani": "Platform SRS berstruktur untuk belajar kanji dan vocab melalui mnemonik.",
+        "Satori Reader": "Platform pembacaan bergrad dengan audio terbina dan nota tatabahasa bersama ulangkaji vocab.",
+        // Learning
+        "Tofugu": "Blog budaya dan bahasa Jepun yang merangkumi semua daripada pecahan tatabahasa hingga ke gelung budaya mendalam.",
+        "Japanese with Anime": "Belajar vocabulary dan tatabahasa melalui klip dan frasa anime sebenar.",
+        // Mobile Apps
+        "LingoDeer": "Pelajaran berstruktur dengan penjelasan tatabahasa yang jelas, dibina khusus untuk belajar bahasa Asia.",
+        "Renshuu": "App study semua-dalam-satu merangkumi vocab, kanji, tatabahasa, dan prep JLPT dengan games dan SRS.",
+        "Memrise": "App vocabulary SRS menggunakan repetisi jarak dan klip video penutur native sebenar.",
+        "Busuu": "App bahasa umum dengan kursus berstruktur dan feedback daripada penutur native.",
+        // Reading
+        "NHK News Web Easy": "Artikel berita yang dipermudahkan dengan furigana, bagus untuk pembacaan pemula hingga pertengahan.",
+        "Tadoku": "Pustaka pembaca bergrad percuma dibina untuk pembacaan extensive pada tahap mudah dan selesa.",
+        "Todaii": "App pembacaan yang menyesuaikan kesulitan artikel secara automatik untuk matching tahap anda.",
+        // JLPT
+        "Bunpro": "AppSRS berfokus tatabahasa berstruktur di sekeliling tahap JLPT, berp搭档 baik dengan study vocab Anki.",
+        "JLPTSensei": "Sumber study JLPT percuma dengan senarai tatabahasa, vocab, dan kanji dianjurkan mengikut tahap.",
+        // Browser
+        "Yomitan": "Sambungan kamus pop-up yang menunjukkan definisi serta-merta bila anda hover atau klik mana-mana perkataan.",
+        "Migaku": "Toolkit immersion semua-dalam-satu untuk mining ayat, sari kata, dan carian kamus merentasi pelayar dan mudah alih.",
+        "Language Reactor": "Sambungan popular untuk sari kata dual dan carian perkataan serta-merta di Netflix dan YouTube.",
+        "Iago": "Sari kata interaktif di YouTube, Netflix, dan Disney+; klik perkataan untuk lihat maksud dan simpan untuk ulangkaji.",
+        "Methus": "Sambungan immersion percuma, open-source dengan sari kata dual, kamus hover, dan mining kad imbas dari platform streaming.",
+        "Japanese Subtitles Github": "Koleksi sumber sari kata yang diurus untuk anime, drama, dan filem daripada komuniti AJATT.",
+        // Media
+        "Netflix (Japan)": "Rancangan dan filem tahap native, ideal untuk immersion bila dipadan dengan sambungan sari kata.",
+        "AbemaTV": "Platform streaming Jepun percuma dengan TV native, anime, dan rancangan variety. (VPN diperlukan di luar Jepun)",
+        "TVer": "Servis streaming Jepun percuma dengan drama, anime, dan rancangan variety yang tersedia tidak lama selepas broadcast.",
+        // Podcasts
+        "YUYUの日本語Podcast": "Podcast pertengahan/lanjutan yang lama (500+ episod) di mana host Yuyu membincangkan topik harian secara natural dalam Jepun.",
+        "Okkei Japanese": "Podcast bergaya storytelling dengan Jepun yang tidak scrit dan natural tentang kehidupan harian di Jepun.",
+        "Japanese with Shun": "Jepun yang perlahan dan jelas bertujuan untuk pelajar N5, dibina di sekeliling pelajaran immersion berstruktur.",
+        "Miku Real Japanese": "Berfokus pada pertuturan Jepun yang natural dan berkelajuan native, bertujuan untuk pelajar yang faham tatabahasa tapi struggle dengan pertuturan sebenar.",
+        "Nihongo con Teppei": "Pemula-friendly, pertuturan natural yang perlahan dan bersemangat.",
+        "JapanesePod101": "Pelajaran audio berstruktur berdasarkan tahap.",
+        // YouTube Learning
+        "Kaname Naito": "Guru Jepun yang memecahkan tatabahasa dengan jelas dalam Bahasa Inggeris, popular kerana menjadikan konsep susah jadi mudah difahami.",
+        "That Japanese Man Yuta": "Interview penutur native dan video gaya survey jalan yang memberi konteks budaya dan linguistik sebenar.",
+        "Nihongo no Mori": "Berfokus tatabahasa, especially kuat untuk prep JLPT.",
+        "Cure Dolly": "Penjelasan tatabahasa yang tidak konvensional tapi disegani.",
+        "Japanese Ammo with Misa": "Pelajaran tatabahasa dan vocab berstruktur.",
+        // YouTube Immersion
+        "きまぐれクック Kimagure Cook": "Saluran memasak berkelajuan native di mana host sediakan makanan laut dengan narasi kasual dan humor, bagus untuk amalan pendengaran natural.",
+        "オダケン（ホラーゲーム絶叫者）": "Saluran reaksi game horror dengan banyak pertuturan native yang tidak scrit dan emotional, berguna untuk immersion pendengaran kasual.",
+        "Hukumusume": "Cerita rakyat dan folk Jepun tradisional yang dinarasikan oleh penutur native, tenang dan simple tapi autentik.",
+        "あかね的日本語教室 (Akane's Japanese Classroom)": "Campuran pelajaran dan vlogs daripada guru Jepun native, bertujuan untuk pelajar pertengahan atas hingga lanjutan.",
+        "ひよりの虫日記 (Hiyori's Bug Diary)": "Aktres dan komposer Hiyori Katada kongsi passion untuk serangga, merakam dan menjelaskan tentang bug dalam nature dengan narasi kasual dan enthusiast.",
+        "AKBの素を出すちゃんねる": "Sub-channel YouTube rasmi AKB48, menunjukkan ahli idol dalam tetapan yang tidak scripted dan kasual.",
+        "【素潜り漁師】マサル Masaru.": "Nelayan freediving yang merakam dirinya menyelongkar dan menyelam untuk makanan laut sepanjang pantai Jepun, dengan narasi native yang kasual.",
+        // YouTube Popular
+        "Hikakin": "Salah satu YouTuber paling famous di Jepun, pelbagai kandungan.",
+        "Kizuna AI": "VTuber perintis, bagus untuk budaya pop/Internet Jepun.",
+        "Hajime Shacho (はじめしゃちょー)": "Salah satu YouTuber terbesar di Jepun, dikenali untuk cabaran, eksperimen, dan vlog komedi.",
+        "Fischer's": "Kumpulan YouTuber Jepun yang popular dikenali untuk prank, cabaran, dan kandungan komedi.",
+        // Practice
+        "iTalki": "Tempah pelajaran berbayar atau sesi conversation dengan tutor native.",
+        "HelloTalk": "App pertukaran bahasa yang menghubungkan anda dengan penutur native melalui teks, voice, dan video.",
+        "Speechling": "Coaching sebutan percuma menggunakan audio feedback penutur native.",
+        "Tandem": "App pertukaran bahasa untuk mencari partner conversation penutur native.",
+        // Pitch Accent
+        "Japanese Pitch-Accent in 10 Minutes": "Penjelasan yang jelas tentang asas pitch accent Jepun.",
+        "Kotu Pitch Accent Practice": "Latihan persepsi audio menggunakan minimal pairs untuk latih telinga anda mengenal pasti perbezaan pitch accent.",
+        // Translator
+        "DeepL": "Penterjemah AI yang dikenali untuk terjemahan ayat yang natural dan bernuansa.",
+        "MiraiTranslate": "Enjin penterjemahan berasaskan Jepun yang terkenal dengan pengendalian terminologi bisnes dan honorifics dengan lebih tepat.",
+        // Discord
+        "English-Japanese Language Exchange": "Server popular yang menghubungkan penutur Bahasa Inggeris dan Jepun untuk amalan conversation.",
+        "MBF鯖 - マイクラ＆ゲーム雑談": "Server Jepun yang berpusat pada Minecraft dan gaming chat, bagus untuk immersion kasual.",
+        "Japanese Language Study Space": "Komuniti berfokus study untuk bertanya soalan dan berlatih bersama.",
+        "毎日英語と日本語": "Server amalan harian untuk pertukaran bahasa Inggeris-Jepun mutual."
+      }
     },
     // About
     about: {
@@ -1075,6 +1161,14 @@ export const translations = {
     // Footer
     footer: {
       tagline: "Belajar Jepun dengan cara yang betul"
+    },
+    // Privacy Policy
+    privacyPolicy: {
+      title: "Dasar Privasi"
+    },
+    // Terms
+    terms: {
+      title: "Syarat & Ketetapan"
     },
     // Signup Modal
     signup: {
@@ -1272,8 +1366,8 @@ export const translations = {
       noPosts: "Tiada post lagi. Klik \"Post Baru\" untuk buat post blog pertama.",
       noSignups: "Tiada signup lagi.",
       newPost: "Post Baru",
-      editPost: "Edit",
-      deletePost: "Delete",
+      editPost: "Sunting",
+      deletePost: "Padam",
       postTitle: "Tajuk",
       postSlug: "Slug",
       postExcerpt: "Excerpt",
@@ -1354,7 +1448,7 @@ export const translations = {
         },
         patience: {
           title: "Bersabar",
-          desc: "Pemerolehan bahasa ambil masa. Trust the process dan jangan bandingkan diri dengan orang lain."
+          desc: "Pemerolehan bahasa ambil masa. Yakin dengan proses dan jangan bandingkan diri dengan orang lain."
         }
       },
       dailyRoutine: {
@@ -1404,10 +1498,10 @@ export const translations = {
       },
       tips: {
         title: "Tips Pro",
-        mining: "Mining vocabulary dari kandungan yang anda enjoy  ia buat pembelajaran rasa kurang macam study.",
-        shadowing: "Practice shadowing (ulang selepas penutur) untuk improve sebutan dan kelancaran pertuturan.",
-        writing: "Keep diary Jepun guna notes app kat telefon. Malah ayat simple bantu reinforce apa yang anda dah belajar.",
-        thinking: "Cuba think dalam Jepun masa kehidupan harian. Huraikan objek di sekeliling anda dalam kepala."
+        mining: "Mining vocabulary dari kandungan yang anda suka  ia buat pembelajaran rasa kurang macam study.",
+        shadowing: "Latihan shadowing (ulang selepas penutur) untuk improve sebutan dan kelancaran pertuturan.",
+        writing: "Bekalan diary Jepun guna notes app kat telefon. Malah ayat simple bantu reinforce apa yang anda dah belajar.",
+        thinking: "Cuba fikir dalam Jepun masa kehidupan harian. Huraikan objek di sekeliling anda dalam kepala."
       }
     },
     // Comprehensible Input & Immersion
