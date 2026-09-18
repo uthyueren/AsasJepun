@@ -8,6 +8,9 @@ import crypto from 'crypto';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const GA4_PROPERTY_ID = '552488257';
+// NOTE: This dev server proxy requires asasjepun-analytics-652763bb32fa.json to exist locally.
+// In production (Cloudflare Pages), page views are tracked client-side via GA4's measurement protocol.
+// The service account file is never deployed.
 
 function getAccessToken() {
   const serviceAccountPath = join(__dirname, 'asasjepun-analytics-652763bb32fa.json');
@@ -15,7 +18,7 @@ function getAccessToken() {
   try {
     SERVICE_ACCOUNT = JSON.parse(readFileSync(serviceAccountPath, 'utf8'));
   } catch {
-    throw new Error('GA4 service account file not found. Create asasjepun-analytics-652763bb32fa.json or remove the analytics plugin from vite.config.js.');
+    throw new Error('GA4 service account file not found. Create asasjepun-analytics-652763bb32fa.json in the project root, or run `npm run build` directly for production.');
   }
   return new Promise((resolve, reject) => {
     const jwtHeader = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64url');
@@ -101,7 +104,7 @@ export default defineConfig({
     },
   },
   plugins: [{
-    name: 'ga4-analytics-proxy',
+    name: 'ga4-analytics-proxy-dev-only',
     configureServer(server) {
       server.middlewares.use('/api/analytics', async (req, res) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
