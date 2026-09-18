@@ -12,8 +12,6 @@ export const translations = {
       roadmap: "Learning Path",
       introduction: "Introduction",
       selfStudy: "Self Study Guide",
-      culture: "Culture Lessons",
-      blog: "Blog",
       blogCulture: "Blog & Culture",
       resources: "Resources",
       about: "About",
@@ -29,7 +27,6 @@ export const translations = {
       heroTag: "Konnichiwa! こんにちは",
       heroTitle: "Your guide to learning Japanese the right way",
       heroSubtitle: "Everything you need to self-study Japanese effectively.",
-      featuredTitle: "Featured Content",
       whyTitle: "How we help you",
       whyPoint1Title: "No more random YouTube spirals",
       whyPoint1Desc: "We give you a clear path. Follow the roadmap from zero to conversational, or jump to whatever level you're at.",
@@ -39,8 +36,6 @@ export const translations = {
       whyPoint3Desc: "Japanese makes more sense when you understand why things work that way. We teach through context  festivals, daily life, entertainment.",
       quickNavTitle: "Quick Links",
       quickNavSubtitle: "Pick a section and dive in",
-      ctaWhereStart: "Not sure where to start?",
-      ctaTakeQuiz: "Take our quick level check quiz",
       heroCtaStart: "Start with Introduction",
       heroCtaRoadmap: "View Learning Path",
       sectionIntroTitle: "Introduction to Japanese",
@@ -293,15 +288,9 @@ export const translations = {
       writingPoint3: "Kanji - Chinese characters adopted for Japanese, used for nouns and verb roots",
       structureTitle: "Language Structure",
       structureDesc: "Japanese has a fundamentally different structure from English:",
-      structurePoint1: "Subject-Object-Verb word order (SOV) instead of SVO",
-      structurePoint2: "No spaces between words",
-      structurePoint3: "Complex politeness levels (keigo) based on social hierarchy",
-      structurePoint4: "No grammatical gender or plural articles",
       soundTitle: "Sound System",
       soundDesc: "Japanese has a relatively simple phonological system:",
-      soundPoint1: "Only 5 vowel sounds (a, i, u, e, o)",
       soundPoint2: "No consonant clusters (e.g., \"st\", \"tr\", \"gl\")",
-      soundPoint3: "Each syllable is roughly equal in length",
       soundPoint4: "Pitch accent instead of stress accent (differs by dialect)",
       tipTitle: "Learning Tip",
       tipDesc: "Don't try to translate word-for-word from English. Instead, try to understand concepts and patterns in their Japanese context.",
@@ -318,9 +307,6 @@ export const translations = {
         daily: "Daily Life",
         social: "Social Life"
       },
-      vocabulary: "Vocabulary",
-      culturalNotes: "Cultural Notes",
-      tryQuiz: "Try the Quiz"
     },
     // Blog
     blog: {
@@ -331,9 +317,6 @@ export const translations = {
     blogCulture: {
       title: "Blog & Culture",
       subtitle: "Articles, lessons, and long-form content on Japanese learning and culture.",
-      filterAll: "All",
-      filterBlog: "Blog",
-      filterCulture: "Culture",
       blog: "Blog",
       culture: "Culture"
     },
@@ -363,19 +346,13 @@ export const translations = {
         articles: "Japanese Articles",
         otherResources: "Other Resources"
       },
-      visit: "Visit",
-      navBack: "Back: Using AI",
-      navNext: "Next: Blog & Culture"
     },
     // About
     about: {
       title: "About Me",
       subtitle: "The method that actually works, from someone who tried them all.",
-      storyTitle: "About Me",
       storyContent: "Hi, I'm <strong>Uthman</strong>, fellow Japanese learner! I know exactly how frustrating learning Japanese can be when kanji looks like squiggles, grammar doesn't make sense, and nothing stays in your head.<br><br>I started learning Japanese in 2018 but <strong>quit</strong> after a few months. Kanji looked terrifying, and I couldn't see how any of it would stick. After a long break, I decided to <strong>push through anyway</strong>  and it wasn't as bad as I expected.<br><br>Since 2021, I've been learning off and on since I'm quite busy with university, but things didn't really come together until <strong>mid 2025</strong>. I started consuming Japanese content <strong>every single day</strong>  whether it was Hololive streams, J-dramas, whatever kept me in the language. My comprehension improved a lot using flashcards with SRS (Spaced Repetition System).<br><br>If you're serious about learning, <strong>join my class</strong> and let's do this together.",
       connectTitle: "Connect",
-      followThreads: "Follow on Threads",
-      joinCommunity: "Join the Community"
     },
     // Footer
     footer: {
@@ -392,22 +369,12 @@ export const translations = {
     // Common
     common: {
       loading: "Loading...",
-      close: "Close",
       back: "Back",
-      next: "Next",
-      previous: "Previous",
       learnMore: "Learn More",
-      start: "Start",
-      continue: "Continue",
-      comingSoon: "Coming soon...",
       // Theme
-      darkMode: "Dark Mode",
-      lightMode: "Light Mode",
       // Status
-      success: "Success!",
       error: "Error! Try again",
       // Validation
-      fillAllRequired: "Please fill in all required fields.",
       audioNotSupported: "Your browser does not support audio playback.",
       // Signup specific
       submitting: "Submitting..."
@@ -419,62 +386,12 @@ export const translations = {
       name: "Name",
       age: "Age",
       phone: "Phone Number",
-      currentLevel: "Current Japanese Level",
-      classType: "I want a class",
-      selectClass: "Select class type",
-      oneOnOne: "1 on 1 (RM200/month)",
-      group: "Group (RM150/month)",
       schedule: "Select available days and times",
       submit: "Submit",
       required: "* Required fields",
-      success: "Success! I'll contact you soon.",
-      error: "Something went wrong. Try again.",
       signupSuccess: "Signup successful!",
       signupError: "Something went wrong. Please try again.",
       joinClassBtn: "Join class",
-      section1Title: "Current Status",
-      section2Title: "Background & Experience",
-      section3Title: "Motivation & Goals",
-      section4Title: "Mindset & Expectations",
-      section5Title: "Almost Done!",
-      next: "Next",
-      back: "Back",
-      selectScheduleError: "Please select at least one available time slot.",
-      fillAllRequired: "Please fill in all required fields.",
-      studiedBeforeLabel: "Have you studied Japanese before?",
-      studiedHowLabel: "How long? What methods did you use?",
-      jlptTakenLabel: "Have you taken JLPT before?",
-      jlptLevelLabel: "What level did you pass?",
-      resourcesLabel: "What resources have you used? (books, apps, websites)",
-      exposureLabel: "What Japanese content do you consume outside study?",
-      whyJapaneseLabel: "Why do you want to learn Japanese?",
-      goalLabel: "What is your main goal?",
-      goalJlpt: "Pass JLPT (certification)",
-      goalFluency: "Become conversationally fluent",
-      goalTravel: "Travel / Living in Japan",
-      goalWork: "Work / Business",
-      goalAnime: "Understand anime / manga raw",
-      goalUniversity: "University requirement",
-      goalCulture: "Cultural interest",
-      goalOther: "Other",
-      studyHoursLabel: "How many hours per week can you commit to studying?",
-      studyHours14: "1-3 hours",
-      studyHours47: "4-7 hours",
-      studyHours814: "8-14 hours",
-      studyHours15: "15+ hours",
-      activitiesLabel: "What learning activities do you enjoy most?",
-      quitBeforeLabel: "Have you tried learning Japanese before and quit?",
-      quitReasonLabel: "Why do you think you quit? What changed this time?",
-      challengesLabel: "What challenges do you expect to face?",
-      learningStyleLabel: "How do you learn best?",
-      styleVisual: "Visual (reading, charts)",
-      styleAuditory: "Auditory (listening)",
-      styleReading: "Reading / Writing",
-      stylePractice: "Hands-on practice",
-      expectationsLabel: "What do you expect from this class?",
-      referralLabel: "How did you find out about this class?",
-      questionsLabel: "Any questions for me?",
-      notesLabel: "Anything else you want to share?",
       // Class info screen
       classInfoTitle: "Japanese Classes with Uthman",
       classInfoSubtitle: "Personalized 1-on-1 or group lessons tailored to your goals",
@@ -506,18 +423,6 @@ export const translations = {
     kanjiRules: {
       title: "Kanji",
       subtitle: "Understand what kanji is and how it works",
-      intro: "Kanji is one of the three writing systems used in Japanese. Each character represents a meaning or concept, unlike hiragana and katakana which represent sounds.",
-      whyTitle: "Why Learn Kanji?",
-      whyPoint1: "Kanji makes reading Japanese possible. Hiragana alone cannot distinguish words like 橋 (bridge) from 箸 (chopsticks)",
-      whyPoint2: "Even at N5 level, you will encounter about 100 kanji. That is why it is part of every JLPT level",
-      whyPoint3: "Once you recognize kanji, vocabulary becomes easier. Many words are made of kanji combinations",
-      radicalsTitle: "Common Radicals",
-      radicalsIntro: "Radicals are the building blocks of kanji. Most kanji are composed of a radical (which gives a hint about meaning) and other components.",
-      typesTitle: "Types of Kanji",
-      onyomi: "Onyomi (Chinese Reading)",
-      onyomiDesc: "The Chinese-derived pronunciation. Used in compound words.",
-      kunyomi: "Kunyomi (Japanese Reading)",
-      kunyomiDesc: "The native Japanese pronunciation. Often used when kanji stands alone.",
       subpage1Title: "Stroke Order",
       subpage1Subtitle: "Learn the correct way to write kanji",
       subpage2Title: "Radical",
@@ -589,11 +494,6 @@ export const translations = {
       newPost: "New Post",
       editPost: "Edit",
       deletePost: "Delete",
-      postTitle: "Title",
-      postSlug: "Slug",
-      postExcerpt: "Excerpt",
-      postContent: "Content",
-      postTags: "Tags (comma separated)",
       savePost: "Save Post",
       cancel: "Cancel",
       confirmDelete: "Are you sure you want to delete this post?",
@@ -603,8 +503,6 @@ export const translations = {
       readingTime: "Reading Time (minutes)",
       tagsPlaceholder: "n5, grammar, mindset",
       tagsHint: "Press Enter or comma to add a tag",
-      contentEnLabel: "Content (English) * - Markdown supported",
-      contentMyLabel: "Content (Malay)",
       contentPlaceholder: "# Heading\n\nYour content here...",
       contentMyPlaceholder: "Malay content here (optional)...",
       coverImageLabel: "Cover Image URL",
@@ -626,10 +524,6 @@ export const translations = {
         schedule: "Schedule",
         date: "Date"
       },
-      requiredFields: "Please fill in all required fields (English title, slug, excerpt, content).",
-      postSaved: "Post saved successfully!",
-      postSavedLocal: "Post saved locally (Supabase not configured). It will appear on this device.",
-      fillAllRequired: "Please fill in all required fields."
     },
     // Anki & Vocab Mining
     anki: {
@@ -728,12 +622,10 @@ export const translations = {
     // Comprehensible Input & Immersion
     immersion: {
       title: "Comprehensible Input & Immersion",
-      subtitle: "How to acquire Japanese through immersion and comprehensible input"
     },
     // Using AI
     selfStudyAI: {
       title: "Using AI for Japanese Learning",
-      subtitle: "How to use AI tools effectively to accelerate your Japanese learning"
     }
   },
 
@@ -747,8 +639,6 @@ export const translations = {
       roadmap: "Laluan Pembelajaran",
       introduction: "Pengenalan",
       selfStudy: "Panduan Belajar Sendiri",
-      culture: "Pelajaran Budaya",
-      blog: "Blog",
       blogCulture: "Blog & Budaya",
       resources: "Sumber",
       about: "Tentang",
@@ -764,7 +654,6 @@ export const translations = {
       heroTag: "Konnichiwa! こんにちは",
       heroTitle: "Panduan belajar bahasa Jepun dengan cara yang betul",
       heroSubtitle: "Semua yang anda perlukan untuk belajar bahasa Jepun secara efektif.",
-      featuredTitle: "Kandungan Pilihan",
       whyTitle: "Bagaimana kami bantu anda",
       whyPoint1Title: "Tak ada lagi scroll YouTube tak ingat arah",
       whyPoint1Desc: "Kami beri anda jalan yang jelas. Follow roadmap dari zero ke boleh converse, atau mula di tahap mana pun anda sekarang.",
@@ -774,8 +663,6 @@ export const translations = {
       whyPoint3Desc: "Bahasa Jepun masuk akal bila anda faham kenapa ia macamtu. Kami ajar melalui konteks  perayaan, kehidupan harian, hiburan.",
       quickNavTitle: "Pautan Pantas",
       quickNavSubtitle: "Pilih seksyen dan mulakan",
-      ctaWhereStart: "Tak pasti nak mula dari mana?",
-      ctaTakeQuiz: "Ambik kuiz semakan tahap cepat kami",
       heroCtaStart: "Mulakan dengan Pengenalan",
       heroCtaRoadmap: "Lihat Laluan Pembelajaran",
       sectionIntroTitle: "Pengenalan ke Bahasa Jepun",
@@ -1028,15 +915,9 @@ export const translations = {
       writingPoint3: "Kanji - Aksara Cina yang diterima pakai untuk Jepun, digunakan untuk kata nama dan punca kata kerja",
       structureTitle: "Struktur Bahasa",
       structureDesc: "Bahasa Jepun mempunyai struktur yang berbeza dari Bahasa Inggeris:",
-      structurePoint1: "Tertib Subjek-Objek-Kata Kerja (SOV) bukan SVO",
-      structurePoint2: "Tiada ruang antara perkataan",
-      structurePoint3: "Tahap kesopanan yang kompleks (keigo) berdasarkan hierarki sosial",
-      structurePoint4: "Tiada jantina tatabahasa atau kata ganda",
       soundTitle: "Sistem Bunyi",
       soundDesc: "Bahasa Jepun mempunyai sistem fonologi yang agak mudah:",
-      soundPoint1: "Hanya 5 bunyi vokal (a, i, u, e, o)",
       soundPoint2: "Tiada kluster konsonan (cth: \"st\", \"tr\", \"gl\")",
-      soundPoint3: "Setiap suku kata lebih kurang sama panjang",
       soundPoint4: "Nilai nada bukan tekanan aksen (berbeza mengikut dialek)",
       tipTitle: "Tip Pembelajaran",
       tipDesc: "Jangan cuba menterjemah perkataan demi perkataan dari Bahasa Inggeris. Sebaliknya, cuba fahami konsep dan corak dalam konteks Jepun mereka.",
@@ -1053,9 +934,6 @@ export const translations = {
         daily: "Kehidupan Harian",
         social: "Kehidupan Sosial"
       },
-      vocabulary: "Vocabulary",
-      culturalNotes: "Nota Budaya",
-      tryQuiz: "Cuba Kuiz"
     },
     // Blog
     blog: {
@@ -1066,9 +944,6 @@ export const translations = {
     blogCulture: {
       title: "Blog & Budaya",
       subtitle: "Artikel, pelajaran, dan kandungan panjang tentang pembelajaran dan budaya Jepun.",
-      filterAll: "Semua",
-      filterBlog: "Blog",
-      filterCulture: "Budaya",
       blog: "Blog",
       culture: "Budaya"
     },
@@ -1098,9 +973,6 @@ export const translations = {
         articles: "Artikel Jepun",
         otherResources: "Sumber Lain"
       },
-      visit: "Lawati",
-      navBack: "Kembali: Menggunakan AI",
-      navNext: "Seterusnya: Blog & Budaya",
       descriptions: {
         // Dictionary
         "Jisho.org": "Kamus Japanese-English percuma, boleh cari perkataan, kanji, atau radikal.",
@@ -1184,11 +1056,8 @@ export const translations = {
     about: {
       title: "Tentang Saya",
       subtitle: "Kaedah yang sebenarnya berkesan, dari seseorang yang sudah cuba semua.",
-      storyTitle: "Tentang Saya",
       storyContent: "Hi, saya <strong>Uthman</strong>, student Jepun macam korang! Saya tahu betapa frustrasinya belajar Jepun bila kanji macam garis rawak, grammar tak masuk akal, dan nothing stays in your head.<br><br>Saya mula belajar Jepun pada 2018 tapi <strong>berhenti</strong> selepas beberapa bulan. Kanji kelihatan seram, dan saya tak nampak bagaimana ia akan melekat. Selepas rehat lama, saya decide untuk <strong>paksa belajar</strong>  dan tak jadi seberat yang saya bayang.<br><br>Sejak 2021, saya belajar secara on and off sebab busy dengan universiti, tapi sampai <strong>mid 2025</strong> baru semuanya masuk. Saya mula konsum kandungan Jepun <strong>setiap hari</strong>  sama ada Hololive streams, J-drama, apa je yang saya boleh jejek dalam bahasa tu. Pemahaman saya meningkat banyak dengan flashcards dan SRS (Spaced Repetition System).<br><br>Kalau korang serius nak belajar, <strong>sertai kelas saya</strong> dan kita belajar sama-sama.",
       connectTitle: "Sambung",
-      followThreads: "Ikuti di Threads",
-      joinCommunity: " Sertai Komuniti"
     },
     // Footer
     footer: {
@@ -1209,62 +1078,12 @@ export const translations = {
       name: "Nama",
       age: "Umur",
       phone: "No Telefon",
-      currentLevel: "Tahap Jepun Sekarang",
-      classType: "Saya nak kelas",
-      selectClass: "Pilih jenis kelas",
-      oneOnOne: "1 on 1 (RM200/bulan)",
-      group: "Berkumpulan (RM150/bulan)",
       schedule: "Pilih hari dan masa yang available",
       submit: "Hantar",
       required: "* Ruangan required",
-      success: "Berjaya! Saya akan contact korang soon.",
-      error: "Something went wrong. Try again.",
       signupSuccess: "Signup berjaya!",
       signupError: "Something went wrong. Please try again.",
       joinClassBtn: "Nak kelas?",
-      section1Title: "Status Semasa",
-      section2Title: "Latar Belakang & Pengalaman",
-      section3Title: "Motivasi & Matlamat",
-      section4Title: "Mindset & Jangkaan",
-      section5Title: "Hampir Siap!",
-      next: "Seterusnya",
-      back: "Kembali",
-      selectScheduleError: "Sila pilih sekurang-kurangnya satu slot masa.",
-      fillAllRequired: "Sila isi semua ruangan yang diperlukan.",
-      studiedBeforeLabel: "Pernah belajar Jepun sebelum ni?",
-      studiedHowLabel: "Berapa lama? Apa kaedah yang digunakan?",
-      jlptTakenLabel: "Pernah ambil JLPT sebelum ni?",
-      jlptLevelLabel: "Level mana yang anda lulus?",
-      resourcesLabel: "Apa sumber yang pernah digunakan? (buku, app, website)",
-      exposureLabel: "Kandungan Jepun apa yang anda konsum selain belajar?",
-      whyJapaneseLabel: "Kenapa anda nak belajar Jepun?",
-      goalLabel: "Apakah matlamat utama anda?",
-      goalJlpt: "Lulus JLPT (sijil)",
-      goalFluency: "Boleh conversation dengan fluent",
-      goalTravel: "Travel / Tinggal di Jepun",
-      goalWork: "Kerja / Business",
-      goalAnime: "Nak faham anime / manga mentah",
-      goalUniversity: "Syarat universiti",
-      goalCulture: "Minat budaya",
-      goalOther: "Lain",
-      studyHoursLabel: "Berapa jam seminggu boleh commitment untuk belajar?",
-      studyHours14: "1-3 jam",
-      studyHours47: "4-7 jam",
-      studyHours814: "8-14 jam",
-      studyHours15: "15+ jam",
-      activitiesLabel: "Aktiviti pembelajaran apa yang anda enjoy?",
-      quitBeforeLabel: "Pernah cuba belajar Jepun sebelum ni dan quit?",
-      quitReasonLabel: "Kenapa anda rasa anda quit? Apa yang berbeza kali ni?",
-      challengesLabel: "Apa challenge yang anda expect?",
-      learningStyleLabel: "Bagaimana anda belajar paling best?",
-      styleVisual: "Visual (membaca, chart)",
-      styleAuditory: "Auditori (mendengar)",
-      styleReading: "Membaca / Menulis",
-      stylePractice: "Hands-on practice",
-      expectationsLabel: "Apa yang anda expect dari kelas ni?",
-      referralLabel: "Macam mana anda tahu tentang kelas ni?",
-      questionsLabel: "Soalan untuk saya?",
-      notesLabel: "Apa-apa lagi yang nak dikongsi?",
       // Class info screen
       classInfoTitle: "Kelas Jepun dengan Uthman",
       classInfoSubtitle: "Pelajaran 1-on-1 atau berkumpulan yang disesuaikan dengan matlamat anda",
@@ -1288,19 +1107,10 @@ export const translations = {
     common: {
       loading: "Memuatkan...",
       error: "Sesuatu tidak kena",
-      close: "Tutup",
       back: "Kembali",
-      next: "Seterusnya",
-      previous: "Sebelumnya",
       learnMore: "Ketahui Lagi",
-      start: "Mula",
-      continue: "Teruskan",
-      comingSoon: "Akan datang soon...",
       // Theme
-      darkMode: "Mod Gelap",
-      lightMode: "Mod Cahaya",
       // Status
-      success: "Berjaya!",
       audioNotSupported: "Pelayar anda tidak sokong audio.",
       // Validation
       submitting: "Menghantar..."
@@ -1317,18 +1127,6 @@ export const translations = {
     kanjiRules: {
       title: "Kanji",
       subtitle: "Fahami apakah kanji dan bagaimana ia berfungsi",
-      intro: "Kanji adalah satu daripada tiga sistem penulisan yang digunakan dalam bahasa Jepun. Setiap aksara mewakili satu makna atau konsep, berbeza dengan hiragana dan katakana yang mewakili bunyi.",
-      whyTitle: "Kenapa Belajar Kanji?",
-      whyPoint1: "Kanji menjadikan pembacaan bahasa Jepun mungkin. Hiragana sahaja tidak boleh membezakan perkataan seperti 橋 (jambatan) daripada 箸 (筷子)",
-      whyPoint2: "Walaupun di tahap N5, anda akan Jumpai lebih kurang 100 kanji. Itulah sebabnya ia adalah sebahagian daripada setiap tahap JLPT",
-      whyPoint3: "Sebaik sahaja anda mengenali kanji, vocabulary menjadi lebih mudah. Banyak perkataan diperbuat daripada kombinasi kanji",
-      radicalsTitle: "Radikal Biasa",
-      radicalsIntro: "Radikal adalah blok bangunan kanji. Kebanyakan kanji terdiri daripada radikal (yang memberikan petunjuk tentang makna) dan komponen lain.",
-      typesTitle: "Jenis-jenis Kanji",
-      onyomi: "Onyomi (Bacaan Cina)",
-      onyomiDesc: "Pengelasan bunyi daripada Cina. Digunakan dalam perkataan kompaun.",
-      kunyomi: "Kunyomi (Bacaan Jepun)",
-      kunyomiDesc: "Pengelasan bunyi asli Jepun. Sering digunakan apabila kanji berdiri sendiri.",
       subpage1Title: "Susunan Loretan",
       subpage1Subtitle: "Belajar cara yang betul untuk menulis kanji",
       subpage2Title: "Radikal",
@@ -1400,11 +1198,6 @@ export const translations = {
       newPost: "Post Baru",
       editPost: "Sunting",
       deletePost: "Padam",
-      postTitle: "Tajuk",
-      postSlug: "Slug",
-      postExcerpt: "Excerpt",
-      postContent: "Kandungan",
-      postTags: "Tags (comma separated)",
       savePost: "Simpan Post",
       cancel: "Batal",
       confirmDelete: "Betul nak delete post ni?",
@@ -1414,8 +1207,6 @@ export const translations = {
       readingTime: "Masa baca (minit)",
       tagsPlaceholder: "n5, tatabahasa, mindset",
       tagsHint: "Tekan Enter atau koma untuk tambah tag",
-      contentEnLabel: "Kandungan (English) * - Markdown supported",
-      contentMyLabel: "Kandungan (Malay)",
       contentPlaceholder: "# Heading\n\nKandungan anda di sini...",
       contentMyPlaceholder: "Kandungan Malay di sini (optional)...",
       coverImageLabel: "URL Imej Cover",
@@ -1437,10 +1228,6 @@ export const translations = {
         schedule: "Jadual",
         date: "Tarikh"
       },
-      requiredFields: "Sila isi semua ruangan yang diperlukan (tajuk English, slug, excerpt, content).",
-      postSaved: "Post berjaya disimpan!",
-      postSavedLocal: "Post disimpan secara lokal (Supabase tak dikonfiguras). Ia akan muncul pada peranti ini.",
-      fillAllRequired: "Sila isi semua ruangan yang diperlukan."
     },
     // Anki & Vocab Mining
     anki: {
@@ -1539,12 +1326,10 @@ export const translations = {
     // Comprehensible Input & Immersion
     immersion: {
       title: "Input Boleh Difahami & Penyerapan",
-      subtitle: "Bagaimana untuk memperoleh Jepun melalui penjerapan dan input yang boleh difahami"
     },
     // Using AI
     selfStudyAI: {
       title: "Menggunakan AI untuk Pembelajaran Jepun",
-      subtitle: "Bagaimana untuk menggunakan alat AI dengan berkesan untuk mempercepat pembelajaran Jepun anda"
     }
   }
 };
