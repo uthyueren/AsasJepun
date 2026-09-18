@@ -3742,9 +3742,9 @@ function renderPrivacyPolicyView() {
 
       <div class="page-header">
 
-        <h1>${lang === 'en' ? 'Privacy Policy' : 'Dasar Privasi'}</h1>
+        <h1>${t('privacyPolicy.title')}</h1>
 
-        <p>${lang === 'en' ? 'Last updated: September 2026' : 'Terakhir dikemas kini: September 2026'}</p>
+        <p>${t('privacyPolicy.lastUpdated')}</p>
 
       </div>
 
@@ -3754,19 +3754,19 @@ function renderPrivacyPolicyView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'Information We Collect' : 'Maklumat yang Kami Kumpul'}</h2>
+          <h2>${t('privacyPolicy.infoWeCollect')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'We collect information you provide directly to us, including:' : 'Kami mengumpul maklumat yang anda berikan kepada kami secara langsung, termasuk:'}</p>
+            <p>${t('privacyPolicy.infoWeCollectDesc')}</p>
 
             <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
 
-              <li>${lang === 'en' ? 'Name and contact information when you sign up for classes' : 'Nama dan maklumat hubungan apabila anda mendaftar untuk kelas'}</li>
+              <li>${t('privacyPolicy.nameContactInfo')}</li>
 
-              <li>${lang === 'en' ? 'Class preferences and scheduling information' : 'Keutamaan kelas dan maklumat penjadualan'}</li>
+              <li>${t('privacyPolicy.classPreferences')}</li>
 
-              <li>${lang === 'en' ? 'Communication preferences' : 'Keutamaan komunikasi'}</li>
+              <li>${t('privacyPolicy.communicationPreferences')}</li>
 
             </ul>
 
@@ -3778,17 +3778,17 @@ function renderPrivacyPolicyView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'How We Use Your Information' : 'Bagaimana Kami Menggunakan Maklumat Anda'}</h2>
+          <h2>${t('privacyPolicy.howWeUse')}</h2>
 
           <div class="info-card">
 
             <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
 
-              <li>${lang === 'en' ? 'To provide and maintain our classes and services' : 'Untuk menyediakan dan mengekalkan kelas dan perkhidmatan kami'}</li>
+              <li>${t('privacyPolicy.provideMaintain')}</li>
 
-              <li>${lang === 'en' ? 'To communicate with you about your classes and account' : 'Untuk berkomunikasi dengan anda tentang kelas dan akaun anda'}</li>
+              <li>${t('privacyPolicy.communicateWithYou')}</li>
 
-              <li>${lang === 'en' ? 'To improve our website and services' : 'Untuk menambah baik website dan perkhidmatan kami'}</li>
+              <li>${t('privacyPolicy.improveOurWebsite')}</li>
 
             </ul>
 
@@ -3800,11 +3800,11 @@ function renderPrivacyPolicyView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'Data Storage' : 'Storan Data'}</h2>
+          <h2>${t('privacyPolicy.dataStorage')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'We use Supabase as our data storage provider. Your personal information is stored securely and is only accessible to us. We do not sell or share your personal information with third parties.' : 'Kami menggunakan Supabase sebagai pembekal storan data kami. Maklumat peribadi anda disimpan dengan selamat dan hanya boleh diakses oleh kami. Kami tidak menjual atau berkongsi maklumat peribadi anda dengan pihak ketiga.'}</p>
+            <p>${t('privacyPolicy.dataStorageDesc')}</p>
 
           </div>
 
@@ -3814,11 +3814,11 @@ function renderPrivacyPolicyView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'Cookies' : 'Kuki'}</h2>
+          <h2>${t('privacyPolicy.cookies')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'We use cookies to remember your preferences (such as language and theme settings). You can choose to disable cookies through your browser settings, but some features may not work properly.' : 'Kami menggunakan kuki untuk mengingat keutamaan anda (seperti tetapan bahasa dan tema). Anda boleh memilih untuk melumpuhkan kuki melalui tetapan pelayar anda, tetapi beberapa ciri mungkin tidak berfungsi dengan betul.'}</p>
+            <p>${t('privacyPolicy.cookiesDesc')}</p>
 
           </div>
 
@@ -3828,11 +3828,11 @@ function renderPrivacyPolicyView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'Contact Us' : 'Hubungi Kami'}</h2>
+          <h2>${t('privacyPolicy.contactUs')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'If you have any questions about this Privacy Policy, please contact us through our <a href="/about">About page</a>.' : 'Jika anda mempunyai apa-apa soalan tentang Dasar Privasi ini, sila hubungi kami melalui <a href="/about">halaman Tentang</a> kami.'}</p>
+            <p>${t('privacyPolicy.contactUsDesc')}</p>
 
           </div>
 
@@ -3874,9 +3874,9 @@ function renderTermsView() {
 
       <div class="page-header">
 
-        <h1>${lang === 'en' ? 'Terms & Conditions' : 'Syarat & Ketetapan'}</h1>
+        <h1>${t('terms.title')}</h1>
 
-        <p>${lang === 'en' ? 'Last updated: September 2026' : 'Terakhir dikemas kini: September 2026'}</p>
+        <p>${t('terms.lastUpdated')}</p>
 
       </div>
 
@@ -3886,11 +3886,11 @@ function renderTermsView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'Services' : 'Perkhidmatan'}</h2>
+          <h2>${t('terms.services')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'AsasJepun provides Japanese language learning resources and online classes. By using our services, you agree to these terms and conditions.' : 'AsasJepun menyediakan sumber pembelajaran bahasa Jepun dan kelas dalam talian. Dengan menggunakan perkhidmatan kami, anda bersetuju dengan syarat dan ketetapan ini.'}</p>
+            <p>${t('terms.servicesDesc')}</p>
 
           </div>
 
@@ -3900,17 +3900,17 @@ function renderTermsView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'Class Registration' : 'Pendaftaran Kelas'}</h2>
+          <h2>${t('terms.classRegistration')}</h2>
 
           <div class="info-card">
 
             <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
 
-              <li>${lang === 'en' ? 'Registration is confirmed upon payment receipt' : 'Pendaftaran disahkan setelah penerimaan pembayaran'}</li>
+              <li>${t('terms.registrationConfirmed')}</li>
 
-              <li>${lang === 'en' ? 'Classes are conducted online via Google Meet' : 'Kelas dijalankan dalam talian melalui Google Meet'}</li>
+              <li>${t('terms.classesOnline')}</li>
 
-              <li>${lang === 'en' ? 'You are responsible for ensuring you have a stable internet connection' : 'Anda bertanggungjawab untuk memastikan anda mempunyai sambungan internet yang stabil'}</li>
+              <li>${t('terms.stableInternet')}</li>
 
             </ul>
 
@@ -3922,17 +3922,17 @@ function renderTermsView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'Payment Terms' : 'Syarat Pembayaran'}</h2>
+          <h2>${t('terms.paymentTerms')}</h2>
 
           <div class="info-card">
 
             <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
 
-              <li>${lang === 'en' ? 'Payment is due at the beginning of each month' : 'Pembayaran perlu dilakukan pada awal setiap bulan'}</li>
+              <li>${t('terms.paymentDue')}</li>
 
-              <li>${lang === 'en' ? '1-on-1 classes: RM200/month (4 classes)' : 'Kelas 1-on-1: RM200/bulan (4 kelas)'}</li>
+              <li>${t('terms.payment1on1')}</li>
 
-              <li>${lang === 'en' ? 'Group classes: RM150/month (4 classes)' : 'Kelas berkumpulan: RM150/bulan (4 kelas)'}</li>
+              <li>${t('terms.paymentGroup')}</li>
 
             </ul>
 
@@ -3944,11 +3944,11 @@ function renderTermsView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'Cancellation Policy' : 'Dasar Pembatalan'}</h2>
+          <h2>${t('terms.cancellationPolicy')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'If you need to cancel or reschedule a class, please provide at least 24 hours notice. Classes cancelled with less than 24 hours notice may be counted as completed.' : 'Jika anda perlu membatalkan atau menjadualkan semula kelas, sila berikan sekurang-kurangnya 24 jam notis. Kelas yang dibatalkan dengan kurang daripada 24 jam notis mungkin dikira sebagai selesai.'}</p>
+            <p>${t('terms.cancellationPolicyDesc')}</p>
 
           </div>
 
@@ -3958,11 +3958,11 @@ function renderTermsView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'Intellectual Property' : 'Harta Intelek'}</h2>
+          <h2>${t('terms.intellectualProperty')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'All content on this website, including but not limited to text, graphics, logos, and images, is the property of AsasJepun and is protected by copyright laws.' : 'Semua kandungan di website ini, termasuk tetapi tidak terhad kepada teks, grafik, logo, dan imej, adalah milik AsasJepun dan dilindungi oleh undang-undang hak cipta.'}</p>
+            <p>${t('terms.intellectualPropertyDesc')}</p>
 
           </div>
 
@@ -3972,11 +3972,11 @@ function renderTermsView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'Limitation of Liability' : 'Had Liabiliti'}</h2>
+          <h2>${t('terms.limitationLiability')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'While we strive to provide accurate and up-to-date information, we cannot guarantee the completeness or accuracy of all content. Use of this website and our services is at your own risk.' : 'Walaupun kami berusaha untuk menyediakan maklumat yang tepat dan terkini, kami tidak dapat menjamin kesempurnaan atau ketepatan semua kandungan. Penggunaan website ini dan perkhidmatan kami adalah atas risiko anda sendiri.'}</p>
+            <p>${t('terms.limitationLiabilityDesc')}</p>
 
           </div>
 
@@ -3986,11 +3986,11 @@ function renderTermsView() {
 
         <section class="info-section">
 
-          <h2>${lang === 'en' ? 'Contact Us' : 'Hubungi Kami'}</h2>
+          <h2>${t('terms.contactUs')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'If you have any questions about these Terms & Conditions, please contact us through our <a href="/about">About page</a>.' : 'Jika anda mempunyai apa-apa soalan tentang Syarat & Ketetapan ini, sila hubungi kami melalui <a href="/about">halaman Tentang</a> kami.'}</p>
+            <p>${t('terms.contactUsDesc')}</p>
 
           </div>
 

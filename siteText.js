@@ -270,11 +270,46 @@ export const translations = {
     },
     // Privacy Policy
     privacyPolicy: {
-      title: "Privacy Policy"
+      title: "Privacy Policy",
+      lastUpdated: "Last updated: September 2026",
+      infoWeCollect: "Information We Collect",
+      infoWeCollectDesc: "We collect information you provide directly to us, including:",
+      nameContactInfo: "Name and contact information when you sign up for classes",
+      classPreferences: "Class preferences and scheduling information",
+      communicationPreferences: "Communication preferences",
+      howWeUse: "How We Use Your Information",
+      provideMaintain: "To provide and maintain our classes and services",
+      communicateWithYou: "To communicate with you about your classes and account",
+      improveOurWebsite: "To improve our website and services",
+      dataStorage: "Data Storage",
+      dataStorageDesc: "We use Supabase as our data storage provider. Your personal information is stored securely and is only accessible to us. We do not sell or share your personal information with third parties.",
+      cookies: "Cookies",
+      cookiesDesc: "We use cookies to remember your preferences (such as language and theme settings). You can choose to disable cookies through your browser settings, but some features may not work properly.",
+      contactUs: "Contact Us",
+      contactUsDesc: "If you have any questions about this Privacy Policy, please contact us through our <a href=\"/about\">About page</a>."
     },
     // Terms
     terms: {
-      title: "Terms & Conditions"
+      title: "Terms & Conditions",
+      lastUpdated: "Last updated: September 2026",
+      services: "Services",
+      servicesDesc: "AsasJepun provides Japanese language learning resources and online classes. By using our services, you agree to these terms and conditions.",
+      classRegistration: "Class Registration",
+      registrationConfirmed: "Registration is confirmed upon payment receipt",
+      classesOnline: "Classes are conducted online via Google Meet",
+      stableInternet: "You are responsible for ensuring you have a stable internet connection",
+      paymentTerms: "Payment Terms",
+      paymentDue: "Payment is due at the beginning of each month",
+      payment1on1: "1-on-1 classes: RM200/month (4 classes)",
+      paymentGroup: "Group classes: RM150/month (4 classes)",
+      cancellationPolicy: "Cancellation Policy",
+      cancellationPolicyDesc: "If you need to cancel or reschedule a class, please provide at least 24 hours notice. Classes cancelled with less than 24 hours notice may be counted as completed.",
+      intellectualProperty: "Intellectual Property",
+      intellectualPropertyDesc: "All content on this website, including but not limited to text, graphics, logos, and images, is the property of AsasJepun and is protected by copyright laws.",
+      limitationLiability: "Limitation of Liability",
+      limitationLiabilityDesc: "While we strive to provide accurate and up-to-date information, we cannot guarantee the completeness or accuracy of all content. Use of this website and our services is at your own risk.",
+      contactUs: "Contact Us",
+      contactUsDesc: "If you have any questions about these Terms & Conditions, please contact us through our <a href=\"/about\">About page</a>."
     },
     // Common
     common: {
@@ -695,19 +730,6 @@ export const translations = {
         phase8: "Fasa 8",
         phase9: "Fasa 9"
       },
-      n1: {
-        title: "Routine Konsisten + Prep N1",
-        desc: "Kuasai bahasa Jepun tahap hampir native dengan keigo bisnes dan struktur kompleks.",
-        duration: "8 - 12 Bulan",
-        activity: "~1,000 Kanji | ~5,000 Vocab",
-        focusTitle: "Fokus Pembelajaran:",
-        items: [
-          "Business keigo dan ekspresi formal",
-          "Struktur ayat kompleks (倒置法, 強調, dll)",
-          "~1,000 kanji total",
-          "Reading dan listening tahap native"
-        ]
-      },
       kana: {
         title: "Kana (Aksara Jepun)",
         desc: "Belajar Hiragana dan Katakana dari sifar.",
@@ -798,6 +820,19 @@ export const translations = {
           "Prep N2 dan latihan"
         ]
       },
+      n1: {
+        title: "Routine Konsisten + Prep N1",
+        desc: "Kuasai bahasa Jepun tahap hampir native dengan keigo bisnes dan struktur kompleks.",
+        duration: "8 - 12 Bulan",
+        activity: "~1,000 Kanji | ~5,000 Vocab",
+        focusTitle: "Fokus Pembelajaran:",
+        items: [
+          "Business keigo dan ekspresi formal",
+          "Struktur ayat kompleks (倒置法, 強調, dll)",
+          "~1,000 kanji total",
+          "Reading dan listening tahap native"
+        ]
+      },
       continues: {
         title: "Pembelajaran Berlanjutan",
         desc: "Di luar tahap berstruktur. Kandungan asli, pembacaan lanjutan, latihan pertuturan.",
@@ -814,10 +849,10 @@ export const translations = {
     },
     // Introduction Page
     introduction: {
-      title: "Pengenalan kepada Bahasa Jepun",
+      title: "Pengenalan Bahasa Jepun",
       subtitle: "Langkah pertama anda untuk memahami bahasa Jepun",
       welcomeTitle: "Apa itu Bahasa Jepun?",
-      welcomeDesc: "Bahasa Jepun dituturkan oleh kira-kira 130 juta orang di Jepun dan komuniti Jepun di seluruh dunia. Ia tergolong dalam keluarga bahasa Japonic, yang tidak mempunyai hubungan geneologis yang luas diterima dengan mana-mana keluarga bahasa lain.",
+      welcomeDesc: "Bahasa Jepun digunakan oleh kira-kira 130 juta orang di Jepun dan komuniti Jepun di seluruh dunia. Ia tergolong dalam keluarga bahasa Japonic, yang tidak mempunyai hubungan geneologis yang luas diterima dengan mana-mana keluarga bahasa lain.",
       writingTitle: "Sistem Penulisan",
       writingDesc: "Bahasa Jepun menggunakan tiga sistem penulisan digabungkan:",
       writingPoint1: "Hiragana - Digunakan untuk perkataan asli Jepun dan unsur tatabahasa",
@@ -975,11 +1010,46 @@ export const translations = {
     },
     // Privacy Policy
     privacyPolicy: {
-      title: "Dasar Privasi"
+      title: "Dasar Privasi",
+      lastUpdated: "Terakhir dikemas kini: September 2026",
+      infoWeCollect: "Maklumat yang Kami Kumpul",
+      infoWeCollectDesc: "Kami mengumpul maklumat yang anda berikan kepada kami secara langsung, termasuk:",
+      nameContactInfo: "Nama dan maklumat hubungan apabila anda mendaftar untuk kelas",
+      classPreferences: "Keutamaan kelas dan maklumat penjadualan",
+      communicationPreferences: "Keutamaan komunikasi",
+      howWeUse: "Bagaimana Kami Menggunakan Maklumat Anda",
+      provideMaintain: "Untuk menyediakan dan mengekalkan kelas dan perkhidmatan kami",
+      communicateWithYou: "Untuk berkomunikasi dengan anda tentang kelas dan akaun anda",
+      improveOurWebsite: "Untuk menambah baik website dan perkhidmatan kami",
+      dataStorage: "Storan Data",
+      dataStorageDesc: "Kami menggunakan Supabase sebagai pembekal storan data kami. Maklumat peribadi anda disimpan dengan selamat dan hanya boleh diakses oleh kami. Kami tidak menjual atau berkongsi maklumat peribadi anda dengan pihak ketiga.",
+      cookies: "Kuki",
+      cookiesDesc: "Kami menggunakan kuki untuk mengingat keutamaan anda (seperti tetapan bahasa dan tema). Anda boleh memilih untuk melumpuhkan kuki melalui tetapan pelayar anda, tetapi beberapa ciri mungkin tidak berfungsi dengan betul.",
+      contactUs: "Hubungi Kami",
+      contactUsDesc: "Jika anda mempunyai apa-apa soalan tentang Dasar Privasi ini, sila hubungi kami melalui <a href=\"/about\">halaman Tentang</a> kami."
     },
     // Terms
     terms: {
-      title: "Syarat & Ketetapan"
+      title: "Syarat & Ketetapan",
+      lastUpdated: "Terakhir dikemas kini: September 2026",
+      services: "Perkhidmatan",
+      servicesDesc: "AsasJepun menyediakan sumber pembelajaran bahasa Jepun dan kelas dalam talian. Dengan menggunakan perkhidmatan kami, anda bersetuju dengan syarat dan ketetapan ini.",
+      classRegistration: "Pendaftaran Kelas",
+      registrationConfirmed: "Pendaftaran disahkan setelah penerimaan pembayaran",
+      classesOnline: "Kelas dijalankan dalam talian melalui Google Meet",
+      stableInternet: "Anda bertanggungjawab untuk memastikan anda mempunyai sambungan internet yang stabil",
+      paymentTerms: "Syarat Pembayaran",
+      paymentDue: "Pembayaran perlu dilakukan pada awal setiap bulan",
+      payment1on1: "Kelas 1-on-1: RM200/bulan (4 kelas)",
+      paymentGroup: "Kelas berkumpulan: RM150/bulan (4 kelas)",
+      cancellationPolicy: "Dasar Pembatalan",
+      cancellationPolicyDesc: "Jika anda perlu membatalkan atau menjadualkan semula kelas, sila berikan sekurang-kurangnya 24 jam notis. Kelas yang dibatalkan dengan kurang daripada 24 jam notis mungkin dikira sebagai selesai.",
+      intellectualProperty: "Harta Intelek",
+      intellectualPropertyDesc: "Semua kandungan di website ini, termasuk tetapi tidak terhad kepada teks, grafik, logo, dan imej, adalah milik AsasJepun dan dilindungi oleh undang-undang hak cipta.",
+      limitationLiability: "Had Liabiliti",
+      limitationLiabilityDesc: "Walaupun kami berusaha untuk menyediakan maklumat yang tepat dan terkini, kami tidak dapat menjamin kesempurnaan atau ketepatan semua kandungan. Penggunaan website ini dan perkhidmatan kami adalah atas risiko anda sendiri.",
+      contactUs: "Hubungi Kami",
+      contactUsDesc: "Jika anda mempunyai apa-apa soalan tentang Syarat & Ketetapan ini, sila hubungi kami melalui <a href=\"/about\">halaman Tentang</a> kami."
     },
     // Signup Modal
     signup: {
