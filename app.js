@@ -484,9 +484,9 @@ function updateI18nText() {
 
 function reRenderCurrentView() {
 
-  const hash = window.location.hash || "#home";
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
 
-  const route = hash.replace("#", "");
+  const route = path === '/' ? 'home' : path.replace('/', '');
 
 
 
@@ -1069,15 +1069,107 @@ async function handleSignupSubmit(e) {
 
 
 
+// Meta tag updater
+function updateMeta(route) {
+  const metaDesc = document.querySelector('meta[name="description"]');
+  const titles = {
+    "home": "AsasJepun - Learn Japanese from Scratch",
+    "introduction": "Introduction to Japanese learning - AsasJepun",
+    "introduction/jlpt": "What is JLPT? Learn about Japanese JLPT levels - AsasJepun",
+    "kana": "Hiragana & Katakana Charts - AsasJepun",
+    "kana/subpage1": "Vowel Lengthening (Long Vowels) - AsasJepun",
+    "kana/subpage2": "Tenten and Maru - AsasJepun",
+    "kana/subpage3": "Small Characters - AsasJepun",
+    "kanji-rules": "Kanji Rules and Mnemonics - AsasJepun",
+    "kanji-rules/subpage1": "Kanji Stroke Order - AsasJepun",
+    "kanji-rules/subpage2": "Kanji Radicals - AsasJepun",
+    "kanji-rules/subpage3": "Kanji in Names - AsasJepun",
+    "self-study/anki": "Anki & Vocabulary Mining - AsasJepun",
+    "self-study/immersion": "Comprehensible Input & Immersion - AsasJepun",
+    "self-study/ai": "Using AI for Japanese Learning - AsasJepun",
+    "roadmap": "Japanese Learning Roadmap - AsasJepun",
+    "resources": "Japanese Learning Resources - AsasJepun",
+    "blog": "Blog - AsasJepun",
+    "culture": "Culture Lessons - AsasJepun",
+    "about": "About - AsasJepun",
+    "privacy-policy": "Privacy Policy - AsasJepun",
+    "terms": "Terms & Conditions - AsasJepun",
+  };
+  const descriptions = {
+    "home": "Learn Japanese for beginners. Interactive Hiragana/Katakana charts, roadmap guide, JLPT N5 to N3 levels with cards, grammar rules, and culture lessons.",
+    "introduction": "Introduction to Japanese learning for beginners. Understand the basics and get started on your journey.",
+    "introduction/jlpt": "Learn about the Japanese Language Proficiency Test (JLPT) - from N5 to N1 levels explained.",
+    "kana": "Interactive Hiragana and Katakana charts with audio pronunciation. Learn Japanese characters effectively.",
+    "kana/subpage1": "Learn about long vowels in Japanese - how to pronounce and distinguish them in Hiragana and Katakana.",
+    "kana/subpage2": "Understand Tenten (handakuten) and Maru modifications in Katakana.",
+    "kana/subpage3": "Master small kana characters (sokuon, youon) in Japanese.",
+    "kanji-rules": "Learn Kanji with effective rules, mnemonics, and stroke order guidance.",
+    "kanji-rules/subpage1": "Kanji stroke order rules and practice. Learn the correct way to write kanji.",
+    "kanji-rules/subpage2": "Understand kanji radicals (bushu) - the building blocks of kanji characters.",
+    "kanji-rules/subpage3": "How kanji is used in Japanese names - readings and conventions.",
+    "self-study/anki": "How to use Anki and vocabulary mining for effective Japanese vocabulary acquisition.",
+    "self-study/immersion": "Comprehensible input and immersion techniques for natural Japanese acquisition.",
+    "self-study/ai": "How to use AI tools like ChatGPT effectively for Japanese learning.",
+    "roadmap": "Your complete Japanese learning journey from beginner to advanced - a structured roadmap.",
+    "resources": "Curated Japanese learning resources - dictionaries, Anki decks, YouTube channels, podcasts and more.",
+    "blog": "Japanese learning blog - tips, guides and insights from a Malaysian Japanese learner.",
+    "culture": "Japanese culture lessons for Malaysian learners - traditions, customs and more.",
+    "about": "About AsasJepun - a Malaysian Japanese learner's guide to mastering Japanese.",
+    "privacy-policy": "Privacy policy for AsasJepun website.",
+    "terms": "Terms and conditions for using AsasJepun website.",
+  };
+
+  // Handle blog/culture slugs
+  let baseRoute = route;
+  if (route.startsWith("blog/") || route.startsWith("culture/")) {
+    baseRoute = route.split("/")[0];
+  }
+
+  document.title = titles[baseRoute] || titles["home"];
+  if (metaDesc) {
+    metaDesc.setAttribute("content", descriptions[baseRoute] || descriptions["home"]);
+  }
+}
+
+// 404 View
+function renderNotFoundView() {
+  state.currentView = "not-found";
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = "404 - Page Not Found";
+
+  const appView = document.getElementById("app-view");
+  const lang = getLanguage();
+
+  appView.innerHTML = `
+    <div class="fade-in" style="text-align: center; padding: 80px 20px;">
+      <div style="font-size: 120px; line-height: 1; margin-bottom: 24px;">
+        <span style="opacity: 0.15;">あ</span>
+      </div>
+      <h1 style="font-size: 2.5rem; margin-bottom: 16px;">404</h1>
+      <p style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 32px;">
+        ${lang === 'en' ? 'Oops! This page does not exist.' : 'Oops! Halaman ini tidak wujud.'}
+      </p>
+      <a href="#home" class="btn-cta-primary" style="display: inline-block;">
+        ${lang === 'en' ? 'Go Home' : 'Pulang ke Laman Utama'}
+      </a>
+    </div>
+  `;
+}
+
+
 // Simple Hash Router
+function navigateTo(path) {
+  history.pushState(null, '', path);
+  // Dispatch popstate so router handles the route
+  window.dispatchEvent(new PopStateEvent('popstate'));
+}
 
 function initRouter() {
 
   const handleRoute = () => {
 
-    const hash = window.location.hash || "#home";
+    const path = window.location.pathname.replace(/\/$/, '') || '/';
 
-    const route = hash.replace("#", "");
+    const route = path === '/' ? 'home' : path.replace('/', '');
 
 
 
@@ -1189,13 +1281,21 @@ function initRouter() {
 
       renderSelfStudyView();
 
+    } else if (route === "privacy-policy") {
+
+      renderPrivacyPolicyView();
+
+    } else if (route === "terms") {
+
+      renderTermsView();
+
     } else {
 
-      renderIntroView(); // Fallback
+      renderNotFoundView(); // 404
 
     }
 
-
+    updateMeta(route);
 
     // Scroll to top of app-body
 
@@ -1205,7 +1305,7 @@ function initRouter() {
 
 
 
-  window.addEventListener("hashchange", handleRoute);
+  window.addEventListener("popstate", handleRoute);
 
   handleRoute(); // Call once on load
 
@@ -2716,7 +2816,7 @@ async function handleBlogCultureRoute(route) {
     card.addEventListener('click', () => {
       const slug = card.dataset.slug;
       const type = card.dataset.type;
-      window.location.hash = `#${type}/${slug}`;
+      navigateTo(`/${type}/${slug}`);
     });
   });
 
@@ -2814,7 +2914,7 @@ function renderCultureView() {
 
     card.addEventListener('click', () => {
 
-      window.location.hash = `#culture/${card.dataset.slug}`;
+      navigateTo(`/culture/${card.dataset.slug}`);
 
     });
 
@@ -2865,7 +2965,7 @@ async function renderCultureLessonView(slug) {
   }
 
   if (!lesson) {
-    window.location.hash = '#culture';
+    navigateTo('/culture');
     return;
   }
 
@@ -3069,7 +3169,7 @@ function renderBlogView() {
 
     card.addEventListener('click', () => {
 
-      window.location.hash = `#blog/${card.dataset.slug}`;
+      navigateTo(`/blog/${card.dataset.slug}`);
 
     });
 
@@ -3124,7 +3224,7 @@ async function renderBlogArticleView(slug) {
   }
 
   if (!post) {
-    window.location.hash = '#blog';
+    navigateTo('/blog');
     return;
   }
 
@@ -3605,6 +3705,296 @@ function renderAboutView() {
           </div>
 
         </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* ==========================================================================
+
+   PRIVACY POLICY VIEW
+
+   ========================================================================== */
+
+
+
+function renderPrivacyPolicyView() {
+
+  state.currentView = "privacy-policy";
+
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('privacyPolicy.title');
+
+  const lang = getLanguage();
+
+
+
+  const appView = document.getElementById("app-view");
+
+  appView.innerHTML = `
+
+    <div class="fade-in">
+
+      <div class="page-header">
+
+        <h1>${lang === 'en' ? 'Privacy Policy' : 'Dasar Privasi'}</h1>
+
+        <p>${lang === 'en' ? 'Last updated: September 2026' : 'Terakhir dikemas kini: September 2026'}</p>
+
+      </div>
+
+
+
+      <div class="info-content" style="max-width: 800px; margin: 0 auto;">
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'Information We Collect' : 'Maklumat yang Kami Kumpul'}</h2>
+
+          <div class="info-card">
+
+            <p>${lang === 'en' ? 'We collect information you provide directly to us, including:' : 'Kami mengumpul maklumat yang anda berikan kepada kami secara langsung, termasuk:'}</p>
+
+            <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
+
+              <li>${lang === 'en' ? 'Name and contact information when you sign up for classes' : 'Nama dan maklumat hubungan apabila anda mendaftar untuk kelas'}</li>
+
+              <li>${lang === 'en' ? 'Class preferences and scheduling information' : 'Keutamaan kelas dan maklumat penjadualan'}</li>
+
+              <li>${lang === 'en' ? 'Communication preferences' : 'Keutamaan komunikasi'}</li>
+
+            </ul>
+
+          </div>
+
+        </section>
+
+
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'How We Use Your Information' : 'Bagaimana Kami Menggunakan Maklumat Anda'}</h2>
+
+          <div class="info-card">
+
+            <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
+
+              <li>${lang === 'en' ? 'To provide and maintain our classes and services' : 'Untuk menyediakan dan mengekalkan kelas dan perkhidmatan kami'}</li>
+
+              <li>${lang === 'en' ? 'To communicate with you about your classes and account' : 'Untuk berkomunikasi dengan anda tentang kelas dan akaun anda'}</li>
+
+              <li>${lang === 'en' ? 'To improve our website and services' : 'Untuk menambah baik website dan perkhidmatan kami'}</li>
+
+            </ul>
+
+          </div>
+
+        </section>
+
+
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'Data Storage' : 'Storan Data'}</h2>
+
+          <div class="info-card">
+
+            <p>${lang === 'en' ? 'We use Supabase as our data storage provider. Your personal information is stored securely and is only accessible to us. We do not sell or share your personal information with third parties.' : 'Kami menggunakan Supabase sebagai pembekal storan data kami. Maklumat peribadi anda disimpan dengan selamat dan hanya boleh diakses oleh kami. Kami tidak menjual atau berkongsi maklumat peribadi anda dengan pihak ketiga.'}</p>
+
+          </div>
+
+        </section>
+
+
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'Cookies' : 'Kuki'}</h2>
+
+          <div class="info-card">
+
+            <p>${lang === 'en' ? 'We use cookies to remember your preferences (such as language and theme settings). You can choose to disable cookies through your browser settings, but some features may not work properly.' : 'Kami menggunakan kuki untuk mengingat keutamaan anda (seperti tetapan bahasa dan tema). Anda boleh memilih untuk melumpuhkan kuki melalui tetapan pelayar anda, tetapi beberapa ciri mungkin tidak berfungsi dengan betul.'}</p>
+
+          </div>
+
+        </section>
+
+
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'Contact Us' : 'Hubungi Kami'}</h2>
+
+          <div class="info-card">
+
+            <p>${lang === 'en' ? 'If you have any questions about this Privacy Policy, please contact us through our <a href="#about">About page</a>.' : 'Jika anda mempunyai apa-apa soalan tentang Dasar Privasi ini, sila hubungi kami melalui <a href="#about">halaman Tentang</a> kami.'}</p>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* ==========================================================================
+
+   TERMS & CONDITIONS VIEW
+
+   ========================================================================== */
+
+
+
+function renderTermsView() {
+
+  state.currentView = "terms";
+
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('terms.title');
+
+  const lang = getLanguage();
+
+
+
+  const appView = document.getElementById("app-view");
+
+  appView.innerHTML = `
+
+    <div class="fade-in">
+
+      <div class="page-header">
+
+        <h1>${lang === 'en' ? 'Terms & Conditions' : 'Syarat & Ketetapan'}</h1>
+
+        <p>${lang === 'en' ? 'Last updated: September 2026' : 'Terakhir dikemas kini: September 2026'}</p>
+
+      </div>
+
+
+
+      <div class="info-content" style="max-width: 800px; margin: 0 auto;">
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'Services' : 'Perkhidmatan'}</h2>
+
+          <div class="info-card">
+
+            <p>${lang === 'en' ? 'AsasJepun provides Japanese language learning resources and online classes. By using our services, you agree to these terms and conditions.' : 'AsasJepun menyediakan sumber pembelajaran bahasa Jepun dan kelas dalam talian. Dengan menggunakan perkhidmatan kami, anda bersetuju dengan syarat dan ketetapan ini.'}</p>
+
+          </div>
+
+        </section>
+
+
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'Class Registration' : 'Pendaftaran Kelas'}</h2>
+
+          <div class="info-card">
+
+            <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
+
+              <li>${lang === 'en' ? 'Registration is confirmed upon payment receipt' : 'Pendaftaran disahkan setelah penerimaan pembayaran'}</li>
+
+              <li>${lang === 'en' ? 'Classes are conducted online via Google Meet' : 'Kelas dijalankan dalam talian melalui Google Meet'}</li>
+
+              <li>${lang === 'en' ? 'You are responsible for ensuring you have a stable internet connection' : 'Anda bertanggungjawab untuk memastikan anda mempunyai sambungan internet yang stabil'}</li>
+
+            </ul>
+
+          </div>
+
+        </section>
+
+
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'Payment Terms' : 'Syarat Pembayaran'}</h2>
+
+          <div class="info-card">
+
+            <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
+
+              <li>${lang === 'en' ? 'Payment is due at the beginning of each month' : 'Pembayaran perlu dilakukan pada awal setiap bulan'}</li>
+
+              <li>${lang === 'en' ? '1-on-1 classes: RM200/month (4 classes)' : 'Kelas 1-on-1: RM200/bulan (4 kelas)'}</li>
+
+              <li>${lang === 'en' ? 'Group classes: RM150/month (4 classes)' : 'Kelas berkumpulan: RM150/bulan (4 kelas)'}</li>
+
+            </ul>
+
+          </div>
+
+        </section>
+
+
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'Cancellation Policy' : 'Dasar Pembatalan'}</h2>
+
+          <div class="info-card">
+
+            <p>${lang === 'en' ? 'If you need to cancel or reschedule a class, please provide at least 24 hours notice. Classes cancelled with less than 24 hours notice may be counted as completed.' : 'Jika anda perlu membatalkan atau menjadualkan semula kelas, sila berikan sekurang-kurangnya 24 jam notis. Kelas yang dibatalkan dengan kurang daripada 24 jam notis mungkin dikira sebagai selesai.'}</p>
+
+          </div>
+
+        </section>
+
+
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'Intellectual Property' : 'Harta Intelek'}</h2>
+
+          <div class="info-card">
+
+            <p>${lang === 'en' ? 'All content on this website, including but not limited to text, graphics, logos, and images, is the property of AsasJepun and is protected by copyright laws.' : 'Semua kandungan di website ini, termasuk tetapi tidak terhad kepada teks, grafik, logo, dan imej, adalah milik AsasJepun dan dilindungi oleh undang-undang hak cipta.'}</p>
+
+          </div>
+
+        </section>
+
+
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'Limitation of Liability' : 'Had Liabiliti'}</h2>
+
+          <div class="info-card">
+
+            <p>${lang === 'en' ? 'While we strive to provide accurate and up-to-date information, we cannot guarantee the completeness or accuracy of all content. Use of this website and our services is at your own risk.' : 'Walaupun kami berusaha untuk menyediakan maklumat yang tepat dan terkini, kami tidak dapat menjamin kesempurnaan atau ketepatan semua kandungan. Penggunaan website ini dan perkhidmatan kami adalah atas risiko anda sendiri.'}</p>
+
+          </div>
+
+        </section>
+
+
+
+        <section class="info-section">
+
+          <h2>${lang === 'en' ? 'Contact Us' : 'Hubungi Kami'}</h2>
+
+          <div class="info-card">
+
+            <p>${lang === 'en' ? 'If you have any questions about these Terms & Conditions, please contact us through our <a href="#about">About page</a>.' : 'Jika anda mempunyai apa-apa soalan tentang Syarat & Ketetapan ini, sila hubungi kami melalui <a href="#about">halaman Tentang</a> kami.'}</p>
+
+          </div>
+
+        </section>
 
       </div>
 
@@ -9688,7 +10078,7 @@ async function renderAdminDashboard(appView) {
 
     editingPostData = null;
 
-    window.location.hash = '#new-post';
+    navigateTo('/new-post');
 
   });
 
@@ -9860,7 +10250,7 @@ function renderAdminPostsList(container, posts) {
 
       if (post) {
         editingPostData = post;
-        window.location.hash = '#new-post?type=' + (post.type || 'blog');
+        navigateTo('/new-post?type=' + (post.type || 'blog'));
       }
 
     });
@@ -10075,7 +10465,7 @@ async function savePostFromForm() {
 
     editingPostData = null;
 
-    window.location.hash = '#admin';
+    navigateTo('/admin');
 
   } catch (e) {
 
@@ -10103,7 +10493,7 @@ async function savePostFromForm() {
 
     editingPostData = null;
 
-    window.location.hash = '#admin';
+    navigateTo('/admin');
 
   }
 
