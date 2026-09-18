@@ -807,8 +807,6 @@ export const translations = {
     // 1. Navigation
     nav: {
       intro: "Laman Utama",
-      kana: "Hiragana & Katakana",
-      kanjiRules: "Kanji",
       anki: "Anki & Lombong Vocab",
       roadmap: "Laluan Pembelajaran",
       introduction: "Pengenalan",
@@ -818,7 +816,6 @@ export const translations = {
       about: "Tentang",
       jlptInfo: "Apa itu JLPT?",
       kanaSubpage1: "Vokal Panjang",
-      kanaSubpage2: "Tenten & Maru",
       kanaSubpage3: "Kana Kecil",
       immersion: "Input Boleh Difahami & Penyerapan",
       ai: "Menggunakan AI"
@@ -831,7 +828,6 @@ export const translations = {
 
     // 3. Homepage
     home: {
-      heroTag: "Konnichiwa! こんにちは",
       heroTitle: "Panduan belajar bahasa Jepun dengan cara yang betul",
       heroSubtitle: "Semua yang anda perlukan untuk belajar bahasa Jepun secara efektif.",
       whyTitle: "Bagaimana kami bantu anda",
@@ -847,9 +843,7 @@ export const translations = {
       heroCtaRoadmap: "Lihat Laluan Pembelajaran",
       sectionIntroTitle: "Pengenalan Bahasa Jepun",
       sectionIntroDesc: "Langkah pertama yang penting. Belajar bagaimana bahasa Jepun berfungsi",
-      sectionKanaTitle: "Hiragana & Katakana",
       sectionKanaDesc: "Belajar dua sistem penulisan Jepun dengan carta interaktif",
-      sectionKanjiTitle: "Kanji",
       sectionKanjiDesc: "Fahami kanji, radikal, dan asas urutan stroke",
       sectionSelfStudyTitle: "Panduan Belajar Sendiri",
       sectionSelfStudyDesc: "Bagaimana untuk belajar bahasa Jepun dengan efektif secara bebas",
@@ -864,7 +858,6 @@ export const translations = {
       title: "Roadmap Pembelajaran Bahasa Jepun",
       intro: "Panduan langkah demi langkah untuk bawa anda dari kosong. Klik pada setiap fasa untuk perincian fokus pembelajaran.",
       disclaimer: "⚠️ Anggaran masa ni adalah berdasarkan konsistensi anda jika anda belajar setiap hari (1-2 jam). Progress sebenar bergantung pada konsistensi, bukan intensiti.",
-      goTo: "Go to section",
       phases: {
         phase1: "Fasa 1",
         phase2: "Fasa 2",
@@ -1005,11 +998,8 @@ export const translations = {
       writingPoint1: "Hiragana - Digunakan untuk perkataan asli Jepun dan unsur tatabahasa",
       writingPoint2: "Katakana - Digunakan untuk perkataan asing, penekanan, dan onomatopoeia",
       writingPoint3: "Kanji - Huruf Cina yang diterima pakai untuk Jepun, digunakan untuk kata nama dan punca kata kerja",
-      writingHiragana: "Hiragana",
       writingHiraganaDesc: "Perkataan asli (cth, あめ = hujan)",
-      writingKatakana: "Katakana",
       writingKatakanaDesc: "Perkataan asing (cth, テレビ = TV)",
-      writingKanji: "Kanji",
       writingKanjiDesc: "Hari / Matahari (cth, 日本 = Jepun)",
       structureTitle: "Struktur Bahasa",
       structureDesc: "Bahasa Jepun mempunyai struktur yang berbeza dari Bahasa Inggeris:",
@@ -1037,13 +1027,9 @@ export const translations = {
       moraIntro: "Bahasa Jepun tidak dikira dalam suku kata. Ia dikira dalam morae (拍 / ha-ku). Setiap mora adalah satu beat yang sama rata. Seluruh irama bahasa dibina dengan memberikan setiap mora tempoh pendek yang sama.",
       moraIntro2: "Kiraan mora yang betul, dan memberikan setiap beat panjang yang sama, adalah apa yang memisahkan pembelajaran semulajadi daripada pembelajaran yang hanya difahami dengan usaha.",
       moraTomodachi: "ともだち (kawan)",
-      moraOne: "1 mora",
-      morae: "morae",
       moraListen: "Dengar perkataan ini",
       moraEqualTime: "Perhatikan setiap suku ambil masa yang sama",
       moraBasicKana: "Setiap kana asas = 1 mora",
-      moraNekoSakura: "ねこ (ne-ko) = 2 morae, さくら (sa-ku-ra) = 3 morae",
-      moraN: "ん = 1 mora",
       moraNasal: "Bunyi n di hujung (cth, にほん = ni-ho-n = 3 morae)",
       soundRule1: "Hanya 5 vokal (a, i, u, e, o)",
       soundRule2: "Tiada kluster konsonan (cth: \"st\", \"tr\", \"gl\")",
@@ -1062,8 +1048,6 @@ export const translations = {
     kana: {
       title: "Jadual Kana",
       subtitle: "Rujukan interaktif Hiragana & Katakana dengan sebutan audio",
-      hiragana: "Hiragana",
-      katakana: "Katakana",
       clickToLearn: "Klik mana-mana aksara untuk dengar sebutan",
 
       // Long Vowel (subpage1)
@@ -1102,14 +1086,12 @@ export const translations = {
       },
 
       // Tenten & Maru (subpage2)
-      subpage2Title: "Tenten & Maru",
       subpage2Subtitle: "Fahami dakuten (濁点) dan handakuten (半濁点)",
       subpage2: {
         whatIsTitle: "Apakah Tenten dan Maru?",
         whatIsDesc: "Tenten (juga dikenali sebagai Dakuten) dan Maru (juga dikenali sebagai Handakuten) adalah tanda yang boleh mengubah sebutan aksara kana. Tenten adalah dua tanda dash kecil (゛) diletakkan di bahagian kanan atas aksara kana dan Maru adalah bulatan kecil (゜) diletakkan di bahagian kanan atas aksara kana. Kedua-duanya menukar bunyi konsonan.",
         dakutenTitle: "Tenten (゛)",
         dakutenDesc: "Tenten menukar baris か (ka) kepada が (ga), baris さ (sa) kepada ざ (za), baris た (ta) kepada だ (da), dan baris は (ha) kepada ば (ba).",
-        handakutenTitle: "Maru (゜)",
         handakutenDesc: "Maru menukar baris は (ha) kepada ぱ (pa).",
         memoryTrickTitle: "Rujukan Pantas",
         memoryTrickDesc: "Sebutan tidak berubah dengan tenten: じ dan ぢ kedua-dua berbunyi \"ji\", ず dan づ kedua-dua berbunyi \"zu\". Ejaan berbeza, tetapi sebutannya sama.",
@@ -1164,7 +1146,6 @@ export const translations = {
 
     // 7. Kanji Rules
     kanjiRules: {
-      title: "Kanji",
       subtitle: "Fahami apakah kanji dan bagaimana ia berfungsi",
       subpage1Title: "Susunan Loretan",
       subpage1Subtitle: "Belajar cara yang betul untuk menulis kanji",
@@ -1285,22 +1266,18 @@ export const translations = {
       subtitle: "Alat yang dipilih mengikut masalah yang mereka selesaikan.",
       categories: {
         dictionary: "Kamus",
-        anki: "Flashcards",
         learning: "Laman Web Pembelajaran",
         mobileApps: "Aplikasi Mudah Alih",
         reading: "Membaca",
         jlpt: "Persediaan JLPT",
         browserLookup: "Sambungan Pelayar (Lookup)",
         browserSubtitle: "Sari Kata (Sambungan Pelayar)",
-        media: "Streaming",
         podcasts: "Podcast",
         youtubeLearning: "YT untuk Belajar Jepun",
         youtubeImmersion: "YT untuk Penyerapan",
         youtubePopular: "YT Channel Popular",
         practice: "Latihan Bertutur",
-        pitchAccent: "Pitch Accent",
         translator: "Penterjemah",
-        discordServers: "Discord Servers",
         askQuestions: "Tanya Soalan",
         articles: "Artikel Jepun",
         otherResources: "Sumber Lain"
@@ -1389,7 +1366,6 @@ export const translations = {
     blogCulture: {
       title: "Blog & Budaya",
       subtitle: "Artikel, pelajaran, dan kandungan panjang tentang pembelajaran dan budaya Jepun.",
-      blog: "Blog",
       culture: "Budaya"
     },
 
@@ -1406,7 +1382,6 @@ export const translations = {
     },
 
     blog: {
-      title: "Blog",
       minRead: "min baca"
     },
 
@@ -1535,7 +1510,6 @@ export const translations = {
       submit: "Hantar",
       required: "* Ruangan required",
       signupSuccess: "Signup berjaya!",
-      signupError: "Something went wrong. Please try again.",
       joinClassBtn: "Nak kelas?",
       classInfoTitle: "Kelas Jepun dengan Uthman",
       classInfoSubtitle: "Pelajaran 1-on-1 atau berkumpulan yang disesuaikan dengan matlamat anda",
@@ -1561,9 +1535,6 @@ export const translations = {
       title: "Dashboard Admin",
       loginTitle: "Login Admin",
       loginSubtitle: "Masukkan password admin untuk akses dashboard",
-      password: "Password",
-      login: "Login",
-      logout: "Logout",
       loadingPosts: "Memuatkan posts...",
       loadingSignups: "Memuatkan signups...",
       noPosts: "Tiada post lagi. Klik \"Post Baru\" untuk buat post blog pertama.",
@@ -1576,7 +1547,6 @@ export const translations = {
       confirmDelete: "Betul nak delete post ni?",
       signupsTitle: "Signup Kelas",
       createNewPost: "Buat Post Baru",
-      editPostTitle: "Edit Post",
       readingTime: "Masa baca (minit)",
       tagsPlaceholder: "n5, tatabahasa, mindset",
       tagsHint: "Tekan Enter atau koma untuk tambah tag",
@@ -1584,7 +1554,6 @@ export const translations = {
       contentMyPlaceholder: "Kandungan Malay di sini (optional)...",
       coverImageLabel: "URL Imej Cover",
       coverImagePlaceholder: "https://contoh.com/imej.jpg",
-      statusLabel: "Status",
       statusDraft: "Draf",
       statusPublished: "Diterbitkan",
       slugLabel: "Slug (kunci URL)",
