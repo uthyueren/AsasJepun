@@ -4256,7 +4256,7 @@ function renderIntroductionView() {
 
                   <div class="mora-char">と</div>
 
-                  <div class="mora-label">${t('introduction.moraTo')}</div>
+                  <div class="mora-label">to</div>
 
                   <div class="mora-count">${t('introduction.moraOne')}</div>
 
@@ -4268,7 +4268,7 @@ function renderIntroductionView() {
 
                   <div class="mora-char">も</div>
 
-                  <div class="mora-label">${t('introduction.moraMo')}</div>
+                  <div class="mora-label">mo</div>
 
                   <div class="mora-count">${t('introduction.moraOne')}</div>
 
@@ -4280,7 +4280,7 @@ function renderIntroductionView() {
 
                   <div class="mora-char">だ</div>
 
-                  <div class="mora-label">${t('introduction.moraDa')}</div>
+                  <div class="mora-label">da</div>
 
                   <div class="mora-count">${t('introduction.moraOne')}</div>
 
@@ -4292,7 +4292,7 @@ function renderIntroductionView() {
 
                   <div class="mora-char">ち</div>
 
-                  <div class="mora-label">${t('introduction.moraChi')}</div>
+                  <div class="mora-label">chi</div>
 
                   <div class="mora-count">${t('introduction.moraOne')}</div>
 
