@@ -26,12 +26,12 @@
     <script>
       (function() {
         const saved = localStorage.getItem('theme');
-        // Use className to ensure we REPLACE any existing classes, not just add to them
         // Set on documentElement (html) for earliest possible application
+        // This runs before body exists, so we use documentElement
         if (saved === 'light') {
-          document.documentElement.className = 'light-theme';
+          document.documentElement.classList.add('light-theme');
         } else {
-          document.documentElement.className = 'dark-theme';
+          document.documentElement.classList.add('dark-theme');
         }
       })();
     </script>

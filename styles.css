@@ -85,7 +85,7 @@
 }
 
 /* Light Theme */
-body.light-theme {
+:root.light-theme {
     --bg-primary: #f8fafc;
     --bg-secondary: #ffffff;
     --bg-tertiary: #f1f5f9;
@@ -130,88 +130,88 @@ body.light-theme {
 }
 
 /* UI/UX Pro Max Dark Theme Styles */
-body:not(.light-theme) {
+:root:not(.light-theme) {
     background-color: var(--bg-primary);
 }
 
 /* Dark theme logo gradient */
-body:not(.light-theme) .logo-icon {
+:root:not(.light-theme) .logo-icon {
     border-radius: 8px !important;
     background: linear-gradient(135deg, var(--primary), var(--primary-light)) !important;
     box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3) !important;
 }
 
 /* Dark theme nav active state */
-body:not(.light-theme) .nav-item.active {
+:root:not(.light-theme) .nav-item.active {
     background: linear-gradient(90deg, rgba(99, 102, 241, 0.2) 0%, transparent 100%) !important;
     color: var(--primary-light) !important;
     border-left-color: var(--primary) !important;
 }
 
 /* Dark theme timeline */
-body:not(.light-theme) .timeline-container::after {
+:root:not(.light-theme) .timeline-container::after {
     border-color: var(--primary) !important;
 }
 
 /* Dark theme primary buttons */
-body:not(.light-theme) .btn-primary,
-body:not(.light-theme) .pronounce-btn {
+:root:not(.light-theme) .btn-primary,
+:root:not(.light-theme) .pronounce-btn {
     background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
     box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25) !important;
     color: var(--on-primary) !important;
 }
 
-body:not(.light-theme) .btn-primary:hover,
-body:not(.light-theme) .pronounce-btn:hover {
+:root:not(.light-theme) .btn-primary:hover,
+:root:not(.light-theme) .pronounce-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35) !important;
 }
 
 /* Light theme buttons */
-body.light-theme button:active,
-body.light-theme .btn-primary:active,
-body.light-theme .pronounce-btn:active,
-body.light-theme .deck-btn:active,
-body.light-theme .lang-btn:active,
-body.light-theme .kana-tab:active,
-body.light-theme .hub-tab:active,
-body.light-theme .level-filter-btn:active {
+:root.light-theme button:active,
+:root.light-theme .btn-primary:active,
+:root.light-theme .pronounce-btn:active,
+:root.light-theme .deck-btn:active,
+:root.light-theme .lang-btn:active,
+:root.light-theme .kana-tab:active,
+:root.light-theme .hub-tab:active,
+:root.light-theme .level-filter-btn:active {
     opacity: 0.7;
     transform: scale(0.98);
     color: var(--primary) !important;
 }
 
 /* Dark theme buttons - set active color to primary */
-body:not(.light-theme) button:active {
+:root:not(.light-theme) button:active {
     color: var(--primary) !important;
 }
 
-body.light-theme button:focus-visible,
-body.light-theme .btn-primary:focus-visible,
-body.light-theme .pronounce-btn:focus-visible,
-body.light-theme .btn-cta-secondary:focus-visible {
+:root.light-theme button:focus-visible,
+:root.light-theme .btn-primary:focus-visible,
+:root.light-theme .pronounce-btn:focus-visible,
+:root.light-theme .btn-cta-secondary:focus-visible {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
 
 /* Dark theme focus-visible (keyboard nav) */
-body:not(.light-theme) button:focus-visible,
-body:not(.light-theme) .btn-primary:focus-visible,
-body:not(.light-theme) .btn-cta-primary:focus-visible,
-body:not(.light-theme) .btn-cta-secondary:focus-visible,
-body:not(.light-theme) .pronounce-btn:focus-visible,
-body:not(.light-theme) .kana-cell:focus-visible,
-body:not(.light-theme) .modal-close:focus-visible,
-body:not(.light-theme) .resource-nav:focus-visible,
-body:not(.light-theme) .mobile-nav-toggle:focus-visible {
+:root:not(.light-theme) button:focus-visible,
+:root:not(.light-theme) .btn-primary:focus-visible,
+:root:not(.light-theme) .btn-cta-primary:focus-visible,
+:root:not(.light-theme) .btn-cta-secondary:focus-visible,
+:root:not(.light-theme) .pronounce-btn:focus-visible,
+:root:not(.light-theme) .kana-cell:focus-visible,
+:root:not(.light-theme) .modal-close:focus-visible,
+:root:not(.light-theme) .resource-nav:focus-visible,
+:root:not(.light-theme) .mobile-nav-toggle:focus-visible {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
     border-radius: 4px;
 }
 
 /* Dark theme card hover */
-body:not(.light-theme) .kanji-box-card:hover,
-body:not(.light-theme) .kana-card:not(.empty-card):hover {
+:root:not(.light-theme) .kanji-box-card:hover,
+:root:not(.light-theme) .kana-card:not(.empty-card):hover {
     border-color: var(--primary) !important;
     background-color: rgba(99, 102, 241, 0.02) !important;
 }
@@ -642,11 +642,11 @@ textarea:focus {
     display: none;
 }
 
-body.light-theme .theme-toggle-btn .moon-icon {
+:root.light-theme .theme-toggle-btn .moon-icon {
     display: none;
 }
 
-body.light-theme .theme-toggle-btn .sun-icon {
+:root.light-theme .theme-toggle-btn .sun-icon {
     display: block;
 }
 
@@ -788,11 +788,11 @@ body.light-theme .theme-toggle-btn .sun-icon {
     display: none;
 }
 
-body.light-theme .header-right .theme-toggle-btn .moon-icon {
+:root.light-theme .header-right .theme-toggle-btn .moon-icon {
     display: none;
 }
 
-body.light-theme .header-right .theme-toggle-btn .sun-icon {
+:root.light-theme .header-right .theme-toggle-btn .sun-icon {
     display: block;
 }
 
@@ -2081,7 +2081,7 @@ label.required::after {
 }
 
 /* Light mode claymorphism */
-body.light-theme .kana-cell {
+:root.light-theme .kana-cell {
     background: var(--bg-secondary);
     border-color: var(--border-new);
 }
@@ -3155,26 +3155,26 @@ body.hide-furigana ruby rt {
 }
 
 /* Hero Light Mode */
-body.light-theme .hero-section {
+:root.light-theme .hero-section {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(248, 250, 252, 0.95) 60%, rgba(248, 250, 252, 0.98) 100%);
     border-color: rgba(99, 102, 241, 0.15);
 }
 
-body.light-theme .hero-section::before {
+:root.light-theme .hero-section::before {
     background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
 }
 
-body.light-theme .hero-section::after {
+:root.light-theme .hero-section::after {
     background: radial-gradient(circle, rgba(129, 140, 248, 0.08) 0%, transparent 70%);
 }
 
-body.light-theme .hero-card {
+:root.light-theme .hero-card {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
     border-color: rgba(99, 102, 241, 0.12);
     box-shadow: 0 4px 24px rgba(99, 102, 241, 0.08);
 }
 
-body.light-theme .hero-card::before {
+:root.light-theme .hero-card::before {
     background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
 }
 
@@ -3362,7 +3362,7 @@ body.light-theme .hero-card::before {
     box-shadow: var(--shadow-clay);
 }
 
-body.light-theme .quickstart-card {
+:root.light-theme .quickstart-card {
     border-color: var(--border-new);
 }
 
@@ -3436,7 +3436,7 @@ body.light-theme .quickstart-card {
     box-shadow: var(--shadow-clay);
 }
 
-body.light-theme .home-section-card {
+:root.light-theme .home-section-card {
     border-color: var(--border-new);
 }
 
@@ -6964,7 +6964,7 @@ section.info-content:last-child {
   box-shadow: var(--shadow-clay);
 }
 
-body.light-theme .kana-tab {
+:root.light-theme .kana-tab {
   background: var(--bg-secondary);
 }
 
