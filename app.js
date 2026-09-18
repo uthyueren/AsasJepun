@@ -22,7 +22,9 @@ const state = {
 
   furiganaVisible: true,
 
-  resourcePage: {} // { category: 0 } tracks current page per category
+  resourcePage: {}, // { category: 0 } tracks current page per category
+
+  resetFormNav: null // reset function for signup form navigation
 
 };
 
@@ -590,38 +592,50 @@ function initModals() {
 
   const joinClassBtn = document.getElementById("join-class-btn");
 
+  const classInfoScreen = document.getElementById("class-info-screen");
+
+  const signupFormWrapper = document.getElementById("signup-form-wrapper");
+
+  const classInfoStartBtn = document.getElementById("class-info-start-btn");
 
 
-  signupClose.addEventListener("click", () => signupModal.classList.remove("active"));
+
+  // Show class info screen, hide form wrapper
+  function showClassInfo() {
+    classInfoScreen.style.display = "none";
+    signupFormWrapper.style.display = "block";
+  }
+
+  // Reset to class info screen
+  function resetSignupModal() {
+    classInfoScreen.style.display = "block";
+    signupFormWrapper.style.display = "none";
+    if (state.resetFormNav) state.resetFormNav();
+  }
+
+
+
+  signupClose.addEventListener("click", () => {
+    signupModal.classList.remove("active");
+    setTimeout(resetSignupModal, 300);
+  });
 
 
 
   // Join class button opens modal
-
   joinClassBtn.addEventListener("click", () => {
-
     signupModal.classList.add("active");
-
+    resetSignupModal();
   });
 
 
 
-  // Click outside to close
+  // Start registration button shows the form
+  classInfoStartBtn.addEventListener("click", showClassInfo);
 
-  window.addEventListener("click", (e) => {
-
-    if (e.target === signupModal) signupModal.classList.remove("active");
-
-  });
-
-
-
-  // Multi-section form navigation
-
+  // Initialize form navigation (card selectors, chip selectors, next/back buttons)
   initFormNavigation();
-
 }
-
 
 
 // Multi-section form navigation
@@ -646,6 +660,7 @@ function initFormNavigation() {
         options.forEach(o => o.classList.remove("selected"));
         opt.classList.add("selected");
         hiddenInput.value = opt.value;
+        selector.closest(".form-group").classList.remove("error");
         // Handle conditional reveals
         if (name === "studiedBefore") {
           const durGroup = document.getElementById("studiedDurationGroup");
@@ -703,6 +718,7 @@ function initFormNavigation() {
         opt.classList.toggle("selected");
         const selected = Array.from(selector.querySelectorAll(".chip-option.selected")).map(o => o.value);
         hiddenInput.value = selected.join(",");
+        selector.closest(".form-group").classList.remove("error");
         // Handle "other" text reveal
         const otherMap = {
           "whyJapanese": "whyJapaneseOtherGroup",
@@ -725,7 +741,18 @@ function initFormNavigation() {
   form.querySelectorAll('input[name="schedule"]').forEach(cb => {
     cb.addEventListener("change", () => {
       const grid = form.querySelector('.schedule-grid');
-      if (grid) grid.classList.remove('error');
+      if (grid) {
+        grid.classList.remove('error');
+        grid.parentElement.classList.remove('error');
+      }
+    });
+  });
+
+  // Clear error on text input
+  form.querySelectorAll('input[type="text"], input[type="number"], input[type="tel"]').forEach(input => {
+    input.addEventListener("input", () => {
+      const group = input.closest(".form-group");
+      if (group) group.classList.remove("error");
     });
   });
 
@@ -769,54 +796,99 @@ function initFormNavigation() {
   });
 
   updateUI();
+
+  // Return reset function
+  return function resetFormNav() {
+    currentStep = 1;
+    updateUI();
+    // Reset card/chip selectors
+    document.querySelectorAll(".card-option.selected, .chip-option.selected").forEach(o => o.classList.remove("selected"));
+    document.querySelectorAll(".card-selector input[type=hidden], .chip-selector input[type=hidden]").forEach(i => i.value = "");
+    document.querySelectorAll(".form-section").forEach(s => s.classList.remove("error"));
+    document.querySelectorAll("[id$='Group']").forEach(g => g.style.display = "none");
+    // Reset text inputs
+    form.querySelectorAll("input[type=text], input[type=number], textarea").forEach(i => i.value = "");
+    form.querySelectorAll("select").forEach(s => s.selectedIndex = 0);
+    form.querySelectorAll("input[type=checkbox], input[type=radio]").forEach(i => i.checked = false);
+  };
 }
 
 function validateSection(step) {
   const form = document.getElementById("signup-form");
   const section = form.querySelector(`.form-section[data-section="${step}"]`);
   section.classList.remove("error");
+  // Clear previous error classes
+  section.querySelectorAll(".form-group.error").forEach(el => el.classList.remove("error"));
   let isValid = true;
 
   if (step === 1) {
-    const name = form.querySelector("#signup-name").value.trim();
-    const age = form.querySelector("#signup-age").value.trim();
-    const phone = form.querySelector("#signup-phone").value.trim();
+    const nameInput = form.querySelector("#signup-name");
+    const ageInput = form.querySelector("#signup-age");
+    const phoneInput = form.querySelector("#signup-phone");
+    const levelSelector = form.querySelector('.card-selector[data-name="level"]');
+    const classTypeSelector = form.querySelector('.card-selector[data-name="classType"]');
+    const scheduleGrid = form.querySelector('.schedule-grid');
+
+    const name = nameInput.value.trim();
+    const age = ageInput.value.trim();
+    const phone = phoneInput.value.trim();
     const level = form.querySelector("#signup-level").value;
     const classType = form.querySelector("#signup-class-type").value;
     const schedule = form.querySelectorAll('input[name="schedule"]:checked');
 
+    if (!name) nameInput.parentElement.classList.add("error");
+    if (!age) ageInput.parentElement.classList.add("error");
+    if (!phone) phoneInput.parentElement.classList.add("error");
+    if (!level) levelSelector.parentElement.classList.add("error");
+    if (!classType) classTypeSelector.parentElement.classList.add("error");
+    if (!schedule.length) {
+      scheduleGrid.parentElement.classList.add("error");
+      scheduleGrid.classList.add("error");
+    }
+
     if (!name || !age || !phone || !level || !classType) {
-      alert(t('signup.fillAllRequired'));
-      isValid = false;
-    } else if (schedule.length === 0) {
-      form.querySelector('.schedule-grid').classList.add('error');
-      alert(t('signup.selectScheduleError'));
       isValid = false;
     }
   }
 
   if (step === 2) {
+    const studiedBeforeSelector = form.querySelector('.card-selector[data-name="studiedBefore"]');
     const studiedBefore = form.querySelector('input[name="studiedBefore"]').value;
     if (!studiedBefore) {
-      alert('Please select an option.');
+      studiedBeforeSelector.parentElement.classList.add("error");
       isValid = false;
     }
   }
 
   if (step === 3) {
+    const whySelector = form.querySelector('.chip-selector[data-name="whyJapanese"]');
+    const goalSelector = form.querySelector('.card-selector[data-name="goal"]');
+    const hoursInput = form.querySelector('input[name="studyHours"]');
     const why = form.querySelector('input[name="whyJapanese"]').value;
     const goal = form.querySelector('input[name="goal"]').value;
-    const hours = form.querySelector('input[name="studyHours"]').value;
+    const hours = hoursInput.value;
+    if (!why) whySelector.parentElement.classList.add("error");
+    if (!goal) goalSelector.parentElement.classList.add("error");
+    if (!hours) hoursInput.parentElement.classList.add("error");
     if (!why || !goal || !hours) {
-      alert('Please complete all required questions.');
       isValid = false;
     }
   }
 
   if (step === 4) {
+    const quitSelector = form.querySelector('.card-selector[data-name="quitBefore"]');
     const quit = form.querySelector('input[name="quitBefore"]').value;
     if (!quit) {
-      alert('Please complete all required questions.');
+      quitSelector.parentElement.classList.add("error");
+      isValid = false;
+    }
+  }
+
+  if (step === 5) {
+    const referralSelector = form.querySelector('.card-selector[data-name="referral"]');
+    const referral = form.querySelector('input[name="referral"]').value;
+    if (!referral) {
+      referralSelector.parentElement.classList.add("error");
       isValid = false;
     }
   }
@@ -835,17 +907,24 @@ async function handleSignupSubmit(e) {
 
   e.preventDefault();
 
-
-
-  const form = e.target;
+  // Validate section 5 before submitting
+  const form = document.getElementById("signup-form");
+  const section5 = form.querySelector('.form-section[data-section="5"]');
+  section5.querySelectorAll(".form-group.error").forEach(el => el.classList.remove("error"));
+  const referralSelector = form.querySelector('.card-selector[data-name="referral"]');
+  const referral = form.querySelector('input[name="referral"]').value;
+  if (!referral) {
+    referralSelector.parentElement.classList.add("error");
+    section5.classList.add("error");
+    setTimeout(() => section5.classList.remove("error"), 500);
+    return;
+  }
 
   const submitBtn = document.getElementById("form-submit-btn");
 
   const originalText = submitBtn.textContent;
 
 
-
-  // Gather all form data
 
   // Gather all form data
   const formData = new FormData(form);
@@ -1334,7 +1413,7 @@ function renderIntroView() {
 
   state.currentView = "intro";
 
-  document.getElementById("section-title").textContent = t('nav.intro');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('nav.intro');
 
 
 
@@ -1558,7 +1637,7 @@ function renderJLPTInfoView() {
 
   state.currentView = "jlpt-info";
 
-  document.getElementById("section-title").textContent = t('jlptInfo.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('jlptInfo.title');
 
 
 
@@ -1798,7 +1877,7 @@ function renderSelfStudyView() {
 
   state.currentView = "self-study";
 
-  document.getElementById("section-title").textContent = t('selfStudy.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('selfStudy.title');
 
 
 
@@ -2092,7 +2171,7 @@ function renderRoadmapView() {
 
   state.currentView = "roadmap";
 
-  document.getElementById("section-title").textContent = t('nav.roadmap');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('nav.roadmap');
 
 
 
@@ -2512,418 +2591,6 @@ function renderRoadmapView() {
 
 
 
-function renderKanjiPanel(kanjiList) {
-
-  const container = document.getElementById("kanji-grid-container");
-
-  container.innerHTML = "";
-
-
-
-  kanjiList.forEach(k => {
-
-    const card = document.createElement("div");
-
-    card.className = 'kanji-box-card';
-
-
-
-    card.innerHTML = `
-
-      <div class="kanji-character">${k.kanji}</div>
-
-      <div class="kanji-meaning">${k.meaning}</div>
-
-      <div class="kanji-readings-mini">
-
-        <span><strong>Kun:</strong> ${k.kunyomi}</span>
-
-        <span><strong>On:</strong> ${k.onyomi}</span>
-
-      </div>
-
-    `;
-
-
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-
-function renderGrammarPanel(grammarList) {
-
-  const container = document.getElementById("grammar-container");
-
-  container.innerHTML = "";
-
-
-
-  grammarList.forEach(g => {
-
-    const card = document.createElement("div");
-
-    card.className = 'grammar-item-card';
-
-    const lang = getLanguage();
-
-
-
-    let examplesHTML = "";
-
-    g.examples.forEach(ex => {
-
-      examplesHTML += `
-
-        <div class="grammar-ex-item">
-
-          <div class="grammar-japanese-sentence">${ex.japanese}</div>
-
-          <div class="grammar-romaji">${ex.romaji}</div>
-
-          <div class="grammar-english-sentence">${ex.malay}</div>
-
-        </div>
-
-      `;
-
-    });
-
-
-
-    card.innerHTML = `
-
-      <div class="grammar-header-row">
-
-        <div class="grammar-title">${g.pattern || g.title}</div>
-
-        <div class="grammar-rule-badge">${g.formation || g.rules || ''}</div>
-
-      </div>
-
-      <p class="grammar-desc">${typeof g.explanation === 'object' ? g.explanation[lang] : g.explanation || g.description || ''}</p>
-
-      <div class="grammar-examples">
-
-        ${examplesHTML}
-
-      </div>
-
-    `;
-
-
-
-    container.appendChild(card);
-
-  });
-
-
-
-  // Bind Furigana toggle
-
-  const toggleBtn = document.getElementById("toggle-furigana");
-
-  toggleBtn.addEventListener("click", () => {
-
-    state.furiganaVisible = !state.furiganaVisible;
-
-    toggleBtn.classList.toggle("active", state.furiganaVisible);
-
-    
-
-    if (state.furiganaVisible) {
-
-      document.body.classList.remove("hide-furigana");
-
-    } else {
-
-      document.body.classList.add("hide-furigana");
-
-    }
-
-  });
-
-
-
-  // Make sure current state classes are respected
-
-  if (!state.furiganaVisible) {
-
-    document.body.classList.add("hide-furigana");
-
-  } else {
-
-    document.body.classList.remove("hide-furigana");
-
-  }
-
-}
-
-
-
-// Convert sentence to ruby HTML
-
-function renderFuriganaSentence(kanjiText, furiganaText) {
-
-  // A simplified furigana parser that maps character groups
-
-  // For safety, if sentences match, we can wrap the whole phrase or do character mapping.
-
-  // In a robust app, we use ruby tags. Let's make it look nice:
-
-  // We can write it simply using standard ruby tags. Let's do simple tag-based rendering
-
-  // where we just wrap the Kanji blocks. Or since the examples are pre-made, 
-
-  // let's render standard ruby blocks. For our static demo data:
-
-  
-
-  if (kanjiText === "私は学生です。") {
-
-    return `<ruby>私<rt>わたし</rt></ruby>は<ruby>学生<rt>がくせい</rt></ruby>です。`;
-
-  } else if (kanjiText === "これは水です。") {
-
-    return `これは<ruby>水<rt>みず</rt></ruby>です。`;
-
-  } else if (kanjiText === "お寿司を食べたいです。") {
-
-    return `お<ruby>寿司<rt>すし</rt></ruby>を<ruby>食<rt>た</rt></ruby>べたいです。`;
-
-  } else if (kanjiText === "日本に行きたいです。") {
-
-    return `<ruby>日本<rt>にほん</rt></ruby>に<ruby>行<rt>い</rt></ruby>きたいです。`;
-
-  } else if (kanjiText === "日本語で話してください。") {
-
-    return `<ruby>日本語<rt>にほんご</rt></ruby>で<ruby>話<rt>はな</rt></ruby>してください。`;
-
-  } else if (kanjiText === "ここを見てください。") {
-
-    return `ここを<ruby>見<rt>み</rt></ruby>てください。`;
-
-  } else if (kanjiText === "明日、雨が降ると思います。") {
-
-    return `<ruby>明日<rt>あした</rt></ruby>、<ruby>雨<rt>あめ</rt></ruby>が<ruby>降<rt>ふ</rt></ruby>ると<ruby>思<rt>おも</rt></ruby>います。`;
-
-  } else if (kanjiText === "日本語は難しいと思います。") {
-
-    return `<ruby>日本語<rt>にほんご</rt></ruby>は<ruby>難<rt>むずか</rt></ruby>しいと<ruby>思<rt>おm</rt></ruby>います。`;
-
-  } else if (kanjiText === "週末は本を読んだり、映画を見たりします。") {
-
-    return `<ruby>週末<rt>しゅうまつ</rt></ruby>は<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んだり、<ruby>映画<rt>えいが</rt></ruby>を<ruby>見<rt>み</rt></ruby>たりします。`;
-
-  } else if (kanjiText === "買い物をしたり、散歩したりしました。") {
-
-    return `<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>をしたり、<ruby>散歩<rt>さんぽ</rt></ruby>したりしました。`;
-
-  } else if (kanjiText === "日本語で話してみます。") {
-
-    return `<ruby>日本語<rt>にほんご</rt></ruby>で<ruby>話<rt>はな</rt></ruby>してみます。`;
-
-  } else if (kanjiText === "この料理を食べてみてください。") {
-
-    return `この<ruby>料理<rt>りょうり</rt></ruby>を<ruby>食<rt>た</rt></ruby>べてみてください。`;
-
-  } else if (kanjiText === "彼が嘘をつくわけがない。") {
-
-    return `<ruby>彼<rt>かれ</rt></ruby>が<ruby>嘘<rt>うそ</rt></ruby>をつくわけがない。`;
-
-  } else if (kanjiText === "こんなに難しい問題、彼にできるわけがない。") {
-
-    return `こんなに<ruby>難<rt>むずか</rt></ruby>しい<ruby>問題<rt>もんだい</rt></ruby>、<ruby>彼<rt>かれ</rt></ruby>にできるわけがない。`;
-
-  } else if (kanjiText === "この問題に関してどう思いますか。") {
-
-    return `この<ruby>問題<rt>もんだい</rt></ruby>に<ruby>関<rt>かん</rt></ruby>してどう<ruby>思<rt>おも</rt></ruby>いますか。`;
-
-  } else if (kanjiText === "日本文化に関する本を買いました。") {
-
-    return `<ruby>日本文化<rt>にほんぶんか</rt></ruby>に<ruby>関<rt>かん</rt></ruby>する<ruby>本<rt>ほん</rt></ruby>を<ruby>買<rt>か</rt></ruby>いました。`;
-
-  } else if (kanjiText === "約束は守るべきだ。") {
-
-    return `<ruby>約束<rt>やくそく</rt></ruby>は<ruby>守<rt>まも</rt></ruby>るべきだ。`;
-
-  } else if (kanjiText === "子供にお酒を飲ませるべきではない。") {
-
-    return `<ruby>子供<rt>こども</rt></ruby>にお<ruby>酒<rt>さけ</rt></ruby>を<ruby>飲<rt>の</rt></ruby>ませるべきではない。`;
-
-  }
-
-
-
-  // Fallback to plain rendering if not mapped
-
-  return kanjiText;
-
-}
-
-
-
-function renderVocabPanel(vocabList) {
-
-  state.vocabCardIndex = 0; // Reset index on open
-
-
-
-  // Update Flashcard content
-
-  updateFlashcard(vocabList);
-
-
-
-  // Bind Flashcard Click Events (Flip)
-
-  const flashcard = document.getElementById("vocab-flashcard");
-
-  
-
-  // Clone to clean event listeners
-
-  const newFlashcard = flashcard.cloneNode(true);
-
-  flashcard.parentNode.replaceChild(newFlashcard, flashcard);
-
-
-
-  newFlashcard.addEventListener("click", () => {
-
-    newFlashcard.classList.toggle("flipped");
-
-  });
-
-
-
-  // Prev / Next card clicks
-
-  const nextBtn = document.getElementById("deck-next");
-
-  const prevBtn = document.getElementById("deck-prev");
-
-
-
-  nextBtn.addEventListener("click", (e) => {
-
-    e.stopPropagation(); // Stop flipping when clicking buttons
-
-    newFlashcard.classList.remove("flipped");
-
-    setTimeout(() => {
-
-      state.vocabCardIndex = (state.vocabCardIndex + 1) % vocabList.length;
-
-      updateFlashcard(vocabList);
-
-    }, 150); // Small delay to allow flip back transition
-
-  });
-
-
-
-  prevBtn.addEventListener("click", (e) => {
-
-    e.stopPropagation();
-
-    newFlashcard.classList.remove("flipped");
-
-    setTimeout(() => {
-
-      state.vocabCardIndex = (state.vocabCardIndex - 1 + vocabList.length) % vocabList.length;
-
-      updateFlashcard(vocabList);
-
-    }, 150);
-
-  });
-
-
-
-  // Render Table List
-
-  const tableBody = document.getElementById("vocab-table-body");
-
-  tableBody.innerHTML = "";
-
-
-
-  vocabList.forEach(v => {
-
-    const tr = document.createElement("tr");
-
-    tr.innerHTML = `
-
-      <td class="vocab-jp-cell">${v.word}</td>
-
-      <td>${v.furigana}</td>
-
-      <td>${v.romaji}</td>
-
-      <td><strong>${v.meaning}</strong></td>
-
-      <td><span class="card-type">${v.type}</span></td>
-
-      <td>
-
-        <button class="vocab-audio-btn">
-
-          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-
-        </button>
-
-      </td>
-
-    `;
-
-
-
-    // Speak Button event
-
-    tr.querySelector(".vocab-audio-btn").addEventListener("click", () => {
-
-      playPronunciation(v.word);
-
-    });
-
-
-
-    tableBody.appendChild(tr);
-
-  });
-
-}
-
-
-
-function updateFlashcard(vocabList) {
-
-  const currentWord = vocabList[state.vocabCardIndex];
-
-  
-
-  document.getElementById("card-front-word").textContent = currentWord.word;
-
-  document.getElementById("card-front-furi").textContent = currentWord.furigana;
-
-  document.getElementById("card-back-mean").textContent = currentWord.meaning;
-
-  document.getElementById("card-back-type").textContent = currentWord.type;
-
-  
-
-  document.getElementById("deck-progress").textContent = `${state.vocabCardIndex + 1} / ${vocabList.length}`;
-
-}
-
-
-
-
-
 /* ==========================================================================
 
    NEW PAGE ROUTE HANDLERS
@@ -2932,43 +2599,10 @@ function updateFlashcard(vocabList) {
 
 
 
-function handleCultureRoute(route) {
-
-  if (route.startsWith("culture/")) {
-
-    const slug = route.split("/")[1];
-
-    renderCultureLessonView(slug);
-
-  } else {
-
-    renderCultureView();
-
-  }
-
-}
 
 
 
-function handleBlogRoute(route) {
-
-  if (route.startsWith("blog/")) {
-
-    const slug = route.split("/")[1];
-
-    renderBlogArticleView(slug);
-
-  } else {
-
-    renderBlogView();
-
-  }
-
-}
-
-
-
-function handleBlogCultureRoute(route) {
+async function handleBlogCultureRoute(route) {
 
   const lang = getLanguage();
 
@@ -3004,109 +2638,86 @@ function handleBlogCultureRoute(route) {
 
 
   // Combined blog+culture view
-
   state.currentView = "blog-culture";
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('blogCulture.title');
 
-  document.getElementById("section-title").textContent = t('blogCulture.title');
-
-
-
+  // Show loading state
   appView.innerHTML = `
-
     <div class="fade-in">
-
       <div class="page-header">
-
         <h1 data-i18n="blogCulture.title">${t('blogCulture.title')}</h1>
-
         <p data-i18n="blogCulture.subtitle">${t('blogCulture.subtitle')}</p>
-
       </div>
-
-
-
-      <div class="blog-culture-filters">
-
-        <button class="filter-btn active" data-filter="all">${t('blogCulture.filterAll')}</button>
-
-        <button class="filter-btn" data-filter="blog">${t('blogCulture.filterBlog')}</button>
-
-        <button class="filter-btn" data-filter="culture">${t('blogCulture.filterCulture')}</button>
-
-      </div>
-
-
-
       <div class="blog-culture-grid">
-
-        ${[...BLOG_POSTS.map(p => ({ ...p, _type: 'blog' })), ...CULTURE_LESSONS.map(l => ({ ...l, _type: 'culture' }))].map(item => `
-
-          <div class="blog-culture-card" data-type="${item._type}" data-slug="${item.slug}">
-
-            <div class="blog-culture-card-header">
-
-              <span class="blog-culture-type-badge ${item._type}">${item._type === 'blog' ? t('blogCulture.blog') : t('blogCulture.culture')}</span>
-
-            </div>
-
-            <h3>${item._type === 'blog' ? item.title[lang] : item.title[lang]}</h3>
-
-            <p>${item._type === 'blog' ? item.excerpt[lang] : item.description[lang]}</p>
-
-            ${item._type === 'blog' ? `<span class="blog-culture-meta">${item.readingTime} ${t('blog.minRead')}</span>` : ''}
-
-            ${item._type === 'culture' && item.level ? `<span class="blog-culture-meta">${item.level}</span>` : ''}
-
-          </div>
-
-        `).join('')}
-
+        <div class="admin-loading">${t('common.loading')}</div>
       </div>
-
     </div>
-
   `;
 
+  // Fetch from Supabase first, merge with static data
+  let supabasePosts = [];
+  try {
+    const { data } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .order('created_at', { ascending: false });
 
+    if (data) {
+      supabasePosts = data.map(post => ({
+        ...post,
+        title: { en: post.title_en || post.title?.en || '', my: post.title_my || post.title?.my || '' },
+        excerpt: { en: post.excerpt_en || post.excerpt?.en || '', my: post.excerpt_my || post.excerpt?.my || '' },
+        type: post.type || 'blog'
+      }));
+    }
+  } catch (e) {
+    // Use empty array, fall back to static
+  }
 
-  // Bind filter buttons
+  // Merge: supabase posts first, then static posts that don't exist in supabase
+  const supabaseSlugs = new Set(supabasePosts.map(p => p.slug));
+  const staticPosts = [...BLOG_POSTS, ...CULTURE_LESSONS]
+    .filter(item => !supabaseSlugs.has(item.slug))
+    .map(item => ({ ...item, type: item.type || 'blog' }));
 
-  document.querySelectorAll('.filter-btn').forEach(btn => {
+  const allPosts = [...supabasePosts, ...staticPosts];
 
-    btn.addEventListener('click', () => {
+  appView.innerHTML = `
+    <div class="fade-in">
+      <div class="page-header">
+        <h1 data-i18n="blogCulture.title">${t('blogCulture.title')}</h1>
+        <p data-i18n="blogCulture.subtitle">${t('blogCulture.subtitle')}</p>
+      </div>
 
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      <div class="blog-culture-grid">
+        ${allPosts.map(item => `
+          <div class="blog-culture-card blog-card-${item.type || 'blog'}" data-slug="${item.slug}" data-type="${item.type || 'blog'}">
+            <div class="blog-card-accent"></div>
+            <div class="blog-card-body">
+              <div class="blog-card-top">
+                <span class="blog-culture-type-badge ${item.type || 'blog'}">${item.type === 'culture' ? t('blogCulture.culture') : t('blogCulture.blog')}</span>
+                ${item.tags && item.tags.length ? `<div class="blog-card-tags">${item.tags.slice(0,3).map(tag => `<span class="blog-tag">${tag}</span>`).join('')}</div>` : ''}
+              </div>
+              <h3>${(item.title || {})[lang] || item.title_en || ''}</h3>
+              <p>${(item.excerpt || {})[lang] || (item.description || {})[lang] || item.excerpt_en || ''}</p>
+              <div class="blog-card-footer">
+                ${item.publishDate ? `<span class="blog-card-date">${new Date(item.publishDate).toLocaleDateString(lang === 'my' ? 'ms-MY' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>` : ''}
+                ${item.readingTime ? `<span class="blog-card-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${item.readingTime} ${t('blog.minRead')}</span>` : ''}
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
 
-      btn.classList.add('active');
-
-      const filter = btn.dataset.filter;
-
-      document.querySelectorAll('.blog-culture-card').forEach(card => {
-
-        card.style.display = (filter === 'all' || card.dataset.type === filter) ? '' : 'none';
-
-      });
-
-    });
-
-  });
-
-
-
-  // Bind card clicks
-
+  // Bind card clicks with proper routing
   document.querySelectorAll('.blog-culture-card').forEach(card => {
-
     card.addEventListener('click', () => {
-
-      const type = card.dataset.type;
-
       const slug = card.dataset.slug;
-
+      const type = card.dataset.type;
       window.location.hash = `#${type}/${slug}`;
-
     });
-
   });
 
 }
@@ -3125,7 +2736,7 @@ function renderCultureView() {
 
   state.currentView = "culture";
 
-  document.getElementById("section-title").textContent = t('culture.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('culture.title');
 
   const lang = getLanguage();
 
@@ -3213,29 +2824,50 @@ function renderCultureView() {
 
 
 
-function renderCultureLessonView(slug) {
+async function renderCultureLessonView(slug) {
 
   state.currentView = "culture-lesson";
 
-  document.getElementById("section-title").textContent = t('culture.title');
-
-
-
-  const lesson = CULTURE_LESSONS.find(l => l.slug === slug);
-
-  if (!lesson) {
-
-    window.location.hash = '#culture';
-
-    return;
-
-  }
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('culture.title');
 
 
 
   const lang = getLanguage();
 
   const appView = document.getElementById("app-view");
+
+
+
+  // Try to fetch from Supabase first, then fall back to static data
+  let lesson = null;
+
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .maybeSingle();
+
+    if (!error && data) {
+      lesson = {
+        ...data,
+        title: data.title || { en: data.title_en || '', my: data.title_my || '' },
+        description: data.excerpt || { en: data.excerpt_en || '', my: data.excerpt_my || '' },
+        content: data.content || { en: data.content_en || '', my: data.content_my || '' }
+      };
+    }
+  } catch (e) {
+    // Fall back to static
+  }
+
+  if (!lesson) {
+    lesson = CULTURE_LESSONS.find(l => l.slug === slug);
+  }
+
+  if (!lesson) {
+    window.location.hash = '#culture';
+    return;
+  }
 
 
 
@@ -3257,9 +2889,9 @@ function renderCultureLessonView(slug) {
 
           <div class="culture-detail-title">
 
-            <h1>${lesson.icon} ${lesson.title[lang]}</h1>
+            <h1>${lesson.icon || ''} ${lesson.title[lang]}</h1>
 
-            <span class="lesson-theme-badge">${lesson.level}</span>
+            ${lesson.level ? `<span class="lesson-theme-badge">${lesson.level}</span>` : ''}
 
           </div>
 
@@ -3269,8 +2901,8 @@ function renderCultureLessonView(slug) {
 
         <div class="culture-detail-content">
 
+          ${lesson.culturalNotes ? `
           <!-- Cultural Context -->
-
           <div class="grammar-section">
 
             <h2>
@@ -3281,14 +2913,13 @@ function renderCultureLessonView(slug) {
 
             </h2>
 
-            <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.8;">${lesson.culturalNotes[lang]}</p>
+            <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.8;">${lesson.culturalNotes[lang] || lesson.culturalNotes?.en || ''}</p>
 
           </div>
+          ` : ''}
 
-
-
+          ${lesson.vocabList && lesson.vocabList.length > 0 ? `
           <!-- Vocabulary -->
-
           <div class="grammar-section">
 
             <h2>
@@ -3344,6 +2975,7 @@ function renderCultureLessonView(slug) {
             </div>
 
           </div>
+          ` : ''}
 
         </div>
 
@@ -3369,7 +3001,7 @@ function renderBlogView() {
 
   state.currentView = "blog";
 
-  document.getElementById("section-title").textContent = t('blog.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('blog.title');
 
   const lang = getLanguage();
 
@@ -3447,23 +3079,11 @@ function renderBlogView() {
 
 
 
-function renderBlogArticleView(slug) {
+async function renderBlogArticleView(slug) {
 
   state.currentView = "blog-article";
 
-  document.getElementById("section-title").textContent = t('blog.title');
-
-
-
-  const post = BLOG_POSTS.find(p => p.slug === slug);
-
-  if (!post) {
-
-    window.location.hash = '#blog';
-
-    return;
-
-  }
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('blog.title');
 
 
 
@@ -3473,22 +3093,76 @@ function renderBlogArticleView(slug) {
 
 
 
-  // Simple markdown-like rendering (convert headers and paragraphs)
+  // Try to fetch from Supabase first, then fall back to static data
+  let post = null;
 
-  const content = post.content[lang];
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .maybeSingle();
 
-  const paragraphs = content.split('\n\n').map(p => {
+    if (!error && data) {
+      post = {
+        ...data,
+        title: data.title || { en: data.title_en || '', my: data.title_my || '' },
+        excerpt: data.excerpt || { en: data.excerpt_en || '', my: data.excerpt_my || '' },
+        content: data.content || { en: data.content_en || '', my: data.content_my || '' }
+      };
+    }
+  } catch (e) {
+    // Fall back to static
+  }
 
-    if (p.startsWith('# ')) return `<h1 style="font-size: 28px; font-weight: 700; margin-bottom: 20px;">${p.slice(2)}</h1>`;
+  if (!post) {
+    post = BLOG_POSTS.find(p => p.slug === slug);
+  }
 
-    if (p.startsWith('## ')) return `<h2 style="font-size: 22px; font-weight: 700; margin: 28px 0 16px;">${p.slice(3)}</h2>`;
+  if (!post) {
+    post = CULTURE_LESSONS.find(p => p.slug === slug);
+  }
 
-    if (p.startsWith('### ')) return `<h3 style="font-size: 18px; font-weight: 600; margin: 24px 0 12px;">${p.slice(4)}</h3>`;
+  if (!post) {
+    window.location.hash = '#blog';
+    return;
+  }
 
-    if (p.startsWith('| ')) return p; // Table - keep as is
 
-    return `<p style="font-size: 16px; line-height: 1.8; margin-bottom: 16px;">${p}</p>`;
 
+  // Enhanced markdown rendering
+  const rawContent = post.content ? post.content[lang] : post.description ? post.description[lang] : '';
+  const content = rawContent || '';
+
+  const renderInline = (text) => {
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/`(.+?)`/g, '<code>$1</code>')
+      .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  };
+
+  const paragraphs = content.split('\n\n').map(block => {
+    const trimmed = block.trim();
+
+    if (!trimmed) return '';
+
+    if (trimmed.startsWith('# ')) return `<h1>${renderInline(trimmed.slice(2))}</h1>`;
+    if (trimmed.startsWith('## ')) return `<h2>${renderInline(trimmed.slice(3))}</h2>`;
+    if (trimmed.startsWith('### ')) return `<h3>${renderInline(trimmed.slice(4))}</h3>`;
+    if (trimmed.startsWith('| ')) return trimmed; // Table - keep as raw HTML
+    if (trimmed.startsWith('> ')) return `<blockquote><p>${renderInline(trimmed.slice(2))}</p></blockquote>`;
+    if (trimmed.startsWith('---') || trimmed === '---') return '<hr>';
+    if (/^[-*] /.test(trimmed)) {
+      const items = trimmed.split('\n').filter(l => /^[-*] /.test(l.trim()));
+      return `<ul>${items.map(item => `<li>${renderInline(item.replace(/^[-*] /, ''))}</li>`).join('')}</ul>`;
+    }
+    if (/^\d+\. /.test(trimmed)) {
+      const items = trimmed.split('\n').filter(l => /^\d+\. /.test(l.trim()));
+      return `<ol>${items.map(item => `<li>${renderInline(item.replace(/^\d+\. /, ''))}</li>`).join('')}</ol>`;
+    }
+
+    return `<p>${renderInline(trimmed)}</p>`;
   }).join('');
 
 
@@ -3503,33 +3177,66 @@ function renderBlogArticleView(slug) {
 
           <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
 
-          Back to Blog
+          ${t('back')}
 
         </a>
 
+        <div class="article-header-accent ${post.type || 'blog'}"></div>
+
         <div class="article-meta">
 
-          <span class="blog-card-date">${post.publishDate}</span>
+          <span class="article-type-badge ${post.type || 'blog'}">${post.type === 'culture' ? t('blogCulture.culture') : t('blogCulture.blog')}</span>
 
-          <span class="blog-read-time">${post.readingTime} ${t('blog.minRead')}</span>
+          ${post.publishDate ? `<span class="article-date">${new Date(post.publishDate).toLocaleDateString(lang === 'my' ? 'ms-MY' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>` : ''}
 
-        </div>
-
-        <h1 style="font-size: 32px; font-weight: 700; margin: 20px 0;">${post.title[lang]}</h1>
-
-        <div class="blog-card-tags">
-
-          ${post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}
+          ${post.readingTime ? `<span class="article-read-time"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${post.readingTime} ${t('blog.minRead')}</span>` : ''}
 
         </div>
+
+        <h1 class="article-title">${(post.title || {})[lang] || post.title_en || ''}</h1>
+
+        ${post.tags && post.tags.length ? `<div class="article-tags">${post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}</div>` : ''}
 
       </div>
-
-
 
       <div class="article-content">
 
         ${paragraphs}
+
+        ${post.vocabList && post.vocabList.length > 0 ? `
+        <div class="grammar-section" style="margin-top: 2rem;">
+          <h2><svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> Vocabulary</h2>
+          <div class="vocab-table-wrapper">
+            <table class="vocab-table">
+              <thead>
+                <tr>
+                  <th>Japanese</th>
+                  <th>Furigana</th>
+                  <th>Romaji</th>
+                  <th>Meaning</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${post.vocabList.map(v => `
+                  <tr>
+                    <td class="vocab-jp-cell">${v.word}</td>
+                    <td>${v.furigana}</td>
+                    <td>${v.romaji}</td>
+                    <td><strong>${v.meaning}</strong><br><small style="color: var(--text-muted)">${v.malay || ''}</small></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        ` : ''}
+
+        ${post.culturalNotes ? `
+        <div class="grammar-section" style="margin-top: 2rem;">
+          <h2><svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg> Cultural Notes</h2>
+          <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.8;">${post.culturalNotes[lang] || post.culturalNotes.en || ''}</p>
+        </div>
+        ` : ''}
 
       </div>
 
@@ -3597,7 +3304,7 @@ function renderResourcesView() {
 
   state.currentView = "resources";
 
-  document.getElementById("section-title").textContent = t('resources.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('resources.title');
 
 
 
@@ -3634,6 +3341,8 @@ function renderResourcesView() {
     youtubePopular: 'youtube',
 
     practice: 'users',
+
+    pitchAccent: 'headphones',
 
     translator: 'languages',
 
@@ -3677,7 +3386,9 @@ function renderResourcesView() {
 
             <div class="resource-section-header">
 
-              <i data-lucide="${categoryIcons[cat] || 'pin'}"></i>
+              ${['youtubeLearning', 'youtubeImmersion', 'youtubePopular'].includes(cat)
+                ? `<img src="logos/youtube.webp" alt="" class="resource-section-icon">`
+                : `<i data-lucide="${categoryIcons[cat] || 'pin'}"></i>`}
 
               <h2>${t(`resources.categories.${cat}`)}</h2>
 
@@ -3787,7 +3498,7 @@ function renderAboutView() {
 
   state.currentView = "about";
 
-  document.getElementById("section-title").textContent = t('about.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('about.title');
 
   const lang = getLanguage();
 
@@ -3891,7 +3602,7 @@ function renderIntroductionView() {
 
   state.currentView = "introduction";
 
-  document.getElementById("section-title").textContent = t('introduction.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('introduction.title');
 
 
 
@@ -4377,9 +4088,7 @@ function renderIntroductionView() {
 
     sokuonAudioBtn.addEventListener("click", () => {
 
-      const audio = new Audio("Audio/Youon + Sokuon/まっすぐ.mp3");
-
-      audio.play();
+      playYouonSokuonAudio('まっすぐ.mp3');
 
     });
 
@@ -4397,7 +4106,7 @@ function renderKanaView() {
 
   state.currentView = "kana";
 
-  document.getElementById("section-title").textContent = t('kana.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.title');
 
 
 
@@ -4741,7 +4450,7 @@ function renderKanjiRulesView() {
 
   state.currentView = "kanji-rules";
 
-  document.getElementById("section-title").textContent = t('kanjiRules.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kanjiRules.title');
 
 
 
@@ -5337,7 +5046,7 @@ function renderKanjiRulesView() {
 
             <h4 style="margin-bottom: 8px;">3. ${lang === 'en' ? 'No writing! Use Spaced Repetition System (SRS)' : 'Gunakan Sistem Repetisi Jarak (SRS)'}</h4>
 
-            <p>${lang === 'en' ? 'Writing kanji over and over can feel めんどうくさい (mendoukusai, tedious) and most people, including me, never actually learned kanji that way. With smartphones, writing kanji has become something most people only do on paper forms. Apps like Anki or WaniKani show you kanji right before you are about to forget them. This beats cramming and is the standard method most fluent learners swear by. If you still want to practice writing, go ahead. It can help with muscle memory, but don\'t rely on it as your main study method.' : 'Menulis kanji berulang-ulang boleh rasa めんどうくさい (mendoukusai, membosankan) dan kebanyakan orang, termasuk saya, tidak pernah belajar kanji dengan cara itu. Dengan telefon pintar, menulis kanji telah menjadi sesuatu yang kebanyakan orang hanya lakukan pada borang kertas. Aplikasi seperti Anki atau WaniKani menunjukkan kanji kepada anda tepat sebelum anda akan melupakannya. Ini mengatasi hafalan dan adalah kaedah standard yang kebanyakan pembelajar fasih bersumpah olehnya. Jika anda masih mahu berlatih menulis, teruskan — ia boleh membantu dengan memori otot, tetapi jangan bergantung pads it sebagai kaedah pembelajaran utama.'}</p>
+            <p>${lang === 'en' ? 'Writing kanji over and over can feel めんどうくさい (mendoukusai, tedious) and most people, including me, never actually learned kanji that way. With smartphones, writing kanji has become something most people only do on paper forms. Apps like Anki or WaniKani show you kanji right before you are about to forget them. This beats cramming and is the standard method most fluent learners swear by. If you still want to practice writing, go ahead. It can help with muscle memory, but don\'t rely on it as your main study method.' : 'Menulis kanji berulang-ulang boleh rasa めんどうくさい (mendoukusai, menyusahkan) dan kebanyakan orang, termasuk saya, tidak pernah belajar kanji dengan cara itu. Dengan telefon pintar, menulis kanji telah menjadi sesuatu yang kebanyakan orang hanya lakukan pada borang kertas. Aplikasi seperti Anki atau WaniKani menunjukkan kanji kepada anda tepat sebelum anda akan melupakannya. Ini mengatasi hafalan dan adalah kaedah standard yang kebanyakan pembelajar fasih bersumpah olehnya. Jika anda masih mahu berlatih menulis, teruskan — ia boleh membantu dengan memori otot, tetapi jangan bergantung pada ia sebagai kaedah pembelajaran utama.'}</p>
 
           </div>
 
@@ -5397,7 +5106,7 @@ function renderKanaSubpage1View() {
 
   state.currentView = "kana-subpage1";
 
-  document.getElementById("section-title").textContent = t('roadmap.kana.subpage1Title') || 'Long Vowel';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('roadmap.kana.subpage1Title') || 'Long Vowel';
 
 
 
@@ -5783,7 +5492,7 @@ function renderKanaSubpage2View() {
 
   state.currentView = "kana-subpage2";
 
-  document.getElementById("section-title").textContent = t('roadmap.kana.subpage2Title') || 'Tenten & Maru';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('roadmap.kana.subpage2Title') || 'Tenten & Maru';
 
 
 
@@ -6395,7 +6104,7 @@ function renderKanaSubpage3View() {
 
   state.currentView = "kana-subpage3";
 
-  document.getElementById("section-title").textContent = t('roadmap.kana.subpage3Title') || 'Youon & Sokuon';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('roadmap.kana.subpage3Title') || 'Youon & Sokuon';
 
 
 
@@ -7485,7 +7194,7 @@ function renderKanjiRulesSubpage2View() {
 
   state.currentView = "kanji-rules-subpage2";
 
-  document.getElementById("section-title").textContent = t('kanjiRules.subpage2Title') || 'Radical';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kanjiRules.subpage2Title') || 'Radical';
 
 
 
@@ -7929,7 +7638,7 @@ function renderKanjiRulesSubpage1View() {
 
   state.currentView = "kanji-rules-subpage1";
 
-  document.getElementById("section-title").textContent = t('kanjiRules.subpage1Title') || 'Stroke Order';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kanjiRules.subpage1Title') || 'Stroke Order';
 
 
 
@@ -8109,7 +7818,7 @@ function renderKanjiRulesSubpage3View() {
 
   state.currentView = "kanji-rules-subpage3";
 
-  document.getElementById("section-title").textContent = t('kanjiRules.subpage3Title') || 'Kanji in Names';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kanjiRules.subpage3Title') || 'Kanji in Names';
 
 
 
@@ -8283,7 +7992,7 @@ function renderAnkiView() {
 
   state.currentView = "anki";
 
-  document.getElementById("section-title").textContent = t('anki.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('anki.title');
 
 
 
@@ -8543,7 +8252,7 @@ function renderImmersionView() {
 
   state.currentView = "immersion";
 
-  document.getElementById("section-title").textContent = t('immersion.title') || 'Comprehensible Input & Immersion';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('immersion.title') || 'Comprehensible Input & Immersion';
 
 
 
@@ -8845,7 +8554,7 @@ function renderSelfStudyAIView() {
 
   state.currentView = "self-study-ai";
 
-  document.getElementById("section-title").textContent = t('selfStudyAI.title') || 'Using AI for Japanese Learning';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('selfStudyAI.title') || 'Using AI for Japanese Learning';
 
 
 
@@ -9160,11 +8869,6 @@ function renderPostEditorView() {
   const post = editingPostData;
   const isEditing = !!post;
 
-  // Determine post type from URL hash or existing post
-  const hash = window.location.hash;
-  const typeParam = new URLSearchParams(hash.split('?')[1] || '').get('type');
-  const postType = post?.type || typeParam || 'blog';
-
   if (post) {
     editingPostId = post.id || post.slug || null;
   } else {
@@ -9177,15 +8881,9 @@ function renderPostEditorView() {
       <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
       ${t('common.back')}
     </a>
-    <h1>${isEditing ? t('admin.editPostTitle') : t('admin.createNewPost')}
-      <select id="post-type-select" class="type-select">
-        <option value="blog" ${postType === 'blog' ? 'selected' : ''}>Blog</option>
-        <option value="culture" ${postType === 'culture' ? 'selected' : ''}>Culture</option>
-      </select>
-    </h1>
+    <h1>${isEditing ? t('admin.editPostTitle') : t('admin.createNewPost')}</h1>
   </div>
   <form id="post-editor-form" class="post-editor-full-form">
-    <input type="hidden" id="post-type" value="${postType}">
     <div class="editor-layout">
       <div class="editor-meta-column">
         <div class="form-group">
@@ -9323,33 +9021,16 @@ function renderPostEditorView() {
     document.getElementById('post-excerpt-my').value = post.excerpt?.my || '';
     document.getElementById('post-date').value = post.publishDate || '';
     document.getElementById('post-reading-time').value = post.readingTime || 5;
-    document.getElementById('post-status').value = post.status || 'draft';
     document.getElementById('post-cover-url').value = post.coverImage || '';
+    document.getElementById('post-status').value = post.status || 'draft';
     document.getElementById('post-content-en').value = post.content?.en || '';
     document.getElementById('post-content-my').value = post.content?.my || '';
-    editorTags = post.tags ? [...post.tags] : [];
+    editorTags = post.tags || [];
+    renderTagChips();
   } else {
     document.getElementById('post-date').value = new Date().toISOString().split('T')[0];
     editorTags = [];
   }
-
-  renderTagChips();
-  slugLocked = false;
-
-  document.getElementById('slug-lock-btn').addEventListener('click', () => {
-    slugLocked = !slugLocked;
-    const icon = document.getElementById('slug-lock-icon');
-    const hint = document.querySelector('.slug-hint');
-    if (slugLocked) {
-      icon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>';
-      icon.parentElement.classList.add('locked');
-      hint.classList.remove('hidden');
-    } else {
-      icon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>';
-      icon.parentElement.classList.remove('locked');
-      hint.classList.add('hidden');
-    }
-  });
 
   document.getElementById('post-title-en').addEventListener('input', (e) => {
     if (!slugLocked) {
@@ -9471,10 +9152,6 @@ function renderPostEditorView() {
     });
   });
 
-  document.getElementById('post-type-select').addEventListener('change', (e) => {
-    document.getElementById('post-type').value = e.target.value;
-  });
-
   document.getElementById('post-editor-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     await savePostFromForm();
@@ -9581,7 +9258,7 @@ function renderAdminView() {
 
   state.currentView = "admin";
 
-  document.getElementById("section-title").textContent = t('admin.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('admin.title');
 
   const appView = document.getElementById("app-view");
 
@@ -9717,7 +9394,7 @@ async function renderAdminDashboard(appView) {
 
       <div class="admin-tabs">
 
-        <button class="admin-tab-btn active" data-tab="blog">Blog & Culture</button>
+        <button class="admin-tab-btn active" data-tab="blog">Blog</button>
 
         <button class="admin-tab-btn" data-tab="signups">${t('admin.signupsTitle')}</button>
 
@@ -9729,15 +9406,9 @@ async function renderAdminDashboard(appView) {
 
       <div class="admin-tab-content active" id="tab-blog">
 
-        <div class="admin-type-filter">
-          <button class="type-filter-btn active" data-type="all">All</button>
-          <button class="type-filter-btn" data-type="blog">Blog</button>
-          <button class="type-filter-btn" data-type="culture">Culture</button>
-        </div>
-
         <div class="admin-section-header">
 
-          <a href="#new-post?type=blog" class="btn-cta-primary" id="new-post-btn">
+          <a href="#new-post" class="btn-cta-primary" id="new-post-btn">
 
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
 
@@ -9974,28 +9645,6 @@ async function renderAdminDashboard(appView) {
 
 
 
-  // Content type filter (All / Blog / Culture)
-  document.querySelectorAll('.type-filter-btn').forEach(btn => {
-
-    btn.addEventListener('click', () => {
-
-      document.querySelectorAll('.type-filter-btn').forEach(b => b.classList.remove('active'));
-
-      btn.classList.add('active');
-
-      adminContentType = btn.dataset.type;
-
-      loadAdminPosts(adminContentType);
-
-      // Update New Post button href to include type
-      const newPostBtn = document.getElementById('new-post-btn');
-
-      newPostBtn.href = '#new-post?type=' + (adminContentType === 'all' ? 'blog' : adminContentType);
-
-    });
-
-  });
-
   // New post button click handler
   document.getElementById('new-post-btn').addEventListener('click', (e) => {
 
@@ -10003,7 +9652,7 @@ async function renderAdminDashboard(appView) {
 
     editingPostData = null;
 
-    window.location.hash = '#new-post?type=' + (adminContentType === 'all' ? 'blog' : adminContentType);
+    window.location.hash = '#new-post';
 
   });
 
@@ -10015,7 +9664,7 @@ async function renderAdminDashboard(appView) {
 
 
 
-async function loadAdminPosts(type = 'all') {
+async function loadAdminPosts() {
 
   const container = document.getElementById('admin-posts-list');
 
@@ -10023,15 +9672,13 @@ async function loadAdminPosts(type = 'all') {
 
   try {
 
-    let query = supabase.from('blog_posts').select('*').order('created_at', { ascending: false });
+    const { data, error } = await supabase
 
-    if (type && type !== 'all') {
+      .from('blog_posts')
 
-      query = query.eq('type', type);
+      .select('*')
 
-    }
-
-    const { data, error } = await query;
+      .order('created_at', { ascending: false });
 
 
 
@@ -10041,11 +9688,9 @@ async function loadAdminPosts(type = 'all') {
 
     } else {
 
-      const localPosts = [];
+      const localPosts = [
 
-      if (type !== 'culture') {
-
-        localPosts.push(...BLOG_POSTS.map(p => ({
+        ...BLOG_POSTS.map(p => ({
 
           id: p.slug,
 
@@ -10063,17 +9708,11 @@ async function loadAdminPosts(type = 'all') {
 
           content: p.content,
 
-          type: 'blog',
-
           isLocal: true
 
-        })));
+        })),
 
-      }
-
-      if (type !== 'blog') {
-
-        localPosts.push(...CULTURE_LESSONS.map(l => ({
+        ...CULTURE_LESSONS.map(l => ({
 
           id: l.slug,
 
@@ -10091,13 +9730,11 @@ async function loadAdminPosts(type = 'all') {
 
           content: { en: '', my: '' },
 
-          type: 'culture',
-
           isLocal: true
 
-        })));
+        }))
 
-      }
+      ];
 
       renderAdminPostsList(container, localPosts);
 
@@ -10155,8 +9792,6 @@ function renderAdminPostsList(container, posts) {
 
             ${tagHtml}
 
-            ${post.type ? `<span class="type-badge ${post.type}">${post.type === 'blog' ? 'Blog' : 'Culture'}</span>` : ''}
-
             ${post.isLocal ? '<span class="local-badge">Local</span>' : '<span class="cloud-badge">Cloud</span>'}
 
           </div>
@@ -10165,9 +9800,9 @@ function renderAdminPostsList(container, posts) {
 
         <div class="admin-post-actions">
 
-          <button class="btn-edit-post" data-id="${post.id}">Edit</button>
+          <button class="btn-edit-post" data-id="${post.id}">${t('admin.editPost')}</button>
 
-          <button class="btn-delete-post" data-id="${post.id}">Delete</button>
+          <button class="btn-delete-post" data-id="${post.id}">${t('admin.deletePost')}</button>
 
         </div>
 
@@ -10204,7 +9839,7 @@ function renderAdminPostsList(container, posts) {
 
       const id = btn.dataset.id;
 
-      if (confirm('Are you sure you want to delete this post?')) {
+      if (confirm(t('admin.confirmDelete'))) {
 
         await deletePost(id);
 
@@ -10296,7 +9931,7 @@ function renderAdminSignupsList(container, signups) {
 
         <div class="admin-signup-actions">
 
-          <button class="btn-delete-signup" data-id="${signup.id}">Delete</button>
+          <button class="btn-delete-signup" data-id="${signup.id}">${t('admin.deletePost')}</button>
 
         </div>
 
@@ -10314,7 +9949,7 @@ function renderAdminSignupsList(container, signups) {
 
       const id = btn.dataset.id;
 
-      if (confirm('Delete this signup?')) {
+      if (confirm(t('admin.confirmDelete'))) {
 
         await adminAction('delete_signup', { id });
 
@@ -10334,73 +9969,9 @@ let editingPostId = null;
 let editingPostData = null;
 let editorTags = [];
 let slugLocked = false;
-let adminContentType = 'all';
 
 
 
-function openPostEditor(post = null) {
-
-  editingPostId = post ? (post.id || post.slug) : null;
-
-  const modal = document.getElementById('post-editor-modal');
-
-  const form = document.getElementById('post-editor-form');
-
-  const title = document.getElementById('editor-title');
-
-
-
-  if (post) {
-
-    title.textContent = 'Edit Post';
-
-    document.getElementById('post-title-en').value = post.title?.en || '';
-
-    document.getElementById('post-title-my').value = post.title?.my || '';
-
-    document.getElementById('post-slug').value = post.slug || '';
-
-    document.getElementById('post-excerpt-en').value = post.excerpt?.en || '';
-
-    document.getElementById('post-excerpt-my').value = post.excerpt?.my || '';
-
-    document.getElementById('post-date').value = post.publishDate || '';
-
-    document.getElementById('post-reading-time').value = post.readingTime || 5;
-
-    document.getElementById('post-tags').value = post.tags ? post.tags.join(', ') : '';
-
-    document.getElementById('post-content-en').value = post.content?.en || '';
-
-    document.getElementById('post-content-my').value = post.content?.my || '';
-
-  } else {
-
-    title.textContent = 'Create New Post';
-
-    form.reset();
-
-    document.getElementById('post-date').value = new Date().toISOString().split('T')[0];
-
-    editingPostId = null;
-
-  }
-
-
-
-  modal.classList.add('active');
-
-}
-
-
-
-function closePostEditor() {
-
-  document.getElementById('post-editor-modal').classList.remove('active');
-
-  editingPostId = null;
-
-}
 
 
 
@@ -10434,8 +10005,6 @@ async function savePostFromForm() {
 
   const tags = editorTags;
 
-  const type = document.getElementById('post-type').value || 'blog';
-
   const content = {
 
     en: document.getElementById('post-content-en').value.trim(),
@@ -10456,7 +10025,7 @@ async function savePostFromForm() {
 
 
 
-  const postData = { title, slug, excerpt, publishDate, readingTime, status, coverImage, tags, type, content };
+  const postData = { title, slug, excerpt, publishDate, readingTime, status, coverImage, tags, content };
 
 
 

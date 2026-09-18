@@ -1,7 +1,6 @@
 // Content Data for AsasJepun Website
 // Culture Lessons, Blog Posts, Resources, Kanji Stroke Rules, Anki Content
 
-// NOTE: Grammar data is now in grammar.js
 // =============================================================================
 // CULTURE LESSONS - Theme-based vocabulary and cultural context
 // =============================================================================
@@ -451,21 +450,21 @@ export const RESOURCES = {
       description: 'The go-to free Japanese-English dictionary, searchable by word, kanji, or radical.',
       url: 'https://jisho.org',
       icon: 'book-open',
-      logo: 'logos/jisho.png'
+      logo: 'logos/jisho.webp'
     },
     {
       name: 'Takoboto',
       description: 'Offline-friendly dictionary app with example sentences, popular on Android.',
       url: 'https://takoboto.jp',
       icon: 'book',
-      logo: 'logos/takoboto.png'
+      logo: 'logos/takoboto.webp'
     },
     {
       name: 'Weblio',
       description: 'Japanese-native dictionary aggregator pulling from multiple sources, great for advanced lookups.',
       url: 'https://www.weblio.jp',
       icon: 'book-marked',
-      logo: 'logos/weblio.svg'
+      logo: 'logos/weblio.webp'
     }
   ],
   anki: [
@@ -474,21 +473,21 @@ export const RESOURCES = {
       description: 'The core spaced repetition flashcard software most immersion learners build their routine around.',
       url: 'https://ankiweb.net',
       icon: 'gamepad-2',
-      logo: 'logos/anki.png'
+      logo: 'logos/anki.webp'
     },
     {
       name: 'Wani Kani',
       description: 'Structured SRS platform for learning kanji and vocab through mnemonics.',
       url: 'https://www.wanikani.com',
       icon: 'flame',
-      logo: 'logos/wanikani.png'
+      logo: 'logos/wanikani.webp'
     },
     {
       name: 'Satori Reader',
       description: 'Graded reading platform with built-in audio and grammar notes alongside vocab review.',
       url: 'https://www.satorireader.com',
       icon: 'book-open',
-      logo: 'logos/satori reader.png'
+      logo: 'logos/satori reader.webp'
     }
   ],
   learning: [
@@ -497,14 +496,14 @@ export const RESOURCES = {
       description: 'Japanese culture and language blog covering everything from grammar breakdowns to deep culture dives.',
       url: 'https://www.tofugu.com',
       icon: 'globe',
-      logo: 'logos/tofugu.ico'
+      logo: 'logos/tofugu.webp'
     },
     {
       name: 'Japanese with Anime',
       description: 'Learn vocabulary and grammar through real anime clips and phrases.',
       url: 'https://www.japanesewithanime.com',
       icon: 'bookmark',
-      logo: 'logos/Japanese with Anime.png'
+      logo: 'logos/Japanese with Anime.webp'
     }
   ],
   mobileApps: [
@@ -513,28 +512,28 @@ export const RESOURCES = {
       description: 'Structured lessons with clear grammar explanations, built specifically for learning Asian languages.',
       url: 'https://lingodeer.com',
       icon: 'smartphone',
-      logo: 'logos/lingodeer.png'
+      logo: 'logos/lingodeer.webp'
     },
     {
       name: 'Renshuu',
       description: 'All-in-one study app covering vocab, kanji, grammar, and JLPT prep with games and SRS.',
       url: 'https://renshuu.org',
       icon: 'gamepad-2',
-      logo: 'logos/renshuu.png'
+      logo: 'logos/renshuu.webp'
     },
     {
       name: 'Memrise',
       description: 'Vocabulary-focused SRS app using spaced repetition and real native speaker video clips.',
       url: 'https://memrise.com',
       icon: 'brain',
-      logo: 'logos/memrise.svg'
+      logo: 'logos/memrise.webp'
     },
     {
       name: 'Busuu',
       description: 'General language app with structured courses and feedback from native speakers.',
       url: 'https://www.busuu.com',
       icon: 'globe',
-      logo: 'logos/busuu.png'
+      logo: 'logos/busuu.webp'
     }
   ],
   reading: [
@@ -543,28 +542,28 @@ export const RESOURCES = {
       description: 'Simplified news articles with furigana, great for beginner-to-intermediate reading.',
       url: 'https://www3.nhk.or.jp/news/easy',
       icon: 'newspaper',
-      logo: 'logos/nhk.png'
+      logo: 'logos/nhk.webp'
     },
     {
       name: 'Satori Reader',
       description: 'Graded reading platform with built-in audio and grammar notes.',
       url: 'https://www.satorireader.com',
       icon: 'book-open',
-      logo: 'logos/satori reader.png'
+      logo: 'logos/satori reader.webp'
     },
     {
       name: 'Tadoku',
       description: 'Free graded reader library built for extensive reading at an easy, comfortable level.',
       url: 'https://tadoku.org',
       icon: 'library',
-      logo: 'logos/tadoku.png'
+      logo: 'logos/tadoku.webp'
     },
     {
       name: 'Todaii',
       description: 'Reading app that adjusts article difficulty automatically to match your level.',
       url: 'https://tadoku.org',
       icon: 'book',
-      logo: 'logos/todaii.png'
+      logo: 'logos/todaii.webp'
     }
   ],
   jlpt: [
@@ -573,14 +572,14 @@ export const RESOURCES = {
       description: 'Grammar-focused SRS app structured around JLPT levels, pairs well with Anki-based vocab study.',
       url: 'https://bunpro.jp',
       icon: 'file-text',
-      logo: 'logos/bunpro.ico'
+      logo: 'logos/bunpro.webp'
     },
     {
       name: 'JLPTSensei',
       description: 'Free JLPT study resource with grammar, vocab, and kanji lists organized by level.',
       url: 'https://jlptsensei.com',
       icon: 'book-open',
-      logo: 'logos/jlptsensei.png'
+      logo: 'logos/jlptsensei.webp'
     }
   ],
   browserLookup: [
@@ -589,14 +588,14 @@ export const RESOURCES = {
       description: 'Pop-up dictionary extension that shows instant definitions when you hover or click any word on a webpage.',
       url: 'https://yomitan.org',
       icon: 'book-open',
-      logo: 'logos/yomitan.png'
+      logo: 'logos/yomitan.webp'
     },
     {
       name: 'Migaku',
       description: 'All-in-one immersion toolkit for sentence mining, subtitles, and dictionary lookup across browser and mobile.',
       url: 'https://migaku.io',
       icon: 'wrench',
-      logo: 'logos/migaku.png'
+      logo: 'logos/migaku.webp'
     }
   ],
   browserSubtitle: [
@@ -605,21 +604,28 @@ export const RESOURCES = {
       description: 'Popular extension for dual subtitles and instant word lookup on Netflix and YouTube.',
       url: 'https://www.languagereactor.com',
       icon: 'tv',
-      logo: 'logos/language reactor.png'
+      logo: 'logos/language reactor.webp'
     },
     {
       name: 'Iago',
       description: 'Interactive subtitles on YouTube, Netflix, and Disney+; click a word to see its meaning and save it for review.',
       url: 'https://getiago.com',
       icon: 'tv',
-      logo: 'logos/iago.png'
+      logo: 'logos/iago.webp'
     },
     {
       name: 'Metheus',
       description: 'Free, open-source immersion extension with dual subtitles, hover dictionary, and flashcard mining from streaming platforms.',
       url: 'https://metheus.app',
       icon: 'tv',
-      logo: 'logos/metheus.png'
+      logo: 'logos/metheus.webp'
+    },
+    {
+      name: 'Japanese Subtitles Github',
+      description: 'Curated collection of subtitle sources for anime, dramas, and films from the AJATT community.',
+      url: 'https://gist.github.com/tatsumoto-ren/78ba4e5b7c53c7ed2c987015fa05cc2b',
+      icon: 'tv',
+      logo: 'logos/github.webp'
     }
   ],
   media: [
@@ -628,20 +634,20 @@ export const RESOURCES = {
       description: 'Native-level shows and movies, ideal for immersion when paired with a subtitle extension.',
       url: 'https://netflix.com',
       icon: 'tv',
-      logo: 'logos/netflix.svg'
+      logo: 'logos/netflix.webp'
     },
     {
       name: 'AbemaTV',
       description: 'Free Japanese streaming platform with native TV, anime, and variety shows. (VPN required outside Japan)',
       url: 'https://abema.tv',
       icon: 'smartphone',
-      logo: 'logos/abematv.png'
+      logo: 'logos/abematv.webp'
     },
     {
       name: 'TVer',
       description: 'Free Japanese streaming service with dramas, anime, and variety shows available shortly after broadcast. (VPN required outside Japan)',
       url: 'https://tver.jp',
-      logo: 'logos/tver.png'
+      logo: 'logos/tver.webp'
     }
   ],
   podcasts: [
@@ -649,37 +655,37 @@ export const RESOURCES = {
       name: 'YUYUの日本語Podcast',
       description: 'Long-running (500+ episodes) intermediate/advanced podcast where host Yuyu discusses everyday topics naturally in Japanese, no explanations given.',
       url: 'https://yuyujapanese.com',
-      logo: 'logos/yuyu.png'
+      logo: 'logos/yuyu.webp'
     },
     {
       name: 'Okkei Japanese',
       description: 'Storytelling-style podcast with natural, unscripted Japanese about daily life in Japan; transcripts with furigana available on the website.',
       url: 'https://okkeijapanese.com',
-      logo: 'logos/okkei.png'
+      logo: 'logos/okkei.webp'
     },
     {
       name: 'Japanese with Shun',
       description: 'Slow, clear Japanese aimed at N5 learners, built around structured immersion lessons rather than native-speed conversation.',
       url: 'https://Japanesewithshun.com',
-      logo: 'logos/japanesewithshun.png'
+      logo: 'logos/japanesewithshun.webp'
     },
     {
       name: 'Miku Real Japanese',
       description: 'Focuses on natural, native-speed conversational Japanese, aimed at learners who understand grammar but struggle with real speech.',
       url: 'https://miku.edujoomlay.com',
-      logo: 'logos/mikurealjapanese.png'
+      logo: 'logos/mikurealjapanese.webp'
     },
     {
       name: 'Nihongo con Teppei',
       description: 'Beginner-friendly, slow-paced, natural speech practice.',
       url: 'https://nihongoconteppei.com',
-      logo: 'logos/nihongoconteppei.png'
+      logo: 'logos/nihongoconteppei.webp'
     },
     {
       name: 'JapanesePod101',
       description: 'Structured, level-based audio lessons.',
       url: 'https://www.japanesepod101.com',
-      logo: 'logos/japanesepod101.png'
+      logo: 'logos/japanesepod101.webp'
     }
   ],
   youtubeLearning: [
@@ -687,31 +693,31 @@ export const RESOURCES = {
       name: 'Kaname Naito',
       description: 'A Japanese teacher who breaks down grammar clearly in English, popular for making difficult concepts easy to understand.',
       url: 'https://www.youtube.com/@KanameNaito',
-      logo: 'logos/kaname naito.png'
+      logo: 'logos/kaname naito.webp'
     },
     {
       name: 'That Japanese Man Yuta',
       description: 'Native speaker interviews and street-survey style videos giving real cultural and linguistic context, not a structured grammar channel.',
       url: 'https://www.youtube.com/@ThatJapaneseManYuta',
-      logo: 'logos/that japanese man yuta.png'
+      logo: 'logos/that japanese man yuta.webp'
     },
     {
       name: 'Nihongo no Mori',
       description: 'Grammar-focused, especially strong for JLPT prep.',
       url: 'https://www.youtube.com/@nihongonomori',
-      logo: 'logos/nihongo no mori.png'
+      logo: 'logos/nihongo no mori.webp'
     },
     {
       name: 'Cure Dolly',
       description: 'Unconventional but well-regarded grammar explanations.',
       url: 'https://www.youtube.com/@JapaneseFromZero',
-      logo: 'logos/cure dolly.png'
+      logo: 'logos/cure dolly.webp'
     },
     {
       name: 'Japanese Ammo with Misa',
       description: 'Structured grammar and vocab lessons.',
       url: 'https://www.youtube.com/@JapaneseAmmo',
-      logo: 'logos/japanese ammo with misa.png'
+      logo: 'logos/japanese ammo with misa.webp'
     }
   ],
   youtubeImmersion: [
@@ -719,43 +725,43 @@ export const RESOURCES = {
       name: 'きまぐれクック Kimagure Cook',
       description: 'Native-speed cooking channel where the host preps seafood with casual narration and humor, good for natural listening practice.',
       url: 'https://www.youtube.com/@kimagurecook',
-      logo: 'logos/きまぐれクック Kimagure Cook.png'
+      logo: 'logos/きまぐれクック Kimagure Cook.webp'
     },
     {
       name: 'オダケン（ホラーゲーム絶叫者）',
       description: 'Horror game reaction channel with lots of unscripted, emotional native speech, useful for casual listening immersion.',
       url: 'https://www.youtube.com/@odaken',
-      logo: 'logos/オダケン（ホラーゲーム絶叫者）.png'
+      logo: 'logos/オダケン（ホラーゲーム絶叫者）.webp'
     },
     {
       name: 'Hukumusume',
       description: 'Traditional Japanese fairy tales and folk stories narrated by a native speaker, calm and simple but authentic language; good stepping stone before full native-speed content.',
       url: 'https://www.youtube.com/@hukumusume',
-      logo: 'logos/Hukumusume.png'
+      logo: 'logos/Hukumusume.webp'
     },
     {
       name: 'あかね的日本語教室 (Akane\'s Japanese Classroom)',
       description: 'Native Japanese teacher\'s blend of lessons and vlogs, aimed at upper-intermediate to advanced learners wanting natural-speed content.',
       url: 'https://www.youtube.com/@akanebiyori',
-      logo: 'logos/あかね的日本語教室.png'
+      logo: 'logos/あかね的日本語教室.webp'
     },
     {
       name: 'ひよりの虫日記 (Hiyori\'s Bug Diary)',
       description: 'Actress and composer Hiyori Katada shares her passion for insects, filming and explaining bugs in nature with casual, enthusiastic narration; good for natural spoken Japanese around a specific hobby topic.',
       url: 'https://www.youtube.com/@hiyori8823',
-      logo: 'logos/ひよりの虫日記.png'
+      logo: 'logos/ひよりの虫日記.webp'
     },
     {
       name: 'AKBの素を出すちゃんねる',
       description: 'AKB48\'s official YouTube sub-channel, showing idol members in unscripted, casual settings beyond their usual stage persona; native variety-style content with natural group conversation.',
       url: 'https://www.youtube.com/@akb48show',
-      logo: 'logos/AKBの素を出すちゃんねる.png'
+      logo: 'logos/AKBの素を出すちゃんねる.webp'
     },
     {
       name: '【素潜り漁師】マサル Masaru.',
       description: 'A free-diving fisherman who films himself spearfishing and diving for seafood along the Japanese coast, with casual native narration; similar vein to きまぐれクック but from the catching side rather than the cooking side.',
       url: 'https://www.youtube.com/@masaru.channel',
-      logo: 'logos/【素潜り漁師】マサル Masaru..png'
+      logo: 'logos/【素潜り漁師】マサル Masaru.webp'
     }
   ],
   youtubePopular: [
@@ -763,25 +769,25 @@ export const RESOURCES = {
       name: 'Hikakin',
       description: 'One of Japan\'s most famous YouTubers, wide variety of content.',
       url: 'https://www.youtube.com/@Hikakin',
-      logo: 'logos/Hikakin.png'
+      logo: 'logos/Hikakin.webp'
     },
     {
       name: 'Kizuna AI',
       description: 'Pioneering VTuber, good for pop culture/internet Japanese.',
       url: 'https://www.youtube.com/@KizunaAI',
-      logo: 'logos/Kizuna AI.png'
+      logo: 'logos/Kizuna AI.webp'
     },
     {
       name: 'Hajime Shacho (はじめしゃちょー)',
       description: 'One of Japan\'s biggest YouTubers, known for challenges, experiments, and comedy vlogs at native speed.',
       url: 'https://www.youtube.com/@hajimesyacho',
-      logo: 'logos/Hajime Shacho.png'
+      logo: 'logos/Hajime Shacho.webp'
     },
     {
       name: 'Fischer\'s',
       description: 'Popular Japanese YouTuber group known for pranks, challenges, and comedy content, widely watched by native audiences.',
       url: 'https://www.youtube.com/@fischers情趣',
-      logo: 'logos/Fischer\'s.png'
+      logo: 'logos/Fischer\'s.webp'
     }
   ],
   practice: [
@@ -790,28 +796,44 @@ export const RESOURCES = {
       description: 'Book paid lessons or conversation sessions with native tutors.',
       url: 'https://italki.com',
       icon: 'graduation-cap',
-      logo: 'logos/italki.png'
+      logo: 'logos/italki.webp'
     },
     {
       name: 'HelloTalk',
       description: 'Language exchange app connecting you with native speakers via text, voice, and video.',
       url: 'https://hellotalk.com',
       icon: 'message-circle',
-      logo: 'logos/hellotalk.svg'
+      logo: 'logos/hellotalk.webp'
     },
     {
       name: 'Speechling',
       description: 'Free pronunciation coaching using native speaker audio feedback.',
       url: 'https://speechling.com',
       icon: 'mic',
-      logo: 'logos/speechling.png'
+      logo: 'logos/speechling.webp'
     },
     {
       name: 'Tandem',
       description: 'Language exchange app for finding native speaker conversation partners.',
       url: 'https://www.tandem.net',
       icon: 'users',
-      logo: 'logos/tandem.png'
+      logo: 'logos/tandem.webp'
+    }
+  ],
+  pitchAccent: [
+    {
+      name: 'Japanese Pitch-Accent in 10 Minutes',
+      description: 'Clear explanation of Japanese pitch accent fundamentals — how it works, why it matters, and how to practice it.',
+      url: 'https://www.youtube.com/watch?v=O6AoilGEers',
+      icon: 'headphones',
+      logo: 'logos/Japanese Pitch-Accent in 10 Minutes.webp'
+    },
+    {
+      name: 'Kotu Pitch Accent Practice',
+      description: 'Audio perception training using minimal pairs to train your ear to hear Japanese pitch accent distinctions.',
+      url: 'https://kotu.io/tests/ja/pitchAccent/perception/minimalPairs',
+      icon: 'headphones',
+      logo: 'logos/kotu.webp'
     }
   ],
   translator: [
@@ -820,14 +842,14 @@ export const RESOURCES = {
       description: 'AI translator known for natural, nuanced sentence-level translations.',
       url: 'https://deepl.com',
       icon: 'languages',
-      logo: 'logos/deepl.png'
+      logo: 'logos/deepl.webp'
     },
     {
       name: 'MiraiTranslate',
       description: 'Japan-based translation engine noted for handling business terminology and honorifics more accurately than general-purpose translators.',
       url: 'https://miraitranslate.com',
       icon: 'languages',
-      logo: 'logos/miraitranslate.png'
+      logo: 'logos/miraitranslate.webp'
     }
   ],
   discordServers: [
@@ -836,28 +858,28 @@ export const RESOURCES = {
       description: 'A popular server connecting English and Japanese speakers for conversation practice.',
       url: 'https://discord.gg/japanese',
       icon: 'message-circle',
-      logo: 'logos/English-Japanese Language Exchange.png'
+      logo: 'logos/English-Japanese Language Exchange.webp'
     },
     {
       name: 'MBF鯖 - マイクラ＆ゲーム雑談',
       description: 'Japanese server centered on Minecraft and gaming chat, great for casual immersion.',
       url: 'https://discord.gg/mbfqing-maikura-gemuza-tan-960062675012964352',
       icon: 'message-circle',
-      logo: 'logos/mbf鯖---マイクラ-ゲーム雑談.png'
+      logo: 'logos/mbf鯖---マイクラ-ゲーム雑談.webp'
     },
     {
       name: 'Japanese Language Study Space',
       description: 'Study-focused community for asking questions and practicing together.',
       url: 'https://discord.gg/jlss',
       icon: 'message-circle',
-      logo: 'logos/jlss.png'
+      logo: 'logos/jlss.webp'
     },
     {
       name: '毎日英語と日本語',
       description: 'Daily-practice server for mutual English-Japanese language exchange.',
       url: 'https://discord.gg/5av7Svzwuj',
       icon: 'message-circle',
-      logo: 'logos/毎日英語と日本語.png'
+      logo: 'logos/毎日英語と日本語.webp'
     }
   ],
   askQuestions: [
@@ -866,30 +888,36 @@ export const RESOURCES = {
       description: 'Q&A site for detailed grammar and linguistics questions with vetted answers.',
       url: 'https://japanese.stackexchange.com',
       icon: 'help-circle',
-      logo: 'logos/Japanese Stack Exchange.png'
+      logo: 'logos/Japanese Stack Exchange.webp'
     },
     {
       name: 'HiNative',
       description: 'Ask native speakers specific language or culture questions directly.',
       url: 'https://hinative.com',
       icon: 'message-circle',
-      logo: 'logos/hinative.png'
+      logo: 'logos/hinative.webp'
     },
     {
       name: 'Reddit r/LearnJapanese',
       description: 'Large community forum for resource recommendations and general discussion.',
       url: 'https://reddit.com/r/LearnJapanese',
       icon: 'users',
-      logo: 'logos/Reddit LearnJapanese.png'
+      logo: 'logos/Reddit LearnJapanese.webp'
     }
   ],
   articles: [
     {
-      name: 'Sakubi',
-      description: 'A short, immersion-focused grammar guide covering the basics for beginners.',
-      url: 'https://sakubi.neocities.org',
-      icon: 'file-text',
-      logo: 'logos/sakubi.png'
+      name: 'Refold',
+      description: 'A structured immersion-learning roadmap and methodology guide, covering stages from beginner comprehension to advanced fluency through native content.',
+      url: 'https://refold.la',
+      logo: 'logos/refold.webp'
+    },
+    {
+      name: 'Morg System',
+      description: 'Personal knowledge site with immersion-method guides and the Yokubi grammar guide.',
+      url: 'https://morg.system',
+      icon: 'zap',
+      logo: 'logos/morg.system.webp'
     },
     {
       name: 'Bret Mayer',
@@ -898,17 +926,11 @@ export const RESOURCES = {
       icon: 'user'
     },
     {
-      name: 'Morg System',
-      description: 'Personal knowledge site with immersion-method guides and the Yokubi grammar guide.',
-      url: 'https://morg.system',
-      icon: 'zap',
-      logo: 'logos/morg.system.png'
-    },
-    {
-      name: 'Refold',
-      description: 'A structured immersion-learning roadmap and methodology guide, covering stages from beginner comprehension to advanced fluency through native content.',
-      url: 'https://refold.la',
-      logo: 'logos/refold.png'
+      name: 'Sakubi',
+      description: 'A short, immersion-focused grammar guide covering the basics for beginners.',
+      url: 'https://sakubi.neocities.org',
+      icon: 'file-text',
+      logo: 'logos/sakubi.webp'
     }
   ],
   otherResources: [

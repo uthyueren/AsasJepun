@@ -1,6 +1,6 @@
 # AsasJepun Website
 
-Interactive Japanese learning website for Malaysian beginners, featuring Hiragana/Katakana charts, JLPT study hubs (N5–N3), grammar library, culture lessons, blog, and quizzes.
+Interactive Japanese learning website for Malaysian beginners, featuring Hiragana/Katakana charts, Kanji rules, culture lessons, blog, and self-study guides (Anki, Immersion, AI).
 
 ## Project Overview
 
@@ -12,33 +12,31 @@ Interactive Japanese learning website for Malaysian beginners, featuring Hiragan
 
 ## Architecture
 
-### Entry Points
+### Entry Point
 
-| File | Theme | Description |
-|---|---|---|
-| `index.html` | Glassmorphism (default) | Main entry |
-| `index-v2.html` – `index-v10.html` | Design variations | Alternate themes (Sakura, Cyberpunk, Washi, Retro, etc.) |
+| File | Description |
+|---|---|
+| `index.html` | Main and only entry point |
 
-All HTML files share the same `app.js`, `data.js`, `content.js`, `i18n.js`, and `styles.css`.
+All share the same `app.js`, `kana.js`, `content.js`, `siteText.js`, `supabase.js`, and `styles.css`.
 
 ### Source Files
 
 | File | Purpose |
 |---|---|
-| `app.js` | Main application logic — router, views, state, quiz system, canvas drawing |
-| `data.js` | KANA_DATA (Hiragana/Katakana) and JLPT_DATA (Kanji/Vocab/Grammar/Quiz per level) |
-| `content.js` | GRAMMAR_DATA, CULTURE_LESSONS, BLOG_POSTS, RESOURCES |
-| `i18n.js` | `translations` object + `t()` helper, `setLanguage()`, `getLanguage()`, `toggleLanguage()` |
-| `styles.css` | Single stylesheet shared by all HTML variants |
-| `vite.config.js` | Build config — bundles all 10 HTML entry points |
+| `app.js` | Main application logic — router, views, state, canvas drawing |
+| `kana.js` | KANA_DATA (Hiragana/Katakana charts) |
+| `content.js` | CULTURE_LESSONS, BLOG_POSTS, RESOURCES, KANJI_STROKE_RULES, ANKI_CONTENT |
+| `siteText.js` | `translations` object + `t()` helper, `setLanguage()`, `getLanguage()`, `toggleLanguage()` |
+| `styles.css` | Single stylesheet |
+| `vite.config.js` | Build config — bundles `index.html` with GA4 analytics proxy for dev |
 
 ### State
 
 Managed in a global `state` object in `app.js`:
-- `currentView`, `activeLevelTab`, `vocabCardIndex`
-- `quizCurrentQuestion`, `quizScore`, `quizAnswers`, `quizActiveLevel`
-- `passedQuizzes[]` — persisted to `localStorage` key `passedQuizzes`
-- `learnedItems{ grammar[], vocab[], culture[] }` — persisted to `localStorage` key `learnedItems`
+- `currentView`, `activeKanaTab`, `vocabCardIndex`
+- `furiganaVisible` — toggles furigana display
+- `resourcePage{}` — tracks current page per resource category
 
 ### Hash Router
 
@@ -46,30 +44,30 @@ Routes handled by `initRouter()` in `app.js`:
 
 | Hash | Handler |
 |---|---|
-| `#intro` | `renderIntroView()` |
+| `#home` | `renderIntroView()` |
+| `#kana` / `#kana/subpage1/2/3` | `renderKanaView()` / subpages |
+| `#kanji-rules` / `#kanji-rules/subpage1/2/3` | `renderKanjiRulesView()` / subpages |
 | `#roadmap` | `renderRoadmapView()` |
-| `#grammar` / `#grammar/<slug>` | `handleGrammarRoute()` |
-| `#culture` / `#culture/<slug>` | `handleCultureRoute()` |
-| `#blog` / `#blog/<slug>` | `handleBlogRoute()` |
+| `#introduction` / `#introduction/jlpt` | `renderIntroductionView()` / `renderJLPTInfoView()` |
+| `#self-study/anki` / `#self-study/immersion` / `#self-study/ai` | `renderAnkiView()` / `renderImmersionView()` / `renderSelfStudyAIView()` |
+| `#culture` / `#culture/<slug>` | `handleBlogCultureRoute()` |
+| `#blog` / `#blog/<slug>` | `handleBlogCultureRoute()` |
 | `#resources` | `renderResourcesView()` |
 | `#about` | `renderAboutView()` |
-| `#n5` / `#n4` / `#n3` | `renderJLPTView(level)` |
-| `#quiz-n5` / `#quiz-n4` / `#quiz-n3` | `startQuiz(level)` |
+| `#admin` | `renderAdminView()` |
+| `#new-post` | `renderPostEditorView()` |
 
 ### Views
 
 - **Intro**: Hero, stats, featured content grid
-- **Roadmap**: Timeline of 4 learning milestones with expandable drawers
-- **JLPT Hub**: Tabbed (Kanji / Grammar / Vocab), start quiz button
-  - **Kanji**: Grid of cards with draw modal (canvas)
-  - **Grammar**: Cards with furigana toggle; detail view with formation, bilingual explanation, examples, common mistakes
-  - **Vocab**: Flashcard deck (flip animation) + sortable table with audio pronunciation
-- **Quiz**: Multi-choice questions with explanation reveal; results page with pass/fail + localStorage tracking
-- **Grammar Library**: Searchable, filterable by JLPT level
-- **Culture Lessons**: Themed lesson cards → lesson detail with vocab table
-- **Blog**: Article listing → article view with simple markdown rendering
+- **Kana**: Hiragana/Katakana charts with subpages (Long Vowels, Tenten/Maru, Small Characters)
+- **Kanji Rules**: Radicals, mnemonics, squished kanji explanations
+- **Roadmap**: Timeline of 6 learning milestones with expandable drawers
+- **Self Study**: Tabs for Anki, Immersion, AI — each with prompt templates
+- **Blog**: Combined blog and culture posts listing → detail view
 - **Resources**: Categorized external links (dictionary, Anki, media, tools)
 - **About**: Bio and social links
+- **Admin**: Login form → dashboard with signups list, blog post editor
 
 ### Modals
 
@@ -94,8 +92,9 @@ npm run preview  # Preview production build
 
 ## Notes
 
-- 10 design variations exist (`index-v2.html` through `index-v10.html`); the sidebar version selector switches between them
 - Canvas drawing state (for Kanji modal) is module-level (`isDrawing`, `lastX`, `lastY`, `ctx`) — not part of `state`
-- Quiz passes at ≥60% score; passing a quiz for a level persists to `localStorage`
 - Grammar "mark as learned" persists per grammar slug to `localStorage`
 - `renderFuriganaSentence()` in `app.js` has a hardcoded mapping for N5 example sentences — adding new grammar examples requires updating this function
+- Blog posts (including culture/vocabulary posts) are stored in Supabase (`blog_posts` table) and fall back to static `BLOG_POSTS`/`CULTURE_LESSONS` arrays in `content.js`. Both are shown together in the combined blog/culture view.
+- The admin post editor no longer uses a type selector — all posts are just blog posts.
+- Culture posts with `vocabList` or `culturalNotes` fields from `CULTURE_LESSONS` still work (static fallback), but new posts don't have these structured fields.

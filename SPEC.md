@@ -29,7 +29,7 @@ Hash-based SPA router:
 
 ### Internationalization (i18n)
 
-All user-facing text stored in a `i18n.js` module with this structure:
+All user-facing text stored in a `siteText.js` module with this structure:
 
 ```js
 export const translations = {
@@ -316,12 +316,11 @@ Used for grammar comparison pages:
 
 The site already has:
 - Dark/light theme system
-- Multiple design versions (v2-v10)
 - Kana charts (Hiragana/Katakana)
 - JLPT N5, N4, N3 study hubs
 - Quiz system
 - Kanji drawing canvas
-- Responsive sidebar navigation
+- Header navigation (sidebar removed)
 - Progress tracking (quiz-based)
 
 These should be **enhanced and integrated**, not replaced.

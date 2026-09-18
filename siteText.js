@@ -308,6 +308,11 @@ export const translations = {
       culturalNotes: "Cultural Notes",
       tryQuiz: "Try the Quiz"
     },
+    // Blog
+    blog: {
+      title: "Blog",
+      minRead: "min read"
+    },
     // Blog & Culture (Combined)
     blogCulture: {
       title: "Blog & Culture",
@@ -330,13 +335,14 @@ export const translations = {
         reading: "Reading",
         jlpt: "JLPT Preparation",
         browserLookup: "Browser Extensions (Lookup)",
-        browserSubtitle: "Browser Extensions (Subtitle)",
+        browserSubtitle: "Subtitle (Browser Extension)",
         media: "Streaming",
         podcasts: "Podcasts",
         youtubeLearning: "YT for Learning Japanese",
         youtubeImmersion: "YT for Immersion",
         youtubePopular: "YT Popular Channels",
         practice: "Speaking Practice",
+        pitchAccent: "Pitch Accent",
         translator: "Translator",
         discordServers: "Discord Servers",
         askQuestions: "Ask Questions",
@@ -444,7 +450,25 @@ export const translations = {
       expectationsLabel: "What do you expect from this class?",
       referralLabel: "How did you find out about this class?",
       questionsLabel: "Any questions for me?",
-      notesLabel: "Anything else you want to share?"
+      notesLabel: "Anything else you want to share?",
+      // Class info screen
+      classInfoTitle: "Japanese Classes with Uthman",
+      classInfoSubtitle: "Personalized 1-on-1 or group lessons tailored to your goals",
+      classInfoDesc: "Whether you're starting from zero or picking up where you left off, I'll help you build a solid foundation in Japanese.",
+      classInfoIncludesTitle: "What You Get",
+      classInfoIncludes1: "Customized lessons based on your level and goals",
+      classInfoIncludes2: "Homework and feedback after every class",
+      classInfoIncludes3: "Support between classes via WhatsApp",
+      classInfoIncludes4: "Resources and materials provided",
+      classInfoPricingTitle: "Pricing",
+      classInfo1on1: "1-on-1 Class",
+      classInfo1on1Price: "RM200/month",
+      classInfo1on1Desc: "4 classes per month, personalized attention",
+      classInfoGroup: "Group Class",
+      classInfoGroupPrice: "RM150/month",
+      classInfoGroupDesc: "4 classes per month, learn with others",
+      classInfoNote: "All classes are conducted online via Google Meet",
+      classInfoStartBtn: "Start Registration"
     },
     // Kana Charts
     kana: {
@@ -995,6 +1019,11 @@ export const translations = {
       culturalNotes: "Nota Budaya",
       tryQuiz: "Cuba Kuiz"
     },
+    // Blog
+    blog: {
+      title: "Blog",
+      minRead: "min baca"
+    },
     // Blog & Culture (Combined)
     blogCulture: {
       title: "Blog & Budaya",
@@ -1017,13 +1046,14 @@ export const translations = {
         reading: "Membaca",
         jlpt: "Persediaan JLPT",
         browserLookup: "Sambungan Pelayar (Lookup)",
-        browserSubtitle: "Sambungan Pelayar (Subtitle)",
+        browserSubtitle: "Sari Kata (Sambungan Pelayar)",
         media: "Streaming",
         podcasts: "Podcast",
         youtubeLearning: "YT untuk Belajar Jepun",
         youtubeImmersion: "YT untuk Penyerapan",
         youtubePopular: "YT Channel Popular",
         practice: "Latihan Bertutur",
+        pitchAccent: "Pitch Accent",
         translator: "Penterjemah",
         discordServers: "Discord Servers",
         askQuestions: "Tanya Soalan",
@@ -1108,7 +1138,25 @@ export const translations = {
       expectationsLabel: "Apa yang anda expect dari kelas ni?",
       referralLabel: "Macam mana anda tahu tentang kelas ni?",
       questionsLabel: "Soalan untuk saya?",
-      notesLabel: "Apa-apa lagi yang nak dikongsi?"
+      notesLabel: "Apa-apa lagi yang nak dikongsi?",
+      // Class info screen
+      classInfoTitle: "Kelas Jepun dengan Uthman",
+      classInfoSubtitle: "Pelajaran 1-on-1 atau berkumpulan yang disesuaikan dengan matlamat anda",
+      classInfoDesc: "Sama ada anda bermula dari zero atau sambung balik, saya akan bantu anda bina asas yang kukuh dalam Bahasa Jepun.",
+      classInfoIncludesTitle: "Apa Yang Anda Dapat",
+      classInfoIncludes1: "Pelajaran yang disesuaikan dengan tahap dan matlamat anda",
+      classInfoIncludes2: "Homework dan feedback lepas setiap kelas",
+      classInfoIncludes3: "Support antara kelas via WhatsApp",
+      classInfoIncludes4: "Resource dan bahan disediakan",
+      classInfoPricingTitle: "Harga",
+      classInfo1on1: "Kelas 1-on-1",
+      classInfo1on1Price: "RM200/bulan",
+      classInfo1on1Desc: "4 kelas sebulan, perhatian peribadi",
+      classInfoGroup: "Kelas Berkumpulan",
+      classInfoGroupPrice: "RM150/bulan",
+      classInfoGroupDesc: "4 kelas sebulan, belajar bersama",
+      classInfoNote: "Semua kelas dijalankan online via Google Meet",
+      classInfoStartBtn: "Mula Pendaftaran"
     },
     // Common
     common: {
