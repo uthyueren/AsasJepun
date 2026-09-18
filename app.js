@@ -3568,13 +3568,13 @@ function renderResourcesView() {
 
         <a href="#self-study/ai" class="btn-cta-secondary">
 
-          ← ${lang === 'en' ? 'Back: Using AI' : 'Kembali: Menggunakan AI'}
+          ← ${t('resources.navBack')}
 
         </a>
 
         <a href="#blog" class="btn-cta-primary">
 
-          ${lang === 'en' ? 'Next: Blog & Culture' : 'Seterusnya: Blog & Budaya'} →
+          ${t('resources.navNext')} →
 
         </a>
 

@@ -349,7 +349,9 @@ export const translations = {
         articles: "Japanese Articles",
         otherResources: "Other Resources"
       },
-      visit: "Visit"
+      visit: "Visit",
+      navBack: "Back: Using AI",
+      navNext: "Next: Blog & Culture"
     },
     // About
     about: {
@@ -746,7 +748,7 @@ export const translations = {
     // Homepage
     home: {
       heroTag: "Konnichiwa! こんにちは",
-      heroTitle: "Panduan anda belajar bahasa Jepun dengan cara yang betul",
+      heroTitle: "Panduan belajar bahasa Jepun dengan cara yang betul",
       heroSubtitle: "Semua yang anda perlukan untuk belajar bahasa Jepun secara efektif.",
       featuredTitle: "Kandungan Pilihan",
       whyTitle: "Bagaimana kami bantu anda",
@@ -1069,6 +1071,8 @@ export const translations = {
         otherResources: "Sumber Lain"
       },
       visit: "Lawati",
+      navBack: "Kembali: Menggunakan AI",
+      navNext: "Seterusnya: Blog & Budaya",
       descriptions: {
         // Dictionary
         "Jisho.org": "Kamus Japanese-English percuma, boleh cari perkataan, kanji, atau radikal.",
