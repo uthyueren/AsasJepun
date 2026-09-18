@@ -22,19 +22,21 @@
       gtag('js', new Date());
       gtag('config', 'G-KQKL3CH0KY');
     </script>
-</head>
-<body>
-    <!-- Prevent theme flash - apply theme before render -->
+    <!-- Prevent theme flash - apply theme before any render -->
     <script>
       (function() {
         const saved = localStorage.getItem('theme');
+        // Use className to ensure we REPLACE any existing classes, not just add to them
+        // Set on documentElement (html) for earliest possible application
         if (saved === 'light') {
-          document.body.classList.add('light-theme');
+          document.documentElement.className = 'light-theme';
         } else {
-          document.body.classList.add('dark-theme');
+          document.documentElement.className = 'dark-theme';
         }
       })();
     </script>
+</head>
+<body>
     <!-- App Layout Container -->
     <div class="app-layout">
         <!-- Main Content Area -->
