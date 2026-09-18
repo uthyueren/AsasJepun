@@ -1148,7 +1148,7 @@ function renderNotFoundView() {
       <p style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 32px;">
         ${lang === 'en' ? 'Oops! This page does not exist.' : 'Oops! Halaman ini tidak wujud.'}
       </p>
-      <a href="#home" class="btn-cta-primary" style="display: inline-block;">
+      <a href="/home" class="btn-cta-primary" style="display: inline-block;">
         ${lang === 'en' ? 'Go Home' : 'Pulang ke Laman Utama'}
       </a>
     </div>
@@ -1541,7 +1541,7 @@ function renderIntroView() {
 
           <div class="hero-actions">
 
-            <a href="#introduction" class="btn-cta-primary">
+            <a href="/introduction" class="btn-cta-primary">
 
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
 
@@ -1549,7 +1549,7 @@ function renderIntroView() {
 
             </a>
 
-            <a href="#roadmap" class="btn-cta-secondary">
+            <a href="/roadmap" class="btn-cta-secondary">
 
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
 
@@ -1631,7 +1631,7 @@ function renderIntroView() {
 
         <div class="home-sections-grid">
 
-          <a href="#introduction" class="home-section-card">
+          <a href="/introduction" class="home-section-card">
 
             <div class="home-section-icon"><i data-lucide="book-open"></i></div>
 
@@ -1645,7 +1645,7 @@ function renderIntroView() {
 
           </a>
 
-          <a href="#kana" class="home-section-card">
+          <a href="/kana" class="home-section-card">
 
             <div class="home-section-icon kana-icon">あ</div>
 
@@ -1659,7 +1659,7 @@ function renderIntroView() {
 
           </a>
 
-          <a href="#kanji-rules" class="home-section-card">
+          <a href="/kanji-rules" class="home-section-card">
 
             <div class="home-section-icon kanji-icon">漢</div>
 
@@ -1673,7 +1673,7 @@ function renderIntroView() {
 
           </a>
 
-          <a href="#self-study" class="home-section-card">
+          <a href="/self-study" class="home-section-card">
 
             <div class="home-section-icon"><i data-lucide="graduation-cap"></i></div>
 
@@ -1687,7 +1687,7 @@ function renderIntroView() {
 
           </a>
 
-          <a href="#resources" class="home-section-card">
+          <a href="/resources" class="home-section-card">
 
             <div class="home-section-icon"><i data-lucide="link"></i></div>
 
@@ -1701,7 +1701,7 @@ function renderIntroView() {
 
           </a>
 
-          <a href="#about" class="home-section-card">
+          <a href="/about" class="home-section-card">
 
             <div class="home-section-icon"><i data-lucide="user"></i></div>
 
@@ -2123,7 +2123,7 @@ function renderSelfStudyView() {
 
           </a>
 
-          <a href="#self-study/anki" class="btn-cta-primary">
+          <a href="/self-study/anki" class="btn-cta-primary">
 
             ${lang === 'en' ? 'Next: Anki & Vocab Mining' : 'Seterusnya: Anki & Vocab Mining'} →
 
@@ -2325,7 +2325,7 @@ function renderRoadmapView() {
 
               </ul>
 
-              <a href="#kana" class="roadmap-go-btn">${t('roadmap.goTo')} →</a>
+              <a href="/kana" class="roadmap-go-btn">${t('roadmap.goTo')} →</a>
 
             </div>
 
@@ -2979,7 +2979,7 @@ async function renderCultureLessonView(slug) {
 
         <div class="culture-detail-header">
 
-          <a href="#culture" class="culture-detail-back">
+          <a href="/culture" class="culture-detail-back">
 
             <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
 
@@ -3273,7 +3273,7 @@ async function renderBlogArticleView(slug) {
 
       <div class="article-header">
 
-        <a href="#blog" class="culture-detail-back">
+        <a href="/blog" class="culture-detail-back">
 
           <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
 
@@ -3566,13 +3566,13 @@ function renderResourcesView() {
 
       <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-        <a href="#self-study/ai" class="btn-cta-secondary">
+        <a href="/self-study/ai" class="btn-cta-secondary">
 
           ← ${t('resources.navBack')}
 
         </a>
 
-        <a href="#blog" class="btn-cta-primary">
+        <a href="/blog" class="btn-cta-primary">
 
           ${t('resources.navNext')} →
 
@@ -3832,7 +3832,7 @@ function renderPrivacyPolicyView() {
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'If you have any questions about this Privacy Policy, please contact us through our <a href="#about">About page</a>.' : 'Jika anda mempunyai apa-apa soalan tentang Dasar Privasi ini, sila hubungi kami melalui <a href="#about">halaman Tentang</a> kami.'}</p>
+            <p>${lang === 'en' ? 'If you have any questions about this Privacy Policy, please contact us through our <a href="/about">About page</a>.' : 'Jika anda mempunyai apa-apa soalan tentang Dasar Privasi ini, sila hubungi kami melalui <a href="/about">halaman Tentang</a> kami.'}</p>
 
           </div>
 
@@ -3990,7 +3990,7 @@ function renderTermsView() {
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'If you have any questions about these Terms & Conditions, please contact us through our <a href="#about">About page</a>.' : 'Jika anda mempunyai apa-apa soalan tentang Syarat & Ketetapan ini, sila hubungi kami melalui <a href="#about">halaman Tentang</a> kami.'}</p>
+            <p>${lang === 'en' ? 'If you have any questions about these Terms & Conditions, please contact us through our <a href="/about">About page</a>.' : 'Jika anda mempunyai apa-apa soalan tentang Syarat & Ketetapan ini, sila hubungi kami melalui <a href="/about">halaman Tentang</a> kami.'}</p>
 
           </div>
 
@@ -4460,7 +4460,7 @@ function renderIntroductionView() {
 
           <div style="text-align: center;">
 
-            <a href="#kana" class="btn-cta-primary">${t('introduction.ctaRoadmap')}</a>
+            <a href="/kana" class="btn-cta-primary">${t('introduction.ctaRoadmap')}</a>
 
           </div>
 
@@ -4802,7 +4802,7 @@ function renderKanaView() {
 
       <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-        <a href="#introduction" class="btn-cta-secondary">
+        <a href="/introduction" class="btn-cta-secondary">
 
           ← ${lang === 'en' ? 'Back: Introduction' : 'Kembali: Pengenalan'}
 
@@ -5870,7 +5870,7 @@ function renderKanaSubpage1View() {
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-          <a href="#kana" class="btn-cta-secondary">
+          <a href="/kana" class="btn-cta-secondary">
 
             ← ${lang === 'en' ? 'Back: Hiragana & Katakana' : 'Kembali: Hiragana & Katakana'}
 
@@ -7580,7 +7580,7 @@ function renderKanaSubpage3View() {
 
           </a>
 
-          <a href="#kanji-rules" class="btn-cta-primary">
+          <a href="/kanji-rules" class="btn-cta-primary">
 
             ${lang === 'en' ? 'Next: Kanji' : 'Seterusnya: Kanji'} →
 
@@ -8016,7 +8016,7 @@ function renderKanjiRulesSubpage2View() {
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-          <a href="#kanji-rules" class="btn-cta-secondary">
+          <a href="/kanji-rules" class="btn-cta-secondary">
 
             ← ${lang === 'en' ? 'Back: Kanji' : 'Kembali: Kanji'}
 
@@ -8376,7 +8376,7 @@ function renderKanjiRulesSubpage3View() {
 
           </a>
 
-          <a href="#self-study" class="btn-cta-primary">
+          <a href="/self-study" class="btn-cta-primary">
 
             ${lang === 'en' ? 'Next: Self Study' : 'Seterusnya: Panduan Belajar'} →
 
@@ -8632,13 +8632,13 @@ function renderAnkiView() {
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-          <a href="#self-study" class="btn-cta-secondary">
+          <a href="/self-study" class="btn-cta-secondary">
 
             ← ${lang === 'en' ? 'Back: Self Study Guide' : 'Kembali: Panduan Belajar Sendiri'}
 
           </a>
 
-          <a href="#self-study/immersion" class="btn-cta-primary">
+          <a href="/self-study/immersion" class="btn-cta-primary">
 
             ${lang === 'en' ? 'Next: Comprehensible Input & Immersion' : 'Seterusnya: Input Boleh Difahami & Penyerapan'} →
 
@@ -8934,13 +8934,13 @@ function renderImmersionView() {
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-          <a href="#self-study/anki" class="btn-cta-secondary">
+          <a href="/self-study/anki" class="btn-cta-secondary">
 
             ← ${lang === 'en' ? 'Back: Anki & Vocab Mining' : 'Kembali: Anki & Vocab Mining'}
 
           </a>
 
-          <a href="#self-study/ai" class="btn-cta-primary">
+          <a href="/self-study/ai" class="btn-cta-primary">
 
             ${lang === 'en' ? 'Next: Using AI' : 'Seterusnya: Menggunakan AI'} →
 
@@ -9131,13 +9131,13 @@ function renderSelfStudyAIView() {
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-          <a href="#self-study/immersion" class="btn-cta-secondary">
+          <a href="/self-study/immersion" class="btn-cta-secondary">
 
             ← ${lang === 'en' ? 'Back: Comprehensible Input' : 'Kembali: Input Boleh Difahami'}
 
           </a>
 
-          <a href="#resources" class="btn-cta-primary">
+          <a href="/resources" class="btn-cta-primary">
 
             ${lang === 'en' ? 'Next: Resources' : 'Seterusnya: Sumber'} →
 
@@ -9303,7 +9303,7 @@ function renderPostEditorView() {
 
   appView.innerHTML = `<div class="fade-in post-editor-page">
   <div class="post-editor-header">
-    <a href="#admin" class="btn-back">
+    <a href="/admin" class="btn-back">
       <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
       ${t('common.back')}
     </a>
@@ -9433,7 +9433,7 @@ function renderPostEditorView() {
       </div>
     </div>
     <div class="form-actions">
-      <a href="#admin" class="btn-cancel">${t('admin.cancel')}</a>
+      <a href="/admin" class="btn-cancel">${t('admin.cancel')}</a>
       <button type="submit" class="btn-cta-primary">${t('admin.savePost')}</button>
     </div>
   </form>
@@ -9834,7 +9834,7 @@ async function renderAdminDashboard(appView) {
 
         <div class="admin-section-header">
 
-          <a href="#new-post" class="btn-cta-primary" id="new-post-btn">
+          <a href="/new-post" class="btn-cta-primary" id="new-post-btn">
 
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
 
@@ -9914,7 +9914,7 @@ async function renderAdminDashboard(appView) {
 
               <input type="text" id="post-slug" placeholder="e.g. my-first-post" required>
 
-              <small>Use lowercase, hyphens only. Used in URL: #blog/slug</small>
+              <small>Use lowercase, hyphens only. Used in URL: /blog/slug</small>
 
             </div>
 
