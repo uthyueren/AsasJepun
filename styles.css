@@ -5507,8 +5507,9 @@ section.info-content:last-child {
 
 .structure-compare-header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
     margin-bottom: 20px;
 }
 
@@ -6472,12 +6473,6 @@ section.info-content:last-child {
 
     .jlpt-purpose-cta {
         padding: 24px 20px;
-    }
-
-    .structure-compare-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
     }
 
     .structure-compare-flow {
