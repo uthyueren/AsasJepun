@@ -3310,6 +3310,8 @@ function renderResourcesView() {
 
   const appView = document.getElementById("app-view");
 
+  const lang = getLanguage();
+
 
 
   const categoryIcons = {
@@ -3388,6 +3390,8 @@ function renderResourcesView() {
 
               ${['youtubeLearning', 'youtubeImmersion', 'youtubePopular'].includes(cat)
                 ? `<img src="logos/youtube.webp" alt="" class="resource-section-icon">`
+                : cat === 'discordServers'
+                ? `<img src="logos/discord.webp" alt="" class="resource-section-icon">`
                 : `<i data-lucide="${categoryIcons[cat] || 'pin'}"></i>`}
 
               <h2>${t(`resources.categories.${cat}`)}</h2>
@@ -3457,6 +3461,22 @@ function renderResourcesView() {
           </section>
 
         `}).join('')}
+
+      </div>
+
+      <div style="margin-top: 24px; display: flex; justify-content: space-between;">
+
+        <a href="#self-study/ai" class="btn-cta-secondary">
+
+          ← ${lang === 'en' ? 'Back: Using AI' : 'Kembali: Menggunakan AI'}
+
+        </a>
+
+        <a href="#blog" class="btn-cta-primary">
+
+          ${lang === 'en' ? 'Next: Blog & Culture' : 'Seterusnya: Blog & Budaya'} →
+
+        </a>
 
       </div>
 
@@ -8530,9 +8550,9 @@ function renderImmersionView() {
 
           </a>
 
-          <a href="#jlpt-info" class="btn-cta-primary">
+          <a href="#self-study/ai" class="btn-cta-primary">
 
-            ${lang === 'en' ? 'Next: What is JLPT' : 'Seterusnya: Apa itu JLPT'} →
+            ${lang === 'en' ? 'Next: Using AI' : 'Seterusnya: Menggunakan AI'} →
 
           </a>
 
@@ -8718,6 +8738,22 @@ function renderSelfStudyAIView() {
           </div>
 
         </section>
+
+        <div style="margin-top: 24px; display: flex; justify-content: space-between;">
+
+          <a href="#self-study/immersion" class="btn-cta-secondary">
+
+            ← ${lang === 'en' ? 'Back: Comprehensible Input' : 'Kembali: Input Boleh Difahami'}
+
+          </a>
+
+          <a href="#resources" class="btn-cta-primary">
+
+            ${lang === 'en' ? 'Next: Resources' : 'Seterusnya: Sumber'} →
+
+          </a>
+
+        </div>
 
       </div>
 
