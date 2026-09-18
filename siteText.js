@@ -2,8 +2,9 @@
 // Languages: English (en), Bahasa Malaysia (my)
 
 export const translations = {
-  nav: {
-    en: {
+  en: {
+    // Navigation
+    nav: {
       intro: "Home",
       kana: "Hiragana & Katakana",
       kanjiRules: "Kanji",
@@ -21,28 +22,8 @@ export const translations = {
       immersion: "Comprehensible Input & Immersion",
       ai: "Using AI"
     },
-    my: {
-      intro: "Laman Utama",
-      kana: "Hiragana & Katakana",
-      kanjiRules: "Kanji",
-      anki: "Anki & Lombong Vocab",
-      roadmap: "Laluan Pembelajaran",
-      introduction: "Pengenalan",
-      selfStudy: "Panduan Belajar Sendiri",
-      blogCulture: "Blog & Budaya",
-      resources: "Sumber",
-      about: "Tentang",
-      jlptInfo: "Apa itu JLPT?",
-      kanaSubpage1: "Vokal Panjang",
-      kanaSubpage2: "Tenten & Maru",
-      kanaSubpage3: "Kana Kecil",
-      immersion: "Input Boleh Difahami & Penyerapan",
-      ai: "Menggunakan AI"
-    }
-  },
-
-  home: {
-    en: {
+    // Homepage
+    home: {
       heroTag: "Konnichiwa! こんにちは",
       heroTitle: "Your guide to learning Japanese the right way",
       heroSubtitle: "Everything you need to self-study Japanese effectively.",
@@ -70,70 +51,12 @@ export const translations = {
       sectionAboutTitle: "About",
       sectionAboutDesc: "About AsasJepun and the creator behind it"
     },
-    my: {
-      heroTag: "Konnichiwa! こんにちは",
-      heroTitle: "Panduan belajar bahasa Jepun dengan cara yang betul",
-      heroSubtitle: "Semua yang anda perlukan untuk belajar bahasa Jepun secara efektif.",
-      whyTitle: "Bagaimana kami bantu anda",
-      whyPoint1Title: "Tak ada lagi scroll YouTube tak ingat arah",
-      whyPoint1Desc: "Kami beri anda jalan yang jelas. Follow roadmap dari zero ke boleh converse, atau mula di tahap mana pun anda sekarang.",
-      whyPoint2Title: "Belajar apa yang perlu",
-      whyPoint2Desc: "Panduan dan sumber yang benar-benar bantu korang belajar, bukan sekadar baca je.",
-      whyPoint3Title: "Faham budaya untuk faham bahasa",
-      whyPoint3Desc: "Bahasa Jepun masuk akal bila anda faham kenapa ia macamtu. Kami ajar melalui konteks  perayaan, kehidupan harian, hiburan.",
-      quickNavTitle: "Pautan Pantas",
-      quickNavSubtitle: "Pilih seksyen dan mulakan",
-      heroCtaStart: "Mulakan dengan Pengenalan",
-      heroCtaRoadmap: "Lihat Laluan Pembelajaran",
-      sectionIntroTitle: "Pengenalan ke Bahasa Jepun",
-      sectionIntroDesc: "Langkah pertama yang penting - belajar bagaimana tulisan Jepun berfungsi",
-      sectionKanaTitle: "Hiragana & Katakana",
-      sectionKanaDesc: "Belajar dua sistem penulisan Jepun dengan carta interaktif",
-      sectionKanjiTitle: "Kanji",
-      sectionKanjiDesc: "Kuasai urutan笔画, radikal, dan asas menulis",
-      sectionSelfStudyTitle: "Panduan Belajar Sendiri",
-      sectionSelfStudyDesc: "Bagaimana untuk belajar bahasa Jepun dengan efektif secara bebas",
-      sectionResourcesTitle: "Sumber",
-      sectionResourcesDesc: "Alat yang dipilih: kamus, deck Anki, pemain media, dan lagi",
-      sectionAboutTitle: "Tentang",
-      sectionAboutDesc: "Tentang AsasJepun dan pencipta di sebaliknya"
-    }
-  },
-
-  roadmap: {
-    en: {
+    // Roadmap
+    roadmap: {
       title: "Japanese Language Learning Roadmap",
       intro: "A step-by-step guide to take you from zero to intermediate level (N3) and beyond. Click on each phase for details on learning focus.",
       disclaimer: "⚠️ These timelines are estimates assuming consistent daily study (1-2 hours). Your actual progress depends on consistency, not intensity.",
       goTo: "Go to section",
-      smallKana: {
-        title: "Small Kana",
-        subtitle: "Small kana for foreign sounds",
-        desc: "Katakana uses small characters (ァ, ォ, etc.) to write foreign words. These combinations create sounds not found in traditional Japanese. The small vowel versions technically exist in hiragana too and occasionally show up for stylized or emphasis effects, like an elongated exclamation.",
-        examplesTitle: "Common Examples",
-        examples: [
-          { kana: "ヴァ", romaji: "va", used: "ヴァルキリー (Valkyrie)" },
-          { kana: "ヴィ", romaji: "vi", used: "ヴィジュアル (visual)" },
-          { kana: "ヴェ", romaji: "ve", used: "ヴェスト (vest)" },
-          { kana: "ヴォ", romaji: "vo", used: "ヴォイス (voice)" },
-          { kana: "ウィ", romaji: "wi", used: "ウィスキー (whisky)" },
-          { kana: "ウェ", romaji: "we", used: "ウェディング (wedding)" },
-          { kana: "ウォ", romaji: "wo", used: "ワーク (work)" },
-          { kana: "ティ", romaji: "ti", used: "ティッシュ (tissue)" },
-          { kana: "ディ", romaji: "di", used: "ディズニー (Disney)" },
-          { kana: "ドゥ", romaji: "du", used: "ドゥーム (doom)" },
-          { kana: "チェ", romaji: "che", used: "チェック (check)" },
-          { kana: "ジェ", romaji: "je", used: "ジェット (jet)" },
-          { kana: "シェ", romaji: "she", used: "シェイク (shake)" },
-          { kana: "ツァ", romaji: "tsa", used: "モーツァルト (Mozart)" },
-          { kana: "ファ", romaji: "fa", used: "ファミリー (family)" },
-          { kana: "フィ", romaji: "fi", used: "フィルター (filter)" },
-          { kana: "フェ", romaji: "fe", used: "フェンス (fence)" },
-          { kana: "フォ", romaji: "fo", used: "フォルダー (folder)" },
-        ],
-        smallHiraganaTitle: "Small Hiragana (っ)",
-        smallHiraganaDesc: "The small っ (tsu) doubles the following consonant.  돌아 → もっと (motto), not とも (tomo)"
-      },
       phases: {
         phase1: "Phase 1",
         phase2: "Phase 2",
@@ -168,69 +91,7 @@ export const translations = {
           "Hiragana and Katakana (reading, not writing yet)",
           "Dakuon, Handakuon, Yoon sounds",
           "Reading simple words and phrases"
-        ],
-        subpage1Title: "Long Vowel",
-        subpage1Subtitle: "Learn how to extend vowel sounds (chōon / 長音)",
-        subpage2Title: "Tenten & Maru",
-        subpage2Subtitle: "Understand dakuten (濁点) and handakuten (半濁点)",
-        subpage3Title: "Small Characters",
-        subpage3Subtitle: "Learn small kana (ァ, ィ, ォ, っ, ゃ, ゅ, ょ) that modify sounds",
-        // Long Vowel content
-        subpage1: {
-          whatIsTitle: "What is Long Vowel?",
-          whatIsDesc: "Long vowels (長音 / chōon) are extended vowel sounds where a vowel is held for two morae instead of one. In Japanese, changing a vowel length can completely change the meaning of a word, so it's important to master this early.",
-          hiraganaTitle: "Writing Long Vowel in Hiragana",
-          katakanaTitle: "Writing Long Vowel in Katakana",
-          katakanaDesc: "Katakana uses a straight horizontal line called the long vowel mark (長音符 / chōonpu / ー) instead of adding extra letters. This line extends the vowel sound of the character before it.",
-          aRow: "A-row sounds (あ段)",
-          aRowRule: "Add an extra あ (a)",
-          iRow: "I-row sounds (い段)",
-          iRowRule: "Add an extra い (i)",
-          uRow: "U-row sounds (う段)",
-          uRowRule: "Add an extra う (u)",
-          eRow: "E-row sounds (え段)",
-          eRowRule: "Usually add い (i)",
-          oRow: "O-row sounds (お段)",
-          oRowRule: "Usually add う (u)",
-          // Examples
-          exOkaasan: "mother",
-          exOniisan: "older brother",
-          exKuuki: "air",
-          exSeito: "student",
-          exTokei: "clock",
-          exOokami: "wolf",
-          exKi: "From キ (ki) + ー",
-          exKiWord: "key",
-          exKu: "From ク (ku) + ー",
-          exKuWord: "air",
-          exShiito: "From キ (ki) + ー + パ (pa) + ー",
-          exShiitoWord: "keeper",
-          exTerebi: "From テ (te) + レ (re) + ビ (bi)",
-          exTerebiWord: "television"
-        },
-        // Tenten & Maru content
-        subpage2: {
-          whatIsTitle: "What are Tenten and Maru?",
-          whatIsDesc: "Tenten (also known as Dakuten) and Maru (also known as Handakuten) are marks that can change the pronunciation of kana characters. Tenten are the two small dashes (゛) placed at the top-right of a kana character and Maru is a small circle (゜) placed at the top-right of a kana character. Both change the sound of consonants.",
-          dakutenTitle: "Implementation",
-          dakutenDesc: "Tenten changes the か (ka) row into が (ga), the さ (sa) row into ざ (za), the た (ta) row into だ (da), and the は (ha) row into ば (ba).",
-          handakutenTitle: "Maru (゜)",
-          handakutenDesc: "Maru changes the は (ha) row into ぱ (pa) row.",
-          memoryTrickTitle: "Quick Reference",
-          memoryTrickDesc: "Pronunciation stays the same with tenten: じ and ぢ both sound like \"ji\", ず and づ both sound like \"zu\". The spelling is different, but they sound identical.",
-          chartTitle: "Dakuten & Handakuten Chart",
-          columnBase: "Base",
-          columnVoiced: "Voiced",
-          columnSemi: "Semi-voiced",
-          exceptionsTitle: "Exceptions to Remember"
-        },
-        subpage3: {
-          sokuonTitle: "Sokuon (っ) - Consonant Doubling",
-          sokuonDetail: "Sokuon (促音) is the small っ (or ッ in katakana) that creates a brief pause or \"double consonant\" sound. っ counts as 1 full mora even though it has no sound — it just adds a short stop before the next consonant.",
-          yoonTitle: "Youon (ゃ, ゅ, ょ)",
-          yoonSmallTitle: "Youon (ゃ, ゅ, ょ)",
-          yoonDesc: "Youon (拗音) refers to the combination sounds made when a small ゃ, ゅ, or ょ follows an い-row kana (き, し, ち, に, ひ, み, り, ぎ, じ, び, ぴ) to form a single new sound. The regular kana + small ゃ/ゅ/ょ blend into one sound and you don't pronounce them separately."
-        }
+        ]
       },
       basic: {
         title: "Basic Phrases + Particles + Sentence Building",
@@ -324,38 +185,505 @@ export const translations = {
         ]
       }
     },
-    my: {
-      title: "Roadmap Pembelajaran Bahasa Jepun",
-      intro: "Panduan langkah demi langkah untuk bawa anda dari zero ke tahap pertengahan (N3) dan ke semua yang lain. Klik pada setiap fasa untuk perincian fokus pembelajaran.",
-      disclaimer: "⚠️ Anggaran masa ni adalah berdasarkan anda konsisten belajar setiap hari (1-2 jam). Progress sebenar bergantung pada konsistensi, bukan intensity.",
-      smallKana: {
-        title: "Perkataan Katakana Asing",
-        subtitle: "Kana kecil untuk bunyi asing",
-        desc: "Katakana gunakan aksara kecil (ァ, ィ, ゥ, ェ, ォ) untuk tulis perkataan asing. Kombinasi ini cipta bunyi yang tak ada dalam bahasa Jepun tradisional.",
-        examplesTitle: "Contoh Biasa",
-        examples: [
-          { kana: "ヴァ", romaji: "va", used: "credit card (Visa)" },
-          { kana: "ヴィ", romaji: "vi", used: "vista (View)" },
-          { kana: "ヴェ", romaji: "ve", used: "vehicle (Véhiculo)" },
-          { kana: "ヴォ", romaji: "vo", used: "voice (Voice)" },
-          { kana: "ウィ", romaji: "wi", used: "whisky (ウィスキー)" },
-          { kana: "ウェ", romaji: "we", used: "wedding (ウェディング)" },
-          { kana: "ウォ", romaji: "wo", used: "work (ワーク)" },
-          { kana: "ティ", romaji: "ti", used: "t-shirt (ティーシャツ)" },
-          { kana: "ディ", romaji: "di", used: "Disney (迪士尼)" },
-          { kana: "ドゥ", romaji: "du", used: "downtown (ダウンタウン)" },
-          { kana: "チェ", romaji: "che", used: "check (チェック)" },
-          { kana: "ジェ", romaji: "je", used: "jet (ジェット)" },
-          { kana: "シェ", romaji: "she", used: "shake (シェイク)" },
-          { kana: "ツァ", romaji: "tsa", used: "Arizona (アリゾナ)" },
-          { kana: "ファ", romaji: "fa", used: "family (ファミリー)" },
-          { kana: "フィ", romaji: "fi", used: "filter (フィルター)" },
-          { kana: "フェ", romaji: "fe", used: "Fender (フェンダー)" },
-          { kana: "フォ", romaji: "fo", used: "folder (フォルダー)" },
-        ],
-        smallHiraganaTitle: "Hiragana Kecil (っ)",
-        smallHiraganaDesc: "Small っ (tsu) gandakan konsonan selepasnya.  돌아 → もっと (motto), bukan とも (tomo)"
+    // Introduction Page
+    introduction: {
+      title: "Introduction to Japanese",
+      subtitle: "Your first step to understanding the Japanese language",
+      welcomeTitle: "What is Japanese?",
+      welcomeDesc: "Japanese is a language spoken by about 130 million people in Japan and Japanese communities worldwide. It belongs to the Japonic language family, which has no widely accepted genealogical relationship to any other language family.",
+      writingTitle: "The Writing System",
+      writingDesc: "Japanese uses three writing systems combined:",
+      writingPoint1: "Hiragana - Used for native Japanese words and grammatical elements",
+      writingPoint2: "Katakana - Used for foreign words, emphasis, and onomatopoeia",
+      writingPoint3: "Kanji - Chinese characters adopted for Japanese, used for nouns and verb roots",
+      structureTitle: "Language Structure",
+      structureDesc: "Japanese has a fundamentally different structure from English:",
+      soundTitle: "Sound System",
+      soundDesc: "Japanese has a relatively simple phonological system:",
+      soundPoint2: "No consonant clusters (e.g., \"st\", \"tr\", \"gl\")",
+      soundPoint4: "Pitch accent instead of stress accent (differs by dialect)",
+      tipTitle: "Learning Tip",
+      tipDesc: "Don't try to translate word-for-word from English. Instead, try to understand concepts and patterns in their Japanese context.",
+      ctaRoadmap: "Learn Hiragana & Katakana"
+    },
+    // Culture/Vocab
+    culture: {
+      title: "Culture & Vocabulary",
+      subtitle: "Learn Japanese through cultural context  from vtubers to seasonal festivals.",
+      themes: {
+        entertainment: "Entertainment",
+        food: "Food & Drink",
+        seasonal: "Seasonal",
+        daily: "Daily Life",
+        social: "Social Life"
       },
+    },
+    // Blog
+    blog: {
+      title: "Blog",
+      minRead: "min read"
+    },
+    // Blog & Culture (Combined)
+    blogCulture: {
+      title: "Blog & Culture",
+      subtitle: "Articles, lessons, and long-form content on Japanese learning and culture.",
+      blog: "Blog",
+      culture: "Culture"
+    },
+    // Resources
+    resources: {
+      title: "Resources",
+      subtitle: "Curated tools organized by what problem they solve.",
+      categories: {
+        dictionary: "Dictionaries",
+        anki: "Flashcards",
+        learning: "Learning Websites",
+        mobileApps: "Mobile Apps",
+        reading: "Reading",
+        jlpt: "JLPT Preparation",
+        browserLookup: "Browser Extensions (Lookup)",
+        browserSubtitle: "Subtitle (Browser Extension)",
+        media: "Streaming",
+        podcasts: "Podcasts",
+        youtubeLearning: "YT for Learning Japanese",
+        youtubeImmersion: "YT for Immersion",
+        youtubePopular: "YT Popular Channels",
+        practice: "Speaking Practice",
+        pitchAccent: "Pitch Accent",
+        translator: "Translator",
+        discordServers: "Discord Servers",
+        askQuestions: "Ask Questions",
+        articles: "Japanese Articles",
+        otherResources: "Other Resources"
+      },
+    },
+    // About
+    about: {
+      title: "About Me",
+      subtitle: "The method that actually works, from someone who tried them all.",
+      storyContent: "Hi, I'm <strong>Uthman</strong>, fellow Japanese learner! I know exactly how frustrating learning Japanese can be when kanji looks like squiggles, grammar doesn't make sense, and nothing stays in your head.<br><br>I started learning Japanese in 2018 but <strong>quit</strong> after a few months. Kanji looked terrifying, and I couldn't see how any of it would stick. After a long break, I decided to <strong>push through anyway</strong>  and it wasn't as bad as I expected.<br><br>Since 2021, I've been learning off and on since I'm quite busy with university, but things didn't really come together until <strong>mid 2025</strong>. I started consuming Japanese content <strong>every single day</strong>  whether it was Hololive streams, J-dramas, whatever kept me in the language. My comprehension improved a lot using flashcards with SRS (Spaced Repetition System).<br><br>If you're serious about learning, <strong>join my class</strong> and let's do this together.",
+      connectTitle: "Connect",
+    },
+    // Footer
+    footer: {
+      tagline: "Learn Japanese the right way"
+    },
+    // Privacy Policy
+    privacyPolicy: {
+      title: "Privacy Policy"
+    },
+    // Terms
+    terms: {
+      title: "Terms & Conditions"
+    },
+    // Common
+    common: {
+      loading: "Loading...",
+      back: "Back",
+      learnMore: "Learn More",
+      // Theme
+      // Status
+      error: "Error! Try again",
+      // Validation
+      audioNotSupported: "Your browser does not support audio playback.",
+      // Signup specific
+      submitting: "Submitting..."
+    },
+    // Signup Modal
+    signup: {
+      title: "Want to learn Japanese?",
+      subtitle: "Fill out the form and I'll contact you within 24 hours",
+      name: "Name",
+      age: "Age",
+      phone: "Phone Number",
+      schedule: "Select available days and times",
+      submit: "Submit",
+      required: "* Required fields",
+      signupSuccess: "Signup successful!",
+      signupError: "Something went wrong. Please try again.",
+      joinClassBtn: "Join class",
+      // Class info screen
+      classInfoTitle: "Japanese Classes with Uthman",
+      classInfoSubtitle: "Personalized 1-on-1 or group lessons tailored to your goals",
+      classInfoDesc: "Whether you're starting from zero or picking up where you left off, I'll help you build a solid foundation in Japanese.",
+      classInfoIncludesTitle: "What You Get",
+      classInfoIncludes1: "Customized lessons based on your level and goals",
+      classInfoIncludes2: "Homework and feedback after every class",
+      classInfoIncludes3: "Support between classes via WhatsApp",
+      classInfoIncludes4: "Resources and materials provided",
+      classInfoPricingTitle: "Pricing",
+      classInfo1on1: "1-on-1 Class",
+      classInfo1on1Price: "RM200/month",
+      classInfo1on1Desc: "4 classes per month, personalized attention",
+      classInfoGroup: "Group Class",
+      classInfoGroupPrice: "RM150/month",
+      classInfoGroupDesc: "4 classes per month, learn with others",
+      classInfoNote: "All classes are conducted online via Google Meet",
+      classInfoStartBtn: "Start Registration"
+    },
+    // Kana Charts
+    kana: {
+      title: "Kana Charts",
+      subtitle: "Interactive Hiragana & Katakana reference with audio pronunciation",
+      hiragana: "Hiragana",
+      katakana: "Katakana",
+      clickToLearn: "Click any character to hear its pronunciation",
+      // Small Kana (Foreign sounds)
+      smallKana: {
+        title: "Small Kana",
+        subtitle: "Small kana for foreign sounds",
+        desc: "Katakana uses small characters (ァ, ォ, etc.) to write foreign words. These combinations create sounds not found in traditional Japanese. The small vowel versions technically exist in hiragana too and occasionally show up for stylized or emphasis effects, like an elongated exclamation.",
+        examplesTitle: "Common Examples",
+        examples: [
+          { kana: "ヴァ", romaji: "va", used: "ヴァルキリー (Valkyrie)" },
+          { kana: "ヴィ", romaji: "vi", used: "ヴィジュアル (visual)" },
+          { kana: "ヴェ", romaji: "ve", used: "ヴェスト (vest)" },
+          { kana: "ヴォ", romaji: "vo", used: "ヴォイス (voice)" },
+          { kana: "ウィ", romaji: "wi", used: "ウィスキー (whisky)" },
+          { kana: "ウェ", romaji: "we", used: "ウェディング (wedding)" },
+          { kana: "ウォ", romaji: "wo", used: "ワーク (work)" },
+          { kana: "ティ", romaji: "ti", used: "ティッシュ (tissue)" },
+          { kana: "ディ", romaji: "di", used: "ディズニー (Disney)" },
+          { kana: "ドゥ", romaji: "du", used: "ドゥーム (doom)" },
+          { kana: "チェ", romaji: "che", used: "チェック (check)" },
+          { kana: "ジェ", romaji: "je", used: "ジェット (jet)" },
+          { kana: "シェ", romaji: "she", used: "シェイク (shake)" },
+          { kana: "ツァ", romaji: "tsa", used: "モーツァルト (Mozart)" },
+          { kana: "ファ", romaji: "fa", used: "ファミリー (family)" },
+          { kana: "フィ", romaji: "fi", used: "フィルター (filter)" },
+          { kana: "フェ", romaji: "fe", used: "フェンス (fence)" },
+          { kana: "フォ", romaji: "fo", used: "フォルダー (folder)" },
+        ],
+        smallHiraganaTitle: "Small Hiragana (っ)",
+        smallHiraganaDesc: "The small っ (tsu) doubles the following consonant.  돌아 → もっと (motto), not とも (tomo)"
+      },
+      // Long Vowel subpage
+      subpage1Title: "Long Vowel",
+      subpage1Subtitle: "Learn how to extend vowel sounds (chōon / 長音)",
+      subpage1: {
+        whatIsTitle: "What is Long Vowel?",
+        whatIsDesc: "Long vowels (長音 / chōon) are extended vowel sounds where a vowel is held for two morae instead of one. In Japanese, changing a vowel length can completely change the meaning of a word, so it's important to master this early.",
+        hiraganaTitle: "Writing Long Vowel in Hiragana",
+        katakanaTitle: "Writing Long Vowel in Katakana",
+        katakanaDesc: "Katakana uses a straight horizontal line called the long vowel mark (長音符 / chōonpu / ー) instead of adding extra letters. This line extends the vowel sound of the character before it.",
+        aRow: "A-row sounds (あ段)",
+        aRowRule: "Add an extra あ (a)",
+        iRow: "I-row sounds (い段)",
+        iRowRule: "Add an extra い (i)",
+        uRow: "U-row sounds (う段)",
+        uRowRule: "Add an extra う (u)",
+        eRow: "E-row sounds (え段)",
+        eRowRule: "Usually add い (i)",
+        oRow: "O-row sounds (お段)",
+        oRowRule: "Usually add う (u)",
+        exOkaasan: "mother",
+        exOniisan: "older brother",
+        exKuuki: "air",
+        exSeito: "student",
+        exTokei: "clock",
+        exOokami: "wolf",
+        exKi: "From キ (ki) + ー",
+        exKiWord: "key",
+        exKu: "From ク (ku) + ー",
+        exKuWord: "air",
+        exShiito: "From キ (ki) + ー + パ (pa) + ー",
+        exShiitoWord: "keeper",
+        exTerebi: "From テ (te) + レ (re) + ビ (bi)",
+        exTerebiWord: "television"
+      },
+      // Tenten & Maru subpage
+      subpage2Title: "Tenten & Maru",
+      subpage2Subtitle: "Understand dakuten (濁点) and handakuten (半濁点)",
+      subpage2: {
+        whatIsTitle: "What are Tenten and Maru?",
+        whatIsDesc: "Tenten (also known as Dakuten) and Maru (also known as Handakuten) are marks that can change the pronunciation of kana characters. Tenten are the two small dashes (゛) placed at the top-right of a kana character and Maru is a small circle (゜) placed at the top-right of a kana character. Both change the sound of consonants.",
+        dakutenTitle: "Implementation",
+        dakutenDesc: "Tenten changes the か (ka) row into が (ga), the さ (sa) row into ざ (za), the た (ta) row into だ (da), and the は (ha) row into ば (ba).",
+        handakutenTitle: "Maru (゜)",
+        handakutenDesc: "Maru changes the は (ha) row into ぱ (pa) row.",
+        memoryTrickTitle: "Quick Reference",
+        memoryTrickDesc: "Pronunciation stays the same with tenten: じ and ぢ both sound like \"ji\", ず and づ both sound like \"zu\". The spelling is different, but they sound identical.",
+        chartTitle: "Dakuten & Handakuten Chart",
+        columnBase: "Base",
+        columnVoiced: "Voiced",
+        columnSemi: "Semi-voiced",
+        exceptionsTitle: "Exceptions to Remember"
+      },
+      // Small Characters subpage
+      subpage3Title: "Small Characters",
+      subpage3Subtitle: "Learn small kana (ァ, ィ, ォ, っ, ゃ, ゅ, ょ) that modify sounds",
+      subpage3: {
+        sokuonTitle: "Sokuon (っ) - Consonant Doubling",
+        sokuonDetail: "Sokuon (促音) is the small っ (or ッ in katakana) that creates a brief pause or \"double consonant\" sound. っ counts as 1 full mora even though it has no sound — it just adds a short stop before the next consonant.",
+        yoonTitle: "Youon (ゃ, ゅ, ょ)",
+        yoonSmallTitle: "Youon (ゃ, ゅ, ょ)",
+        yoonDesc: "Youon (拗音) refers to the combination sounds made when a small ゃ, ゅ, or ょ follows an い-row kana (き, し, ち, に, ひ, み, り, ぎ, じ, び, ぴ) to form a single new sound. The regular kana + small ゃ/ゅ/ょ blend into one sound and you don't pronounce them separately."
+      }
+    },
+    // Kanji Stroke Rules
+    kanjiRules: {
+      title: "Kanji",
+      subtitle: "Understand what kanji is and how it works",
+      subpage1Title: "Stroke Order",
+      subpage1Subtitle: "Learn the correct way to write kanji",
+      subpage2Title: "Radical",
+      subpage2Subtitle: "Learn about kanji radicals and their meanings",
+      subpage3Title: "Kanji in Names"
+    },
+    // JLPT Info
+    jlptInfo: {
+      title: "What is JLPT?",
+      subtitle: "Understanding the Japanese-Language Proficiency Test",
+      whatIs: {
+        title: "About JLPT",
+        description: "The Japanese-Language Proficiency Test (JLPT) is a standardized criterion-referenced test to evaluate and certify the proficiency of non-native Japanese speakers. It is administered by the Japan Foundation and Japan Educational Exchanges and Evaluation Services (JEES). The test is held twice a year in Japan and selected countries, and once a year in other regions."
+      },
+      levels: {
+        title: "JLPT Levels Explained",
+        beginner: "- Beginner",
+        elementary: "- Elementary",
+        intermediate: "- Intermediate",
+        upperIntermediate: "- Upper Intermediate",
+        advanced: "- Advanced",
+        n5Desc: "The most basic level of Japanese language proficiency. Tests knowledge of basic Japanese characters (hiragana and katakana) and everyday vocabulary.",
+        n5Kanji: "About 100 kanji",
+        n5Vocab: "About 800 vocabulary words",
+        n4Desc: "Elementary level, building on N5 knowledge. Tests ability to understand basic Japanese.",
+        n4Kanji: "About 300 kanji",
+        n4Vocab: "About 1,500 vocabulary words",
+        n3Desc: "Intermediate level. Tests ability to understand Japanese used in everyday situations to some extent.",
+        n3Kanji: "About 400 kanji",
+        n3Vocab: "About 3,000 vocabulary words",
+        n2Desc: "Upper-intermediate level. Tests ability to understand Japanese used in everyday situations and more complex contexts.",
+        n2Kanji: "About 650 kanji",
+        n2Vocab: "About 6,000 vocabulary words",
+        n1Desc: "Advanced level. Tests ability to understand Japanese used in a wide range of academic and formal contexts.",
+        n1Kanji: "About 2,000 kanji",
+        n1Vocab: "About 10,000 vocabulary words"
+      },
+      format: {
+        title: "Test Format",
+        descriptionN5N3: "N5-N3 consists of three sections:",
+        descriptionN2N1: "N2-N1 consists of two sections:",
+        vocabulary: "Vocabulary",
+        vocabularyDesc: "Tests knowledge of Japanese vocabulary and correct usage of Japanese words in sentences.",
+        grammarReading: "Grammar & Reading",
+        grammarReadingDesc: "Tests knowledge of Japanese grammatical structures and reading comprehension.",
+        reading: "Reading Comprehension",
+        readingDesc: "Tests the ability to understand written materials from various contexts.",
+        listening: "Listening",
+        listeningDesc: "Tests the ability to listen and comprehend everyday conversations and dialogues."
+      },
+      purpose: {
+        title: "Why Take the JLPT?",
+        description: "The JLPT is recognized worldwide as the standard for measuring Japanese language proficiency. It is used by universities, companies, and immigration authorities to evaluate Japanese language ability. Passing JLPT N5 or N4 can also fulfill Japanese visa requirements for certain visa categories.",
+        exploreResources: "Explore Learning Resources"
+      }
+    },
+    // Admin
+    admin: {
+      title: "Admin Dashboard",
+      loginTitle: "Admin Login",
+      loginSubtitle: "Enter your admin password to access the dashboard",
+      password: "Password",
+      login: "Login",
+      logout: "Logout",
+      loadingPosts: "Loading posts...",
+      loadingSignups: "Loading signups...",
+      noPosts: "No posts yet. Click \"New Post\" to create your first blog post.",
+      noSignups: "No signups yet.",
+      newPost: "New Post",
+      editPost: "Edit",
+      deletePost: "Delete",
+      savePost: "Save Post",
+      cancel: "Cancel",
+      confirmDelete: "Are you sure you want to delete this post?",
+      signupsTitle: "Class Signups",
+      createNewPost: "Create New Post",
+      editPostTitle: "Edit Post",
+      readingTime: "Reading Time (minutes)",
+      tagsPlaceholder: "n5, grammar, mindset",
+      tagsHint: "Press Enter or comma to add a tag",
+      contentPlaceholder: "# Heading\n\nYour content here...",
+      contentMyPlaceholder: "Malay content here (optional)...",
+      coverImageLabel: "Cover Image URL",
+      coverImagePlaceholder: "https://example.com/image.jpg",
+      statusLabel: "Status",
+      statusDraft: "Draft",
+      statusPublished: "Published",
+      slugLabel: "Slug (URL key)",
+      slugPlaceholder: "my-first-post",
+      slugLockedHint: "Locked — title changes won't overwrite slug",
+      tagsLabel: "Tags",
+      writeTab: "Write",
+      previewTab: "Preview",
+      signups: {
+        name: "Name",
+        age: "Age",
+        phone: "Phone",
+        classType: "Class Type",
+        schedule: "Schedule",
+        date: "Date"
+      },
+    },
+    // Anki & Vocab Mining
+    anki: {
+      title: "Anki & Vocab Mining",
+      subtitle: "Recommended decks and how to mine vocabulary from native content",
+      howItWorks: "How Anki Works",
+      howItWorksDesc: "Anki is a spaced repetition system that helps you memorize anything efficiently. It works by showing you cards at increasing intervals just before you'd forget them. New cards appear once a day, and reviews are based on how well you remember each card. The more you struggle with a card, the more often it appears. This method, called spaced repetition, is proven to build long-term memory much faster than cramming.",
+      recommendedDecks: "Recommended Decks",
+      howToMine: "How to Mine Vocab",
+      visit: "Visit"
+    },
+    // Self Study Guide
+    selfStudy: {
+      title: "Self Study Guide",
+      subtitle: "Tips and strategies for effective Japanese self-learning",
+      overview: {
+        title: "Why Self Study?",
+        points: [
+          "<strong>Formal classes</strong> for N2 and N1 are rarely available outside major cities, making <strong>self-study essential</strong> for advanced learners.",
+          "<strong>Self-study</strong> allows you to learn at your own pace, focus on what interests you most, and <strong>immerse yourself</strong> in Japanese culture through media you enjoy.",
+          "Many learners find that <strong>combining self-study</strong> with occasional classes or tutoring sessions yields the best results."
+        ]
+      },
+      principles: {
+        title: "Core Principles",
+        consistency: {
+          title: "Be Consistent",
+          desc: "Even 15-30 minutes of daily study is more effective than long irregular sessions. Build the habit first."
+        },
+        input: {
+          title: "Prioritize Input",
+          desc: "Read and listen to native content as much as possible. Understanding comes from massive exposure."
+        },
+        active: {
+          title: "Stay Active",
+          desc: "Don't just passively read or watch. Take notes, make flashcards, and use new vocabulary in sentences."
+        },
+        patience: {
+          title: "Be Patient",
+          desc: "Language acquisition takes time. Trust the process and don't compare yourself to others."
+        }
+      },
+      dailyRoutine: {
+        title: "Suggested Daily Routine",
+        morning: {
+          title: "Morning (15-20 min)",
+          desc: "Review flashcards (Anki) and study new grammar or vocabulary."
+        },
+        afternoon: {
+          title: "Afternoon (20-30 min)",
+          desc: "Read Japanese content  manga, news, or light novels suited to your level."
+        },
+        evening: {
+          title: "Evening (15-30 min)",
+          desc: "Watch or listen to Japanese media  anime, dramas, podcasts, or YouTube."
+        }
+      },
+      resources: {
+        title: "Recommended Resources by Level",
+        beginner: {
+          title: "Beginner (N5)",
+          items: [
+            "Genki I & II textbooks",
+            "Anki N5 vocabulary deck",
+            "Cure Dolly's Japanese YouTube channel",
+            "Japanese Ammo with Misa"
+          ]
+        },
+        intermediate: {
+          title: "Intermediate (N4-N3)",
+          items: [
+            "Tobira or Shin Nihongo textbooks",
+            "Native manga and novels",
+            "Comprehensible Japanese YouTube",
+            "Japanese podcasts for learners"
+          ]
+        },
+        advanced: {
+          title: "Advanced (N2-N1)",
+          items: [
+            "Native media without subtitles",
+            "Japanese news (NHK Easy)",
+            "Advanced grammar books",
+            "Shadowing practice"
+          ]
+        }
+      },
+      tips: {
+        title: "Pro Tips",
+        mining: "Mine vocabulary from content you enjoy  it makes learning feel less like studying.",
+        shadowing: "Practice shadowing (repeat after speakers) to improve pronunciation and speaking flow.",
+        writing: "Keep a Japanese diary using a notes app on your phone. Even simple sentences help reinforce what you've learned.",
+        thinking: "Try to think in Japanese during your daily life. Describe objects around you in your head."
+      }
+    },
+    // Comprehensible Input & Immersion
+    immersion: {
+      title: "Comprehensible Input & Immersion",
+    },
+    // Using AI
+    selfStudyAI: {
+      title: "Using AI for Japanese Learning",
+    }
+  },
+
+  my: {
+    // Navigation
+    nav: {
+      intro: "Laman Utama",
+      kana: "Hiragana & Katakana",
+      kanjiRules: "Kanji",
+      anki: "Anki & Lombong Vocab",
+      roadmap: "Laluan Pembelajaran",
+      introduction: "Pengenalan",
+      selfStudy: "Panduan Belajar Sendiri",
+      blogCulture: "Blog & Budaya",
+      resources: "Sumber",
+      about: "Tentang",
+      jlptInfo: "Apa itu JLPT?",
+      kanaSubpage1: "Vokal Panjang",
+      kanaSubpage2: "Tenten & Maru",
+      kanaSubpage3: "Kana Kecil",
+      immersion: "Input Boleh Difahami & Penyerapan",
+      ai: "Menggunakan AI"
+    },
+    // Homepage
+    home: {
+      heroTag: "Konnichiwa! こんにちは",
+      heroTitle: "Panduan belajar bahasa Jepun dengan cara yang betul",
+      heroSubtitle: "Semua yang anda perlukan untuk belajar bahasa Jepun secara efektif.",
+      whyTitle: "Bagaimana kami bantu anda",
+      whyPoint1Title: "Tak ada lagi Doomscrolling YouTube tak ingat arah",
+      whyPoint1Desc: "Kami beri anda jalan yang jelas. Ikut laluan pembelajaran dari kosong hingga boleh bercakap, atau mula di tahap mana pun anda sekarang.",
+      whyPoint2Title: "Belajar apa yang perlu",
+      whyPoint2Desc: "Panduan dan sumber yang betul-betul bantu korang belajar, bukan sekadar baca je.",
+      whyPoint3Title: "Faham budaya untuk faham bahasa",
+      whyPoint3Desc: "Bahasa Jepun masuk akal bila korang faham kenapa dia jadi macamtu. Kami ajar melalui konteks  perayaan, kehidupan harian, hiburan.",
+      quickNavTitle: "Pautan Pantas",
+      quickNavSubtitle: "Pilih seksyen dan mulakan",
+      heroCtaStart: "Mulakan dengan Pengenalan Bahasa Jepun",
+      heroCtaRoadmap: "Lihat Laluan Pembelajaran",
+      sectionIntroTitle: "Pengenalan Bahasa Jepun",
+      sectionIntroDesc: "Langkah pertama yang penting. Belajar bagaimana bahasa Jepun berfungsi",
+      sectionKanaTitle: "Hiragana & Katakana",
+      sectionKanaDesc: "Belajar dua sistem penulisan Jepun dengan carta interaktif",
+      sectionKanjiTitle: "Kanji",
+      sectionKanjiDesc: "Fahami kanji, radikal, dan asas urutan stroke",
+      sectionSelfStudyTitle: "Panduan Belajar Sendiri",
+      sectionSelfStudyDesc: "Bagaimana untuk belajar bahasa Jepun dengan efektif secara bebas",
+      sectionResourcesTitle: "Sumber",
+      sectionResourcesDesc: "Alat yang dipilih: kamus, deck Anki, pemain media, dan banyak lagi",
+      sectionAboutTitle: "Tentang",
+      sectionAboutDesc: "Tentang AsasJepun dan pengasas di sebaliknya"
+    },
+    // Roadmap
+    roadmap: {
+      title: "Roadmap Pembelajaran Bahasa Jepun",
+      intro: "Panduan langkah demi langkah untuk bawa anda dari kosong. Klik pada setiap fasa untuk perincian fokus pembelajaran.",
+      disclaimer: "⚠️ Anggaran masa ni adalah berdasarkan konsistensi anda jika anda belajar setiap hari (1-2 jam). Progress sebenar bergantung pada konsistensi, bukan intensiti.",
       phases: {
         phase1: "Fasa 1",
         phase2: "Fasa 2",
@@ -390,70 +718,7 @@ export const translations = {
           "Hiragana dan Katatakana (membaca, bukan menulis dulu)",
           "Dakuon, Handakuon, Yoon bunyi",
           "Membaca perkataan dan frasa ringkas"
-        ],
-        subpage1Title: "Vokal Panjang",
-        subpage1Subtitle: "Belajar cara memanjangkan bunyi vokal (chōon / 長音)",
-        subpage2Title: "Tenten & Maru",
-        subpage2Subtitle: "Fahami dakuten (濁点) dan handakuten (半濁点)",
-        subpage3Title: "Kana Kecil",
-        subpage3Subtitle: "Pelajari kana kecil (ァ, ィ, ゥ, ェ, ォ, っ, ゃ, ゅ, ょ) yang mengubah bunyi",
-        // Long Vowel content (MY)
-        subpage1: {
-          whatIsTitle: "Apakah Vokal Panjang?",
-          whatIsDesc: "Vokal panjang (長音 / chōon) adalah bunyi vokal yang dipegang untuk dua morae bukan satu. Dalam bahasa Jepun, menukar panjang vokal boleh menyebabkan perubahan makna sepenuhnya, jadi ia penting untuk dikuasai awal.",
-          hiraganaTitle: "Menulis Vokal Panjang dalam Hiragana",
-          katakanaTitle: "Menulis Vokal Panjang dalam Katakana",
-          katakanaDesc: "Katakana menggunakan garis lurus mendatar yang dipanggil tanda vokal panjang (長音符 / chōonpu / ー) вместо menambah huruf tambahan. Garis ini memanjangkan bunyi vokal aksara sebelumnya.",
-          aRow: "Bunyi baris あ (あ段)",
-          aRowRule: "Tambah satu aksara あ (a)",
-          iRow: "Bunyi baris い (い段)",
-          iRowRule: "Tambah satu aksara い (i)",
-          uRow: "Bunyi baris う (う段)",
-          uRowRule: "Tambah satu aksara う (u)",
-          eRow: "Bunyi baris え (え段)",
-          eRowRule: "Biasanya tambah い (i)",
-          oRow: "Bunyi baris お (お段)",
-          oRowRule: "Biasanya tambah う (u)",
-          exOkaasan: "makcik / ibu",
-          exOniisan: "abang lebih tua",
-          exKuuki: "udara",
-          exSeito: "pelajar",
-          exTokei: "jam",
-          exOokami: "serigala",
-          exKa: "Dari カ (ka) + ー",
-          exKaWord: "kereta",
-          exKi: "Dari キ (ki) + ー",
-          exKiWord: "kunci",
-          exKu: "Dari ク (ku) + ー",
-          exKuWord: "udara",
-          exShiito: "Dari キ (ki) + ー + パ (pa) + ー",
-          exShiitoWord: "penjaga gol",
-          exTerebi: "Dari テ (te) + レ (re) + ビ (bi)",
-          exTerebiWord: "televisyen"
-        },
-        // Tenten & Maru content (MY)
-        subpage2: {
-          whatIsTitle: "Apakah Tenten dan Maru?",
-          whatIsDesc: "Tenten (juga dikenali sebagai Dakuten) dan Maru (juga dikenali sebagai Handakuten) adalah tanda yang boleh mengubah sebutan aksara kana. Tenten adalah dua tanda dash kecil (゛) diletakkan di bahagian kanan atas aksara kana dan Maru adalah bulatan kecil (゜) diletakkan di bahagian kanan atas aksara kana. Kedua-duanya menukar bunyi konsonan.",
-          dakutenTitle: "Tenten (゛)",
-          dakutenDesc: "Tenten menukar baris か (ka) kepada が (ga), baris さ (sa) kepada ざ (za), baris た (ta) kepada だ (da), dan baris は (ha) kepada ば (ba).",
-          handakutenTitle: "Maru (゜)",
-          handakutenDesc: "Maru menukar baris は (ha) kepada ぱ (pa).",
-          memoryTrickTitle: "Rujukan Pantas",
-          memoryTrickDesc: "Sebutan tidak berubah dengan tenten: じ dan ぢ kedua-dua berbunyi \"ji\", ず dan づ kedua-dua berbunyi \"zu\". Ejaan berbeza, tetapi sebutannya sama.",
-          chartTitle: "Jadual Dakuten & Handakuten",
-          columnBase: "Asas",
-          columnVoiced: "Berdaras",
-          columnSemi: "Separuh",
-          exceptionsTitle: "Pengecualian untuk Diingat"
-        },
-        subpage3: {
-          sokuonTitle: "Sokuon (っ) - Penggandaan Konsonan",
-          sokuonDetail: "Sokuon (促音) adalah っ kecil (atau ッ dalam katakana) yang menghasilkan jeda singkat atau bunyi \"konsonan berganda\". っ dikira sebagai 1 mora penuh walaupun tidak berbunyi — ia hanya menambah hentian singkat sebelum konsonan berikutnya.",
-          yoonTitle: "Yōon (ゃ, ゅ, ょ)",
-          yoonSmallTitle: "Yōon (ゃ, ゅ, ょ)",
-          yoonDesc: "Yōon (拗音) adalah gabungan bunyi apabila ゃ, ゅ, atau ょ kecil mengikuti kana baris い (き, し, ち, に, ひ, み, り, ぎ, じ, び, ぴ) untuk membentuk satu bunyi baharu. Kana biasa + ゃ/ゅ/ょ kecil bergabung menjadi satu bunyi dan anda tidak menyebutnya secara berasingan."
-        }
+        ]
       },
       basic: {
         title: "Frasa Asas + Zarah + Bina Ayat",
@@ -546,31 +811,9 @@ export const translations = {
           "Perjalanan tidak pernah benar-benar berakhir"
         ]
       }
-    }
-  },
-
-  introduction: {
-    en: {
-      title: "Introduction to Japanese",
-      subtitle: "Your first step to understanding the Japanese language",
-      welcomeTitle: "What is Japanese?",
-      welcomeDesc: "Japanese is a language spoken by about 130 million people in Japan and Japanese communities worldwide. It belongs to the Japonic language family, which has no widely accepted genealogical relationship to any other language family.",
-      writingTitle: "The Writing System",
-      writingDesc: "Japanese uses three writing systems combined:",
-      writingPoint1: "Hiragana - Used for native Japanese words and grammatical elements",
-      writingPoint2: "Katakana - Used for foreign words, emphasis, and onomatopoeia",
-      writingPoint3: "Kanji - Chinese characters adopted for Japanese, used for nouns and verb roots",
-      structureTitle: "Language Structure",
-      structureDesc: "Japanese has a fundamentally different structure from English:",
-      soundTitle: "Sound System",
-      soundDesc: "Japanese has a relatively simple phonological system:",
-      soundPoint2: "No consonant clusters (e.g., \"st\", \"tr\", \"gl\")",
-      soundPoint4: "Pitch accent instead of stress accent (differs by dialect)",
-      tipTitle: "Learning Tip",
-      tipDesc: "Don't try to translate word-for-word from English. Instead, try to understand concepts and patterns in their Japanese context.",
-      ctaRoadmap: "Learn Hiragana & Katakana"
     },
-    my: {
+    // Introduction Page
+    introduction: {
       title: "Pengenalan kepada Bahasa Jepun",
       subtitle: "Langkah pertama anda untuk memahami bahasa Jepun",
       welcomeTitle: "Apa itu Bahasa Jepun?",
@@ -589,22 +832,9 @@ export const translations = {
       tipTitle: "Tip Pembelajaran",
       tipDesc: "Jangan cuba menterjemah perkataan demi perkataan dari Bahasa Inggeris. Sebaliknya, cuba fahami konsep dan corak dalam konteks Jepun mereka.",
       ctaRoadmap: "Belajar Hiragana & Katakana"
-    }
-  },
-
-  culture: {
-    en: {
-      title: "Culture & Vocabulary",
-      subtitle: "Learn Japanese through cultural context  from vtubers to seasonal festivals.",
-      themes: {
-        entertainment: "Entertainment",
-        food: "Food & Drink",
-        seasonal: "Seasonal",
-        daily: "Daily Life",
-        social: "Social Life"
-      },
     },
-    my: {
+    // Culture/Vocab
+    culture: {
       title: "Budaya & Vocab",
       subtitle: "Belajar Jepun melalui konteks budaya  dari vtuber hingga perayaan bermusim.",
       themes: {
@@ -614,63 +844,21 @@ export const translations = {
         daily: "Kehidupan Harian",
         social: "Kehidupan Sosial"
       },
-    }
-  },
-
-  blog: {
-    en: {
-      title: "Blog",
-      minRead: "min read"
     },
-    my: {
+    // Blog
+    blog: {
       title: "Blog",
       minRead: "min baca"
-    }
-  },
-
-  blogCulture: {
-    en: {
-      title: "Blog & Culture",
-      subtitle: "Articles, lessons, and long-form content on Japanese learning and culture.",
-      blog: "Blog",
-      culture: "Culture"
     },
-    my: {
+    // Blog & Culture (Combined)
+    blogCulture: {
       title: "Blog & Budaya",
       subtitle: "Artikel, pelajaran, dan kandungan panjang tentang pembelajaran dan budaya Jepun.",
       blog: "Blog",
       culture: "Budaya"
-    }
-  },
-
-  resources: {
-    en: {
-      title: "Resources",
-      subtitle: "Curated tools organized by what problem they solve.",
-      categories: {
-        dictionary: "Dictionaries",
-        anki: "Flashcards",
-        learning: "Learning Websites",
-        mobileApps: "Mobile Apps",
-        reading: "Reading",
-        jlpt: "JLPT Preparation",
-        browserLookup: "Browser Extensions (Lookup)",
-        browserSubtitle: "Subtitle (Browser Extension)",
-        media: "Streaming",
-        podcasts: "Podcasts",
-        youtubeLearning: "YT for Learning Japanese",
-        youtubeImmersion: "YT for Immersion",
-        youtubePopular: "YT Popular Channels",
-        practice: "Speaking Practice",
-        pitchAccent: "Pitch Accent",
-        translator: "Translator",
-        discordServers: "Discord Servers",
-        askQuestions: "Ask Questions",
-        articles: "Japanese Articles",
-        otherResources: "Other Resources"
-      },
     },
-    my: {
+    // Resources
+    resources: {
       title: "Sumber",
       subtitle: "Alat yang dipilih mengikut masalah yang mereka selesaikan.",
       categories: {
@@ -773,110 +961,28 @@ export const translations = {
         "Japanese Language Study Space": "Komuniti berfokus study untuk bertanya soalan dan berlatih bersama.",
         "毎日英語と日本語": "Server amalan harian untuk pertukaran bahasa Inggeris-Jepun mutual."
       }
-    }
-  },
-
-  about: {
-    en: {
-      title: "About Me",
-      subtitle: "The method that actually works, from someone who tried them all.",
-      storyContent: "Hi, I'm <strong>Uthman</strong>, fellow Japanese learner! I know exactly how frustrating learning Japanese can be when kanji looks like squiggles, grammar doesn't make sense, and nothing stays in your head.<br><br>I started learning Japanese in 2018 but <strong>quit</strong> after a few months. Kanji looked terrifying, and I couldn't see how any of it would stick. After a long break, I decided to <strong>push through anyway</strong>  and it wasn't as bad as I expected.<br><br>Since 2021, I've been learning off and on since I'm quite busy with university, but things didn't really come together until <strong>mid 2025</strong>. I started consuming Japanese content <strong>every single day</strong>  whether it was Hololive streams, J-dramas, whatever kept me in the language. My comprehension improved a lot using flashcards with SRS (Spaced Repetition System).<br><br>If you're serious about learning, <strong>join my class</strong> and let's do this together.",
-      connectTitle: "Connect",
     },
-    my: {
+    // About
+    about: {
       title: "Tentang Saya",
       subtitle: "Kaedah yang sebenarnya berkesan, dari seseorang yang sudah cuba semua.",
       storyContent: "Hi, saya <strong>Uthman</strong>, student Jepun macam korang! Saya tahu betapa frustrasinya belajar Jepun bila kanji macam garis rawak, grammar tak masuk akal, dan nothing stays in your head.<br><br>Saya mula belajar Jepun pada 2018 tapi <strong>berhenti</strong> selepas beberapa bulan. Kanji kelihatan seram, dan saya tak nampak bagaimana ia akan melekat. Selepas rehat lama, saya decide untuk <strong>paksa belajar</strong>  dan tak jadi seberat yang saya bayang.<br><br>Sejak 2021, saya belajar secara on and off sebab busy dengan universiti, tapi sampai <strong>mid 2025</strong> baru semuanya masuk. Saya mula konsum kandungan Jepun <strong>setiap hari</strong>  sama ada Hololive streams, J-drama, apa je yang saya boleh jejek dalam bahasa tu. Pemahaman saya meningkat banyak dengan flashcards dan SRS (Spaced Repetition System).<br><br>Kalau korang serius nak belajar, <strong>sertai kelas saya</strong> dan kita belajar sama-sama.",
       connectTitle: "Sambung",
-    }
-  },
-
-  footer: {
-    en: {
-      tagline: "Learn Japanese the right way"
     },
-    my: {
+    // Footer
+    footer: {
       tagline: "Belajar Jepun dengan cara yang betul"
-    }
-  },
-
-  privacyPolicy: {
-    en: {
-      title: "Privacy Policy"
     },
-    my: {
+    // Privacy Policy
+    privacyPolicy: {
       title: "Dasar Privasi"
-    }
-  },
-
-  terms: {
-    en: {
-      title: "Terms & Conditions"
     },
-    my: {
+    // Terms
+    terms: {
       title: "Syarat & Ketetapan"
-    }
-  },
-
-  common: {
-    en: {
-      loading: "Loading...",
-      back: "Back",
-      learnMore: "Learn More",
-      // Theme
-      // Status
-      error: "Error! Try again",
-      // Validation
-      audioNotSupported: "Your browser does not support audio playback.",
-      // Signup specific
-      submitting: "Submitting..."
     },
-    my: {
-      loading: "Memuatkan...",
-      error: "Sesuatu tidak kena",
-      back: "Kembali",
-      learnMore: "Ketahui Lagi",
-      // Theme
-      // Status
-      audioNotSupported: "Pelayar anda tidak sokong audio.",
-      // Validation
-      submitting: "Menghantar..."
-    }
-  },
-
-  signup: {
-    en: {
-      title: "Want to learn Japanese?",
-      subtitle: "Fill out the form and I'll contact you within 24 hours",
-      name: "Name",
-      age: "Age",
-      phone: "Phone Number",
-      schedule: "Select available days and times",
-      submit: "Submit",
-      required: "* Required fields",
-      signupSuccess: "Signup successful!",
-      signupError: "Something went wrong. Please try again.",
-      joinClassBtn: "Join class",
-      // Class info screen
-      classInfoTitle: "Japanese Classes with Uthman",
-      classInfoSubtitle: "Personalized 1-on-1 or group lessons tailored to your goals",
-      classInfoDesc: "Whether you're starting from zero or picking up where you left off, I'll help you build a solid foundation in Japanese.",
-      classInfoIncludesTitle: "What You Get",
-      classInfoIncludes1: "Customized lessons based on your level and goals",
-      classInfoIncludes2: "Homework and feedback after every class",
-      classInfoIncludes3: "Support between classes via WhatsApp",
-      classInfoIncludes4: "Resources and materials provided",
-      classInfoPricingTitle: "Pricing",
-      classInfo1on1: "1-on-1 Class",
-      classInfo1on1Price: "RM200/month",
-      classInfo1on1Desc: "4 classes per month, personalized attention",
-      classInfoGroup: "Group Class",
-      classInfoGroupPrice: "RM150/month",
-      classInfoGroupDesc: "4 classes per month, learn with others",
-      classInfoNote: "All classes are conducted online via Google Meet",
-      classInfoStartBtn: "Start Registration"
-    },
-    my: {
+    // Signup Modal
+    signup: {
       title: "Nak kelas Jepun?",
       subtitle: "Isi form ni, saya akan contact korang dalam 24 jam",
       name: "Nama",
@@ -906,37 +1012,122 @@ export const translations = {
       classInfoGroupDesc: "4 kelas sebulan, belajar bersama",
       classInfoNote: "Semua kelas dijalankan online via Google Meet",
       classInfoStartBtn: "Mula Pendaftaran"
-    }
-  },
-
-  kana: {
-    en: {
-      title: "Kana Charts",
-      subtitle: "Interactive Hiragana & Katakana reference with audio pronunciation",
-      hiragana: "Hiragana",
-      katakana: "Katakana",
-      clickToLearn: "Click any character to hear its pronunciation"
     },
-    my: {
+    // Common
+    common: {
+      loading: "Memuatkan...",
+      error: "Sesuatu tidak kena",
+      back: "Kembali",
+      learnMore: "Ketahui Lagi",
+      // Theme
+      // Status
+      audioNotSupported: "Pelayar anda tidak sokong audio.",
+      // Validation
+      submitting: "Menghantar..."
+    },
+    // Kana Charts
+    kana: {
       title: "Jadual Kana",
       subtitle: "Rujukan interaktif Hiragana & Katakana dengan sebutan audio",
       hiragana: "Hiragana",
       katakana: "Katakana",
-      clickToLearn: "Klik mana-mana aksara untuk dengar sebutan"
-    }
-  },
-
-  kanjiRules: {
-    en: {
-      title: "Kanji",
-      subtitle: "Understand what kanji is and how it works",
-      subpage1Title: "Stroke Order",
-      subpage1Subtitle: "Learn the correct way to write kanji",
-      subpage2Title: "Radical",
-      subpage2Subtitle: "Learn about kanji radicals and their meanings",
-      subpage3Title: "Kanji in Names"
+      clickToLearn: "Klik mana-mana aksara untuk dengar sebutan",
+      // Small Kana (Foreign sounds)
+      smallKana: {
+        title: "Perkataan Katakana Asing",
+        subtitle: "Kana kecil untuk bunyi asing",
+        desc: "Katakana gunakan aksara kecil (ァ, ィ, ゥ, ェ, ォ) untuk tulis perkataan asing. Kombinasi ini cipta bunyi yang tak ada dalam bahasa Jepun tradisional.",
+        examplesTitle: "Contoh Biasa",
+        examples: [
+          { kana: "ヴァ", romaji: "va", used: "ヴァルキリー (Valkyrie)" },
+          { kana: "ヴィ", romaji: "vi", used: "ヴィジュアル (visual)" },
+          { kana: "ヴェ", romaji: "ve", used: "ヴェスト (vest)" },
+          { kana: "ヴォ", romaji: "vo", used: "ヴォイス (voice)" },
+          { kana: "ウィ", romaji: "wi", used: "ウィスキー (whisky)" },
+          { kana: "ウェ", romaji: "we", used: "ウェディング (wedding)" },
+          { kana: "ウォ", romaji: "wo", used: "ワーク (work)" },
+          { kana: "ティ", romaji: "ti", used: "ティッシュ (tissue)" },
+          { kana: "ディ", romaji: "di", used: "ディズニー (Disney)" },
+          { kana: "ドゥ", romaji: "du", used: "ドゥーム (doom)" },
+          { kana: "チェ", romaji: "che", used: "チェック (check)" },
+          { kana: "ジェ", romaji: "je", used: "ジェット (jet)" },
+          { kana: "シェ", romaji: "she", used: "シェイク (shake)" },
+          { kana: "ツァ", romaji: "tsa", used: "モーツァルト (Mozart)" },
+          { kana: "ファ", romaji: "fa", used: "ファミリー (family)" },
+          { kana: "フィ", romaji: "fi", used: "フィルター (filter)" },
+          { kana: "フェ", romaji: "fe", used: "フェンス (fence)" },
+          { kana: "フォ", romaji: "fo", used: "フォルダー (folder)" },
+        ],
+        smallHiraganaTitle: "Hiragana Kecil (っ)",
+        smallHiraganaDesc: "Small っ (tsu) gandakan konsonan selepasnya.  돌아 → もっと (motto), bukan とも (tomo)"
+      },
+      // Long Vowel subpage
+      subpage1Title: "Vokal Panjang",
+      subpage1Subtitle: "Belajar cara memanjangkan bunyi vokal (chōon / 長音)",
+      subpage1: {
+        whatIsTitle: "Apakah Vokal Panjang?",
+        whatIsDesc: "Vokal panjang (長音 / chōon) adalah bunyi vokal yang dipegang untuk dua morae bukan satu. Dalam bahasa Jepun, menukar panjang vokal boleh menyebabkan perubahan makna sepenuhnya, jadi ia penting untuk dikuasai awal.",
+        hiraganaTitle: "Menulis Vokal Panjang dalam Hiragana",
+        katakanaTitle: "Menulis Vokal Panjang dalam Katakana",
+        katakanaDesc: "Katakana menggunakan garis lurus mendatar yang dipanggil tanda vokal panjang (長音符 / chōonpu / ー) вместо menambah huruf tambahan. Garis ini memanjangkan bunyi vokal aksara sebelumnya.",
+        aRow: "Bunyi baris あ (あ段)",
+        aRowRule: "Tambah satu aksara あ (a)",
+        iRow: "Bunyi baris い (い段)",
+        iRowRule: "Tambah satu aksara い (i)",
+        uRow: "Bunyi baris う (う段)",
+        uRowRule: "Tambah satu aksara う (u)",
+        eRow: "Bunyi baris え (え段)",
+        eRowRule: "Biasanya tambah い (i)",
+        oRow: "Bunyi baris お (お段)",
+        oRowRule: "Biasanya tambah う (u)",
+        exOkaasan: "makcik / ibu",
+        exOniisan: "abang lebih tua",
+        exKuuki: "udara",
+        exSeito: "pelajar",
+        exTokei: "jam",
+        exOokami: "serigala",
+        exKa: "Dari カ (ka) + ー",
+        exKaWord: "kereta",
+        exKi: "Dari キ (ki) + ー",
+        exKiWord: "kunci",
+        exKu: "Dari ク (ku) + ー",
+        exKuWord: "udara",
+        exShiito: "Dari キ (ki) + ー + パ (pa) + ー",
+        exShiitoWord: "penjaga gol",
+        exTerebi: "Dari テ (te) + レ (re) + ビ (bi)",
+        exTerebiWord: "televisyen"
+      },
+      // Tenten & Maru subpage
+      subpage2Title: "Tenten & Maru",
+      subpage2Subtitle: "Fahami dakuten (濁点) dan handakuten (半濁点)",
+      subpage2: {
+        whatIsTitle: "Apakah Tenten dan Maru?",
+        whatIsDesc: "Tenten (juga dikenali sebagai Dakuten) dan Maru (juga dikenali sebagai Handakuten) adalah tanda yang boleh mengubah sebutan aksara kana. Tenten adalah dua tanda dash kecil (゛) diletakkan di bahagian kanan atas aksara kana dan Maru adalah bulatan kecil (゜) diletakkan di bahagian kanan atas aksara kana. Kedua-duanya menukar bunyi konsonan.",
+        dakutenTitle: "Tenten (゛)",
+        dakutenDesc: "Tenten menukar baris か (ka) kepada が (ga), baris さ (sa) kepada ざ (za), baris た (ta) kepada だ (da), dan baris は (ha) kepada ば (ba).",
+        handakutenTitle: "Maru (゜)",
+        handakutenDesc: "Maru menukar baris は (ha) kepada ぱ (pa).",
+        memoryTrickTitle: "Rujukan Pantas",
+        memoryTrickDesc: "Sebutan tidak berubah dengan tenten: じ dan ぢ kedua-dua berbunyi \"ji\", ず dan づ kedua-dua berbunyi \"zu\". Ejaan berbeza, tetapi sebutannya sama.",
+        chartTitle: "Jadual Dakuten & Handakuten",
+        columnBase: "Asas",
+        columnVoiced: "Berdaras",
+        columnSemi: "Separuh",
+        exceptionsTitle: "Pengecualian untuk Diingat"
+      },
+      // Small Characters subpage
+      subpage3Title: "Kana Kecil",
+      subpage3Subtitle: "Pelajari kana kecil (ァ, ィ, ゥ, ェ, ォ, っ, ゃ, ゅ, ょ) yang mengubah bunyi",
+      subpage3: {
+        sokuonTitle: "Sokuon (っ) - Penggandaan Konsonan",
+        sokuonDetail: "Sokuon (促音) adalah っ kecil (atau ッ dalam katakana) yang menghasilkan jeda singkat atau bunyi \"konsonan berganda\". っ dikira sebagai 1 mora penuh walaupun tidak berbunyi — ia hanya menambah hentian singkat sebelum konsonan berikutnya.",
+        yoonTitle: "Yōon (ゃ, ゅ, ょ)",
+        yoonSmallTitle: "Yōon (ゃ, ゅ, ょ)",
+        yoonDesc: "Yōon (拗音) adalah gabungan bunyi apabila ゃ, ゅ, atau ょ kecil mengikuti kana baris い (き, し, ち, に, ひ, み, り, ぎ, じ, び, ぴ) untuk membentuk satu bunyi baharu. Kana biasa + ゃ/ゅ/ょ kecil bergabung menjadi satu bunyi dan anda tidak menyebutnya secara berasingan."
+      }
     },
-    my: {
+    // Kanji Stroke Rules
+    kanjiRules: {
       title: "Kanji",
       subtitle: "Fahami apakah kanji dan bagaimana ia berfungsi",
       subpage1Title: "Susunan Loretan",
@@ -944,60 +1135,9 @@ export const translations = {
       subpage2Title: "Radikal",
       subpage2Subtitle: "Pelajari tentang radikal kanji dan maknanya",
       subpage3Title: "Kanji dalam Nama"
-    }
-  },
-
-  jlptInfo: {
-    en: {
-      title: "What is JLPT?",
-      subtitle: "Understanding the Japanese-Language Proficiency Test",
-      whatIs: {
-        title: "About JLPT",
-        description: "The Japanese-Language Proficiency Test (JLPT) is a standardized criterion-referenced test to evaluate and certify the proficiency of non-native Japanese speakers. It is administered by the Japan Foundation and Japan Educational Exchanges and Evaluation Services (JEES). The test is held twice a year in Japan and selected countries, and once a year in other regions."
-      },
-      levels: {
-        title: "JLPT Levels Explained",
-        beginner: "- Beginner",
-        elementary: "- Elementary",
-        intermediate: "- Intermediate",
-        upperIntermediate: "- Upper Intermediate",
-        advanced: "- Advanced",
-        n5Desc: "The most basic level of Japanese language proficiency. Tests knowledge of basic Japanese characters (hiragana and katakana) and everyday vocabulary.",
-        n5Kanji: "About 100 kanji",
-        n5Vocab: "About 800 vocabulary words",
-        n4Desc: "Elementary level, building on N5 knowledge. Tests ability to understand basic Japanese.",
-        n4Kanji: "About 300 kanji",
-        n4Vocab: "About 1,500 vocabulary words",
-        n3Desc: "Intermediate level. Tests ability to understand Japanese used in everyday situations to some extent.",
-        n3Kanji: "About 400 kanji",
-        n3Vocab: "About 3,000 vocabulary words",
-        n2Desc: "Upper-intermediate level. Tests ability to understand Japanese used in everyday situations and more complex contexts.",
-        n2Kanji: "About 650 kanji",
-        n2Vocab: "About 6,000 vocabulary words",
-        n1Desc: "Advanced level. Tests ability to understand Japanese used in a wide range of academic and formal contexts.",
-        n1Kanji: "About 2,000 kanji",
-        n1Vocab: "About 10,000 vocabulary words"
-      },
-      format: {
-        title: "Test Format",
-        descriptionN5N3: "N5-N3 consists of three sections:",
-        descriptionN2N1: "N2-N1 consists of two sections:",
-        vocabulary: "Vocabulary",
-        vocabularyDesc: "Tests knowledge of Japanese vocabulary and correct usage of Japanese words in sentences.",
-        grammarReading: "Grammar & Reading",
-        grammarReadingDesc: "Tests knowledge of Japanese grammatical structures and reading comprehension.",
-        reading: "Reading Comprehension",
-        readingDesc: "Tests the ability to understand written materials from various contexts.",
-        listening: "Listening",
-        listeningDesc: "Tests the ability to listen and comprehend everyday conversations and dialogues."
-      },
-      purpose: {
-        title: "Why Take the JLPT?",
-        description: "The JLPT is recognized worldwide as the standard for measuring Japanese language proficiency. It is used by universities, companies, and immigration authorities to evaluate Japanese language ability. Passing JLPT N5 or N4 can also fulfill Japanese visa requirements for certain visa categories.",
-        exploreResources: "Explore Learning Resources"
-      }
     },
-    my: {
+    // JLPT Info
+    jlptInfo: {
       title: "Apa itu JLPT?",
       subtitle: "Memahami Ujian Kelayakan Bahasa Jepun",
       whatIs: {
@@ -1045,56 +1185,9 @@ export const translations = {
         description: "JLPT diiktiraf di seluruh dunia sebagai standard untuk mengukur kecekapan bahasa Jepun. Ia digunakan oleh universiti, syarikat, dan pihak berkuasa imigresen untuk menilai keupayaan bahasa Jepun. Lulus JLPT N5 atau N4 juga boleh memenuhi syarat visa Jepun untuk kategori visa tertentu.",
         exploreResources: "Terokai Sumber Pembelajaran"
       }
-    }
-  },
-
-  admin: {
-    en: {
-      title: "Admin Dashboard",
-      loginTitle: "Admin Login",
-      loginSubtitle: "Enter your admin password to access the dashboard",
-      password: "Password",
-      login: "Login",
-      logout: "Logout",
-      loadingPosts: "Loading posts...",
-      loadingSignups: "Loading signups...",
-      noPosts: "No posts yet. Click \"New Post\" to create your first blog post.",
-      noSignups: "No signups yet.",
-      newPost: "New Post",
-      editPost: "Edit",
-      deletePost: "Delete",
-      savePost: "Save Post",
-      cancel: "Cancel",
-      confirmDelete: "Are you sure you want to delete this post?",
-      signupsTitle: "Class Signups",
-      createNewPost: "Create New Post",
-      editPostTitle: "Edit Post",
-      readingTime: "Reading Time (minutes)",
-      tagsPlaceholder: "n5, grammar, mindset",
-      tagsHint: "Press Enter or comma to add a tag",
-      contentPlaceholder: "# Heading\n\nYour content here...",
-      contentMyPlaceholder: "Malay content here (optional)...",
-      coverImageLabel: "Cover Image URL",
-      coverImagePlaceholder: "https://example.com/image.jpg",
-      statusLabel: "Status",
-      statusDraft: "Draft",
-      statusPublished: "Published",
-      slugLabel: "Slug (URL key)",
-      slugPlaceholder: "my-first-post",
-      slugLockedHint: "Locked — title changes won't overwrite slug",
-      tagsLabel: "Tags",
-      writeTab: "Write",
-      previewTab: "Preview",
-      signups: {
-        name: "Name",
-        age: "Age",
-        phone: "Phone",
-        classType: "Class Type",
-        schedule: "Schedule",
-        date: "Date"
-      },
     },
-    my: {
+    // Admin
+    admin: {
       title: "Dashboard Admin",
       loginTitle: "Login Admin",
       loginSubtitle: "Masukkan password admin untuk akses dashboard",
@@ -1138,20 +1231,9 @@ export const translations = {
         schedule: "Jadual",
         date: "Tarikh"
       },
-    }
-  },
-
-  anki: {
-    en: {
-      title: "Anki & Vocab Mining",
-      subtitle: "Recommended decks and how to mine vocabulary from native content",
-      howItWorks: "How Anki Works",
-      howItWorksDesc: "Anki is a spaced repetition system that helps you memorize anything efficiently. It works by showing you cards at increasing intervals just before you'd forget them. New cards appear once a day, and reviews are based on how well you remember each card. The more you struggle with a card, the more often it appears. This method, called spaced repetition, is proven to build long-term memory much faster than cramming.",
-      recommendedDecks: "Recommended Decks",
-      howToMine: "How to Mine Vocab",
-      visit: "Visit"
     },
-    my: {
+    // Anki & Vocab Mining
+    anki: {
       title: "Anki & Lombong Vocab",
       subtitle: "Dek yang disyorkan dan cara mining vocabulary dari kandungan asli",
       howItWorks: "Bagaimana Anki Berfungsi",
@@ -1159,94 +1241,9 @@ export const translations = {
       recommendedDecks: "Dek Disyorkan",
       howToMine: "Cara Mining Vocab",
       visit: "Lawati"
-    }
-  },
-
-  selfStudy: {
-    en: {
-      title: "Self Study Guide",
-      subtitle: "Tips and strategies for effective Japanese self-learning",
-      overview: {
-        title: "Why Self Study?",
-        points: [
-          "<strong>Formal classes</strong> for N2 and N1 are rarely available outside major cities, making <strong>self-study essential</strong> for advanced learners.",
-          "<strong>Self-study</strong> allows you to learn at your own pace, focus on what interests you most, and <strong>immerse yourself</strong> in Japanese culture through media you enjoy.",
-          "Many learners find that <strong>combining self-study</strong> with occasional classes or tutoring sessions yields the best results."
-        ]
-      },
-      principles: {
-        title: "Core Principles",
-        consistency: {
-          title: "Be Consistent",
-          desc: "Even 15-30 minutes of daily study is more effective than long irregular sessions. Build the habit first."
-        },
-        input: {
-          title: "Prioritize Input",
-          desc: "Read and listen to native content as much as possible. Understanding comes from massive exposure."
-        },
-        active: {
-          title: "Stay Active",
-          desc: "Don't just passively read or watch. Take notes, make flashcards, and use new vocabulary in sentences."
-        },
-        patience: {
-          title: "Be Patient",
-          desc: "Language acquisition takes time. Trust the process and don't compare yourself to others."
-        }
-      },
-      dailyRoutine: {
-        title: "Suggested Daily Routine",
-        morning: {
-          title: "Morning (15-20 min)",
-          desc: "Review flashcards (Anki) and study new grammar or vocabulary."
-        },
-        afternoon: {
-          title: "Afternoon (20-30 min)",
-          desc: "Read Japanese content  manga, news, or light novels suited to your level."
-        },
-        evening: {
-          title: "Evening (15-30 min)",
-          desc: "Watch or listen to Japanese media  anime, dramas, podcasts, or YouTube."
-        }
-      },
-      resources: {
-        title: "Recommended Resources by Level",
-        beginner: {
-          title: "Beginner (N5)",
-          items: [
-            "Genki I & II textbooks",
-            "Anki N5 vocabulary deck",
-            "Cure Dolly's Japanese YouTube channel",
-            "Japanese Ammo with Misa"
-          ]
-        },
-        intermediate: {
-          title: "Intermediate (N4-N3)",
-          items: [
-            "Tobira or Shin Nihongo textbooks",
-            "Native manga and novels",
-            "Comprehensible Japanese YouTube",
-            "Japanese podcasts for learners"
-          ]
-        },
-        advanced: {
-          title: "Advanced (N2-N1)",
-          items: [
-            "Native media without subtitles",
-            "Japanese news (NHK Easy)",
-            "Advanced grammar books",
-            "Shadowing practice"
-          ]
-        }
-      },
-      tips: {
-        title: "Pro Tips",
-        mining: "Mine vocabulary from content you enjoy  it makes learning feel less like studying.",
-        shadowing: "Practice shadowing (repeat after speakers) to improve pronunciation and speaking flow.",
-        writing: "Keep a Japanese diary using a notes app on your phone. Even simple sentences help reinforce what you've learned.",
-        thinking: "Try to think in Japanese during your daily life. Describe objects around you in your head."
-      }
     },
-    my: {
+    // Self Study Guide
+    selfStudy: {
       title: "Panduan Belajar Sendiri",
       subtitle: "Tips dan strategi untuk pembelajaran bahasa Jepun secara efektif",
       overview: {
@@ -1328,27 +1325,16 @@ export const translations = {
         writing: "Bekalan diary Jepun guna notes app kat telefon. Malah ayat simple bantu reinforce apa yang anda dah belajar.",
         thinking: "Cuba fikir dalam Jepun masa kehidupan harian. Huraikan objek di sekeliling anda dalam kepala."
       }
-    }
-  },
-
-  immersion: {
-    en: {
-      title: "Comprehensible Input & Immersion",
     },
-    my: {
+    // Comprehensible Input & Immersion
+    immersion: {
       title: "Input Boleh Difahami & Penyerapan",
-    }
-  },
-
-  selfStudyAI: {
-    en: {
-      title: "Using AI for Japanese Learning",
     },
-    my: {
+    // Using AI
+    selfStudyAI: {
       title: "Menggunakan AI untuk Pembelajaran Jepun",
     }
-  },
-
+  }
 };
 
 // Current language state

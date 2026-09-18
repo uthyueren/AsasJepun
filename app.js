@@ -5516,7 +5516,7 @@ function renderKanaSubpage1View() {
 
   state.currentView = "kana-subpage1";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('roadmap.kana.subpage1Title') || 'Long Vowel';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.subpage1Title') || 'Long Vowel';
 
 
 
@@ -5532,9 +5532,9 @@ function renderKanaSubpage1View() {
 
       <div class="page-header">
 
-        <h1>${t('roadmap.kana.subpage1Title')}</h1>
+        <h1>${t('kana.subpage1Title')}</h1>
 
-        <p>${t('roadmap.kana.subpage1Subtitle')}</p>
+        <p>${t('kana.subpage1Subtitle')}</p>
 
       </div>
 
@@ -5798,11 +5798,11 @@ function renderKanaSubpage1View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="pen-tool"></i> ${t('roadmap.kana.subpage1.katakanaTitle')}</h2>
+          <h2><i data-lucide="pen-tool"></i> ${t('kana.subpage1.katakanaTitle')}</h2>
 
           <div class="info-card">
 
-            <p>${t('roadmap.kana.subpage1.katakanaDesc')}</p>
+            <p>${t('kana.subpage1.katakanaDesc')}</p>
 
           </div>
 
@@ -5830,7 +5830,7 @@ function renderKanaSubpage1View() {
 
               <h3>キーパー (kīpā)</h3>
 
-              <p>${t('roadmap.kana.subpage1.exShiito')}</p>
+              <p>${t('kana.subpage1.exShiito')}</p>
 
               <div class="long-vowel-example" onclick="playLongVowelAudio('キーパー.mp3')">
 
@@ -5838,7 +5838,7 @@ function renderKanaSubpage1View() {
 
                 <span class="romaji">kīpā</span>
 
-                <span class="meaning">${t('roadmap.kana.subpage1.exShiitoWord')}</span>
+                <span class="meaning">${t('kana.subpage1.exShiitoWord')}</span>
 
               </div>
 
@@ -5848,7 +5848,7 @@ function renderKanaSubpage1View() {
 
               <h3>テレビ (terebi)</h3>
 
-              <p>${t('roadmap.kana.subpage1.exTerebi')}</p>
+              <p>${t('kana.subpage1.exTerebi')}</p>
 
               <div class="long-vowel-example" onclick="playLongVowelAudio('テレビ.mp3')">
 
@@ -5856,7 +5856,7 @@ function renderKanaSubpage1View() {
 
                 <span class="romaji">terebi</span>
 
-                <span class="meaning">${t('roadmap.kana.subpage1.exTerebiWord')}</span>
+                <span class="meaning">${t('kana.subpage1.exTerebiWord')}</span>
 
               </div>
 
@@ -5902,7 +5902,7 @@ function renderKanaSubpage2View() {
 
   state.currentView = "kana-subpage2";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('roadmap.kana.subpage2Title') || 'Tenten & Maru';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.subpage2Title') || 'Tenten & Maru';
 
 
 
@@ -5918,9 +5918,9 @@ function renderKanaSubpage2View() {
 
       <div class="page-header">
 
-        <h1>${t('roadmap.kana.subpage2Title')}</h1>
+        <h1>${t('kana.subpage2Title')}</h1>
 
-        <p>${t('roadmap.kana.subpage2Subtitle')}</p>
+        <p>${t('kana.subpage2Subtitle')}</p>
 
       </div>
 
@@ -5930,11 +5930,11 @@ function renderKanaSubpage2View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="info"></i> ${t('roadmap.kana.subpage2.whatIsTitle')}</h2>
+          <h2><i data-lucide="info"></i> ${t('kana.subpage2.whatIsTitle')}</h2>
 
           <div class="info-card">
 
-            <p>${t('roadmap.kana.subpage2.whatIsDesc')}</p>
+            <p>${t('kana.subpage2.whatIsDesc')}</p>
 
           </div>
 
@@ -5944,13 +5944,13 @@ function renderKanaSubpage2View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="circle"></i> ${t('roadmap.kana.subpage2.dakutenTitle')}</h2>
+          <h2><i data-lucide="circle"></i> ${t('kana.subpage2.dakutenTitle')}</h2>
 
           <div class="info-card">
 
-            <p>${t('roadmap.kana.subpage2.dakutenDesc')}</p>
+            <p>${t('kana.subpage2.dakutenDesc')}</p>
 
-            <p style="margin-top: 12px;">${t('roadmap.kana.subpage2.handakutenDesc')}</p>
+            <p style="margin-top: 12px;">${t('kana.subpage2.handakutenDesc')}</p>
 
           </div>
 
@@ -6162,7 +6162,7 @@ function renderKanaSubpage2View() {
 
                 <div class="handakuten-badge">゜</div>
 
-                <h3 class="handakuten-title">${t('roadmap.kana.subpage2.handakutenTitle')} (Handakuten)</h3>
+                <h3 class="handakuten-title">${t('kana.subpage2.handakutenTitle')} (Handakuten)</h3>
 
               </div>
 
@@ -6412,7 +6412,7 @@ function renderKanaSubpage2View() {
 
                 <div class="handakuten-badge">゜</div>
 
-                <h3 class="handakuten-title">${t('roadmap.kana.subpage2.handakutenTitle')} (Handakuten)</h3>
+                <h3 class="handakuten-title">${t('kana.subpage2.handakutenTitle')} (Handakuten)</h3>
 
               </div>
 
@@ -6468,11 +6468,11 @@ function renderKanaSubpage2View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="lightbulb"></i> ${t('roadmap.kana.subpage2.memoryTrickTitle')}</h2>
+          <h2><i data-lucide="lightbulb"></i> ${t('kana.subpage2.memoryTrickTitle')}</h2>
 
           <div class="purpose-cta">
 
-            <p>${t('roadmap.kana.subpage2.memoryTrickDesc')}</p>
+            <p>${t('kana.subpage2.memoryTrickDesc')}</p>
 
           </div>
 
@@ -6514,7 +6514,7 @@ function renderKanaSubpage3View() {
 
   state.currentView = "kana-subpage3";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('roadmap.kana.subpage3Title') || 'Youon & Sokuon';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.subpage3Title') || 'Youon & Sokuon';
 
 
 
@@ -6582,9 +6582,9 @@ function renderKanaSubpage3View() {
 
       <div class="page-header">
 
-        <h1>${t('roadmap.kana.subpage3Title')}</h1>
+        <h1>${t('kana.subpage3Title')}</h1>
 
-        <p>${t('roadmap.kana.subpage3Subtitle')}</p>
+        <p>${t('kana.subpage3Subtitle')}</p>
 
       </div>
 
@@ -6604,17 +6604,17 @@ function renderKanaSubpage3View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="globe"></i> ${t('roadmap.smallKana.title')}</h2>
+          <h2><i data-lucide="globe"></i> ${t('kana.smallKana.title')}</h2>
 
           <div class="info-card" style="margin-bottom: 16px;">
 
-            <p>${t('roadmap.smallKana.desc')}</p>
+            <p>${t('kana.smallKana.desc')}</p>
 
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;">
 
-            ${t('roadmap.smallKana.examples').map(ex => `
+            ${t('kana.smallKana.examples').map(ex => `
 
               <div class="level-card" style="padding: 16px; text-align: center;">
 
@@ -6638,11 +6638,11 @@ function renderKanaSubpage3View() {
 
           <section class="info-section">
 
-            <h2><i data-lucide="zap"></i> ${t('roadmap.kana.subpage3.sokuonTitle')}</h2>
+            <h2><i data-lucide="zap"></i> ${t('kana.subpage3.sokuonTitle')}</h2>
 
             <div class="info-card" style="margin-bottom: 16px;">
 
-              <p>${t('roadmap.kana.subpage3.sokuonDetail')}</p>
+              <p>${t('kana.subpage3.sokuonDetail')}</p>
 
             </div>
 
@@ -6772,11 +6772,11 @@ function renderKanaSubpage3View() {
 
           <section class="info-section">
 
-            <h2><i data-lucide="link"></i> ${t('roadmap.kana.subpage3.yoonSmallTitle')}</h2>
+            <h2><i data-lucide="link"></i> ${t('kana.subpage3.yoonSmallTitle')}</h2>
 
             <div class="info-card">
 
-              <p>${t('roadmap.kana.subpage3.yoonDesc')}</p>
+              <p>${t('kana.subpage3.yoonDesc')}</p>
 
             </div>
 
@@ -7082,11 +7082,11 @@ function renderKanaSubpage3View() {
 
           <section class="info-section">
 
-            <h2><i data-lucide="zap"></i> ${t('roadmap.kana.subpage3.sokuonTitle')}</h2>
+            <h2><i data-lucide="zap"></i> ${t('kana.subpage3.sokuonTitle')}</h2>
 
             <div class="info-card" style="margin-bottom: 16px;">
 
-              <p>${t('roadmap.kana.subpage3.sokuonDetail')}</p>
+              <p>${t('kana.subpage3.sokuonDetail')}</p>
 
             </div>
 
@@ -7238,11 +7238,11 @@ function renderKanaSubpage3View() {
 
           <section class="info-section">
 
-            <h2><i data-lucide="link"></i> ${t('roadmap.kana.subpage3.yoonSmallTitle')}</h2>
+            <h2><i data-lucide="link"></i> ${t('kana.subpage3.yoonSmallTitle')}</h2>
 
             <div class="info-card">
 
-              <p>${t('roadmap.kana.subpage3.yoonDesc')}</p>
+              <p>${t('kana.subpage3.yoonDesc')}</p>
 
             </div>
 
