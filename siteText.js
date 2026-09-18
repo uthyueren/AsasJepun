@@ -40,7 +40,21 @@ export const translations = {
       quickNavTitle: "Quick Links",
       quickNavSubtitle: "Pick a section and dive in",
       ctaWhereStart: "Not sure where to start?",
-      ctaTakeQuiz: "Take our quick level check quiz"
+      ctaTakeQuiz: "Take our quick level check quiz",
+      heroCtaStart: "Start with Introduction",
+      heroCtaRoadmap: "View Learning Path",
+      sectionIntroTitle: "Introduction to Japanese",
+      sectionIntroDesc: "The essential first step - learn how Japanese writing works",
+      sectionKanaTitle: "Hiragana & Katakana",
+      sectionKanaDesc: "Learn the two Japanese syllabaries with interactive charts",
+      sectionKanjiTitle: "Kanji",
+      sectionKanjiDesc: "Master stroke order, radicals, and writing fundamentals",
+      sectionSelfStudyTitle: "Self-Study Guide",
+      sectionSelfStudyDesc: "How to learn Japanese effectively on your own",
+      sectionResourcesTitle: "Resources",
+      sectionResourcesDesc: "Curated tools: dictionaries, Anki decks, media players, and more",
+      sectionAboutTitle: "About",
+      sectionAboutDesc: "About AsasJepun and the creator behind it"
     },
     // Roadmap
     roadmap: {
@@ -761,7 +775,21 @@ export const translations = {
       quickNavTitle: "Pautan Pantas",
       quickNavSubtitle: "Pilih seksyen dan mulakan",
       ctaWhereStart: "Tak pasti nak mula dari mana?",
-      ctaTakeQuiz: "Ambik kuiz semakan tahap cepat kami"
+      ctaTakeQuiz: "Ambik kuiz semakan tahap cepat kami",
+      heroCtaStart: "Mulakan dengan Pengenalan",
+      heroCtaRoadmap: "Lihat Laluan Pembelajaran",
+      sectionIntroTitle: "Pengenalan ke Bahasa Jepun",
+      sectionIntroDesc: "Langkah pertama yang penting - belajar bagaimana tulisan Jepun berfungsi",
+      sectionKanaTitle: "Hiragana & Katakana",
+      sectionKanaDesc: "Belajar dua sistem penulisan Jepun dengan carta interaktif",
+      sectionKanjiTitle: "Kanji",
+      sectionKanjiDesc: "Kuasai urutan笔画, radikal, dan asas menulis",
+      sectionSelfStudyTitle: "Panduan Belajar Sendiri",
+      sectionSelfStudyDesc: "Bagaimana untuk belajar bahasa Jepun dengan efektif secara bebas",
+      sectionResourcesTitle: "Sumber",
+      sectionResourcesDesc: "Alat yang dipilih: kamus, deck Anki, pemain media, dan lagi",
+      sectionAboutTitle: "Tentang",
+      sectionAboutDesc: "Tentang AsasJepun dan pencipta di sebaliknya"
     },
     // Roadmap
     roadmap: {

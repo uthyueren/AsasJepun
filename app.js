@@ -1545,7 +1545,7 @@ function renderIntroView() {
 
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
 
-              Start with Introduction
+              ${t('home.heroCtaStart')}
 
             </a>
 
@@ -1553,7 +1553,7 @@ function renderIntroView() {
 
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
 
-              View Learning Path
+              ${t('home.heroCtaRoadmap')}
 
             </a>
 
@@ -1637,9 +1637,9 @@ function renderIntroView() {
 
             <div class="home-section-text">
 
-              <h3>Introduction to Japanese</h3>
+              <h3>${t('home.sectionIntroTitle')}</h3>
 
-              <p>The essential first step - learn how Japanese writing works</p>
+              <p>${t('home.sectionIntroDesc')}</p>
 
             </div>
 
@@ -1651,9 +1651,9 @@ function renderIntroView() {
 
             <div class="home-section-text">
 
-              <h3>Hiragana & Katakana</h3>
+              <h3>${t('home.sectionKanaTitle')}</h3>
 
-              <p>Learn the two Japanese syllabaries with interactive charts</p>
+              <p>${t('home.sectionKanaDesc')}</p>
 
             </div>
 
@@ -1665,9 +1665,9 @@ function renderIntroView() {
 
             <div class="home-section-text">
 
-              <h3>Kanji</h3>
+              <h3>${t('home.sectionKanjiTitle')}</h3>
 
-              <p>Master stroke order, radicals, and writing fundamentals</p>
+              <p>${t('home.sectionKanjiDesc')}</p>
 
             </div>
 
@@ -1679,9 +1679,9 @@ function renderIntroView() {
 
             <div class="home-section-text">
 
-              <h3>Self-Study Guide</h3>
+              <h3>${t('home.sectionSelfStudyTitle')}</h3>
 
-              <p>How to learn Japanese effectively on your own</p>
+              <p>${t('home.sectionSelfStudyDesc')}</p>
 
             </div>
 
@@ -1693,9 +1693,9 @@ function renderIntroView() {
 
             <div class="home-section-text">
 
-              <h3>Resources</h3>
+              <h3>${t('home.sectionResourcesTitle')}</h3>
 
-              <p>Curated tools: dictionaries, Anki decks, media players, and more</p>
+              <p>${t('home.sectionResourcesDesc')}</p>
 
             </div>
 
@@ -1707,9 +1707,9 @@ function renderIntroView() {
 
             <div class="home-section-text">
 
-              <h3>About</h3>
+              <h3>${t('home.sectionAboutTitle')}</h3>
 
-              <p>About AsasJepun and the creator behind it</p>
+              <p>${t('home.sectionAboutDesc')}</p>
 
             </div>
 
