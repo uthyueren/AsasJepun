@@ -4062,9 +4062,9 @@ function renderIntroductionView() {
 
               <span class="example-char">あ</span>
 
-              <span class="example-label">Hiragana</span>
+              <span class="example-label">${t('introduction.writingHiragana')}</span>
 
-              <span class="example-desc">Native words (e.g., あめ = rain)</span>
+              <span class="example-desc">${t('introduction.writingHiraganaDesc')}</span>
 
             </div>
 
@@ -4072,9 +4072,9 @@ function renderIntroductionView() {
 
               <span class="example-char">ア</span>
 
-              <span class="example-label">Katakana</span>
+              <span class="example-label">${t('introduction.writingKatakana')}</span>
 
-              <span class="example-desc">Foreign words (e.g., テレビ = TV)</span>
+              <span class="example-desc">${t('introduction.writingKatakanaDesc')}</span>
 
             </div>
 
@@ -4082,9 +4082,9 @@ function renderIntroductionView() {
 
               <span class="example-char">日</span>
 
-              <span class="example-label">Kanji</span>
+              <span class="example-label">${t('introduction.writingKanji')}</span>
 
-              <span class="example-desc">Day / Sun (e.g., 日本 = Japan)</span>
+              <span class="example-desc">${t('introduction.writingKanjiDesc')}</span>
 
             </div>
 
@@ -4124,27 +4124,27 @@ function renderIntroductionView() {
 
               <div class="structure-compare-header">
 
-                <span class="structure-lang-label">English</span>
+                <span class="structure-lang-label">${t('introduction.structureEnglish')}</span>
 
-                <span class="structure-lang-order">SVO - Subject -> Verb -> Object</span>
+                <span class="structure-lang-order">${t('introduction.structureSVO')}</span>
 
               </div>
 
               <div class="structure-compare-flow">
 
-                <div class="structure-box subject-box">I</div>
+                <div class="structure-box subject-box">${t('introduction.structureI')}</div>
 
                 <i data-lucide="arrow-right" class="flow-arrow"></i>
 
-                <div class="structure-box verb-box">eat</div>
+                <div class="structure-box verb-box">${t('introduction.structureEat')}</div>
 
                 <i data-lucide="arrow-right" class="flow-arrow"></i>
 
-                <div class="structure-box object-box">rice</div>
+                <div class="structure-box object-box">${t('introduction.structureRice')}</div>
 
               </div>
 
-              <p class="structure-compare-sentence">"I eat rice"</p>
+              <p class="structure-compare-sentence">${t('introduction.structureIEatRice')}</p>
 
             </div>
 
@@ -4154,27 +4154,27 @@ function renderIntroductionView() {
 
               <div class="structure-compare-header">
 
-                <span class="structure-lang-label">Japanese</span>
+                <span class="structure-lang-label">${t('introduction.structureJapanese')}</span>
 
-                <span class="structure-lang-order">SOV - Subject -> Object -> Verb</span>
+                <span class="structure-lang-order">${t('introduction.structureSOV')}</span>
 
               </div>
 
               <div class="structure-compare-flow">
 
-                <div class="structure-box subject-box">Watashi</div>
+                <div class="structure-box subject-box">${t('introduction.structureWatashi')}</div>
 
                 <i data-lucide="arrow-right" class="flow-arrow"></i>
 
-                <div class="structure-box object-box">gohan</div>
+                <div class="structure-box object-box">${t('introduction.structureGohan')}</div>
 
                 <i data-lucide="arrow-right" class="flow-arrow"></i>
 
-                <div class="structure-box verb-box">tabemasu</div>
+                <div class="structure-box verb-box">${t('introduction.structureTabemasu')}</div>
 
               </div>
 
-              <p class="structure-compare-sentence">"Watashi wa gohan wo tabemasu" (I rice eat)</p>
+              <p class="structure-compare-sentence">${t('introduction.structureWatashiSentence')}</p>
 
             </div>
 
@@ -4190,9 +4190,9 @@ function renderIntroductionView() {
 
               <div class="structure-note-text">
 
-                <span class="structure-note-label">No spaces between words</span>
+                <span class="structure-note-label">${t('introduction.structureNoSpaces')}</span>
 
-                <span class="structure-note-example">私はご飯を食べます (I eat rice)</span>
+                <span class="structure-note-example">${t('introduction.structureNoSpacesExample')}</span>
 
               </div>
 
@@ -4204,9 +4204,9 @@ function renderIntroductionView() {
 
               <div class="structure-note-text">
 
-                <span class="structure-note-label">Politeness Levels (Keigo)</span>
+                <span class="structure-note-label">${t('introduction.structureKeigo')}</span>
 
-                <span class="structure-note-example">Casual → Polite → Formal</span>
+                <span class="structure-note-example">${t('introduction.structureCasualPolite')}</span>
 
               </div>
 
@@ -4234,11 +4234,11 @@ function renderIntroductionView() {
 
               <div class="mora-intro-text">
 
-                <h3>The Mora: Japanese Timing</h3>
+                <h3>${t('introduction.moraTitle')}</h3>
 
-                <p>Japanese is not counted in syllables. It is counted in <strong>morae</strong> (拍 / ha-ku). Each mora is a single, evenly-timed beat. The whole rhythm of the language is built by giving every mora the same short duration.</p>
+                <p>${t('introduction.moraIntro')}</p>
 
-                <p style="margin-top: 8px;">Getting the mora count right, and giving each beat equal length, is what separates a natural learner from one who is understood only with effort.</p>
+                <p style="margin-top: 8px;">${t('introduction.moraIntro2')}</p>
 
               </div>
 
@@ -4248,7 +4248,7 @@ function renderIntroductionView() {
 
             <div class="mora-visual">
 
-              <div class="mora-visual-label">ともだち (friend)</div>
+              <div class="mora-visual-label">${t('introduction.moraTomodachi')}</div>
 
               <div class="mora-breakdown">
 
@@ -4256,9 +4256,9 @@ function renderIntroductionView() {
 
                   <div class="mora-char">と</div>
 
-                  <div class="mora-label">to</div>
+                  <div class="mora-label">${t('introduction.moraTo')}</div>
 
-                  <div class="mora-count">1 mora</div>
+                  <div class="mora-count">${t('introduction.moraOne')}</div>
 
                 </div>
 
@@ -4268,9 +4268,9 @@ function renderIntroductionView() {
 
                   <div class="mora-char">も</div>
 
-                  <div class="mora-label">mo</div>
+                  <div class="mora-label">${t('introduction.moraMo')}</div>
 
-                  <div class="mora-count">1 mora</div>
+                  <div class="mora-count">${t('introduction.moraOne')}</div>
 
                 </div>
 
@@ -4280,9 +4280,9 @@ function renderIntroductionView() {
 
                   <div class="mora-char">だ</div>
 
-                  <div class="mora-label">da</div>
+                  <div class="mora-label">${t('introduction.moraDa')}</div>
 
-                  <div class="mora-count">1 mora</div>
+                  <div class="mora-count">${t('introduction.moraOne')}</div>
 
                 </div>
 
@@ -4292,9 +4292,9 @@ function renderIntroductionView() {
 
                   <div class="mora-char">ち</div>
 
-                  <div class="mora-label">chi</div>
+                  <div class="mora-label">${t('introduction.moraChi')}</div>
 
-                  <div class="mora-count">1 mora</div>
+                  <div class="mora-count">${t('introduction.moraOne')}</div>
 
                 </div>
 
@@ -4304,7 +4304,7 @@ function renderIntroductionView() {
 
                   <span class="mora-total-num">4</span>
 
-                  <span class="mora-total-label">morae</span>
+                  <span class="mora-total-label">${t('introduction.morae')}</span>
 
                 </div>
 
@@ -4316,11 +4316,11 @@ function renderIntroductionView() {
 
                   <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
 
-                  Listen to this word
+                  ${t('introduction.moraListen')}
 
                 </button>
 
-                <span class="mora-audio-note">${lang === 'en' ? 'Notice each syllable takes equal time' : 'Perhatikan setiap suku ambil masa yang sama'}</span>
+                <span class="mora-audio-note">${t('introduction.moraEqualTime')}</span>
 
               </div>
 
@@ -4336,9 +4336,9 @@ function renderIntroductionView() {
 
                 <div class="mora-rule-text">
 
-                  <strong>Each basic kana = 1 mora</strong>
+                  <strong>${t('introduction.moraBasicKana')}</strong>
 
-                  <span>ねこ (ne-ko) = 2 morae, さくら (sa-ku-ra) = 3 morae</span>
+                  <span>${t('introduction.moraNekoSakura')}</span>
 
                 </div>
 
@@ -4350,9 +4350,9 @@ function renderIntroductionView() {
 
                 <div class="mora-rule-text">
 
-                  <strong>ん = 1 mora</strong>
+                  <strong>${t('introduction.moraN')}</strong>
 
-                  <span>The nasal sound at the end (e.g., にほん = ni-ho-n = 3 morae)</span>
+                  <span>${t('introduction.moraNasal')}</span>
 
                 </div>
 
@@ -4372,7 +4372,7 @@ function renderIntroductionView() {
 
                   <h3>${t('introduction.soundPoint2')}</h3>
 
-                  <p>Every Japanese syllable always ends with a vowel or ん (n). No consonant clusters allowed. That means no "st", "tr", "gl" sounds. Instead, you break them into separate syllables. For example: "stop" becomes "su-to-ppu", "train" becomes "to-re-i-n".</p>
+                  <p>${t('introduction.consonantClusters')}</p>
 
                 </div>
 
@@ -4388,7 +4388,7 @@ function renderIntroductionView() {
 
                   <h3>${t('introduction.soundPoint4')}</h3>
 
-                  <p>The same word can have different meanings depending on which syllable has the high pitch. Differs between Tokyo, Kansai, and other dialects. It is best to learn this early. Unlearning wrong pronunciation habits later is much harder than building good ones from the start.</p>
+                  <p>${t('introduction.pitchAccentDesc')}</p>
 
                   <div class="pitch-visual">
 
@@ -4406,7 +4406,7 @@ function renderIntroductionView() {
 
                       </div>
 
-                      <span class="pitch-meaning">chopsticks</span>
+                      <span class="pitch-meaning">${t('introduction.pitchChopsticks')}</span>
 
                     </div>
 
@@ -4424,7 +4424,7 @@ function renderIntroductionView() {
 
                       </div>
 
-                      <span class="pitch-meaning">bridge</span>
+                      <span class="pitch-meaning">${t('introduction.pitchBridge')}</span>
 
                     </div>
 
