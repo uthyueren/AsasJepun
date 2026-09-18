@@ -209,7 +209,7 @@ export const translations = {
       writingKatakana: "Katakana",
       writingKatakanaDesc: "Foreign words (e.g., テレビ = TV)",
       writingKanji: "Kanji",
-      writingKanjiDesc: "Day / Sun (e.g., 日本 = Japan)",
+      writingKanjiDesc: "Words (e.g., 日本 = Japan)",
       structureTitle: "Language Structure",
       structureDesc: "Japanese has a fundamentally different structure from English:",
       structureEnglish: "English",
@@ -311,12 +311,7 @@ export const translations = {
         handakutenTitle: "Maru (゜)",
         handakutenDesc: "Maru changes the は (ha) row into ぱ (pa) row.",
         memoryTrickTitle: "Quick Reference",
-        memoryTrickDesc: "Pronunciation stays the same with tenten: じ and ぢ both sound like \"ji\", ず and づ both sound like \"zu\". The spelling is different, but they sound identical.",
-        chartTitle: "Dakuten & Handakuten Chart",
-        columnBase: "Base",
-        columnVoiced: "Voiced",
-        columnSemi: "Semi-voiced",
-        exceptionsTitle: "Exceptions to Remember"
+        memoryTrickDesc: "Pronunciation stays the same with tenten: じ and ぢ both sound like \"ji\", ず and づ both sound like \"zu\". The spelling is different, but they sound identical."
       },
 
       // Small Characters (subpage3)
@@ -1000,7 +995,7 @@ export const translations = {
       writingPoint3: "Kanji - Huruf Cina yang diterima pakai untuk Jepun, digunakan untuk kata nama dan punca kata kerja",
       writingHiraganaDesc: "Perkataan asli (cth, あめ = hujan)",
       writingKatakanaDesc: "Perkataan asing (cth, テレビ = TV)",
-      writingKanjiDesc: "Hari / Matahari (cth, 日本 = Jepun)",
+      writingKanjiDesc: "Perkataan (cth, 日本 = Jepun)",
       structureTitle: "Struktur Bahasa",
       structureDesc: "Bahasa Jepun mempunyai struktur yang berbeza dari Bahasa Inggeris:",
       structureEnglish: "Bahasa Inggeris",
@@ -1058,7 +1053,7 @@ export const translations = {
         whatIsDesc: "Vokal panjang (長音 / chōon) adalah bunyi vokal yang dipegang untuk dua morae bukan satu. Dalam bahasa Jepun, menukar panjang vokal boleh menyebabkan perubahan makna sepenuhnya, jadi ia penting untuk dikuasai awal.",
         hiraganaTitle: "Menulis Vokal Panjang dalam Hiragana",
         katakanaTitle: "Menulis Vokal Panjang dalam Katakana",
-        katakanaDesc: "Katakana menggunakan garis lurus mendatar yang dipanggil tanda vokal panjang (長音符 / chōonpu / ー) вместо menambah huruf tambahan. Garis ini memanjangkan bunyi vokal aksara sebelumnya.",
+        katakanaDesc: "Katakana menggunakan garis lurus mendatar yang dipanggil tanda vokal panjang (長音符 / chōonpu / ー) menambah huruf tambahan. Garis ini memanjangkan bunyi vokal aksara sebelumnya.",
         aRow: "Bunyi baris あ (あ段)",
         aRowRule: "Tambah satu aksara あ (a)",
         iRow: "Bunyi baris い (い段)",
@@ -1089,17 +1084,12 @@ export const translations = {
       subpage2Subtitle: "Fahami dakuten (濁点) dan handakuten (半濁点)",
       subpage2: {
         whatIsTitle: "Apakah Tenten dan Maru?",
-        whatIsDesc: "Tenten (juga dikenali sebagai Dakuten) dan Maru (juga dikenali sebagai Handakuten) adalah tanda yang boleh mengubah sebutan aksara kana. Tenten adalah dua tanda dash kecil (゛) diletakkan di bahagian kanan atas aksara kana dan Maru adalah bulatan kecil (゜) diletakkan di bahagian kanan atas aksara kana. Kedua-duanya menukar bunyi konsonan.",
+        whatIsDesc: "Tenten (juga dikenali sebagai Dakuten) dan Maru (juga dikenali sebagai Handakuten) adalah tanda yang boleh mengubah sebutan kana. Tenten adalah dua tanda dash kecil (゛) diletakkan di bahagian kanan atas huruf kana dan Maru adalah bulatan kecil (゜) diletakkan di bahagian kanan atas huruf kana. Kedua-duanya menukar bunyi konsonan.",
         dakutenTitle: "Tenten (゛)",
         dakutenDesc: "Tenten menukar baris か (ka) kepada が (ga), baris さ (sa) kepada ざ (za), baris た (ta) kepada だ (da), dan baris は (ha) kepada ば (ba).",
         handakutenDesc: "Maru menukar baris は (ha) kepada ぱ (pa).",
         memoryTrickTitle: "Rujukan Pantas",
-        memoryTrickDesc: "Sebutan tidak berubah dengan tenten: じ dan ぢ kedua-dua berbunyi \"ji\", ず dan づ kedua-dua berbunyi \"zu\". Ejaan berbeza, tetapi sebutannya sama.",
-        chartTitle: "Jadual Dakuten & Handakuten",
-        columnBase: "Asas",
-        columnVoiced: "Berdaras",
-        columnSemi: "Separuh",
-        exceptionsTitle: "Pengecualian untuk Diingat"
+        memoryTrickDesc: "Sebutan yang sama dengan tenten: じ dan ぢ kedua-dua berbunyi \"ji\", ず dan づ kedua-dua berbunyi \"zu\". Ejaan berbeza, tetapi sebutannya sama."
       },
 
       // Small Characters (subpage3)
