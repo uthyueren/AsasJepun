@@ -23,7 +23,18 @@
       gtag('config', 'G-KQKL3CH0KY');
     </script>
 </head>
-<body class="dark-theme">
+<body>
+    <!-- Prevent theme flash - apply theme before render -->
+    <script>
+      (function() {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'light') {
+          document.body.classList.add('light-theme');
+        } else {
+          document.body.classList.add('dark-theme');
+        }
+      })();
+    </script>
     <!-- App Layout Container -->
     <div class="app-layout">
         <!-- Main Content Area -->
@@ -66,15 +77,15 @@
                                 <i data-lucide="chevron-down" class="dropdown-arrow"></i>
                             </a>
                             <div class="nav-dropdown-menu">
-                                <a href="/kana/subpage1" class="nav-item subpage" data-target="kana/subpage1">
+                                <a href="/kana/long-vowel" class="nav-item subpage" data-target="kana/long-vowel">
                                     <i data-lucide="volume-2"></i>
                                     <span data-i18n="nav.kanaSubpage1">Vocal Lengthening</span>
                                 </a>
-                                <a href="/kana/subpage2" class="nav-item subpage" data-target="kana/subpage2">
+                                <a href="/kana/tenten-maru" class="nav-item subpage" data-target="kana/tenten-maru">
                                     <i data-lucide="circle-dot"></i>
                                     <span data-i18n="nav.kanaSubpage2">Tenten & Maru</span>
                                 </a>
-                                <a href="/kana/subpage3" class="nav-item subpage" data-target="kana/subpage3">
+                                <a href="/kana/small-characters" class="nav-item subpage" data-target="kana/small-characters">
                                     <i data-lucide="link"></i>
                                     <span data-i18n="nav.kanaSubpage3">Small Kana</span>
                                 </a>
@@ -89,15 +100,15 @@
                                 <i data-lucide="chevron-down" class="dropdown-arrow"></i>
                             </a>
                             <div class="nav-dropdown-menu">
-                                <a href="/kanji-rules/subpage2" class="nav-item subpage" data-target="kanji-rules/subpage2">
+                                <a href="/kanji/radical" class="nav-item subpage" data-target="kanji/radical">
                                     <i data-lucide="book-open"></i>
                                     <span data-i18n="kanjiRules.subpage2Title">Radical</span>
                                 </a>
-                                <a href="/kanji-rules/subpage1" class="nav-item subpage" data-target="kanji-rules/subpage1">
+                                <a href="/kanji/stroke-order" class="nav-item subpage" data-target="kanji/stroke-order">
                                     <i data-lucide="pen-tool"></i>
                                     <span data-i18n="kanjiRules.subpage1Title">Stroke Order</span>
                                 </a>
-                                <a href="/kanji-rules/subpage3" class="nav-item subpage" data-target="kanji-rules/subpage3">
+                                <a href="/kanji/kanji-names" class="nav-item subpage" data-target="kanji/kanji-names">
                                     <i data-lucide="user"></i>
                                     <span data-i18n="kanjiRules.subpage3Title">Kanji in Names</span>
                                 </a>
@@ -197,15 +208,15 @@
                             <i data-lucide="grid-3x3"></i>
                             <span data-i18n="nav.kana">Hiragana & Katakana</span>
                         </a>
-                        <a href="/kana/subpage1" class="mobile-nav-item" data-target="kana/subpage1">
+                        <a href="/kana/long-vowel" class="mobile-nav-item" data-target="kana/long-vowel">
                             <i data-lucide="volume-2"></i>
                             <span data-i18n="nav.kanaSubpage1">Long Vowel</span>
                         </a>
-                        <a href="/kana/subpage2" class="mobile-nav-item" data-target="kana/subpage2">
+                        <a href="/kana/tenten-maru" class="mobile-nav-item" data-target="kana/tenten-maru">
                             <i data-lucide="circle-dot"></i>
                             <span data-i18n="nav.kanaSubpage2">Tenten & Maru</span>
                         </a>
-                        <a href="/kana/subpage3" class="mobile-nav-item" data-target="kana/subpage3">
+                        <a href="/kana/small-characters" class="mobile-nav-item" data-target="kana/small-characters">
                             <i data-lucide="link"></i>
                             <span data-i18n="nav.kanaSubpage3">Small Characters</span>
                         </a>
@@ -213,15 +224,15 @@
                             <i data-lucide="type"></i>
                             <span data-i18n="nav.kanjiRules">Kanji</span>
                         </a>
-                        <a href="/kanji-rules/subpage2" class="mobile-nav-item" data-target="kanji-rules/subpage2">
+                        <a href="/kanji/radical" class="mobile-nav-item" data-target="kanji/radical">
                             <i data-lucide="book-open"></i>
                             <span data-i18n="kanjiRules.subpage2Title">Radical</span>
                         </a>
-                        <a href="/kanji-rules/subpage1" class="mobile-nav-item" data-target="kanji-rules/subpage1">
+                        <a href="/kanji/stroke-order" class="mobile-nav-item" data-target="kanji/stroke-order">
                             <i data-lucide="pen-tool"></i>
                             <span data-i18n="kanjiRules.subpage1Title">Stroke Order</span>
                         </a>
-                        <a href="/kanji-rules/subpage3" class="mobile-nav-item" data-target="kanji-rules/subpage3">
+                        <a href="/kanji/kanji-names" class="mobile-nav-item" data-target="kanji/kanji-names">
                             <i data-lucide="user"></i>
                             <span data-i18n="kanjiRules.subpage3Title">Kanji in Names</span>
                         </a>

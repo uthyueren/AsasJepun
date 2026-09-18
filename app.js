@@ -1,4 +1,4 @@
-import { KANA_DATA } from './kana.js';
+import { KANA_DATA } from './kana-data.js';
 
 import { t, setLanguage, getLanguage, toggleLanguage, initI18n } from './siteText.js';
 
@@ -498,15 +498,15 @@ function reRenderCurrentView() {
 
     renderKanaView();
 
-  } else if (route === "kana/subpage1") {
+  } else if (route === "kana/long-vowel") {
 
     renderKanaSubpage1View();
 
-  } else if (route === "kana/subpage2") {
+  } else if (route === "kana/tenten-maru") {
 
     renderKanaSubpage2View();
 
-  } else if (route === "kana/subpage3") {
+  } else if (route === "kana/small-characters") {
 
     renderKanaSubpage3View();
 
@@ -514,15 +514,15 @@ function reRenderCurrentView() {
 
     renderKanjiRulesView();
 
-  } else if (route === "kanji-rules/subpage1") {
+  } else if (route === "kanji/stroke-order") {
 
     renderKanjiRulesSubpage1View();
 
-  } else if (route === "kanji-rules/subpage2") {
+  } else if (route === "kanji/radical") {
 
     renderKanjiRulesSubpage2View();
 
-  } else if (route === "kanji-rules/subpage3") {
+  } else if (route === "kanji/kanji-names") {
 
     renderKanjiRulesSubpage3View();
 
@@ -1077,13 +1077,13 @@ function updateMeta(route) {
     "introduction": "Introduction to Japanese learning - AsasJepun",
     "introduction/jlpt": "What is JLPT? Learn about Japanese JLPT levels - AsasJepun",
     "kana": "Hiragana & Katakana Charts - AsasJepun",
-    "kana/subpage1": "Vowel Lengthening (Long Vowels) - AsasJepun",
-    "kana/subpage2": "Tenten and Maru - AsasJepun",
-    "kana/subpage3": "Small Characters - AsasJepun",
+    "kana/long-vowel": "Vowel Lengthening (Long Vowels) - AsasJepun",
+    "kana/tenten-maru": "Tenten and Maru - AsasJepun",
+    "kana/small-characters": "Small Characters - AsasJepun",
     "kanji-rules": "Kanji Rules and Mnemonics - AsasJepun",
-    "kanji-rules/subpage1": "Kanji Stroke Order - AsasJepun",
-    "kanji-rules/subpage2": "Kanji Radicals - AsasJepun",
-    "kanji-rules/subpage3": "Kanji in Names - AsasJepun",
+    "kanji/stroke-order": "Kanji Stroke Order - AsasJepun",
+    "kanji/radical": "Kanji Radicals - AsasJepun",
+    "kanji/kanji-names": "Kanji in Names - AsasJepun",
     "self-study/anki": "Anki & Vocabulary Mining - AsasJepun",
     "self-study/immersion": "Comprehensible Input & Immersion - AsasJepun",
     "self-study/ai": "Using AI for Japanese Learning - AsasJepun",
@@ -1100,13 +1100,13 @@ function updateMeta(route) {
     "introduction": "Introduction to Japanese learning for beginners. Understand the basics and get started on your journey.",
     "introduction/jlpt": "Learn about the Japanese Language Proficiency Test (JLPT) - from N5 to N1 levels explained.",
     "kana": "Interactive Hiragana and Katakana charts with audio pronunciation. Learn Japanese characters effectively.",
-    "kana/subpage1": "Learn about long vowels in Japanese - how to pronounce and distinguish them in Hiragana and Katakana.",
-    "kana/subpage2": "Understand Tenten (handakuten) and Maru modifications in Katakana.",
-    "kana/subpage3": "Master small kana characters (sokuon, youon) in Japanese.",
+    "kana/long-vowel": "Learn about long vowels in Japanese - how to pronounce and distinguish them in Hiragana and Katakana.",
+    "kana/tenten-maru": "Understand Tenten (handakuten) and Maru modifications in Katakana.",
+    "kana/small-characters": "Master small kana characters (sokuon, youon) in Japanese.",
     "kanji-rules": "Learn Kanji with effective rules, mnemonics, and stroke order guidance.",
-    "kanji-rules/subpage1": "Kanji stroke order rules and practice. Learn the correct way to write kanji.",
-    "kanji-rules/subpage2": "Understand kanji radicals (bushu) - the building blocks of kanji characters.",
-    "kanji-rules/subpage3": "How kanji is used in Japanese names - readings and conventions.",
+    "kanji/stroke-order": "Kanji stroke order rules and practice. Learn the correct way to write kanji.",
+    "kanji/radical": "Understand kanji radicals (bushu) - the building blocks of kanji characters.",
+    "kanji/kanji-names": "How kanji is used in Japanese names - readings and conventions.",
     "self-study/anki": "How to use Anki and vocabulary mining for effective Japanese vocabulary acquisition.",
     "self-study/immersion": "Comprehensible input and immersion techniques for natural Japanese acquisition.",
     "self-study/ai": "How to use AI tools like ChatGPT effectively for Japanese learning.",
@@ -1213,15 +1213,15 @@ function initRouter() {
 
       renderKanaView();
 
-    } else if (route === "kana/subpage1") {
+    } else if (route === "kana/long-vowel") {
 
       renderKanaSubpage1View();
 
-    } else if (route === "kana/subpage2") {
+    } else if (route === "kana/tenten-maru") {
 
       renderKanaSubpage2View();
 
-    } else if (route === "kana/subpage3") {
+    } else if (route === "kana/small-characters") {
 
       renderKanaSubpage3View();
 
@@ -1229,15 +1229,15 @@ function initRouter() {
 
       renderKanjiRulesView();
 
-    } else if (route === "kanji-rules/subpage1") {
+    } else if (route === "kanji/stroke-order") {
 
       renderKanjiRulesSubpage1View();
 
-    } else if (route === "kanji-rules/subpage2") {
+    } else if (route === "kanji/radical") {
 
       renderKanjiRulesSubpage2View();
 
-    } else if (route === "kanji-rules/subpage3") {
+    } else if (route === "kanji/kanji-names") {
 
       renderKanjiRulesSubpage3View();
 
@@ -2117,7 +2117,7 @@ function renderSelfStudyView() {
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-          <a href="#kanji-rules/subpage3" class="btn-cta-secondary">
+          <a href="/kanji/kanji-names" class="btn-cta-secondary">
 
             ← ${lang === 'en' ? 'Back: Kanji in Names' : 'Kembali: Kanji dalam Nama'}
 
@@ -4808,7 +4808,7 @@ function renderKanaView() {
 
         </a>
 
-        <a href="#kana/subpage1" class="btn-cta-primary">
+        <a href="/kana/long-vowel" class="btn-cta-primary">
 
           ${lang === 'en' ? 'Next: Long Vowel' : 'Seterusnya: Vokal Panjang'} →
 
@@ -5484,13 +5484,13 @@ function renderKanjiRulesView() {
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-          <a href="#kana/subpage3" class="btn-cta-secondary">
+          <a href="/kana/small-characters" class="btn-cta-secondary">
 
             ← ${lang === 'en' ? 'Back: Small Kana' : 'Kembali: Kana Kecil'}
 
           </a>
 
-          <a href="#kanji-rules/subpage2" class="btn-cta-primary">
+          <a href="/kanji/radical" class="btn-cta-primary">
 
             ${lang === 'en' ? 'Next: Radical' : 'Seterusnya: Radikal'} →
 
@@ -5876,7 +5876,7 @@ function renderKanaSubpage1View() {
 
           </a>
 
-          <a href="#kana/subpage2" class="btn-cta-primary">
+          <a href="/kana/tenten-maru" class="btn-cta-primary">
 
             ${lang === 'en' ? 'Next: Tenten & Maru' : 'Seterusnya: Tenten & Maru'} →
 
@@ -6482,13 +6482,13 @@ function renderKanaSubpage2View() {
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-          <a href="#kana/subpage1" class="btn-cta-secondary">
+          <a href="/kana/long-vowel" class="btn-cta-secondary">
 
             ← ${lang === 'en' ? 'Back: Long Vowel' : 'Kembali: Vokal Panjang'}
 
           </a>
 
-          <a href="#kana/subpage3" class="btn-cta-primary">
+          <a href="/kana/small-characters" class="btn-cta-primary">
 
             ${lang === 'en' ? 'Next: Small Kana' : 'Seterusnya: Kana Kecil'} →
 
@@ -7574,7 +7574,7 @@ function renderKanaSubpage3View() {
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-          <a href="#kana/subpage2" class="btn-cta-secondary">
+          <a href="/kana/tenten-maru" class="btn-cta-secondary">
 
             ← ${lang === 'en' ? 'Back: Tenten & Maru' : 'Kembali: Tenten & Maru'}
 
@@ -8022,7 +8022,7 @@ function renderKanjiRulesSubpage2View() {
 
           </a>
 
-          <a href="#kanji-rules/subpage1" class="btn-cta-primary">
+          <a href="/kanji/stroke-order" class="btn-cta-primary">
 
             ${lang === 'en' ? 'Next: Stroke Order' : 'Seterusnya: Susunan Loretan'} →
 
@@ -8196,13 +8196,13 @@ function renderKanjiRulesSubpage1View() {
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-          <a href="#kanji-rules/subpage2" class="btn-cta-secondary">
+          <a href="/kanji/radical" class="btn-cta-secondary">
 
             ← ${lang === 'en' ? 'Back: Radical' : 'Kembali: Radikal'}
 
           </a>
 
-          <a href="#kanji-rules/subpage3" class="btn-cta-primary">
+          <a href="/kanji/kanji-names" class="btn-cta-primary">
 
             ${lang === 'en' ? 'Next: Kanji in Names' : 'Seterusnya: Kanji dalam Nama'} →
 
@@ -8370,7 +8370,7 @@ function renderKanjiRulesSubpage3View() {
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
-          <a href="#kanji-rules/subpage1" class="btn-cta-secondary">
+          <a href="/kanji/stroke-order" class="btn-cta-secondary">
 
             ← ${lang === 'en' ? 'Back: Stroke Order' : 'Kembali: Turutan Lorekan'}
 
