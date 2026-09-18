@@ -6604,29 +6604,30 @@ function renderKanaSubpage3View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="globe"></i> ${t('kana.smallKana.title')}</h2>
+          <h2><i data-lucide="globe"></i> ${t('kana.subpage3.title')}</h2>
 
           <div class="info-card" style="margin-bottom: 16px;">
 
-            <p>${t('kana.smallKana.desc')}</p>
+            <p>${t('kana.subpage3.desc')}</p>
 
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;">
 
-            ${t('kana.smallKana.examples').map(ex => `
-
+            ${(function() {
+              const examples = t('kana.subpage3.examples');
+              const triplets = [];
+              for (let i = 0; i < examples.length; i += 3) {
+                triplets.push({ kana: examples[i], romaji: examples[i+1], used: examples[i+2] });
+              }
+              return triplets.map(ex => `
               <div class="level-card" style="padding: 16px; text-align: center;">
-
                 <div style="font-size: 28px; font-weight: 700; color: var(--primary); margin-bottom: 4px;">${ex.kana}</div>
-
                 <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 4px;">${ex.romaji}</div>
-
                 <div style="font-size: 11px; color: var(--text-secondary);">${ex.used}</div>
-
               </div>
-
-            `).join('')}
+            `).join('');
+            })()}
 
           </div>
 
