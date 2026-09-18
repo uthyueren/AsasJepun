@@ -1,6 +1,6 @@
 import { KANA_DATA } from './kana-data.js';
 
-import { t, setLanguage, getLanguage, toggleLanguage, initI18n } from './siteText.js';
+import { t, setLanguage, getLanguage, toggleLanguage, initI18n } from './translations/index.js';
 
 import { CULTURE_LESSONS, BLOG_POSTS, RESOURCES, KANJI_STROKE_RULES, ANKI_CONTENT } from './content.js';
 
