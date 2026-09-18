@@ -3546,7 +3546,7 @@ function renderAboutView() {
 
               <a href="https://linktr.ee/uthmannn_" target="_blank" rel="noopener" class="social-link">
 
-                <img src="logos/Linktree_logo.png" alt="Linktree" width="20" height="20">
+                <img src="logos/Linktree_logo.webp" alt="Linktree" width="20" height="20">
 
                 Linktree
 
@@ -3554,7 +3554,7 @@ function renderAboutView() {
 
               <a href="https://www.threads.com/@uthmannn_" target="_blank" rel="noopener" class="social-link">
 
-                <img src="logos/Threads_logo.png" alt="Threads" width="20" height="20">
+                <img src="logos/Threads_logo.webp" alt="Threads" width="20" height="20">
 
                 Threads
 
@@ -3562,7 +3562,7 @@ function renderAboutView() {
 
               <a href="https://ko-fi.com/uthmannn_" target="_blank" rel="noopener" class="social-link">
 
-                <img src="logos/ko-fi-logotype-27349_512.png" alt="Ko-fi" width="20" height="20">
+                <img src="logos/ko-fi-logotype-27349_512.webp" alt="Ko-fi" width="20" height="20">
 
                 Ko-fi
 
