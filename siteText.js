@@ -1621,8 +1621,19 @@ export function t(keyPath, lang = currentLang) {
   for (const key of keys) {
     if (value && typeof value === 'object' && key in value) {
       value = value[key];
+    } else if (lang !== 'en') {
+      // Fallback to English if translation not found
+      value = translations.en;
+      for (const k of keys) {
+        if (value && typeof value === 'object' && k in value) {
+          value = value[k];
+        } else {
+          console.warn(`Translation missing: ${keyPath}`);
+          return keyPath;
+        }
+      }
     } else {
-      console.warn(`Translation missing: ${keyPath} for lang ${lang}`);
+      console.warn(`Translation missing: ${keyPath}`);
       return keyPath;
     }
   }
