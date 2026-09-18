@@ -68,19 +68,6 @@ export const translations = {
         phase8: "Phase 8",
         phase9: "Phase 9"
       },
-      n1: {
-        title: "Consistent Routine + N1 Prep",
-        desc: "Master near-native level Japanese with business keigo and complex structures.",
-        duration: "8 - 12 Months",
-        activity: "~1,000 Kanji | ~5,000 Vocab",
-        focusTitle: "Learning Focus:",
-        items: [
-          "Business keigo and formal expressions",
-          "Complex sentence structures (倒置法, 強調, etc.)",
-          "~1,000 kanji total",
-          "Native-level reading and listening"
-        ]
-      },
       kana: {
         title: "Kana (Japanese Characters)",
         desc: "Learn Hiragana and Katakana from scratch.",
@@ -171,6 +158,19 @@ export const translations = {
           "N2 prep and practice"
         ]
       },
+      n1: {
+        title: "Consistent Routine + N1 Prep",
+        desc: "Master near-native level Japanese with business keigo and complex structures.",
+        duration: "8 - 12 Months",
+        activity: "~1,000 Kanji | ~5,000 Vocab",
+        focusTitle: "Learning Focus:",
+        items: [
+          "Business keigo and formal expressions",
+          "Complex sentence structures (倒置法, 強調, etc.)",
+          "~1,000 kanji total",
+          "Native-level reading and listening"
+        ]
+      },
       continues: {
         title: "Learning Continues",
         desc: "Beyond structured levels. Native content, advanced reading, speaking practice.",
@@ -207,8 +207,8 @@ export const translations = {
       structureTitle: "Language Structure",
       structureDesc: "Japanese has a fundamentally different structure from English:",
       structureEnglish: "English",
-      structureJapanese: "Japanese",
       structureSVO: "SVO - Subject -> Verb -> Object",
+      structureJapanese: "Japanese",
       structureSOV: "SOV - Subject -> Object -> Verb",
       structureI: "I",
       structureEat: "eat",
@@ -904,7 +904,7 @@ export const translations = {
       writingDesc: "Bahasa Jepun menggunakan tiga sistem penulisan digabungkan:",
       writingPoint1: "Hiragana - Digunakan untuk perkataan asli Jepun dan unsur tatabahasa",
       writingPoint2: "Katakana - Digunakan untuk perkataan asing, penekanan, dan onomatopoeia",
-      writingPoint3: "Kanji - Aksara Cina yang diterima pakai untuk Jepun, digunakan untuk kata nama dan punca kata kerja",
+      writingPoint3: "Kanji - Huruf Cina yang diterima pakai untuk Jepun, digunakan untuk kata nama dan punca kata kerja",
       // Writing examples
       writingHiragana: "Hiragana",
       writingHiraganaDesc: "Perkataan asli (cth, あめ = hujan)",
@@ -916,8 +916,8 @@ export const translations = {
       structureTitle: "Struktur Bahasa",
       structureDesc: "Bahasa Jepun mempunyai struktur yang berbeza dari Bahasa Inggeris:",
       structureEnglish: "Bahasa Inggeris",
-      structureJapanese: "Bahasa Jepun",
       structureSVO: "SVO - Subjek -> Kata Kerja -> Objek",
+      structureJapanese: "Bahasa Jepun",
       structureSOV: "SOV - Subjek -> Objek -> Kata Kerja",
       structureI: "Saya",
       structureEat: "makan",
@@ -926,9 +926,9 @@ export const translations = {
       structureWatashi: "Saya",
       structureGohan: "nasi",
       structureTabemasu: "makan",
-      structureWatashiSentence: "Saya wa nasi wo tabemasu",
-      structureNoSpaces: "Tiada ruang antara perkataan",
-      structureNoSpacesExample: "私はご飯を食べます (Saya makan nasi)",
+      structureWatashiSentence: "Watashi wa gohan wo tabemasu",
+      structureNoSpaces: "Tiada ruang di antara perkataan",
+      structureNoSpacesExample: "私はご飯を食べます",
       structureKeigo: "Tahap Kesopanan (Keigo)",
       structureCasualPolite: "Semiyang → Sopan → Rasmi",
       // Mora section
