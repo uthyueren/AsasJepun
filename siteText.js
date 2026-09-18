@@ -2,9 +2,8 @@
 // Languages: English (en), Bahasa Malaysia (my)
 
 export const translations = {
-  en: {
-    // Navigation
-    nav: {
+  nav: {
+    en: {
       intro: "Home",
       kana: "Hiragana & Katakana",
       kanjiRules: "Kanji",
@@ -22,8 +21,28 @@ export const translations = {
       immersion: "Comprehensible Input & Immersion",
       ai: "Using AI"
     },
-    // Homepage
-    home: {
+    my: {
+      intro: "Laman Utama",
+      kana: "Hiragana & Katakana",
+      kanjiRules: "Kanji",
+      anki: "Anki & Lombong Vocab",
+      roadmap: "Laluan Pembelajaran",
+      introduction: "Pengenalan",
+      selfStudy: "Panduan Belajar Sendiri",
+      blogCulture: "Blog & Budaya",
+      resources: "Sumber",
+      about: "Tentang",
+      jlptInfo: "Apa itu JLPT?",
+      kanaSubpage1: "Vokal Panjang",
+      kanaSubpage2: "Tenten & Maru",
+      kanaSubpage3: "Kana Kecil",
+      immersion: "Input Boleh Difahami & Penyerapan",
+      ai: "Menggunakan AI"
+    }
+  },
+
+  home: {
+    en: {
       heroTag: "Konnichiwa! こんにちは",
       heroTitle: "Your guide to learning Japanese the right way",
       heroSubtitle: "Everything you need to self-study Japanese effectively.",
@@ -51,8 +70,38 @@ export const translations = {
       sectionAboutTitle: "About",
       sectionAboutDesc: "About AsasJepun and the creator behind it"
     },
-    // Roadmap
-    roadmap: {
+    my: {
+      heroTag: "Konnichiwa! こんにちは",
+      heroTitle: "Panduan belajar bahasa Jepun dengan cara yang betul",
+      heroSubtitle: "Semua yang anda perlukan untuk belajar bahasa Jepun secara efektif.",
+      whyTitle: "Bagaimana kami bantu anda",
+      whyPoint1Title: "Tak ada lagi scroll YouTube tak ingat arah",
+      whyPoint1Desc: "Kami beri anda jalan yang jelas. Follow roadmap dari zero ke boleh converse, atau mula di tahap mana pun anda sekarang.",
+      whyPoint2Title: "Belajar apa yang perlu",
+      whyPoint2Desc: "Panduan dan sumber yang benar-benar bantu korang belajar, bukan sekadar baca je.",
+      whyPoint3Title: "Faham budaya untuk faham bahasa",
+      whyPoint3Desc: "Bahasa Jepun masuk akal bila anda faham kenapa ia macamtu. Kami ajar melalui konteks  perayaan, kehidupan harian, hiburan.",
+      quickNavTitle: "Pautan Pantas",
+      quickNavSubtitle: "Pilih seksyen dan mulakan",
+      heroCtaStart: "Mulakan dengan Pengenalan",
+      heroCtaRoadmap: "Lihat Laluan Pembelajaran",
+      sectionIntroTitle: "Pengenalan ke Bahasa Jepun",
+      sectionIntroDesc: "Langkah pertama yang penting - belajar bagaimana tulisan Jepun berfungsi",
+      sectionKanaTitle: "Hiragana & Katakana",
+      sectionKanaDesc: "Belajar dua sistem penulisan Jepun dengan carta interaktif",
+      sectionKanjiTitle: "Kanji",
+      sectionKanjiDesc: "Kuasai urutan笔画, radikal, dan asas menulis",
+      sectionSelfStudyTitle: "Panduan Belajar Sendiri",
+      sectionSelfStudyDesc: "Bagaimana untuk belajar bahasa Jepun dengan efektif secara bebas",
+      sectionResourcesTitle: "Sumber",
+      sectionResourcesDesc: "Alat yang dipilih: kamus, deck Anki, pemain media, dan lagi",
+      sectionAboutTitle: "Tentang",
+      sectionAboutDesc: "Tentang AsasJepun dan pencipta di sebaliknya"
+    }
+  },
+
+  roadmap: {
+    en: {
       title: "Japanese Language Learning Roadmap",
       intro: "A step-by-step guide to take you from zero to intermediate level (N3) and beyond. Click on each phase for details on learning focus.",
       disclaimer: "⚠️ These timelines are estimates assuming consistent daily study (1-2 hours). Your actual progress depends on consistency, not intensity.",
@@ -275,411 +324,7 @@ export const translations = {
         ]
       }
     },
-    // Introduction Page
-    introduction: {
-      title: "Introduction to Japanese",
-      subtitle: "Your first step to understanding the Japanese language",
-      welcomeTitle: "What is Japanese?",
-      welcomeDesc: "Japanese is a language spoken by about 130 million people in Japan and Japanese communities worldwide. It belongs to the Japonic language family, which has no widely accepted genealogical relationship to any other language family.",
-      writingTitle: "The Writing System",
-      writingDesc: "Japanese uses three writing systems combined:",
-      writingPoint1: "Hiragana - Used for native Japanese words and grammatical elements",
-      writingPoint2: "Katakana - Used for foreign words, emphasis, and onomatopoeia",
-      writingPoint3: "Kanji - Chinese characters adopted for Japanese, used for nouns and verb roots",
-      structureTitle: "Language Structure",
-      structureDesc: "Japanese has a fundamentally different structure from English:",
-      soundTitle: "Sound System",
-      soundDesc: "Japanese has a relatively simple phonological system:",
-      soundPoint2: "No consonant clusters (e.g., \"st\", \"tr\", \"gl\")",
-      soundPoint4: "Pitch accent instead of stress accent (differs by dialect)",
-      tipTitle: "Learning Tip",
-      tipDesc: "Don't try to translate word-for-word from English. Instead, try to understand concepts and patterns in their Japanese context.",
-      ctaRoadmap: "Learn Hiragana & Katakana"
-    },
-    // Culture/Vocab
-    culture: {
-      title: "Culture & Vocabulary",
-      subtitle: "Learn Japanese through cultural context  from vtubers to seasonal festivals.",
-      themes: {
-        entertainment: "Entertainment",
-        food: "Food & Drink",
-        seasonal: "Seasonal",
-        daily: "Daily Life",
-        social: "Social Life"
-      },
-    },
-    // Blog
-    blog: {
-      title: "Blog",
-      minRead: "min read"
-    },
-    // Blog & Culture (Combined)
-    blogCulture: {
-      title: "Blog & Culture",
-      subtitle: "Articles, lessons, and long-form content on Japanese learning and culture.",
-      blog: "Blog",
-      culture: "Culture"
-    },
-    // Resources
-    resources: {
-      title: "Resources",
-      subtitle: "Curated tools organized by what problem they solve.",
-      categories: {
-        dictionary: "Dictionaries",
-        anki: "Flashcards",
-        learning: "Learning Websites",
-        mobileApps: "Mobile Apps",
-        reading: "Reading",
-        jlpt: "JLPT Preparation",
-        browserLookup: "Browser Extensions (Lookup)",
-        browserSubtitle: "Subtitle (Browser Extension)",
-        media: "Streaming",
-        podcasts: "Podcasts",
-        youtubeLearning: "YT for Learning Japanese",
-        youtubeImmersion: "YT for Immersion",
-        youtubePopular: "YT Popular Channels",
-        practice: "Speaking Practice",
-        pitchAccent: "Pitch Accent",
-        translator: "Translator",
-        discordServers: "Discord Servers",
-        askQuestions: "Ask Questions",
-        articles: "Japanese Articles",
-        otherResources: "Other Resources"
-      },
-    },
-    // About
-    about: {
-      title: "About Me",
-      subtitle: "The method that actually works, from someone who tried them all.",
-      storyContent: "Hi, I'm <strong>Uthman</strong>, fellow Japanese learner! I know exactly how frustrating learning Japanese can be when kanji looks like squiggles, grammar doesn't make sense, and nothing stays in your head.<br><br>I started learning Japanese in 2018 but <strong>quit</strong> after a few months. Kanji looked terrifying, and I couldn't see how any of it would stick. After a long break, I decided to <strong>push through anyway</strong>  and it wasn't as bad as I expected.<br><br>Since 2021, I've been learning off and on since I'm quite busy with university, but things didn't really come together until <strong>mid 2025</strong>. I started consuming Japanese content <strong>every single day</strong>  whether it was Hololive streams, J-dramas, whatever kept me in the language. My comprehension improved a lot using flashcards with SRS (Spaced Repetition System).<br><br>If you're serious about learning, <strong>join my class</strong> and let's do this together.",
-      connectTitle: "Connect",
-    },
-    // Footer
-    footer: {
-      tagline: "Learn Japanese the right way"
-    },
-    // Privacy Policy
-    privacyPolicy: {
-      title: "Privacy Policy"
-    },
-    // Terms
-    terms: {
-      title: "Terms & Conditions"
-    },
-    // Common
-    common: {
-      loading: "Loading...",
-      back: "Back",
-      learnMore: "Learn More",
-      // Theme
-      // Status
-      error: "Error! Try again",
-      // Validation
-      audioNotSupported: "Your browser does not support audio playback.",
-      // Signup specific
-      submitting: "Submitting..."
-    },
-    // Signup Modal
-    signup: {
-      title: "Want to learn Japanese?",
-      subtitle: "Fill out the form and I'll contact you within 24 hours",
-      name: "Name",
-      age: "Age",
-      phone: "Phone Number",
-      schedule: "Select available days and times",
-      submit: "Submit",
-      required: "* Required fields",
-      signupSuccess: "Signup successful!",
-      signupError: "Something went wrong. Please try again.",
-      joinClassBtn: "Join class",
-      // Class info screen
-      classInfoTitle: "Japanese Classes with Uthman",
-      classInfoSubtitle: "Personalized 1-on-1 or group lessons tailored to your goals",
-      classInfoDesc: "Whether you're starting from zero or picking up where you left off, I'll help you build a solid foundation in Japanese.",
-      classInfoIncludesTitle: "What You Get",
-      classInfoIncludes1: "Customized lessons based on your level and goals",
-      classInfoIncludes2: "Homework and feedback after every class",
-      classInfoIncludes3: "Support between classes via WhatsApp",
-      classInfoIncludes4: "Resources and materials provided",
-      classInfoPricingTitle: "Pricing",
-      classInfo1on1: "1-on-1 Class",
-      classInfo1on1Price: "RM200/month",
-      classInfo1on1Desc: "4 classes per month, personalized attention",
-      classInfoGroup: "Group Class",
-      classInfoGroupPrice: "RM150/month",
-      classInfoGroupDesc: "4 classes per month, learn with others",
-      classInfoNote: "All classes are conducted online via Google Meet",
-      classInfoStartBtn: "Start Registration"
-    },
-    // Kana Charts
-    kana: {
-      title: "Kana Charts",
-      subtitle: "Interactive Hiragana & Katakana reference with audio pronunciation",
-      hiragana: "Hiragana",
-      katakana: "Katakana",
-      clickToLearn: "Click any character to hear its pronunciation"
-    },
-    // Kanji Stroke Rules
-    kanjiRules: {
-      title: "Kanji",
-      subtitle: "Understand what kanji is and how it works",
-      subpage1Title: "Stroke Order",
-      subpage1Subtitle: "Learn the correct way to write kanji",
-      subpage2Title: "Radical",
-      subpage2Subtitle: "Learn about kanji radicals and their meanings",
-      subpage3Title: "Kanji in Names"
-    },
-    // JLPT Info
-    jlptInfo: {
-      title: "What is JLPT?",
-      subtitle: "Understanding the Japanese-Language Proficiency Test",
-      whatIs: {
-        title: "About JLPT",
-        description: "The Japanese-Language Proficiency Test (JLPT) is a standardized criterion-referenced test to evaluate and certify the proficiency of non-native Japanese speakers. It is administered by the Japan Foundation and Japan Educational Exchanges and Evaluation Services (JEES). The test is held twice a year in Japan and selected countries, and once a year in other regions."
-      },
-      levels: {
-        title: "JLPT Levels Explained",
-        beginner: "- Beginner",
-        elementary: "- Elementary",
-        intermediate: "- Intermediate",
-        upperIntermediate: "- Upper Intermediate",
-        advanced: "- Advanced",
-        n5Desc: "The most basic level of Japanese language proficiency. Tests knowledge of basic Japanese characters (hiragana and katakana) and everyday vocabulary.",
-        n5Kanji: "About 100 kanji",
-        n5Vocab: "About 800 vocabulary words",
-        n4Desc: "Elementary level, building on N5 knowledge. Tests ability to understand basic Japanese.",
-        n4Kanji: "About 300 kanji",
-        n4Vocab: "About 1,500 vocabulary words",
-        n3Desc: "Intermediate level. Tests ability to understand Japanese used in everyday situations to some extent.",
-        n3Kanji: "About 400 kanji",
-        n3Vocab: "About 3,000 vocabulary words",
-        n2Desc: "Upper-intermediate level. Tests ability to understand Japanese used in everyday situations and more complex contexts.",
-        n2Kanji: "About 650 kanji",
-        n2Vocab: "About 6,000 vocabulary words",
-        n1Desc: "Advanced level. Tests ability to understand Japanese used in a wide range of academic and formal contexts.",
-        n1Kanji: "About 2,000 kanji",
-        n1Vocab: "About 10,000 vocabulary words"
-      },
-      format: {
-        title: "Test Format",
-        descriptionN5N3: "N5-N3 consists of three sections:",
-        descriptionN2N1: "N2-N1 consists of two sections:",
-        vocabulary: "Vocabulary",
-        vocabularyDesc: "Tests knowledge of Japanese vocabulary and correct usage of Japanese words in sentences.",
-        grammarReading: "Grammar & Reading",
-        grammarReadingDesc: "Tests knowledge of Japanese grammatical structures and reading comprehension.",
-        reading: "Reading Comprehension",
-        readingDesc: "Tests the ability to understand written materials from various contexts.",
-        listening: "Listening",
-        listeningDesc: "Tests the ability to listen and comprehend everyday conversations and dialogues."
-      },
-      purpose: {
-        title: "Why Take the JLPT?",
-        description: "The JLPT is recognized worldwide as the standard for measuring Japanese language proficiency. It is used by universities, companies, and immigration authorities to evaluate Japanese language ability. Passing JLPT N5 or N4 can also fulfill Japanese visa requirements for certain visa categories.",
-        exploreResources: "Explore Learning Resources"
-      }
-    },
-    // Admin
-    admin: {
-      title: "Admin Dashboard",
-      loginTitle: "Admin Login",
-      loginSubtitle: "Enter your admin password to access the dashboard",
-      password: "Password",
-      login: "Login",
-      logout: "Logout",
-      loadingPosts: "Loading posts...",
-      loadingSignups: "Loading signups...",
-      noPosts: "No posts yet. Click \"New Post\" to create your first blog post.",
-      noSignups: "No signups yet.",
-      newPost: "New Post",
-      editPost: "Edit",
-      deletePost: "Delete",
-      savePost: "Save Post",
-      cancel: "Cancel",
-      confirmDelete: "Are you sure you want to delete this post?",
-      signupsTitle: "Class Signups",
-      createNewPost: "Create New Post",
-      editPostTitle: "Edit Post",
-      readingTime: "Reading Time (minutes)",
-      tagsPlaceholder: "n5, grammar, mindset",
-      tagsHint: "Press Enter or comma to add a tag",
-      contentPlaceholder: "# Heading\n\nYour content here...",
-      contentMyPlaceholder: "Malay content here (optional)...",
-      coverImageLabel: "Cover Image URL",
-      coverImagePlaceholder: "https://example.com/image.jpg",
-      statusLabel: "Status",
-      statusDraft: "Draft",
-      statusPublished: "Published",
-      slugLabel: "Slug (URL key)",
-      slugPlaceholder: "my-first-post",
-      slugLockedHint: "Locked — title changes won't overwrite slug",
-      tagsLabel: "Tags",
-      writeTab: "Write",
-      previewTab: "Preview",
-      signups: {
-        name: "Name",
-        age: "Age",
-        phone: "Phone",
-        classType: "Class Type",
-        schedule: "Schedule",
-        date: "Date"
-      },
-    },
-    // Anki & Vocab Mining
-    anki: {
-      title: "Anki & Vocab Mining",
-      subtitle: "Recommended decks and how to mine vocabulary from native content",
-      howItWorks: "How Anki Works",
-      howItWorksDesc: "Anki is a spaced repetition system that helps you memorize anything efficiently. It works by showing you cards at increasing intervals just before you'd forget them. New cards appear once a day, and reviews are based on how well you remember each card. The more you struggle with a card, the more often it appears. This method, called spaced repetition, is proven to build long-term memory much faster than cramming.",
-      recommendedDecks: "Recommended Decks",
-      howToMine: "How to Mine Vocab",
-      visit: "Visit"
-    },
-    // Self Study Guide
-    selfStudy: {
-      title: "Self Study Guide",
-      subtitle: "Tips and strategies for effective Japanese self-learning",
-      overview: {
-        title: "Why Self Study?",
-        points: [
-          "<strong>Formal classes</strong> for N2 and N1 are rarely available outside major cities, making <strong>self-study essential</strong> for advanced learners.",
-          "<strong>Self-study</strong> allows you to learn at your own pace, focus on what interests you most, and <strong>immerse yourself</strong> in Japanese culture through media you enjoy.",
-          "Many learners find that <strong>combining self-study</strong> with occasional classes or tutoring sessions yields the best results."
-        ]
-      },
-      principles: {
-        title: "Core Principles",
-        consistency: {
-          title: "Be Consistent",
-          desc: "Even 15-30 minutes of daily study is more effective than long irregular sessions. Build the habit first."
-        },
-        input: {
-          title: "Prioritize Input",
-          desc: "Read and listen to native content as much as possible. Understanding comes from massive exposure."
-        },
-        active: {
-          title: "Stay Active",
-          desc: "Don't just passively read or watch. Take notes, make flashcards, and use new vocabulary in sentences."
-        },
-        patience: {
-          title: "Be Patient",
-          desc: "Language acquisition takes time. Trust the process and don't compare yourself to others."
-        }
-      },
-      dailyRoutine: {
-        title: "Suggested Daily Routine",
-        morning: {
-          title: "Morning (15-20 min)",
-          desc: "Review flashcards (Anki) and study new grammar or vocabulary."
-        },
-        afternoon: {
-          title: "Afternoon (20-30 min)",
-          desc: "Read Japanese content  manga, news, or light novels suited to your level."
-        },
-        evening: {
-          title: "Evening (15-30 min)",
-          desc: "Watch or listen to Japanese media  anime, dramas, podcasts, or YouTube."
-        }
-      },
-      resources: {
-        title: "Recommended Resources by Level",
-        beginner: {
-          title: "Beginner (N5)",
-          items: [
-            "Genki I & II textbooks",
-            "Anki N5 vocabulary deck",
-            "Cure Dolly's Japanese YouTube channel",
-            "Japanese Ammo with Misa"
-          ]
-        },
-        intermediate: {
-          title: "Intermediate (N4-N3)",
-          items: [
-            "Tobira or Shin Nihongo textbooks",
-            "Native manga and novels",
-            "Comprehensible Japanese YouTube",
-            "Japanese podcasts for learners"
-          ]
-        },
-        advanced: {
-          title: "Advanced (N2-N1)",
-          items: [
-            "Native media without subtitles",
-            "Japanese news (NHK Easy)",
-            "Advanced grammar books",
-            "Shadowing practice"
-          ]
-        }
-      },
-      tips: {
-        title: "Pro Tips",
-        mining: "Mine vocabulary from content you enjoy  it makes learning feel less like studying.",
-        shadowing: "Practice shadowing (repeat after speakers) to improve pronunciation and speaking flow.",
-        writing: "Keep a Japanese diary using a notes app on your phone. Even simple sentences help reinforce what you've learned.",
-        thinking: "Try to think in Japanese during your daily life. Describe objects around you in your head."
-      }
-    },
-    // Comprehensible Input & Immersion
-    immersion: {
-      title: "Comprehensible Input & Immersion",
-    },
-    // Using AI
-    selfStudyAI: {
-      title: "Using AI for Japanese Learning",
-    }
-  },
-
-  my: {
-    // Navigation
-    nav: {
-      intro: "Laman Utama",
-      kana: "Hiragana & Katakana",
-      kanjiRules: "Kanji",
-      anki: "Anki & Lombong Vocab",
-      roadmap: "Laluan Pembelajaran",
-      introduction: "Pengenalan",
-      selfStudy: "Panduan Belajar Sendiri",
-      blogCulture: "Blog & Budaya",
-      resources: "Sumber",
-      about: "Tentang",
-      jlptInfo: "Apa itu JLPT?",
-      kanaSubpage1: "Vokal Panjang",
-      kanaSubpage2: "Tenten & Maru",
-      kanaSubpage3: "Kana Kecil",
-      immersion: "Input Boleh Difahami & Penyerapan",
-      ai: "Menggunakan AI"
-    },
-    // Homepage
-    home: {
-      heroTag: "Konnichiwa! こんにちは",
-      heroTitle: "Panduan belajar bahasa Jepun dengan cara yang betul",
-      heroSubtitle: "Semua yang anda perlukan untuk belajar bahasa Jepun secara efektif.",
-      whyTitle: "Bagaimana kami bantu anda",
-      whyPoint1Title: "Tak ada lagi scroll YouTube tak ingat arah",
-      whyPoint1Desc: "Kami beri anda jalan yang jelas. Follow roadmap dari zero ke boleh converse, atau mula di tahap mana pun anda sekarang.",
-      whyPoint2Title: "Belajar apa yang perlu",
-      whyPoint2Desc: "Panduan dan sumber yang benar-benar bantu korang belajar, bukan sekadar baca je.",
-      whyPoint3Title: "Faham budaya untuk faham bahasa",
-      whyPoint3Desc: "Bahasa Jepun masuk akal bila anda faham kenapa ia macamtu. Kami ajar melalui konteks  perayaan, kehidupan harian, hiburan.",
-      quickNavTitle: "Pautan Pantas",
-      quickNavSubtitle: "Pilih seksyen dan mulakan",
-      heroCtaStart: "Mulakan dengan Pengenalan",
-      heroCtaRoadmap: "Lihat Laluan Pembelajaran",
-      sectionIntroTitle: "Pengenalan ke Bahasa Jepun",
-      sectionIntroDesc: "Langkah pertama yang penting - belajar bagaimana tulisan Jepun berfungsi",
-      sectionKanaTitle: "Hiragana & Katakana",
-      sectionKanaDesc: "Belajar dua sistem penulisan Jepun dengan carta interaktif",
-      sectionKanjiTitle: "Kanji",
-      sectionKanjiDesc: "Kuasai urutan笔画, radikal, dan asas menulis",
-      sectionSelfStudyTitle: "Panduan Belajar Sendiri",
-      sectionSelfStudyDesc: "Bagaimana untuk belajar bahasa Jepun dengan efektif secara bebas",
-      sectionResourcesTitle: "Sumber",
-      sectionResourcesDesc: "Alat yang dipilih: kamus, deck Anki, pemain media, dan lagi",
-      sectionAboutTitle: "Tentang",
-      sectionAboutDesc: "Tentang AsasJepun dan pencipta di sebaliknya"
-    },
-    // Roadmap
-    roadmap: {
+    my: {
       title: "Roadmap Pembelajaran Bahasa Jepun",
       intro: "Panduan langkah demi langkah untuk bawa anda dari zero ke tahap pertengahan (N3) dan ke semua yang lain. Klik pada setiap fasa untuk perincian fokus pembelajaran.",
       disclaimer: "⚠️ Anggaran masa ni adalah berdasarkan anda konsisten belajar setiap hari (1-2 jam). Progress sebenar bergantung pada konsistensi, bukan intensity.",
@@ -901,9 +546,31 @@ export const translations = {
           "Perjalanan tidak pernah benar-benar berakhir"
         ]
       }
+    }
+  },
+
+  introduction: {
+    en: {
+      title: "Introduction to Japanese",
+      subtitle: "Your first step to understanding the Japanese language",
+      welcomeTitle: "What is Japanese?",
+      welcomeDesc: "Japanese is a language spoken by about 130 million people in Japan and Japanese communities worldwide. It belongs to the Japonic language family, which has no widely accepted genealogical relationship to any other language family.",
+      writingTitle: "The Writing System",
+      writingDesc: "Japanese uses three writing systems combined:",
+      writingPoint1: "Hiragana - Used for native Japanese words and grammatical elements",
+      writingPoint2: "Katakana - Used for foreign words, emphasis, and onomatopoeia",
+      writingPoint3: "Kanji - Chinese characters adopted for Japanese, used for nouns and verb roots",
+      structureTitle: "Language Structure",
+      structureDesc: "Japanese has a fundamentally different structure from English:",
+      soundTitle: "Sound System",
+      soundDesc: "Japanese has a relatively simple phonological system:",
+      soundPoint2: "No consonant clusters (e.g., \"st\", \"tr\", \"gl\")",
+      soundPoint4: "Pitch accent instead of stress accent (differs by dialect)",
+      tipTitle: "Learning Tip",
+      tipDesc: "Don't try to translate word-for-word from English. Instead, try to understand concepts and patterns in their Japanese context.",
+      ctaRoadmap: "Learn Hiragana & Katakana"
     },
-    // Introduction Page
-    introduction: {
+    my: {
       title: "Pengenalan kepada Bahasa Jepun",
       subtitle: "Langkah pertama anda untuk memahami bahasa Jepun",
       welcomeTitle: "Apa itu Bahasa Jepun?",
@@ -922,9 +589,22 @@ export const translations = {
       tipTitle: "Tip Pembelajaran",
       tipDesc: "Jangan cuba menterjemah perkataan demi perkataan dari Bahasa Inggeris. Sebaliknya, cuba fahami konsep dan corak dalam konteks Jepun mereka.",
       ctaRoadmap: "Belajar Hiragana & Katakana"
+    }
+  },
+
+  culture: {
+    en: {
+      title: "Culture & Vocabulary",
+      subtitle: "Learn Japanese through cultural context  from vtubers to seasonal festivals.",
+      themes: {
+        entertainment: "Entertainment",
+        food: "Food & Drink",
+        seasonal: "Seasonal",
+        daily: "Daily Life",
+        social: "Social Life"
+      },
     },
-    // Culture/Vocab
-    culture: {
+    my: {
       title: "Budaya & Vocab",
       subtitle: "Belajar Jepun melalui konteks budaya  dari vtuber hingga perayaan bermusim.",
       themes: {
@@ -934,21 +614,63 @@ export const translations = {
         daily: "Kehidupan Harian",
         social: "Kehidupan Sosial"
       },
+    }
+  },
+
+  blog: {
+    en: {
+      title: "Blog",
+      minRead: "min read"
     },
-    // Blog
-    blog: {
+    my: {
       title: "Blog",
       minRead: "min baca"
+    }
+  },
+
+  blogCulture: {
+    en: {
+      title: "Blog & Culture",
+      subtitle: "Articles, lessons, and long-form content on Japanese learning and culture.",
+      blog: "Blog",
+      culture: "Culture"
     },
-    // Blog & Culture (Combined)
-    blogCulture: {
+    my: {
       title: "Blog & Budaya",
       subtitle: "Artikel, pelajaran, dan kandungan panjang tentang pembelajaran dan budaya Jepun.",
       blog: "Blog",
       culture: "Budaya"
+    }
+  },
+
+  resources: {
+    en: {
+      title: "Resources",
+      subtitle: "Curated tools organized by what problem they solve.",
+      categories: {
+        dictionary: "Dictionaries",
+        anki: "Flashcards",
+        learning: "Learning Websites",
+        mobileApps: "Mobile Apps",
+        reading: "Reading",
+        jlpt: "JLPT Preparation",
+        browserLookup: "Browser Extensions (Lookup)",
+        browserSubtitle: "Subtitle (Browser Extension)",
+        media: "Streaming",
+        podcasts: "Podcasts",
+        youtubeLearning: "YT for Learning Japanese",
+        youtubeImmersion: "YT for Immersion",
+        youtubePopular: "YT Popular Channels",
+        practice: "Speaking Practice",
+        pitchAccent: "Pitch Accent",
+        translator: "Translator",
+        discordServers: "Discord Servers",
+        askQuestions: "Ask Questions",
+        articles: "Japanese Articles",
+        otherResources: "Other Resources"
+      },
     },
-    // Resources
-    resources: {
+    my: {
       title: "Sumber",
       subtitle: "Alat yang dipilih mengikut masalah yang mereka selesaikan.",
       categories: {
@@ -1051,28 +773,110 @@ export const translations = {
         "Japanese Language Study Space": "Komuniti berfokus study untuk bertanya soalan dan berlatih bersama.",
         "毎日英語と日本語": "Server amalan harian untuk pertukaran bahasa Inggeris-Jepun mutual."
       }
+    }
+  },
+
+  about: {
+    en: {
+      title: "About Me",
+      subtitle: "The method that actually works, from someone who tried them all.",
+      storyContent: "Hi, I'm <strong>Uthman</strong>, fellow Japanese learner! I know exactly how frustrating learning Japanese can be when kanji looks like squiggles, grammar doesn't make sense, and nothing stays in your head.<br><br>I started learning Japanese in 2018 but <strong>quit</strong> after a few months. Kanji looked terrifying, and I couldn't see how any of it would stick. After a long break, I decided to <strong>push through anyway</strong>  and it wasn't as bad as I expected.<br><br>Since 2021, I've been learning off and on since I'm quite busy with university, but things didn't really come together until <strong>mid 2025</strong>. I started consuming Japanese content <strong>every single day</strong>  whether it was Hololive streams, J-dramas, whatever kept me in the language. My comprehension improved a lot using flashcards with SRS (Spaced Repetition System).<br><br>If you're serious about learning, <strong>join my class</strong> and let's do this together.",
+      connectTitle: "Connect",
     },
-    // About
-    about: {
+    my: {
       title: "Tentang Saya",
       subtitle: "Kaedah yang sebenarnya berkesan, dari seseorang yang sudah cuba semua.",
       storyContent: "Hi, saya <strong>Uthman</strong>, student Jepun macam korang! Saya tahu betapa frustrasinya belajar Jepun bila kanji macam garis rawak, grammar tak masuk akal, dan nothing stays in your head.<br><br>Saya mula belajar Jepun pada 2018 tapi <strong>berhenti</strong> selepas beberapa bulan. Kanji kelihatan seram, dan saya tak nampak bagaimana ia akan melekat. Selepas rehat lama, saya decide untuk <strong>paksa belajar</strong>  dan tak jadi seberat yang saya bayang.<br><br>Sejak 2021, saya belajar secara on and off sebab busy dengan universiti, tapi sampai <strong>mid 2025</strong> baru semuanya masuk. Saya mula konsum kandungan Jepun <strong>setiap hari</strong>  sama ada Hololive streams, J-drama, apa je yang saya boleh jejek dalam bahasa tu. Pemahaman saya meningkat banyak dengan flashcards dan SRS (Spaced Repetition System).<br><br>Kalau korang serius nak belajar, <strong>sertai kelas saya</strong> dan kita belajar sama-sama.",
       connectTitle: "Sambung",
+    }
+  },
+
+  footer: {
+    en: {
+      tagline: "Learn Japanese the right way"
     },
-    // Footer
-    footer: {
+    my: {
       tagline: "Belajar Jepun dengan cara yang betul"
+    }
+  },
+
+  privacyPolicy: {
+    en: {
+      title: "Privacy Policy"
     },
-    // Privacy Policy
-    privacyPolicy: {
+    my: {
       title: "Dasar Privasi"
+    }
+  },
+
+  terms: {
+    en: {
+      title: "Terms & Conditions"
     },
-    // Terms
-    terms: {
+    my: {
       title: "Syarat & Ketetapan"
+    }
+  },
+
+  common: {
+    en: {
+      loading: "Loading...",
+      back: "Back",
+      learnMore: "Learn More",
+      // Theme
+      // Status
+      error: "Error! Try again",
+      // Validation
+      audioNotSupported: "Your browser does not support audio playback.",
+      // Signup specific
+      submitting: "Submitting..."
     },
-    // Signup Modal
-    signup: {
+    my: {
+      loading: "Memuatkan...",
+      error: "Sesuatu tidak kena",
+      back: "Kembali",
+      learnMore: "Ketahui Lagi",
+      // Theme
+      // Status
+      audioNotSupported: "Pelayar anda tidak sokong audio.",
+      // Validation
+      submitting: "Menghantar..."
+    }
+  },
+
+  signup: {
+    en: {
+      title: "Want to learn Japanese?",
+      subtitle: "Fill out the form and I'll contact you within 24 hours",
+      name: "Name",
+      age: "Age",
+      phone: "Phone Number",
+      schedule: "Select available days and times",
+      submit: "Submit",
+      required: "* Required fields",
+      signupSuccess: "Signup successful!",
+      signupError: "Something went wrong. Please try again.",
+      joinClassBtn: "Join class",
+      // Class info screen
+      classInfoTitle: "Japanese Classes with Uthman",
+      classInfoSubtitle: "Personalized 1-on-1 or group lessons tailored to your goals",
+      classInfoDesc: "Whether you're starting from zero or picking up where you left off, I'll help you build a solid foundation in Japanese.",
+      classInfoIncludesTitle: "What You Get",
+      classInfoIncludes1: "Customized lessons based on your level and goals",
+      classInfoIncludes2: "Homework and feedback after every class",
+      classInfoIncludes3: "Support between classes via WhatsApp",
+      classInfoIncludes4: "Resources and materials provided",
+      classInfoPricingTitle: "Pricing",
+      classInfo1on1: "1-on-1 Class",
+      classInfo1on1Price: "RM200/month",
+      classInfo1on1Desc: "4 classes per month, personalized attention",
+      classInfoGroup: "Group Class",
+      classInfoGroupPrice: "RM150/month",
+      classInfoGroupDesc: "4 classes per month, learn with others",
+      classInfoNote: "All classes are conducted online via Google Meet",
+      classInfoStartBtn: "Start Registration"
+    },
+    my: {
       title: "Nak kelas Jepun?",
       subtitle: "Isi form ni, saya akan contact korang dalam 24 jam",
       name: "Nama",
@@ -1102,29 +906,37 @@ export const translations = {
       classInfoGroupDesc: "4 kelas sebulan, belajar bersama",
       classInfoNote: "Semua kelas dijalankan online via Google Meet",
       classInfoStartBtn: "Mula Pendaftaran"
+    }
+  },
+
+  kana: {
+    en: {
+      title: "Kana Charts",
+      subtitle: "Interactive Hiragana & Katakana reference with audio pronunciation",
+      hiragana: "Hiragana",
+      katakana: "Katakana",
+      clickToLearn: "Click any character to hear its pronunciation"
     },
-    // Common
-    common: {
-      loading: "Memuatkan...",
-      error: "Sesuatu tidak kena",
-      back: "Kembali",
-      learnMore: "Ketahui Lagi",
-      // Theme
-      // Status
-      audioNotSupported: "Pelayar anda tidak sokong audio.",
-      // Validation
-      submitting: "Menghantar..."
-    },
-    // Kana Charts
-    kana: {
+    my: {
       title: "Jadual Kana",
       subtitle: "Rujukan interaktif Hiragana & Katakana dengan sebutan audio",
       hiragana: "Hiragana",
       katakana: "Katakana",
       clickToLearn: "Klik mana-mana aksara untuk dengar sebutan"
+    }
+  },
+
+  kanjiRules: {
+    en: {
+      title: "Kanji",
+      subtitle: "Understand what kanji is and how it works",
+      subpage1Title: "Stroke Order",
+      subpage1Subtitle: "Learn the correct way to write kanji",
+      subpage2Title: "Radical",
+      subpage2Subtitle: "Learn about kanji radicals and their meanings",
+      subpage3Title: "Kanji in Names"
     },
-    // Kanji Stroke Rules
-    kanjiRules: {
+    my: {
       title: "Kanji",
       subtitle: "Fahami apakah kanji dan bagaimana ia berfungsi",
       subpage1Title: "Susunan Loretan",
@@ -1132,9 +944,60 @@ export const translations = {
       subpage2Title: "Radikal",
       subpage2Subtitle: "Pelajari tentang radikal kanji dan maknanya",
       subpage3Title: "Kanji dalam Nama"
+    }
+  },
+
+  jlptInfo: {
+    en: {
+      title: "What is JLPT?",
+      subtitle: "Understanding the Japanese-Language Proficiency Test",
+      whatIs: {
+        title: "About JLPT",
+        description: "The Japanese-Language Proficiency Test (JLPT) is a standardized criterion-referenced test to evaluate and certify the proficiency of non-native Japanese speakers. It is administered by the Japan Foundation and Japan Educational Exchanges and Evaluation Services (JEES). The test is held twice a year in Japan and selected countries, and once a year in other regions."
+      },
+      levels: {
+        title: "JLPT Levels Explained",
+        beginner: "- Beginner",
+        elementary: "- Elementary",
+        intermediate: "- Intermediate",
+        upperIntermediate: "- Upper Intermediate",
+        advanced: "- Advanced",
+        n5Desc: "The most basic level of Japanese language proficiency. Tests knowledge of basic Japanese characters (hiragana and katakana) and everyday vocabulary.",
+        n5Kanji: "About 100 kanji",
+        n5Vocab: "About 800 vocabulary words",
+        n4Desc: "Elementary level, building on N5 knowledge. Tests ability to understand basic Japanese.",
+        n4Kanji: "About 300 kanji",
+        n4Vocab: "About 1,500 vocabulary words",
+        n3Desc: "Intermediate level. Tests ability to understand Japanese used in everyday situations to some extent.",
+        n3Kanji: "About 400 kanji",
+        n3Vocab: "About 3,000 vocabulary words",
+        n2Desc: "Upper-intermediate level. Tests ability to understand Japanese used in everyday situations and more complex contexts.",
+        n2Kanji: "About 650 kanji",
+        n2Vocab: "About 6,000 vocabulary words",
+        n1Desc: "Advanced level. Tests ability to understand Japanese used in a wide range of academic and formal contexts.",
+        n1Kanji: "About 2,000 kanji",
+        n1Vocab: "About 10,000 vocabulary words"
+      },
+      format: {
+        title: "Test Format",
+        descriptionN5N3: "N5-N3 consists of three sections:",
+        descriptionN2N1: "N2-N1 consists of two sections:",
+        vocabulary: "Vocabulary",
+        vocabularyDesc: "Tests knowledge of Japanese vocabulary and correct usage of Japanese words in sentences.",
+        grammarReading: "Grammar & Reading",
+        grammarReadingDesc: "Tests knowledge of Japanese grammatical structures and reading comprehension.",
+        reading: "Reading Comprehension",
+        readingDesc: "Tests the ability to understand written materials from various contexts.",
+        listening: "Listening",
+        listeningDesc: "Tests the ability to listen and comprehend everyday conversations and dialogues."
+      },
+      purpose: {
+        title: "Why Take the JLPT?",
+        description: "The JLPT is recognized worldwide as the standard for measuring Japanese language proficiency. It is used by universities, companies, and immigration authorities to evaluate Japanese language ability. Passing JLPT N5 or N4 can also fulfill Japanese visa requirements for certain visa categories.",
+        exploreResources: "Explore Learning Resources"
+      }
     },
-    // JLPT Info
-    jlptInfo: {
+    my: {
       title: "Apa itu JLPT?",
       subtitle: "Memahami Ujian Kelayakan Bahasa Jepun",
       whatIs: {
@@ -1182,9 +1045,56 @@ export const translations = {
         description: "JLPT diiktiraf di seluruh dunia sebagai standard untuk mengukur kecekapan bahasa Jepun. Ia digunakan oleh universiti, syarikat, dan pihak berkuasa imigresen untuk menilai keupayaan bahasa Jepun. Lulus JLPT N5 atau N4 juga boleh memenuhi syarat visa Jepun untuk kategori visa tertentu.",
         exploreResources: "Terokai Sumber Pembelajaran"
       }
+    }
+  },
+
+  admin: {
+    en: {
+      title: "Admin Dashboard",
+      loginTitle: "Admin Login",
+      loginSubtitle: "Enter your admin password to access the dashboard",
+      password: "Password",
+      login: "Login",
+      logout: "Logout",
+      loadingPosts: "Loading posts...",
+      loadingSignups: "Loading signups...",
+      noPosts: "No posts yet. Click \"New Post\" to create your first blog post.",
+      noSignups: "No signups yet.",
+      newPost: "New Post",
+      editPost: "Edit",
+      deletePost: "Delete",
+      savePost: "Save Post",
+      cancel: "Cancel",
+      confirmDelete: "Are you sure you want to delete this post?",
+      signupsTitle: "Class Signups",
+      createNewPost: "Create New Post",
+      editPostTitle: "Edit Post",
+      readingTime: "Reading Time (minutes)",
+      tagsPlaceholder: "n5, grammar, mindset",
+      tagsHint: "Press Enter or comma to add a tag",
+      contentPlaceholder: "# Heading\n\nYour content here...",
+      contentMyPlaceholder: "Malay content here (optional)...",
+      coverImageLabel: "Cover Image URL",
+      coverImagePlaceholder: "https://example.com/image.jpg",
+      statusLabel: "Status",
+      statusDraft: "Draft",
+      statusPublished: "Published",
+      slugLabel: "Slug (URL key)",
+      slugPlaceholder: "my-first-post",
+      slugLockedHint: "Locked — title changes won't overwrite slug",
+      tagsLabel: "Tags",
+      writeTab: "Write",
+      previewTab: "Preview",
+      signups: {
+        name: "Name",
+        age: "Age",
+        phone: "Phone",
+        classType: "Class Type",
+        schedule: "Schedule",
+        date: "Date"
+      },
     },
-    // Admin
-    admin: {
+    my: {
       title: "Dashboard Admin",
       loginTitle: "Login Admin",
       loginSubtitle: "Masukkan password admin untuk akses dashboard",
@@ -1228,9 +1138,20 @@ export const translations = {
         schedule: "Jadual",
         date: "Tarikh"
       },
+    }
+  },
+
+  anki: {
+    en: {
+      title: "Anki & Vocab Mining",
+      subtitle: "Recommended decks and how to mine vocabulary from native content",
+      howItWorks: "How Anki Works",
+      howItWorksDesc: "Anki is a spaced repetition system that helps you memorize anything efficiently. It works by showing you cards at increasing intervals just before you'd forget them. New cards appear once a day, and reviews are based on how well you remember each card. The more you struggle with a card, the more often it appears. This method, called spaced repetition, is proven to build long-term memory much faster than cramming.",
+      recommendedDecks: "Recommended Decks",
+      howToMine: "How to Mine Vocab",
+      visit: "Visit"
     },
-    // Anki & Vocab Mining
-    anki: {
+    my: {
       title: "Anki & Lombong Vocab",
       subtitle: "Dek yang disyorkan dan cara mining vocabulary dari kandungan asli",
       howItWorks: "Bagaimana Anki Berfungsi",
@@ -1238,9 +1159,94 @@ export const translations = {
       recommendedDecks: "Dek Disyorkan",
       howToMine: "Cara Mining Vocab",
       visit: "Lawati"
+    }
+  },
+
+  selfStudy: {
+    en: {
+      title: "Self Study Guide",
+      subtitle: "Tips and strategies for effective Japanese self-learning",
+      overview: {
+        title: "Why Self Study?",
+        points: [
+          "<strong>Formal classes</strong> for N2 and N1 are rarely available outside major cities, making <strong>self-study essential</strong> for advanced learners.",
+          "<strong>Self-study</strong> allows you to learn at your own pace, focus on what interests you most, and <strong>immerse yourself</strong> in Japanese culture through media you enjoy.",
+          "Many learners find that <strong>combining self-study</strong> with occasional classes or tutoring sessions yields the best results."
+        ]
+      },
+      principles: {
+        title: "Core Principles",
+        consistency: {
+          title: "Be Consistent",
+          desc: "Even 15-30 minutes of daily study is more effective than long irregular sessions. Build the habit first."
+        },
+        input: {
+          title: "Prioritize Input",
+          desc: "Read and listen to native content as much as possible. Understanding comes from massive exposure."
+        },
+        active: {
+          title: "Stay Active",
+          desc: "Don't just passively read or watch. Take notes, make flashcards, and use new vocabulary in sentences."
+        },
+        patience: {
+          title: "Be Patient",
+          desc: "Language acquisition takes time. Trust the process and don't compare yourself to others."
+        }
+      },
+      dailyRoutine: {
+        title: "Suggested Daily Routine",
+        morning: {
+          title: "Morning (15-20 min)",
+          desc: "Review flashcards (Anki) and study new grammar or vocabulary."
+        },
+        afternoon: {
+          title: "Afternoon (20-30 min)",
+          desc: "Read Japanese content  manga, news, or light novels suited to your level."
+        },
+        evening: {
+          title: "Evening (15-30 min)",
+          desc: "Watch or listen to Japanese media  anime, dramas, podcasts, or YouTube."
+        }
+      },
+      resources: {
+        title: "Recommended Resources by Level",
+        beginner: {
+          title: "Beginner (N5)",
+          items: [
+            "Genki I & II textbooks",
+            "Anki N5 vocabulary deck",
+            "Cure Dolly's Japanese YouTube channel",
+            "Japanese Ammo with Misa"
+          ]
+        },
+        intermediate: {
+          title: "Intermediate (N4-N3)",
+          items: [
+            "Tobira or Shin Nihongo textbooks",
+            "Native manga and novels",
+            "Comprehensible Japanese YouTube",
+            "Japanese podcasts for learners"
+          ]
+        },
+        advanced: {
+          title: "Advanced (N2-N1)",
+          items: [
+            "Native media without subtitles",
+            "Japanese news (NHK Easy)",
+            "Advanced grammar books",
+            "Shadowing practice"
+          ]
+        }
+      },
+      tips: {
+        title: "Pro Tips",
+        mining: "Mine vocabulary from content you enjoy  it makes learning feel less like studying.",
+        shadowing: "Practice shadowing (repeat after speakers) to improve pronunciation and speaking flow.",
+        writing: "Keep a Japanese diary using a notes app on your phone. Even simple sentences help reinforce what you've learned.",
+        thinking: "Try to think in Japanese during your daily life. Describe objects around you in your head."
+      }
     },
-    // Self Study Guide
-    selfStudy: {
+    my: {
       title: "Panduan Belajar Sendiri",
       subtitle: "Tips dan strategi untuk pembelajaran bahasa Jepun secara efektif",
       overview: {
@@ -1322,16 +1328,27 @@ export const translations = {
         writing: "Bekalan diary Jepun guna notes app kat telefon. Malah ayat simple bantu reinforce apa yang anda dah belajar.",
         thinking: "Cuba fikir dalam Jepun masa kehidupan harian. Huraikan objek di sekeliling anda dalam kepala."
       }
+    }
+  },
+
+  immersion: {
+    en: {
+      title: "Comprehensible Input & Immersion",
     },
-    // Comprehensible Input & Immersion
-    immersion: {
+    my: {
       title: "Input Boleh Difahami & Penyerapan",
+    }
+  },
+
+  selfStudyAI: {
+    en: {
+      title: "Using AI for Japanese Learning",
     },
-    // Using AI
-    selfStudyAI: {
+    my: {
       title: "Menggunakan AI untuk Pembelajaran Jepun",
     }
-  }
+  },
+
 };
 
 // Current language state
