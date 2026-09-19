@@ -10432,9 +10432,9 @@ function showSignupDetails(signup) {
   `;
 
   const field = (label, value) => value ? `
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:4px 0;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:6px 0;border-bottom:1px solid var(--border-color);">
       <span style="color:var(--text-secondary);font-size:13px;">${label}</span>
-      <span style="text-align:right;max-width:60%;font-size:13px;">${value}</span>
+      <span style="font-size:13px;font-weight:500;">${value}</span>
     </div>
   ` : '';
 
