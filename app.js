@@ -10352,6 +10352,8 @@ function renderAdminSignupsList(container, signups) {
 
     const classType = signup.class_type === '1on1' ? '1 on 1 (RM200/bulan)' : 'Berkumpulan (RM150/bulan)';
 
+    const signupJson = encodeURIComponent(JSON.stringify(signup));
+
 
 
     return `
@@ -10374,7 +10376,7 @@ function renderAdminSignupsList(container, signups) {
 
         <div class="admin-signup-actions">
 
-          <button class="btn-view-signup" data-id="${signup.id}">${'View Details'}</button>
+          <button class="btn-view-signup" onclick="showSignupDetailsFromJson('${signupJson}')">${'View Details'}</button>
 
           <button class="btn-delete-signup" data-id="${signup.id}">${'Delete'}</button>
 
@@ -10387,7 +10389,16 @@ function renderAdminSignupsList(container, signups) {
   }).join('');
 }
 
-// Use document-level event delegation
+window.showSignupDetailsFromJson = function(jsonStr) {
+  try {
+    const signup = JSON.parse(decodeURIComponent(jsonStr));
+    showSignupDetails(signup);
+  } catch (e) {
+    console.error('Error parsing signup:', e);
+  }
+};
+
+// Delete button handler - using event delegation
 document.addEventListener('click', async (e) => {
   const deleteBtn = e.target.closest('.btn-delete-signup');
   if (deleteBtn) {
@@ -10395,21 +10406,6 @@ document.addEventListener('click', async (e) => {
     if (confirm('Are you sure you want to delete this?')) {
       await adminAction('delete_signup', { id });
       loadAdminSignups();
-    }
-    return;
-  }
-
-  const viewBtn = e.target.closest('.btn-view-signup');
-  if (viewBtn) {
-    alert('View clicked: ' + viewBtn.dataset.id);
-    const container = document.getElementById('admin-signups-list');
-    const signupData = container ? JSON.parse(container.dataset.signups || '[]') : [];
-    const signup = signupData.find(s => s.id === viewBtn.dataset.id);
-    if (signup) {
-      alert('Found signup: ' + signup.name);
-      showSignupDetails(signup);
-    } else {
-      alert('No signup found for id: ' + viewBtn.dataset.id);
     }
   }
 });
