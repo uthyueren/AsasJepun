@@ -10132,7 +10132,6 @@ async function loadAdminPosts() {
       renderAdminPostsList(container, data);
 
     } else {
-
       const localPosts = [
 
         ...BLOG_POSTS.map(p => ({
