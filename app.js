@@ -10420,11 +10420,11 @@ function showSignupDetails(signup) {
   const formatText = (val) => val || '-';
 
   const html = `
-    <div class="modal-overlay" id="signup-details-modal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:1000;display:flex;align-items:center;justify-content:center;">
-      <div style="background:var(--bg-secondary);border-radius:12px;padding:24px;max-width:600px;width:90%;max-height:80vh;overflow-y:auto;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-          <h2 style="margin:0;">${signup.name}</h2>
-          <button onclick="document.getElementById('signup-details-modal').remove()" style="background:none;border:none;color:var(--text-secondary);font-size:24px;cursor:pointer;">&times;</button>
+    <div id="signup-details-modal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;overflow:auto;">
+      <div style="background:var(--bg-secondary);border-radius:16px;padding:32px;max-width:650px;width:95%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;border-bottom:1px solid var(--border-color);padding-bottom:16px;">
+          <h2 style="margin:0;font-size:24px;">${signup.name}</h2>
+          <button onclick="document.getElementById('signup-details-modal').remove()" style="background:none;border:none;color:var(--text-secondary);font-size:32px;cursor:pointer;padding:0;line-height:1;">&times;</button>
         </div>
         <div style="display:grid;gap:12px;">
           <p><strong>Umur:</strong> ${formatText(signup.age)}</p>
