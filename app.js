@@ -9264,9 +9264,12 @@ function renderTagChips() {
 // Server-side admin action wrapper
 async function adminAction(action, data = {}) {
   const password = localStorage.getItem('adminPassword') || '';
-  const response = await fetch('/.netlify/functions/admin-auth', {
+  const response = await fetch('https://cctnkujlnhcqwbgekibq.supabase.co/functions/v1/admin-auth', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO'
+    },
     body: JSON.stringify({ action, password, ...data })
   });
   if (!response.ok) {
@@ -9752,13 +9755,18 @@ function renderAdminLogin(appView) {
     const pw = document.getElementById('admin-password').value;
 
     try {
-      const response = await fetch('/.netlify/functions/admin-auth', {
+      const response = await fetch('https://cctnkujlnhcqwbgekibq.supabase.co/functions/v1/admin-auth', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'login', password: pw })
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO'
+        },
+        body: JSON.stringify({ password: pw })
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (result.success) {
         localStorage.setItem('adminLoggedIn', 'true');
         localStorage.setItem('adminPassword', pw);
         renderAdminDashboard(document.getElementById('app-view'));
