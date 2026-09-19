@@ -10390,6 +10390,7 @@ function renderAdminSignupsList(container, signups) {
 }
 
 window.showSignupDetailsFromJson = function(jsonStr) {
+  console.log('showSignupDetailsFromJson called with:', jsonStr);
   try {
     const signup = JSON.parse(decodeURIComponent(jsonStr));
     showSignupDetails(signup);
