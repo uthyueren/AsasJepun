@@ -10050,6 +10050,10 @@ async function renderAdminDashboard(appView) {
   });
 
 
+  function closePostEditor() {
+    const modal = document.getElementById('post-editor-modal');
+    if (modal) modal.style.display = 'none';
+  }
 
   document.getElementById('editor-close-btn')?.addEventListener('click', closePostEditor);
 

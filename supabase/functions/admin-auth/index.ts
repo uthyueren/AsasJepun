@@ -32,6 +32,13 @@ serve(async (req) => {
 
     let result;
 
+    // Handle login action (no action = login)
+    if (!action || action === 'login') {
+      return new Response(JSON.stringify({ success: true }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     switch (action) {
       case 'delete_signup': {
         const { id } = data;
