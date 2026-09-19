@@ -9273,12 +9273,14 @@ function renderTagChips() {
 // Server-side admin action wrapper
 async function adminAction(action, data = {}) {
   const password = localStorage.getItem('adminPassword') || '';
-  const response = await fetch('https://cctnkujlnhcqwbgekibq.supabase.co/functions/v1/admin-auth', {
+  const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://cctnkujlnhcqwbgekibq.supabase.co';
+  const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO';
+  const response = await fetch(`${SUPABASE_URL}/functions/v1/admin-auth`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'apikey': 'sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO',
-      'Authorization': 'Bearer sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO'
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
     },
     body: JSON.stringify({ action, password, ...data })
   });
@@ -9763,14 +9765,16 @@ function renderAdminLogin(appView) {
     e.preventDefault();
 
     const pw = document.getElementById('admin-password').value;
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://cctnkujlnhcqwbgekibq.supabase.co';
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO';
 
     try {
-      const response = await fetch('https://cctnkujlnhcqwbgekibq.supabase.co/functions/v1/admin-auth', {
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/admin-auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': 'sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO',
-          'Authorization': 'Bearer sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO'
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
         },
         body: JSON.stringify({ password: pw })
       });
