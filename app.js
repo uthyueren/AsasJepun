@@ -5488,7 +5488,7 @@ function renderKanaSubpage1View() {
 
   state.currentView = "kana-subpage1";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.longVowelTitle') || 'Long Vowel';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('longVowel.longVowelTitle') || 'Long Vowel';
 
 
 
@@ -5504,9 +5504,9 @@ function renderKanaSubpage1View() {
 
       <div class="page-header">
 
-        <h1>${t('kana.longVowelTitle')}</h1>
+        <h1>${t('longVowel.longVowelTitle')}</h1>
 
-        <p>${t('kana.longVowelSubtitle')}</p>
+        <p>${t('longVowel.longVowelSubtitle')}</p>
 
       </div>
 
@@ -5854,7 +5854,7 @@ function renderKanaSubpage2View() {
 
   state.currentView = "kana-subpage2";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.tentenMaruTitle') || 'Tenten & Maru';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('tentenMaru.tentenMaruTitle') || 'Tenten & Maru';
 
 
 
@@ -5870,9 +5870,9 @@ function renderKanaSubpage2View() {
 
       <div class="page-header">
 
-        <h1>${t('kana.tentenMaruTitle')}</h1>
+        <h1>${t('tentenMaru.tentenMaruTitle')}</h1>
 
-        <p>${t('kana.tentenMaruSubtitle')}</p>
+        <p>${t('tentenMaru.tentenMaruSubtitle')}</p>
 
       </div>
 
@@ -6466,7 +6466,7 @@ function renderKanaSubpage3View() {
 
   state.currentView = "kana-subpage3";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.smallKanaTitle') || 'Youon & Sokuon';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('smallKana.smallKanaTitle') || 'Youon & Sokuon';
 
 
 
@@ -6534,9 +6534,9 @@ function renderKanaSubpage3View() {
 
       <div class="page-header">
 
-        <h1>${t('kana.smallKanaTitle')}</h1>
+        <h1>${t('smallKana.smallKanaTitle')}</h1>
 
-        <p>${t('kana.smallKanaSubtitle')}</p>
+        <p>${t('smallKana.smallKanaSubtitle')}</p>
 
       </div>
 
