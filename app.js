@@ -10373,6 +10373,8 @@ function renderAdminSignupsList(container, signups) {
 
         <div class="admin-signup-actions">
 
+          <button class="btn-view-signup" data-id="${signup.id}">${'View Details'}</button>
+
           <button class="btn-delete-signup" data-id="${signup.id}">${'Delete'}</button>
 
         </div>
@@ -10403,6 +10405,58 @@ function renderAdminSignupsList(container, signups) {
 
   });
 
+  container.querySelectorAll('.btn-view-signup').forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+      const signup = signups.find(s => s.id === btn.dataset.id);
+
+      if (signup) showSignupDetails(signup);
+
+    });
+
+  });
+
+}
+
+function showSignupDetails(signup) {
+  const formatArray = (arr) => Array.isArray(arr) && arr.length ? arr.join(', ') : '-';
+  const formatText = (val) => val || '-';
+
+  const html = `
+    <div class="modal-overlay" id="signup-details-modal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:1000;display:flex;align-items:center;justify-content:center;">
+      <div style="background:var(--bg-secondary);border-radius:12px;padding:24px;max-width:600px;width:90%;max-height:80vh;overflow-y:auto;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+          <h2 style="margin:0;">${signup.name}</h2>
+          <button onclick="document.getElementById('signup-details-modal').remove()" style="background:none;border:none;color:var(--text-secondary);font-size:24px;cursor:pointer;">&times;</button>
+        </div>
+        <div style="display:grid;gap:12px;">
+          <p><strong>Umur:</strong> ${formatText(signup.age)}</p>
+          <p><strong>Phone:</strong> ${formatText(signup.phone)}</p>
+          <p><strong>Tahap:</strong> ${formatText(signup.level)}</p>
+          <p><strong>Jenis Kelas:</strong> ${signup.class_type === '1on1' ? '1 on 1 (RM200/bulan)' : 'Berkumpulan (RM150/bulan)'}</p>
+          <p><strong>Jadual:</strong> ${formatArray(signup.schedule)}</p>
+          <p><strong> Pernah Belajar Jepun Sebelum:</strong> ${formatText(signup.studied_before)}</p>
+          <p><strong>JLPT Taken:</strong> ${formatText(signup.jlpt_taken)}</p>
+          <p><strong>JLPT Level:</strong> ${formatText(signup.jlpt_level)}</p>
+          <p><strong>Pendedahan:</strong> ${formatArray(signup.exposure)}</p>
+          <p><strong>Kenapa Jepun:</strong> ${formatArray(signup.why_japanese)} ${formatText(signup.why_japanese_other)}</p>
+          <p><strong>Goal:</strong> ${formatText(signup.goal)} ${formatText(signup.goal_other)}</p>
+          <p><strong>Study Hours/Week:</strong> ${formatText(signup.study_hours)}</p>
+          <p><strong>Activities:</strong> ${formatArray(signup.activities)}</p>
+          <p><strong>Quit Before:</strong> ${formatText(signup.quit_before)}</p>
+          <p><strong>Quit Reason:</strong> ${formatArray(signup.quit_reason)} ${formatText(signup.quit_reason_other)}</p>
+          <p><strong>Challenges:</strong> ${formatArray(signup.challenges)} ${formatText(signup.challenges_other)}</p>
+          <p><strong>Expectations:</strong> ${formatArray(signup.expectations)} ${formatText(signup.expectations_other)}</p>
+          <p><strong>Referral:</strong> ${formatText(signup.referral)} ${formatText(signup.referral_other)}</p>
+          <p><strong>Questions:</strong> ${formatText(signup.questions)}</p>
+          <p><strong>Notes:</strong> ${formatText(signup.notes)}</p>
+          <p style="color:var(--text-secondary);font-size:12px;"><strong>Submitted:</strong> ${new Date(signup.created_at).toLocaleString()}</p>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', html);
 }
 
 
