@@ -10419,10 +10419,12 @@ function showSignupDetails(signup) {
   const formatArray = (arr) => Array.isArray(arr) && arr.length ? arr.join(', ') : '-';
   const formatText = (val) => val || '-';
 
+  const svgIcon = (path) => `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-color);"><path d="${path}"/></svg>`;
+
   const card = (title, icon, content) => `
     <div style="background:var(--bg-primary);border-radius:12px;padding:16px;margin-bottom:12px;">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-        <span style="font-size:16px;">${icon}</span>
+        ${icon}
         <span style="font-weight:600;font-size:14px;">${title}</span>
       </div>
       <div style="display:grid;gap:8px;">${content}</div>
@@ -10447,50 +10449,50 @@ function showSignupDetails(signup) {
           <button onclick="document.getElementById('signup-details-modal').remove()" style="background:var(--bg-primary);border:none;color:var(--text-secondary);font-size:24px;cursor:pointer;padding:8px 14px;border-radius:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">&times;</button>
         </div>
         <div style="padding:20px;">
-          ${card('Info Pelajar', '👤', `
+          ${card('Info Pelajar', svgIcon('M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8'), `
             ${field('Umur', formatText(signup.age))}
             ${field('Phone', formatText(signup.phone))}
             ${field('Tahap', formatText(signup.level))}
           `)}
 
-          ${card('Kelas', '📚', `
+          ${card('Kelas', svgIcon('M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z'), `
             ${field('Jenis', signup.class_type === '1on1' ? '1 on 1 — RM200/bulan' : 'Berkumpulan — RM150/bulan')}
             ${field('Jadual', formatArray(signup.schedule))}
           `)}
 
-          ${card('Pengalaman Jepun', '🎌', `
+          ${card('Pengalaman Jepun', svgIcon('M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 0 0 1 1h3m10-11l2 2m-2-2v10a1 1 0 0 0-1 1h-3m-6 0a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1m4 0h2m-2 0h2'), `
             ${field('Pernah Belajar', formatText(signup.studied_before))}
             ${field('JLPT Taken', formatText(signup.jlpt_taken))}
             ${field('JLPT Level', formatText(signup.jlpt_level))}
             ${field('Pendedahan', formatArray(signup.exposure))}
           `)}
 
-          ${card('Motivasi', '🎯', `
+          ${card('Motivasi', svgIcon('M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'), `
             ${field('Kenapa Jepun', formatArray(signup.why_japanese))}
             ${signup.why_japanese_other ? field('Lain-lain', formatText(signup.why_japanese_other)) : ''}
             ${field('Goal', formatText(signup.goal))}
             ${signup.goal_other ? field('Goal Lain', formatText(signup.goal_other)) : ''}
           `)}
 
-          ${card('Tabiat Belajar', '⏰', `
+          ${card('Tabiat Belajar', svgIcon('M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 5v5l3 3'), `
             ${field('Jam/Minggu', formatText(signup.study_hours))}
             ${field('Aktiviti', formatArray(signup.activities))}
           `)}
 
-          ${card('Pengalaman Lalu', '📖', `
+          ${card('Pengalaman Lalu', svgIcon('M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z'), `
             ${field('Quit Before', formatText(signup.quit_before))}
             ${field('Sebab Quit', formatArray(signup.quit_reason))}
             ${signup.quit_reason_other ? field('Sebab Lain', formatText(signup.quit_reason_other)) : ''}
           `)}
 
-          ${card('Cabaran & Harapan', '💪', `
+          ${card('Cabaran & Harapan', svgIcon('M13 10V3L4 14h7v7l9-11h-7z'), `
             ${field('Cabaran', formatArray(signup.challenges))}
             ${signup.challenges_other ? field('Cabaran Lain', formatText(signup.challenges_other)) : ''}
             ${field('Expectations', formatArray(signup.expectations))}
             ${signup.expectations_other ? field('Harapan Lain', formatText(signup.expectations_other)) : ''}
           `)}
 
-          ${card('Sumber', '🔗', `
+          ${card('Sumber', svgIcon('M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'), `
             ${field('Referral', formatText(signup.referral))}
             ${signup.referral_other ? field('Sumber Lain', formatText(signup.referral_other)) : ''}
           `)}
@@ -10498,7 +10500,7 @@ function showSignupDetails(signup) {
           ${signup.questions ? `
             <div style="background:var(--bg-primary);border-radius:12px;padding:16px;margin-bottom:12px;">
               <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-                <span style="font-size:16px;">❓</span>
+                ${svgIcon('M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01')}
                 <span style="font-weight:600;font-size:14px;">Soalan</span>
               </div>
               <div style="white-space:pre-wrap;line-height:1.6;font-size:14px;">${formatText(signup.questions)}</div>
@@ -10508,7 +10510,7 @@ function showSignupDetails(signup) {
           ${signup.notes ? `
             <div style="background:var(--bg-primary);border-radius:12px;padding:16px;margin-bottom:12px;">
               <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-                <span style="font-size:16px;">📝</span>
+                ${svgIcon('M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z')}
                 <span style="font-weight:600;font-size:14px;">Notes</span>
               </div>
               <div style="white-space:pre-wrap;line-height:1.6;font-size:14px;">${formatText(signup.notes)}</div>
