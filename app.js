@@ -9296,43 +9296,43 @@ function renderPostEditorView() {
       <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
       ${t('common.back')}
     </a>
-    <h1>${isEditing ? t('admin.editPostTitle') : t('admin.createNewPost')}</h1>
+    <h1>${isEditing ? 'Edit Post' : 'Create New Post'}</h1>
   </div>
   <form id="post-editor-form" class="post-editor-full-form">
     <div class="editor-layout">
       <div class="editor-meta-column">
         <div class="form-group">
-          <label for="post-cover-url">${t('admin.coverImageLabel')}</label>
-          <input type="url" id="post-cover-url" placeholder="${t('admin.coverImagePlaceholder')}">
+          <label for="post-cover-url">${'Cover Image URL'}</label>
+          <input type="url" id="post-cover-url" placeholder="${'https://example.com/image.jpg'}">
         </div>
         <div class="form-group">
-          <label for="post-status">${t('admin.statusLabel')}</label>
+          <label for="post-status">${'Status'}</label>
           <select id="post-status">
-            <option value="draft">${t('admin.statusDraft')}</option>
-            <option value="published">${t('admin.statusPublished')}</option>
+            <option value="draft">${'Draft'}</option>
+            <option value="published">${'Published'}</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="post-slug">${t('admin.slugLabel')}</label>
+          <label for="post-slug">${'Slug'}</label>
           <div class="slug-input-row">
-            <input type="text" id="post-slug" placeholder="${t('admin.slugPlaceholder')}" required>
-            <button type="button" id="slug-lock-btn" class="slug-lock-btn" title="${t('admin.slugLockedHint')}">
+            <input type="text" id="post-slug" placeholder="${'my-post-slug'}" required>
+            <button type="button" id="slug-lock-btn" class="slug-lock-btn" title="${'Slug is auto-generated and locked'}">
               <svg id="slug-lock-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
               </svg>
             </button>
           </div>
-          <small class="slug-hint hidden">${t('admin.slugLockedHint')}</small>
+          <small class="slug-hint hidden">${'Slug is auto-generated and locked'}</small>
         </div>
         <div class="form-group">
-          <label>${t('admin.tagsLabel')}</label>
+          <label>${'Tags'}</label>
           <div class="tag-input-wrapper" id="tag-input-wrapper">
             <div class="tag-chips" id="tag-chips"></div>
-            <input type="text" id="post-tags-input" placeholder="${t('admin.tagsPlaceholder')}" autocomplete="off">
+            <input type="text" id="post-tags-input" placeholder="${'japan, beginner, n5'}" autocomplete="off">
             <div class="tag-suggestions hidden" id="tag-suggestions"></div>
           </div>
-          <small>${t('admin.tagsHint')}</small>
+          <small>${'Separate tags with commas'}</small>
         </div>
       </div>
       <div class="editor-content-column">
@@ -9366,11 +9366,11 @@ function renderPostEditorView() {
                     </button>
                   </div>
                   <div class="content-mode-buttons">
-                    <button type="button" class="content-mode-btn active" data-mode="write" id="content-write-btn-en">${t('admin.writeTab')}</button>
-                    <button type="button" class="content-mode-btn" data-mode="preview" id="content-preview-btn-en">${t('admin.previewTab')}</button>
+                    <button type="button" class="content-mode-btn active" data-mode="write" id="content-write-btn-en">${'Write'}</button>
+                    <button type="button" class="content-mode-btn" data-mode="preview" id="content-preview-btn-en">${'Preview'}</button>
                   </div>
                 </div>
-                <textarea id="post-content-en" rows="10" placeholder="${t('admin.contentPlaceholder')}"></textarea>
+                <textarea id="post-content-en" rows="10" placeholder="${'Write your post content here...'}"></textarea>
                 <div class="content-preview hidden" id="content-preview-en"></div>
               </div>
               <span class="field-error" id="error-post-content-en"></span>
@@ -9399,11 +9399,11 @@ function renderPostEditorView() {
                     </button>
                   </div>
                   <div class="content-mode-buttons">
-                    <button type="button" class="content-mode-btn active" data-mode="write" id="content-write-btn-my">${t('admin.writeTab')}</button>
-                    <button type="button" class="content-mode-btn" data-mode="preview" id="content-preview-btn-my">${t('admin.previewTab')}</button>
+                    <button type="button" class="content-mode-btn active" data-mode="write" id="content-write-btn-my">${'Write'}</button>
+                    <button type="button" class="content-mode-btn" data-mode="preview" id="content-preview-btn-my">${'Preview'}</button>
                   </div>
                 </div>
-                <textarea id="post-content-my" rows="10" placeholder="${t('admin.contentMyPlaceholder')}"></textarea>
+                <textarea id="post-content-my" rows="10" placeholder="${'Tulis kandungan post anda di sini...'}"></textarea>
                 <div class="content-preview hidden" id="content-preview-my"></div>
               </div>
             </div>
@@ -9415,15 +9415,15 @@ function renderPostEditorView() {
             <input type="date" id="post-date">
           </div>
           <div class="form-group">
-            <label for="post-reading-time">${t('admin.readingTime')}</label>
+            <label for="post-reading-time">${'Reading Time (min)'}</label>
             <input type="number" id="post-reading-time" value="5" min="1">
           </div>
         </div>
       </div>
     </div>
     <div class="form-actions">
-      <a href="/admin" class="btn-cancel">${t('admin.cancel')}</a>
-      <button type="submit" class="btn-cta-primary">${t('admin.savePost')}</button>
+      <a href="/admin" class="btn-cancel">${'Cancel'}</a>
+      <button type="submit" class="btn-cta-primary">${'Save Post'}</button>
     </div>
   </form>
 </div>`;
@@ -9673,7 +9673,7 @@ function renderAdminView() {
 
   state.currentView = "admin";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('admin.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = 'Admin';
 
   const appView = document.getElementById("app-view");
 
@@ -9715,23 +9715,23 @@ function renderAdminLogin(appView) {
 
           </div>
 
-          <h1>${t('admin.loginTitle')}</h1>
+          <h1>${'Admin Login'}</h1>
 
-          <p>${t('admin.loginSubtitle')}</p>
+          <p>${'Enter password to access admin panel'}</p>
 
           <form id="admin-login-form" class="admin-login-form">
 
             <div class="form-group">
 
-              <label for="admin-password">${t('admin.password')}</label>
+              <label for="admin-password">${'Password'}</label>
 
-              <input type="password" id="admin-password" placeholder="${t('admin.password')}" required>
+              <input type="password" id="admin-password" placeholder="${'Password'}" required>
 
             </div>
 
             <div class="form-error" id="login-error" style="display:none;"></div>
 
-            <button type="submit" class="btn-admin-login">${t('admin.login')}</button>
+            <button type="submit" class="btn-admin-login">${'Login'}</button>
 
           </form>
 
@@ -9791,7 +9791,7 @@ async function renderAdminDashboard(appView) {
 
         <div>
 
-          <h1>${t('admin.title')}</h1>
+          <h1>${'Admin'}</h1>
 
           <p>${lang === 'my' ? 'Urus blog posts dan signup kelas' : 'Manage your blog posts and class signups'}</p>
 
@@ -9799,7 +9799,7 @@ async function renderAdminDashboard(appView) {
 
         <div class="admin-header-actions">
 
-          <button class="btn-admin-logout" id="admin-logout-btn">${t('admin.logout')}</button>
+          <button class="btn-admin-logout" id="admin-logout-btn">${'Logout'}</button>
 
         </div>
 
@@ -9811,7 +9811,7 @@ async function renderAdminDashboard(appView) {
 
         <button class="admin-tab-btn active" data-tab="blog">Blog</button>
 
-        <button class="admin-tab-btn" data-tab="signups">${t('admin.signupsTitle')}</button>
+        <button class="admin-tab-btn" data-tab="signups">${'Class Signups'}</button>
 
         <button class="admin-tab-btn" data-tab="analytics">Analytics</button>
 
@@ -9827,7 +9827,7 @@ async function renderAdminDashboard(appView) {
 
             <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
 
-            ${t('admin.newPost')}
+            ${'New Post'}
 
           </a>
 
@@ -9835,7 +9835,7 @@ async function renderAdminDashboard(appView) {
 
         <div class="admin-posts-list" id="admin-posts-list">
 
-          <div class="admin-loading">${t('admin.loadingPosts')}</div>
+          <div class="admin-loading">${'Loading posts...'}</div>
 
         </div>
 
@@ -9847,7 +9847,7 @@ async function renderAdminDashboard(appView) {
 
         <div class="admin-signups-list" id="admin-signups-list">
 
-          <div class="admin-loading">${t('admin.loadingSignups')}</div>
+          <div class="admin-loading">${'Loading signups...'}</div>
 
         </div>
 
@@ -10169,7 +10169,7 @@ function renderAdminPostsList(container, posts) {
 
   if (!posts || posts.length === 0) {
 
-    container.innerHTML = `<div class="admin-empty"><p>${t('admin.noPosts')}</p></div>`;
+    container.innerHTML = `<div class="admin-empty"><p>${'No posts yet'}</p></div>`;
 
     return;
 
@@ -10215,9 +10215,9 @@ function renderAdminPostsList(container, posts) {
 
         <div class="admin-post-actions">
 
-          <button class="btn-edit-post" data-id="${post.id}">${t('admin.editPost')}</button>
+          <button class="btn-edit-post" data-id="${post.id}">${'Edit'}</button>
 
-          <button class="btn-delete-post" data-id="${post.id}">${t('admin.deletePost')}</button>
+          <button class="btn-delete-post" data-id="${post.id}">${'Delete'}</button>
 
         </div>
 
@@ -10254,7 +10254,7 @@ function renderAdminPostsList(container, posts) {
 
       const id = btn.dataset.id;
 
-      if (confirm(t('admin.confirmDelete'))) {
+      if (confirm('Are you sure you want to delete this?')) {
 
         await deletePost(id);
 
@@ -10292,7 +10292,7 @@ async function loadAdminSignups() {
 
     } else {
 
-      container.innerHTML = `<div class="admin-empty"><p>${t('admin.noSignups')}</p></div>`;
+      container.innerHTML = `<div class="admin-empty"><p>${'No signups yet'}</p></div>`;
 
     }
 
@@ -10310,7 +10310,7 @@ function renderAdminSignupsList(container, signups) {
 
   if (!signups || signups.length === 0) {
 
-    container.innerHTML = `<div class="admin-empty"><p>${t('admin.noSignups')}</p></div>`;
+    container.innerHTML = `<div class="admin-empty"><p>${'No signups yet'}</p></div>`;
 
     return;
 
@@ -10346,7 +10346,7 @@ function renderAdminSignupsList(container, signups) {
 
         <div class="admin-signup-actions">
 
-          <button class="btn-delete-signup" data-id="${signup.id}">${t('admin.deletePost')}</button>
+          <button class="btn-delete-signup" data-id="${signup.id}">${'Delete'}</button>
 
         </div>
 
@@ -10364,7 +10364,7 @@ function renderAdminSignupsList(container, signups) {
 
       const id = btn.dataset.id;
 
-      if (confirm(t('admin.confirmDelete'))) {
+      if (confirm('Are you sure you want to delete this?')) {
 
         await adminAction('delete_signup', { id });
 
@@ -10432,7 +10432,7 @@ async function savePostFromForm() {
 
   if (!title.en || !slug || !excerpt.en || !content.en) {
 
-    alert(t('admin.requiredFields'));
+    alert('Please fill in all required fields');
 
     return;
 
@@ -10450,7 +10450,7 @@ async function savePostFromForm() {
 
 
 
-    alert(t('admin.postSaved'));
+    alert('Post saved successfully!');
 
     editingPostData = null;
 
@@ -10478,7 +10478,7 @@ async function savePostFromForm() {
 
     localStorage.setItem('localBlogPosts', JSON.stringify(localPosts));
 
-    alert(t('admin.postSavedLocal'));
+    alert('Post saved locally!');
 
     editingPostData = null;
 
