@@ -10127,7 +10127,6 @@ async function loadAdminPosts() {
 
 
 
-    console.log('loadAdminPosts result:', { error, data, count: data?.length });
     if (!error && data && data.length > 0) {
 
       renderAdminPostsList(container, data);
