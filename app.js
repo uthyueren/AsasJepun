@@ -9268,6 +9268,7 @@ async function adminAction(action, data = {}) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'apikey': 'sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO',
       'Authorization': 'Bearer sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO'
     },
     body: JSON.stringify({ action, password, ...data })
@@ -9759,6 +9760,7 @@ function renderAdminLogin(appView) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'apikey': 'sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO',
           'Authorization': 'Bearer sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO'
         },
         body: JSON.stringify({ password: pw })
