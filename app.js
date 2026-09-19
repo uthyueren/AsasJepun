@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const reading = el.dataset.reading;
 
-      if (word) playPronunciation(word);
+      if (word) playKanjiAudio(word, reading);
 
     }
 
@@ -1313,29 +1313,31 @@ function initRouter() {
 
 
 
+// Play Kanji audio from file, fallback to Web Speech
+window.playKanjiAudio = function(word, reading) {
+  // Try to play from file first using reading
+  const audioPath = `Audio/Kanji/${reading}.mp3`;
+  const audio = new Audio(audioPath);
+  audio.play().catch(() => {
+    // Fallback: use Web Speech API with the Japanese word
+    playPronunciation(word);
+  });
+};
+
+
+
 // Sound Utterance Helper
-
-function playPronunciation(text) {
-
+window.playPronunciation = function(text) {
   if ('speechSynthesis' in window) {
-
-    window.speechSynthesis.cancel(); // stop current utterance
-
+    window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-
     utterance.lang = 'ja-JP';
-
-    utterance.rate = 0.8; // Learner pace
-
+    utterance.rate = 0.8;
     window.speechSynthesis.speak(utterance);
-
   } else {
-
     alert(t('common.audioNotSupported'));
-
   }
-
-}
+};
 
 
 
@@ -1371,14 +1373,30 @@ window.playKanaAudio = function(romaji) {
 
 window.playLongVowelAudio = function(filename) {
 
-  const audioPath = `Audio/Long Vowel/${filename}`;
+  const audio = new Audio(`/Audio/Long%20Vowel/${encodeURIComponent(filename)}`);
+
+  audio.play().catch(() => {
+    // Fallback: use Web Speech API
+    const word = filename.replace('.mp3', '');
+    playPronunciation(word);
+  });
+
+};
+
+
+
+// Play Kana Pronunciation audio (shi, chi, tsu)
+
+window.playKanaPronAudio = function(filename) {
+
+  const audioPath = `Audio/Kana Charts/${filename}`;
 
   const audio = new Audio(audioPath);
 
-  audio.play().catch(err => {
-
-    console.warn('Long vowel audio not found:', err);
-
+  audio.play().catch(() => {
+    // Fallback: use Web Speech API
+    const word = filename.replace('.mp3', '');
+    playPronunciation(word);
   });
 
 };
@@ -1391,10 +1409,10 @@ window.playPitchAccent = function(audioPath) {
 
   const audio = new Audio(audioPath);
 
-  audio.play().catch(err => {
-
-    console.warn('Pitch accent audio not found:', err);
-
+  audio.play().catch(() => {
+    // Fallback: use Web Speech API
+    const word = audioPath.replace('.mp3', '').split('/').pop().split('_')[0];
+    playPronunciation(word);
   });
 
 };
@@ -3489,9 +3507,9 @@ function renderResourcesView() {
             <div class="resource-section-header">
 
               ${['youtubeLearning', 'youtubeImmersion', 'youtubePopular'].includes(cat)
-                ? `<img src="logos/youtube.webp" alt="" class="resource-section-icon">`
+                ? `<img src="/logos/youtube.webp" alt="" class="resource-section-icon">`
                 : cat === 'discordServers'
-                ? `<img src="logos/discord.webp" alt="" class="resource-section-icon">`
+                ? `<img src="/logos/discord.webp" alt="" class="resource-section-icon">`
                 : `<i data-lucide="${categoryIcons[cat] || 'pin'}"></i>`}
 
               <h2>${t(`resources.categories.${cat}`)}</h2>
@@ -3528,7 +3546,7 @@ function renderResourcesView() {
 
                         <h3>${item.name}</h3>
 
-                        <p>${lang === 'my' ? (t(`resources.descriptions.${item.name}`) || item.description) : item.description}</p>
+                        <p>${t('resources.descriptions.' + item.name)}</p>
 
                       </div>
 
@@ -3568,13 +3586,13 @@ function renderResourcesView() {
 
         <a href="/self-study/ai" class="btn-cta-secondary">
 
-          ← ${t('resources.navBack')}
+          ← ${lang === 'en' ? 'Back: Self Study AI' : 'Kembali: Menggunakan AI'}
 
         </a>
 
         <a href="/blog" class="btn-cta-primary">
 
-          ${t('resources.navNext')} →
+          ${lang === 'en' ? 'Next: Blog & Culture' : 'Seterusnya: Blog & Budaya'} →
 
         </a>
 
@@ -3646,7 +3664,7 @@ function renderAboutView() {
 
           <div class="about-card about-card-center">
 
-            <img src="images/Uthman.jpg" alt="Uthman" class="about-profile-img">
+            <img src="/images/Uthman.jpg" alt="Uthman" class="about-profile-img">
 
           </div>
 
@@ -3666,7 +3684,7 @@ function renderAboutView() {
 
               <a href="https://linktr.ee/uthmannn_" target="_blank" rel="noopener" class="social-link">
 
-                <img src="logos/Linktree_logo.webp" alt="Linktree" width="20" height="20">
+                <img src="/logos/Linktree_logo.webp" alt="Linktree" width="20" height="20">
 
                 Linktree
 
@@ -3674,7 +3692,7 @@ function renderAboutView() {
 
               <a href="https://www.threads.com/@uthmannn_" target="_blank" rel="noopener" class="social-link">
 
-                <img src="logos/Threads_logo.webp" alt="Threads" width="20" height="20">
+                <img src="/logos/Threads_logo.webp" alt="Threads" width="20" height="20">
 
                 Threads
 
@@ -3682,7 +3700,7 @@ function renderAboutView() {
 
               <a href="https://ko-fi.com/uthmannn_" target="_blank" rel="noopener" class="social-link">
 
-                <img src="logos/ko-fi-logotype-27349_512.webp" alt="Ko-fi" width="20" height="20">
+                <img src="/logos/ko-fi-logotype-27349_512.webp" alt="Ko-fi" width="20" height="20">
 
                 Ko-fi
 
@@ -4484,7 +4502,9 @@ function renderIntroductionView() {
 
       const audio = new Audio("Audio/pronunciation_tomodachi_mora.mp3");
 
-      audio.play();
+      audio.play().catch(() => {
+        playPronunciation("ともだち");
+      });
 
     });
 
@@ -4600,7 +4620,7 @@ function renderKanaView() {
 
               <div class="pron-comparison-row">
 
-                <div class="pron-kana-box" data-kana="し" onclick="playPronunciation('し')">
+                <div class="pron-kana-box" data-kana="し" onclick="playKanaPronAudio('shi.mp3')">
 
                   <span class="pron-kana-char">し / シ</span>
 
@@ -4622,7 +4642,7 @@ function renderKanaView() {
 
               <div class="pron-comparison-row">
 
-                <div class="pron-kana-box" data-kana="ち" onclick="playPronunciation('ち')">
+                <div class="pron-kana-box" data-kana="ち" onclick="playKanaPronAudio('chi.mp3')">
 
                   <span class="pron-kana-char">ち / チ</span>
 
@@ -4644,7 +4664,7 @@ function renderKanaView() {
 
               <div class="pron-comparison-row">
 
-                <div class="pron-kana-box" data-kana="つ" onclick="playPronunciation('つ')">
+                <div class="pron-kana-box" data-kana="つ" onclick="playKanaPronAudio('tsu.mp3')">
 
                   <span class="pron-kana-char">つ / ツ</span>
 
@@ -4756,13 +4776,13 @@ function renderKanaView() {
 
         <a href="/introduction" class="btn-cta-secondary">
 
-          ← ${t('kana.backIntro')}
+          ← ${lang === 'en' ? 'Back: Introduction' : 'Kembali: Pengenalan'}
 
         </a>
 
         <a href="/kana/long-vowel" class="btn-cta-primary">
 
-          ${t('kana.nextLongVowel')} →
+          ${lang === 'en' ? 'Next: Long Vowel' : 'Seterusnya: Vokal Panjang'} →
 
         </a>
 
@@ -4812,7 +4832,7 @@ function renderKanjiRulesView() {
 
   state.currentView = "kanji-rules";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kanjiRules.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kanji.title');
 
 
 
@@ -5052,9 +5072,9 @@ function renderKanjiRulesView() {
 
       <div class="page-header">
 
-        <h1>${t('kanjiRules.title')}</h1>
+        <h1>${t('kanji.title')}</h1>
 
-        <p>${t('kanjiRules.subtitle')}</p>
+        <p>${t('kanji.subtitle')}</p>
 
       </div>
 
@@ -5064,11 +5084,11 @@ function renderKanjiRulesView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="info"></i> ${lang === 'en' ? 'What is Kanji?' : 'Apakah Kanji?'}</h2>
+          <h2><i data-lucide="info"></i> ${t('kanji.whatIsKanjiTitle')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'Kanji is a writing system from China with over 50,000 characters (I know there\'s so many of them!). Don\'t get discouraged just by that. You only need about 2,000+ kanji to achieve full functional literacy in Japanese. That\'s just 4% of the total 50,000! These characters arrived in Japan centuries ago and became an essential part of written Japanese.' : 'Kanji ialah sistem penulisan dari China dengan lebih 50,000 aksara — tetapi anda hanya perlukan lebih kurang 2,000 untuk pembacaan harian. Hanya 4% dari jumlah keseluruhan! Aksara ini sampai ke Jepun berabad-abad lalu dan menjadi bahagian penting dalam penulisan Jepun.'}</p>
+            <p>${t('kanji.whatIsKanjiDesc')}</p>
 
           </div>
 
@@ -5078,17 +5098,17 @@ function renderKanjiRulesView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="type"></i> ${lang === 'en' ? 'Two Reading Systems' : 'Dua Sistem Bacaan'}</h2>
+          <h2><i data-lucide="type"></i> ${t('kanji.twoReadingSystemsTitle')}</h2>
 
           <div class="info-card" style="margin-bottom: 16px;">
 
-            <p>${lang === 'en' ? 'Every kanji has at least two readings: <strong>Kunyomi</strong> (native Japanese reading) and <strong>Onyomi</strong> (Chinese-derived reading). Usually Kunyomi is used when the kanji stands alone, is paired with hiragana (called okurigana), or is part of a Japanese name. On the other hand, Onyomi is used in compound kanji words or when the kanji only has an Onyomi reading. Of course there are exceptions but you will learn about it later.' : 'Setiap kanji mempunyai sekurang-kurangnya dua bacaan: <strong>Kunyomi</strong> (bacaan asli Jepun) dan <strong>Onyomi</strong> (bacaan berasal dari Cina). Biasanya Kunyomi digunakan bila kanji berdiri sendiri, digabungkan dengan hiragana, atau merupakan sebahagian daripada nama. Sebaliknya, Onyomi digunakan dalam kata kanji kompaun atau bila kanji tersebut hanya mempunyai bacaan Onyomi. Tentu saja ada pengecualian, tetapi anda akan mengetahuinya nanti.'}</p>
+            <p>${t('kanji.twoReadingSystemsDesc')}</p>
 
           </div>
 
           <div class="format-item" style="margin-bottom: 16px;">
 
-            <h4><i data-lucide="book"></i> ${lang === 'en' ? 'Kunyomi (Japanese Reading)' : 'Kunyomi (Bacaan Jepun)'}</h4>
+            <h4><i data-lucide="book"></i> ${t('kanji.kunyomiTitle')}</h4>
 
             <div class="level-card n5" style="margin-top: 8px; padding: 20px;">
 
@@ -5100,7 +5120,7 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 14px; color: var(--primary); font-weight: 500;">あめ</div>
 
-                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'rain' : 'hujan'}</div>
+                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${t('kanji.ame')}</div>
 
                 </div>
 
@@ -5110,7 +5130,7 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 14px; color: var(--primary); font-weight: 500;">ちかい</div>
 
-                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'close' : 'dekat'}</div>
+                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${t('kanji.chikai')}</div>
 
                 </div>
 
@@ -5120,7 +5140,7 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 14px; color: var(--primary); font-weight: 500;">かながわ</div>
 
-                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'Kanagawa' : 'Kanagawa'}</div>
+                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${t('kanji.kanagawa')}</div>
 
                 </div>
 
@@ -5132,7 +5152,7 @@ function renderKanjiRulesView() {
 
           <div class="format-item">
 
-            <h4><i data-lucide="globe"></i> ${lang === 'en' ? 'Onyomi (Chinese Reading)' : 'Onyomi (Bacaan Cina)'}</h4>
+            <h4><i data-lucide="globe"></i> ${t('kanji.onyomiTitle')}</h4>
 
             <div class="level-card n5" style="margin-top: 8px; padding: 20px;">
 
@@ -5144,7 +5164,7 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 14px; color: var(--primary); font-weight: 500;">つゆ</div>
 
-                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'rainy season' : 'musim hujan'}</div>
+                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${t('kanji.tsuyu')}</div>
 
                 </div>
 
@@ -5154,7 +5174,7 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 14px; color: var(--primary); font-weight: 500;">きんじょ</div>
 
-                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'neighborhood' : 'kawasan'}</div>
+                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${t('kanji.kinjo')}</div>
 
                 </div>
 
@@ -5164,7 +5184,7 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 14px; color: var(--primary); font-weight: 500;">せかい</div>
 
-                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'world' : 'dunia'}</div>
+                  <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">${t('kanji.sekai')}</div>
 
                 </div>
 
@@ -5180,11 +5200,11 @@ function renderKanjiRulesView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="sparkles"></i> ${lang === 'en' ? 'Furigana: Kana Above Kanji' : 'Furigana: Kana Di Atas Kanji'}</h2>
+          <h2><i data-lucide="sparkles"></i> ${t('kanji.furiganaTitle')}</h2>
 
           <div class="info-card" style="margin-bottom: 16px;">
 
-            <p>${lang === 'en' ? 'Furigana are small kana characters written above kanji to show their pronunciation. They help beginners read kanji before they learn its readings by heart.' : 'Furigana ialah aksara kana kecil yang ditulis di atas kanji untuk menunjukkan bacaannya. Ia membantu pemula membaca kanji sebelum mereka menghafal bacaannya.'}</p>
+            <p>${t('kanji.furiganaDesc')}</p>
 
           </div>
 
@@ -5196,7 +5216,7 @@ function renderKanjiRulesView() {
 
               <div style="font-size: 38px; line-height: 1.1;">日本語</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">${lang === 'en' ? 'Japanese language' : 'Bahasa Jepun'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">${t('kanji.nihongo')}</div>
 
             </div>
 
@@ -5206,7 +5226,7 @@ function renderKanjiRulesView() {
 
               <div style="font-size: 38px; line-height: 1.1;">子供</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">${lang === 'en' ? 'child' : 'kanak-kanak'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">${t('kanji.kodomo')}</div>
 
             </div>
 
@@ -5216,7 +5236,7 @@ function renderKanjiRulesView() {
 
               <div style="font-size: 38px; line-height: 1.1;">昨日</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">${lang === 'en' ? 'yesterday' : 'semalam'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">${t('kanji.kinou')}</div>
 
             </div>
 
@@ -5228,11 +5248,11 @@ function renderKanjiRulesView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="alert-triangle"></i> ${lang === 'en' ? 'Similar-Looking Kanji' : 'Kanji Yang Serupa'}</h2>
+          <h2><i data-lucide="alert-triangle"></i> ${t('kanji.similarKanjiTitle')}</h2>
 
           <div class="info-card" style="margin-bottom: 16px;">
 
-            <p>${lang === 'en' ? 'Some kanji differ by only one stroke or a slightly different proportion. Mixing them up is one of the most common mistakes even at intermediate levels. Training your eye to spot these differences early saves a lot of confusion later.' : 'Sesetengah kanji bezanya hanya satu strok atau sedikit perbezaan perkadaran. Menggunakannya dengan salah adalah salah satu kesilapan paling biasa walaupun di tahap pertengahan. Melatih mata anda untuk melihat perbezaan ini awal节省 banyak kekeliruan kemudian.'}</p>
+            <p>${t('kanji.similarKanjiDesc')}</p>
 
           </div>
 
@@ -5246,7 +5266,7 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 40px; line-height: 1;">未</div>
 
-                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">not yet</div>
+                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">${t('kanji.mi')}</div>
 
                 </div>
 
@@ -5254,13 +5274,13 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 40px; line-height: 1;">末</div>
 
-                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">end</div>
+                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">${t('kanji.satsu')}</div>
 
                 </div>
 
               </div>
 
-              <p style="font-size: 14px; color: var(--text-primary); opacity: 0.85; line-height: 1.5; margin-bottom: 0;">${lang === 'en' ? 'Top stroke is shorter in 未, longer in 末. Think: 末 has a longer story to tell.' : 'Strok atas lebih pendek dalam 未, lebih panjang dalam 末. Fikir: 末 ada cerita lebih panjang untuk diceritakan.'}</p>
+              <p style="font-size: 14px; color: var(--text-primary); opacity: 0.85; line-height: 1.5; margin-bottom: 0;">${t('kanji.similarKanjiSection1Desc')}</p>
 
             </div>
 
@@ -5272,7 +5292,7 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 40px; line-height: 1;">士</div>
 
-                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">warrior</div>
+                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">${t('kanji.warrior')}</div>
 
                 </div>
 
@@ -5280,13 +5300,13 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 40px; line-height: 1;">土</div>
 
-                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">soil</div>
+                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">${t('kanji.soil')}</div>
 
                 </div>
 
               </div>
 
-              <p style="font-size: 14px; color: var(--text-primary); opacity: 0.85; line-height: 1.5; margin-bottom: 0;">${lang === 'en' ? '士 has a shorter bottom stroke, 土 has a longer one. Think of 土 as grounded with a wider base.' : '士 mempunyai strok bawah lebih pendek, 土 lebih panjang. Fikir 土 sebagai terkandas dengan tapak lebih lebar.'}</p>
+              <p style="font-size: 14px; color: var(--text-primary); opacity: 0.85; line-height: 1.5; margin-bottom: 0;">${t('kanji.similarKanjiSection2Desc')}</p>
 
             </div>
 
@@ -5298,7 +5318,7 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 40px; line-height: 1;">千</div>
 
-                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">thousand</div>
+                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">${t('kanji.thousand')}</div>
 
                 </div>
 
@@ -5306,13 +5326,13 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 40px; line-height: 1;">干</div>
 
-                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">dry</div>
+                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">${t('kanji.dry')}</div>
 
                 </div>
 
               </div>
 
-              <p style="font-size: 14px; color: var(--text-primary); opacity: 0.85; line-height: 1.5; margin-bottom: 0;">${lang === 'en' ? '千 has an extra short stroke on the top left that 干 lacks.' : '千 mempunyai strok pendek tambahan di bahagian kiri atas yang 干 tidak ada.'}</p>
+              <p style="font-size: 14px; color: var(--text-primary); opacity: 0.85; line-height: 1.5; margin-bottom: 0;">${t('kanji.similarKanjiSection3Desc')}</p>
 
             </div>
 
@@ -5328,7 +5348,7 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 40px; line-height: 1;">日</div>
 
-                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">sun/day</div>
+                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">${t('kanji.sunDay')}</div>
 
                 </div>
 
@@ -5336,13 +5356,13 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 40px; line-height: 1;">目</div>
 
-                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">eye</div>
+                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">${t('kanji.eye')}</div>
 
                 </div>
 
               </div>
 
-              <p style="font-size: 14px; color: var(--text-primary); opacity: 0.85; line-height: 1.5; margin-bottom: 0;">${lang === 'en' ? '目 has an extra horizontal stroke inside compared to 日. The eye has more lines because it is watching.' : '目 mempunyai strok mendatar tambahan di dalam berbanding 日. Mata mempunyai lebih banyak garis kerana ia sedang menonton.'}</p>
+              <p style="font-size: 14px; color: var(--text-primary); opacity: 0.85; line-height: 1.5; margin-bottom: 0;">${t('kanji.similarKanjiSection4Desc')}</p>
 
             </div>
 
@@ -5354,7 +5374,7 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 40px; line-height: 1;">大</div>
 
-                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">big</div>
+                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">${t('kanji.big')}</div>
 
                 </div>
 
@@ -5362,13 +5382,13 @@ function renderKanjiRulesView() {
 
                   <div style="font-size: 40px; line-height: 1;">犬</div>
 
-                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">dog</div>
+                  <div style="font-size: 13px; color: var(--primary); margin-top: 6px; font-weight: 500;">${t('kanji.dog')}</div>
 
                 </div>
 
               </div>
 
-              <p style="font-size: 14px; color: var(--text-primary); opacity: 0.85; line-height: 1.5; margin-bottom: 0;">${lang === 'en' ? '犬 has a small extra dot, representing the dog\'s tail.' : '犬 mempunyai titik tambahan kecil, mewakili ekor anjing.'}</p>
+              <p style="font-size: 14px; color: var(--text-primary); opacity: 0.85; line-height: 1.5; margin-bottom: 0;">${t('kanji.similarKanjiSection5Desc')}</p>
 
             </div>
 
@@ -5376,7 +5396,7 @@ function renderKanjiRulesView() {
 
           <div class="info-card" style="margin-top: 16px;">
 
-            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.5;">${lang === 'en' ? 'Keeping a running list of pairs like these as you encounter them works best. Confusable kanji tend to surface naturally through reading, and noticing the mix-up in context makes it stick far better than studying the pair in isolation.' : 'Mengekalkan senarai pasangan seperti ini semasa anda jumpa mereka adalah paling baik. Kanji yang boleh confuse muncul secara semula jadi melalui pembacaan, dan perasan kekeliruan dalam konteks membuatnya melekat lebih baik daripada mengkaji pasangan secara berasingan.'}</p>
+            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.5;">${t('kanji.similarKanjiTip')}</p>
 
           </div>
 
@@ -5386,37 +5406,37 @@ function renderKanjiRulesView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="target"></i> ${lang === 'en' ? 'Memorizing Tips' : 'Tips Memorisasi'}</h2>
+          <h2><i data-lucide="target"></i> ${t('kanji.memorizingTipsTitle')}</h2>
 
           <div class="info-card" style="margin-bottom: 16px;">
 
-            <h4 style="margin-bottom: 8px;">1. ${lang === 'en' ? "Don't memorize kanji readings" : 'Jangan menghafal bacaan kanji'}</h4>
+            <h4 style="margin-bottom: 8px;">1. ${t('kanji.dontMemorizeKanji')}</h4>
 
-            <p>${lang === 'en' ? 'It is counter productive. Some kanji will never be used alone. For example, 飲 (drink) and 食 (eat) are almost always written as 飲む and 食べる. If you really want to learn readings, focus only on N5 and N4 kanji readings. Beyond that level, it is not efficient.' : 'Ia tidak effisyen. Sesetengah kanji tidak akan digunakan sendiri. Contohnya, 飲 (minum) dan 食 (makan) hampir selalu ditulis sebagai 飲む dan 食べる. Jika anda benar-benar ingin belajar bacaan, fokus hanya pada bacaan kanji N5 dan N4. Melebihi tahap itu, ia tidak effisyen.'}</p>
-
-          </div>
-
-          <div class="info-card">
-
-            <h4 style="margin-bottom: 8px;">2. ${lang === 'en' ? 'Learn kanji as vocab' : 'Pelajari kanji sebagai vocab'}</h4>
-
-            <p>${lang === 'en' ? 'As mentioned above, some kanji are rarely used alone. Learning them through vocab makes more sense. For example, the kanji 場 (place) alone is almost never used, but the word 場所 (basho / place) is very common.' : 'Seperti yang disebut tadi, sesetengah kanji jarang digunakan sendiri. Mempelajarinya melalui vocab lebih masuk akal. Contohnya, kanji 場 (tempat) sendiri hampir tidak pernah digunakan, tetapi perkataan 場所 (basho / tempat) sangat biasa.'}</p>
+            <p>${t('kanji.dontMemorizeKanjiDesc')}</p>
 
           </div>
 
           <div class="info-card">
 
-            <h4 style="margin-bottom: 8px;">3. ${lang === 'en' ? 'No writing! Use Spaced Repetition System (SRS)' : 'Gunakan Sistem Repetisi Jarak (SRS)'}</h4>
+            <h4 style="margin-bottom: 8px;">2. ${t('kanji.learnKanjiAsVocab')}</h4>
 
-            <p>${lang === 'en' ? 'Writing kanji over and over can feel めんどうくさい (mendoukusai, tedious) and most people, including me, never actually learned kanji that way. With smartphones, writing kanji has become something most people only do on paper forms. Apps like Anki or WaniKani show you kanji right before you are about to forget them. This beats cramming and is the standard method most fluent learners swear by. If you still want to practice writing, go ahead. It can help with muscle memory, but don\'t rely on it as your main study method.' : 'Menulis kanji berulang-ulang boleh rasa めんどうくさい (mendoukusai, menyusahkan) dan kebanyakan orang, termasuk saya, tidak pernah belajar kanji dengan cara itu. Dengan telefon pintar, menulis kanji telah menjadi sesuatu yang kebanyakan orang hanya lakukan pada borang kertas. Aplikasi seperti Anki atau WaniKani menunjukkan kanji kepada anda tepat sebelum anda akan melupakannya. Ini mengatasi hafalan dan adalah kaedah standard yang kebanyakan pembelajar fasih bersumpah olehnya. Jika anda masih mahu berlatih menulis, teruskan — ia boleh membantu dengan memori otot, tetapi jangan bergantung pada ia sebagai kaedah pembelajaran utama.'}</p>
+            <p>${t('kanji.learnKanjiAsVocabDesc')}</p>
 
           </div>
 
           <div class="info-card">
 
-            <h4 style="margin-bottom: 8px;">4. ${lang === 'en' ? 'Use mnemonics for complicated kanji' : 'Gunakan mnemonik untuk kanji yang susah'}</h4>
+            <h4 style="margin-bottom: 8px;">3. ${t('kanji.noWriting')}</h4>
 
-            <p>${lang === 'en' ? 'Think of kanji as pictographs. A mnemonic turns an abstract shape into a story your brain can actually hold onto. Instead of memorizing strokes by rote, you are memorizing a scene. Scenes are far easier to recall than abstract shapes. For example, the kanji 休 (rest) looks like a person (亻) leaning against a tree (木). Once you see it, you cannot unsee it.' : 'Fikirkan kanji sebagai pictograph. Mnemonik mengubah bentuk abstrak menjadi cerita yang otak anda boleh pegang. Bukan menghafal strok secara membuta, anda menghafal satu pemandangan. Pemandangan jauh lebih mudah diingat daripada bentuk abstrak. Contohnya, kanji 休 (rehat) kelihatan seperti seseorang (亻) bersandar pada pokok (木). Setelah anda melihatnya, anda tidak boleh tidak melihatnya.'}</p>
+            <p>${t('kanji.noWritingDesc')}</p>
+
+          </div>
+
+          <div class="info-card">
+
+            <h4 style="margin-bottom: 8px;">4. ${t('kanji.useMnemonics')}</h4>
+
+            <p>${t('kanji.useMnemonicsDesc')}</p>
 
           </div>
 
@@ -5428,7 +5448,7 @@ function renderKanjiRulesView() {
 
           <i data-lucide="book-open" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 6px;"></i>
 
-          ${lang === 'en' ? 'Want to dive deeper? Check out <a href="https://www.kanji-link.com/en/kanji/intro/" target="_blank" style="color: var(--primary); text-decoration: underline;">Kanji Link</a> for a comprehensive introduction to kanji.' : 'Nak mendalami lebih lanjut? Layari <a href="https://www.kanji-link.com/en/kanji/intro/" target="_blank" style="color: var(--primary); text-decoration: underline;">Kanji Link</a> untuk pengenalan kanji yang komprehensif.'}
+          ${t('kanji.kanjiDiveDeeper')}
 
         </div>
 
@@ -5438,7 +5458,7 @@ function renderKanjiRulesView() {
 
           <a href="/kana/small-characters" class="btn-cta-secondary">
 
-            ← ${lang === 'en' ? 'Back: Small Kana' : 'Kembali: Kana Kecil'}
+            ← Back: Small Kana
 
           </a>
 
@@ -5468,7 +5488,7 @@ function renderKanaSubpage1View() {
 
   state.currentView = "kana-subpage1";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.subpage1Title') || 'Long Vowel';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.longVowelTitle') || 'Long Vowel';
 
 
 
@@ -5484,9 +5504,9 @@ function renderKanaSubpage1View() {
 
       <div class="page-header">
 
-        <h1>${t('kana.subpage1Title')}</h1>
+        <h1>${t('kana.longVowelTitle')}</h1>
 
-        <p>${t('kana.subpage1Subtitle')}</p>
+        <p>${t('kana.longVowelSubtitle')}</p>
 
       </div>
 
@@ -5496,13 +5516,11 @@ function renderKanaSubpage1View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="info"></i> ${lang === 'en' ? 'What is Long Vowel?' : 'Apakah Vokal Panjang?'}</h2>
+          <h2><i data-lucide="info"></i> ${t('longVowel.whatIsTitle')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en'
-
-              ? 'Long vowels (長音 / chōon) are extended vowel sounds where a vowel is held for two morae instead of one. In Japanese, changing a vowel length can completely change the meaning of a word, so it\'s important to master this early.'
+            <p>${t('longVowel.whatIsDesc')}
 
               : 'Vokal panjang (長音 / chōon) adalah bunyi vokal yang dipegang untuk dua morae bukan satu. Dalam bahasa Jepun, menukar panjang vokal boleh menyebabkan perubahan makna sepenuhnya, jadi ia penting untuk dikuasai awal.'
 
@@ -5516,15 +5534,15 @@ function renderKanaSubpage1View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="pen-tool"></i> ${lang === 'en' ? 'Writing Long Vowel in Hiragana' : 'Menulis Vokal Panjang dalam Hiragana'}</h2>
+          <h2><i data-lucide="pen-tool"></i> ${t('longVowel.hiraganaTitle')}</h2>
 
           <div class="levels-grid" style="grid-template-columns: repeat(2, 1fr);">
 
             <div class="level-card n5">
 
-              <h3>Long "あ" (a) sound</h3>
+              <h3>${t('longVowel.aRow')}</h3>
 
-              <p>Add an extra あ after it</p>
+              <p>${t('longVowel.aRowRule')}</p>
 
               <div class="long-vowel-compare">
 
@@ -5534,11 +5552,11 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">obasan</span>
 
-                  <span class="long-vowel-meaning">aunt</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exObasan')}</span>
 
                 </div>
 
-                <span class="long-vowel-vs">vs</span>
+                <span class="long-vowel-vs">${t('longVowel.longVowelVs')}</span>
 
                 <div class="long-vowel-box long" onclick="playLongVowelAudio('おばあさん.mp3')">
 
@@ -5546,7 +5564,7 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">obaasan</span>
 
-                  <span class="long-vowel-meaning">grandmother</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exObaasan')}</span>
 
                 </div>
 
@@ -5556,9 +5574,9 @@ function renderKanaSubpage1View() {
 
             <div class="level-card n5">
 
-              <h3>Long "い" (i) sound</h3>
+              <h3>${t('longVowel.iRow')}</h3>
 
-              <p>Add an extra い after it</p>
+              <p>${t('longVowel.iRowRule')}</p>
 
               <div class="long-vowel-compare">
 
@@ -5568,11 +5586,11 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">ojisan</span>
 
-                  <span class="long-vowel-meaning">uncle</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exOjisan')}</span>
 
                 </div>
 
-                <span class="long-vowel-vs">vs</span>
+                <span class="long-vowel-vs">${t('longVowel.longVowelVs')}</span>
 
                 <div class="long-vowel-box long" onclick="playLongVowelAudio('おじいさん.mp3')">
 
@@ -5580,7 +5598,7 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">ojiisan</span>
 
-                  <span class="long-vowel-meaning">grandfather</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exOjiisan')}</span>
 
                 </div>
 
@@ -5590,9 +5608,9 @@ function renderKanaSubpage1View() {
 
             <div class="level-card n5">
 
-              <h3>Long "う" (u) sound</h3>
+              <h3>${t('longVowel.uRow')}</h3>
 
-              <p>Add an extra う after it</p>
+              <p>${t('longVowel.uRowRule')}</p>
 
               <div class="long-vowel-compare">
 
@@ -5602,11 +5620,11 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">kuki</span>
 
-                  <span class="long-vowel-meaning">stem</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exKuki')}</span>
 
                 </div>
 
-                <span class="long-vowel-vs">vs</span>
+                <span class="long-vowel-vs">${t('longVowel.longVowelVs')}</span>
 
                 <div class="long-vowel-box long" onclick="playLongVowelAudio('くうき.mp3')">
 
@@ -5614,7 +5632,7 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">kuuki</span>
 
-                  <span class="long-vowel-meaning">air</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exKuuki')}</span>
 
                 </div>
 
@@ -5624,9 +5642,9 @@ function renderKanaSubpage1View() {
 
             <div class="level-card n5">
 
-              <h3>Long "え" (e) sound</h3>
+              <h3>${t('longVowel.eRow')}</h3>
 
-              <p>Usually add い, sometimes え</p>
+              <p>${t('longVowel.eRowRule')}</p>
 
               <div class="long-vowel-compare">
 
@@ -5636,11 +5654,11 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">he</span>
 
-                  <span class="long-vowel-meaning">direction (towards)</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exHe')}</span>
 
                 </div>
 
-                <span class="long-vowel-vs">vs</span>
+                <span class="long-vowel-vs">${t('longVowel.longVowelVs')}</span>
 
                 <div class="long-vowel-box long" onclick="playLongVowelAudio('へえ.mp3')">
 
@@ -5648,7 +5666,7 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">hee</span>
 
-                  <span class="long-vowel-meaning">surprise (dialectal)</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exHee')}</span>
 
                 </div>
 
@@ -5662,11 +5680,11 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">touge</span>
 
-                  <span class="long-vowel-meaning">mountain pass</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exTouge')}</span>
 
                 </div>
 
-                <span class="long-vowel-vs">vs</span>
+                <span class="long-vowel-vs">${t('longVowel.longVowelVs')}</span>
 
                 <div class="long-vowel-box long" onclick="playLongVowelAudio('とうげい.mp3')">
 
@@ -5674,7 +5692,7 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">tougei</span>
 
-                  <span class="long-vowel-meaning">theatrical performance</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exTougei')}</span>
 
                 </div>
 
@@ -5684,9 +5702,9 @@ function renderKanaSubpage1View() {
 
             <div class="level-card n5">
 
-              <h3>Long "お" (o) sound</h3>
+              <h3>${t('longVowel.oRow')}</h3>
 
-              <p>Usually add う, sometimes お</p>
+              <p>${t('longVowel.oRowRule')}</p>
 
               <div class="long-vowel-compare">
 
@@ -5696,11 +5714,11 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">koko</span>
 
-                  <span class="long-vowel-meaning">here</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exKoko')}</span>
 
                 </div>
 
-                <span class="long-vowel-vs">vs</span>
+                <span class="long-vowel-vs">${t('longVowel.longVowelVs')}</span>
 
                 <div class="long-vowel-box long" onclick="playLongVowelAudio('こうこう.mp3')">
 
@@ -5708,7 +5726,7 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">koukou</span>
 
-                  <span class="long-vowel-meaning">high school</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exKoukou')}</span>
 
                 </div>
 
@@ -5722,11 +5740,11 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">omizu</span>
 
-                  <span class="long-vowel-meaning">water</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exMizu')}</span>
 
                 </div>
 
-                <span class="long-vowel-vs">vs</span>
+                <span class="long-vowel-vs">${t('longVowel.longVowelVs')}</span>
 
                 <div class="long-vowel-box long" onclick="playLongVowelAudio('おおみず.mp3')">
 
@@ -5734,7 +5752,7 @@ function renderKanaSubpage1View() {
 
                   <span class="long-vowel-romaji">oomizu</span>
 
-                  <span class="long-vowel-meaning">big water</span>
+                  <span class="long-vowel-meaning">${t('longVowel.exoomizu')}</span>
 
                 </div>
 
@@ -5750,11 +5768,11 @@ function renderKanaSubpage1View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="pen-tool"></i> ${t('kana.subpage1.katakanaTitle')}</h2>
+          <h2><i data-lucide="pen-tool"></i> ${t('longVowel.katakanaTitle')}</h2>
 
           <div class="info-card">
 
-            <p>${t('kana.subpage1.katakanaDesc')}</p>
+            <p>${t('longVowel.katakanaDesc')}</p>
 
           </div>
 
@@ -5764,7 +5782,7 @@ function renderKanaSubpage1View() {
 
               <h3>ケーキ (kēki)</h3>
 
-              <p>From ケ (ke) + ー + キ (ki)</p>
+              <p>${t('longVowel.exKeki')}</p>
 
               <div class="long-vowel-example" onclick="playLongVowelAudio('ケーキ.mp3')">
 
@@ -5772,7 +5790,7 @@ function renderKanaSubpage1View() {
 
                 <span class="romaji">kēki</span>
 
-                <span class="meaning">cake</span>
+                <span class="meaning">${t('longVowel.exKekiWord')}</span>
 
               </div>
 
@@ -5782,7 +5800,7 @@ function renderKanaSubpage1View() {
 
               <h3>キーパー (kīpā)</h3>
 
-              <p>${t('kana.subpage1.exShiito')}</p>
+              <p>${t('longVowel.exShiito')}</p>
 
               <div class="long-vowel-example" onclick="playLongVowelAudio('キーパー.mp3')">
 
@@ -5790,25 +5808,7 @@ function renderKanaSubpage1View() {
 
                 <span class="romaji">kīpā</span>
 
-                <span class="meaning">${t('kana.subpage1.exShiitoWord')}</span>
-
-              </div>
-
-            </div>
-
-            <div class="level-card n5">
-
-              <h3>テレビ (terebi)</h3>
-
-              <p>${t('kana.subpage1.exTerebi')}</p>
-
-              <div class="long-vowel-example" onclick="playLongVowelAudio('テレビ.mp3')">
-
-                <span class="word-example">テレビ</span>
-
-                <span class="romaji">terebi</span>
-
-                <span class="meaning">${t('kana.subpage1.exTerebiWord')}</span>
+                <span class="meaning">${t('longVowel.exShiitoWord')}</span>
 
               </div>
 
@@ -5854,7 +5854,7 @@ function renderKanaSubpage2View() {
 
   state.currentView = "kana-subpage2";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.subpage2Title') || 'Tenten & Maru';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.tentenMaruTitle') || 'Tenten & Maru';
 
 
 
@@ -5870,9 +5870,9 @@ function renderKanaSubpage2View() {
 
       <div class="page-header">
 
-        <h1>${t('kana.subpage2Title')}</h1>
+        <h1>${t('kana.tentenMaruTitle')}</h1>
 
-        <p>${t('kana.subpage2Subtitle')}</p>
+        <p>${t('kana.tentenMaruSubtitle')}</p>
 
       </div>
 
@@ -5882,11 +5882,11 @@ function renderKanaSubpage2View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="info"></i> ${t('kana.subpage2.whatIsTitle')}</h2>
+          <h2><i data-lucide="info"></i> ${t('tentenMaru.whatIsTitle')}</h2>
 
           <div class="info-card">
 
-            <p>${t('kana.subpage2.whatIsDesc')}</p>
+            <p>${t('tentenMaru.whatIsDesc')}</p>
 
           </div>
 
@@ -5896,13 +5896,13 @@ function renderKanaSubpage2View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="circle"></i> ${t('kana.subpage2.dakutenTitle')}</h2>
+          <h2><i data-lucide="circle"></i> ${t('tentenMaru.dakutenTitle')}</h2>
 
           <div class="info-card">
 
-            <p>${t('kana.subpage2.dakutenDesc')}</p>
+            <p>${t('tentenMaru.dakutenDesc')}</p>
 
-            <p style="margin-top: 12px;">${t('kana.subpage2.handakutenDesc')}</p>
+            <p style="margin-top: 12px;">${t('tentenMaru.handakutenDesc')}</p>
 
           </div>
 
@@ -6114,7 +6114,7 @@ function renderKanaSubpage2View() {
 
                 <div class="handakuten-badge">゜</div>
 
-                <h3 class="handakuten-title">${t('kana.subpage2.handakutenTitle')} (Handakuten)</h3>
+                <h3 class="handakuten-title">${t('tentenMaru.handakutenTitle')} (Handakuten)</h3>
 
               </div>
 
@@ -6364,7 +6364,7 @@ function renderKanaSubpage2View() {
 
                 <div class="handakuten-badge">゜</div>
 
-                <h3 class="handakuten-title">${t('kana.subpage2.handakutenTitle')} (Handakuten)</h3>
+                <h3 class="handakuten-title">${t('tentenMaru.handakutenTitle')} (Handakuten)</h3>
 
               </div>
 
@@ -6420,11 +6420,11 @@ function renderKanaSubpage2View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="lightbulb"></i> ${t('kana.subpage2.memoryTrickTitle')}</h2>
+          <h2><i data-lucide="lightbulb"></i> ${t('tentenMaru.memoryTrickTitle')}</h2>
 
           <div class="purpose-cta">
 
-            <p>${t('kana.subpage2.memoryTrickDesc')}</p>
+            <p>${t('tentenMaru.memoryTrickDesc')}</p>
 
           </div>
 
@@ -6466,7 +6466,7 @@ function renderKanaSubpage3View() {
 
   state.currentView = "kana-subpage3";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.subpage3Title') || 'Youon & Sokuon';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kana.smallKanaTitle') || 'Youon & Sokuon';
 
 
 
@@ -6534,9 +6534,9 @@ function renderKanaSubpage3View() {
 
       <div class="page-header">
 
-        <h1>${t('kana.subpage3Title')}</h1>
+        <h1>${t('kana.smallKanaTitle')}</h1>
 
-        <p>${t('kana.subpage3Subtitle')}</p>
+        <p>${t('kana.smallKanaSubtitle')}</p>
 
       </div>
 
@@ -6556,18 +6556,18 @@ function renderKanaSubpage3View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="globe"></i> ${t('kana.subpage3.title')}</h2>
+          <h2><i data-lucide="globe"></i> ${t('smallKana.title')}</h2>
 
           <div class="info-card" style="margin-bottom: 16px;">
 
-            <p>${t('kana.subpage3.desc')}</p>
+            <p>${t('smallKana.desc')}</p>
 
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;">
 
             ${(function() {
-              const examples = t('kana.subpage3.examples');
+              const examples = t('smallKana.examples');
               const triplets = [];
               for (let i = 0; i < examples.length; i += 3) {
                 triplets.push({ kana: examples[i], romaji: examples[i+1], used: examples[i+2] });
@@ -6591,11 +6591,11 @@ function renderKanaSubpage3View() {
 
           <section class="info-section">
 
-            <h2><i data-lucide="zap"></i> ${t('kana.subpage3.sokuonTitle')}</h2>
+            <h2><i data-lucide="zap"></i> ${t('smallKana.sokuonTitle')}</h2>
 
             <div class="info-card" style="margin-bottom: 16px;">
 
-              <p>${t('kana.subpage3.sokuonDetail')}</p>
+              <p>${t('smallKana.sokuonDetail')}</p>
 
             </div>
 
@@ -6725,11 +6725,11 @@ function renderKanaSubpage3View() {
 
           <section class="info-section">
 
-            <h2><i data-lucide="link"></i> ${t('kana.subpage3.yoonSmallTitle')}</h2>
+            <h2><i data-lucide="link"></i> ${t('smallKana.yoonSmallTitle')}</h2>
 
             <div class="info-card">
 
-              <p>${t('kana.subpage3.yoonDesc')}</p>
+              <p>${t('smallKana.yoonDesc')}</p>
 
             </div>
 
@@ -6839,7 +6839,7 @@ function renderKanaSubpage3View() {
 
             <div class="info-card" style="margin-top: 12px;">
 
-              <p>${lang === 'en' ? 'Even though youon is written with two characters, it counts as just 1 mora.' : 'Walaupun youon ditulis dengan dua aksara, ia dikira sebagai 1 mora sahaja.'}</p>
+              <p>${t('smallKana.yoonCountsOneMora')}</p>
 
             </div>
 
@@ -7035,11 +7035,11 @@ function renderKanaSubpage3View() {
 
           <section class="info-section">
 
-            <h2><i data-lucide="zap"></i> ${t('kana.subpage3.sokuonTitle')}</h2>
+            <h2><i data-lucide="zap"></i> ${t('smallKana.sokuonTitle')}</h2>
 
             <div class="info-card" style="margin-bottom: 16px;">
 
-              <p>${t('kana.subpage3.sokuonDetail')}</p>
+              <p>${t('smallKana.sokuonDetail')}</p>
 
             </div>
 
@@ -7191,11 +7191,11 @@ function renderKanaSubpage3View() {
 
           <section class="info-section">
 
-            <h2><i data-lucide="link"></i> ${t('kana.subpage3.yoonSmallTitle')}</h2>
+            <h2><i data-lucide="link"></i> ${t('smallKana.yoonSmallTitle')}</h2>
 
             <div class="info-card">
 
-              <p>${t('kana.subpage3.yoonDesc')}</p>
+              <p>${t('smallKana.yoonDesc')}</p>
 
             </div>
 
@@ -7305,7 +7305,7 @@ function renderKanaSubpage3View() {
 
             <div class="info-card" style="margin-top: 12px;">
 
-              <p>${lang === 'en' ? 'Even though youon is written with two characters, it counts as just 1 mora.' : 'Walaupun youon ditulis dengan dua aksara, ia dikira sebagai 1 mora sahaja.'}</p>
+              <p>${t('smallKana.yoonCountsOneMora')}</p>
 
             </div>
 
@@ -7557,7 +7557,7 @@ function renderKanjiRulesSubpage2View() {
 
   state.currentView = "kanji-rules-subpage2";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kanjiRules.subpage2Title') || 'Radical';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('radical.radicalTitle') || 'Radical';
 
 
 
@@ -7805,9 +7805,9 @@ function renderKanjiRulesSubpage2View() {
 
       <div class="page-header">
 
-        <h1>${t('kanjiRules.subpage2Title') || 'Radical'}</h1>
+        <h1>${t('radical.radicalTitle') || 'Radical'}</h1>
 
-        <p>${t('kanjiRules.subpage2Subtitle') || ''}</p>
+        <p>${t('radical.radicalSubtitle') || ''}</p>
 
       </div>
 
@@ -7817,11 +7817,11 @@ function renderKanjiRulesSubpage2View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="book-open"></i> ${lang === 'en' ? 'Kanji\'s Radical' : 'Radikal Kanji'}</h2>
+          <h2><i data-lucide="book-open"></i> ${t('radical.radicalKanjiRadicalTitle')}</h2>
 
           <div class="info-card" style="margin-bottom: 16px;">
 
-            <p>${lang === 'en' ? 'A kanji radical (called bushu in Japanese) is a foundational building block that makes up a kanji character. They help organize characters in dictionaries and often give clues to a character\'s meaning or sound. Many radicals hint at what a kanji represents. For example, the water radical (氵 or 水) appears in characters related to liquids, like umi (海 - sea) and oyogu (泳 - to swim).' : 'Radikal kanji (dipanggil bushu dalam bahasa Jepun) adalah blok bangunan asas yang membentuk aksara kanji. Ia membantu mengorganisasi aksara dalam kamus dan sering memberi petunjuk tentang makna atau bunyi aksara. Banyak radikal memberikan hint tentang apa yang diwakili oleh kanji. Sebagai contoh, radikal air (氵 atau 水) muncul dalam aksara yang berkaitan dengan cecair, seperti umi (海 - laut) dan oyogu (泳 - berenang).'}</p>
+            <p>${t('radical.radicalKanjiRadicalDesc')}</p>
 
           </div>
 
@@ -7831,7 +7831,7 @@ function renderKanjiRulesSubpage2View() {
 
               <div style="font-size: 40px; line-height: 1;">氵</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'Water Radical' : 'Radikal Air'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${t('radical.radicalWaterRadical')}</div>
 
             </div>
 
@@ -7841,7 +7841,7 @@ function renderKanjiRulesSubpage2View() {
 
               <div style="font-size: 40px; line-height: 1;">海</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary);">${lang === 'en' ? 'sea' : 'laut'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">${t('radical.radicalSea')}</div>
 
             </div>
 
@@ -7849,7 +7849,7 @@ function renderKanjiRulesSubpage2View() {
 
               <div style="font-size: 40px; line-height: 1;">泳</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary);">${lang === 'en' ? 'to swim' : 'berenang'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">${t('radical.radicalToSwim')}</div>
 
             </div>
 
@@ -7857,7 +7857,7 @@ function renderKanjiRulesSubpage2View() {
 
               <div style="font-size: 40px; line-height: 1;">酒</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary);">${lang === 'en' ? 'alcohol' : 'alkohol'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">${t('radical.radicalAlcohol')}</div>
 
             </div>
 
@@ -7865,7 +7865,7 @@ function renderKanjiRulesSubpage2View() {
 
           <div class="info-card" style="margin-top: 16px;">
 
-            <p>${lang === 'en' ? '<strong>Spotting the difference:</strong> Radicals also help you tell similar-looking kanji apart. Take 操, 燥, and 繰 — they all look similar but share the same onyomi そう. The key is the radical: 扌 (hand) for 操 (operate), 火 (fire) for 燥 (dry), and 糸 (thread) for 繰 (spool). Once you know the radical, you know the meaning!' : '<strong>Mengenal pasti perbezaan:</strong> Radikal juga membantu anda membezakan kanji yang kelihatan serupa. Ambil 操, 燥, dan 繰 — kesemuanya kelihatan serupa tetapi berkongsi onyomi そう. Kuncinya ialah radikal: 扌 (tangan) untuk 操 (mengendalikan), 火 (api) untuk 燥 (kering), dan 糸 (benang) untuk 繰 (gulung). Bila anda tahu radikal, anda tahu makna!'}</p>
+            <p>${t('radical.radicalSpotDiffTitle')}</p>
 
           </div>
 
@@ -7877,7 +7877,7 @@ function renderKanjiRulesSubpage2View() {
 
               <div style="font-size: 11px; color: var(--primary); margin-bottom: 4px;">扌 (hand)</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary);">${lang === 'en' ? 'operate' : 'mengendalikan'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">${t('radical.radicalOperate')}</div>
 
             </div>
 
@@ -7887,7 +7887,7 @@ function renderKanjiRulesSubpage2View() {
 
               <div style="font-size: 11px; color: var(--primary); margin-bottom: 4px;">火 (fire)</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary);">${lang === 'en' ? 'dry' : 'kering'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">${t('radical.radicalDry')}</div>
 
             </div>
 
@@ -7897,7 +7897,7 @@ function renderKanjiRulesSubpage2View() {
 
               <div style="font-size: 11px; color: var(--primary); margin-bottom: 4px;">糸 (thread)</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary);">${lang === 'en' ? 'spool' : 'gulung'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">${t('radical.radicalSpool')}</div>
 
             </div>
 
@@ -7909,11 +7909,11 @@ function renderKanjiRulesSubpage2View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="layers"></i> ${lang === 'en' ? 'Common Radicals' : 'Radikal Biasa'}</h2>
+          <h2><i data-lucide="layers"></i> ${t('radical.radicalCommonRadicalsTitle')}</h2>
 
           <div class="info-card" style="margin-bottom: 16px;">
 
-            <p>${lang === 'en' ? 'There are <strong>200+ radicals</strong> in total, but these are the most common ones. Don\'t try to memorize them all. Just focus on <strong>recognizing</strong> what each radical means. Over time, you\'ll naturally pick them up through exposure and practice.' : 'Terdapat <strong>200+ radikal</strong> secara keseluruhan, tetapi ini adalah yang paling biasa. Jangan cuba menghafal semua. Cuma fokus pada <strong>mengenal pasti</strong> makna setiap radikal. Lama-kelamaan, anda akan terbiasa melalui pendedahan dan latihan.'}</p>
+            <p>${t('radical.radicalCommonRadicalsDesc')}</p>
 
           </div>
 
@@ -7929,11 +7929,11 @@ function renderKanjiRulesSubpage2View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="grid-3x3"></i> ${lang === 'en' ? 'Squished Kanji as Radical' : 'Kanji Diremas sebagai Radikal'}</h2>
+          <h2><i data-lucide="grid-3x3"></i> ${t('radical.radicalSquishedKanjiTitle')}</h2>
 
           <div class="info-card" style="margin-bottom: 16px;">
 
-            <p>${lang === 'en' ? 'Some radicals look completely different from the kanji they came from. These are called <strong>squished kanji</strong> (or abbreviated radicals). They were squeezed and simplified over centuries of handwriting to save space. For example, 金 (gold) became 釒, 肉 (meat) became 月 in compounds, and 人 (person) became 亻. Don\'t worry about memorizing which is which — just recognize them as you encounter them.' : 'Sesetengah radikal kelihatan berbeza sepenuhnya dari kanji asal mereka. Ini dipanggil <strong>kanji diremas</strong> (atau radikal disingkat). Ia telah dimampatkan dan dipermudahkan melalui centuries tulisan untuk menjimatkan ruang. Sebagai contoh, 金 (emas) menjadi 釒, 肉 (daging) menjadi 月 dalam kompaun, dan 人 (orang) menjadi 亻. Jangan risau tentang menghafal yang mana — cuma kenali mereka bila anda jumpa.'}</p>
+            <p>${t('radical.radicalSquishedKanjiFullDesc')}</p>
 
           </div>
 
@@ -7951,7 +7951,7 @@ function renderKanjiRulesSubpage2View() {
 
           <i data-lucide="lightbulb" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 6px;"></i>
 
-          ${lang === 'en' ? 'Looks like you want to learn more about radicals. Head to <a href="https://kanjialive.com/214-traditional-kanji-radicals/" target="_blank" style="color: var(--primary); text-decoration: underline;">KanjiALive</a> for a comprehensive list.' : 'Nak belajar lebih lanjut tentang radikal? Layari <a href="https://kanjialive.com/214-traditional-kanji-radicals/" target="_blank" style="color: var(--primary); text-decoration: underline;">KanjiALive</a> untuk senarai lengkap.'}
+          ${t('radical.radicalKanjiALiveTip')}
 
         </div>
 
@@ -7961,7 +7961,7 @@ function renderKanjiRulesSubpage2View() {
 
           <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
 
-          ${lang === 'en' ? 'More tips on Tofugu: Kanji Radicals Mnemonic Method' : 'Lagi tips di Tofugu: Kanji Radicals Mnemonic Method'}
+          ${t('radical.radicalTofuguLink')}
 
         </a>
 
@@ -8001,7 +8001,7 @@ function renderKanjiRulesSubpage1View() {
 
   state.currentView = "kanji-rules-subpage1";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kanjiRules.subpage1Title') || 'Stroke Order';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('strokeOrder.strokeOrderTitle') || 'Stroke Order';
 
 
 
@@ -8121,9 +8121,9 @@ function renderKanjiRulesSubpage1View() {
 
       <div class="page-header">
 
-        <h1>${t('kanjiRules.subpage1Title') || 'Stroke Order'}</h1>
+        <h1>${t('strokeOrder.strokeOrderTitle') || 'Stroke Order'}</h1>
 
-        <p>${t('kanjiRules.subpage1Subtitle') || ''}</p>
+        <p>${t('strokeOrder.strokeOrderSubtitle') || ''}</p>
 
       </div>
 
@@ -8141,7 +8141,7 @@ function renderKanjiRulesSubpage1View() {
 
           <i data-lucide="book-open" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 6px;"></i>
 
-          ${lang === 'en' ? 'Curious about other kanji\'s stroke order? Check out <a href="https://www.tanoshiijapanese.com/dictionary/" target="_blank" style="color: var(--primary); text-decoration: underline;">Tanoshi Japanese</a> for more stroke order diagrams.' : 'Nak lihat animasi susunan loretan? Layari <a href="https://www.tanoshiijapanese.com/dictionary/" target="_blank" style="color: var(--primary); text-decoration: underline;">Tanoshi Japanese</a> untuk gambar rajah susunan loretan interaktif.'}
+          ${t('strokeOrder.strokeOrderTanoshiTip')}
 
         </div>
 
@@ -8181,7 +8181,7 @@ function renderKanjiRulesSubpage3View() {
 
   state.currentView = "kanji-rules-subpage3";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kanjiRules.subpage3Title') || 'Kanji in Names';
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('kanjiInNames.kanjiInNamesTitle') || 'Kanji in Names';
 
 
 
@@ -8197,9 +8197,9 @@ function renderKanjiRulesSubpage3View() {
 
       <div class="page-header">
 
-        <h1>${t('kanjiRules.subpage3Title')}</h1>
+        <h1>${t('kanjiInNames.kanjiInNamesTitle')}</h1>
 
-        <p>${lang === 'en' ? 'Jinmeiyō Kanji and naming conventions' : 'Kanji Jinmeiyō dan konvensyen penamaan'}</p>
+        <p>${t('kanjiInNames.kanjiInNamesJinmeiyōKanjiTitle')} & ${t('kanjiInNames.kanjiInNamesNameReadingsTitle')}</p>
 
       </div>
 
@@ -8209,11 +8209,11 @@ function renderKanjiRulesSubpage3View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="info"></i> ${lang === 'en' ? 'Jinmeiyō Kanji' : 'Kanji Jinmeiyō'}</h2>
+          <h2><i data-lucide="info"></i> ${t('kanjiInNames.kanjiInNamesJinmeiyōKanjiTitle')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'Japanese names often use kanji outside the standard Jōyō list, plus special readings that do not appear anywhere else. This is a separate category called <strong>Jinmeiyō Kanji</strong> (人名用漢字), meaning "kanji for use in personal names," and it exists specifically to give parents more characters to choose from when naming children.' : 'Nama Jepun sering menggunakan kanji di luar senarai Jōyō standard, ditambah bacaan khas yang tidak muncul di tempat lain. Ini adalah kategori berasingan dipanggil <strong>Jinmeiyō Kanji</strong> (人名用漢字), bermaksud "kanji untuk digunakan dalam nama peribadi," dan ia wujud khusus untuk memberikan ibu bapa lebih banyak aksara untuk dipilih apabila menamakan anak-anak.'}</p>
+            <p>${t('kanjiInNames.kanjiInNamesJinmeiyōKanjiDesc')}</p>
 
           </div>
 
@@ -8223,11 +8223,11 @@ function renderKanjiRulesSubpage3View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="alert-circle"></i> ${lang === 'en' ? 'Why Name Readings Are Unpredictable' : 'Mengapa Bacaan Nama Tidak Boleh Dijangka'}</h2>
+          <h2><i data-lucide="alert-circle"></i> ${t('kanjiInNames.kanjiInNamesNameReadingsTitle')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'Name readings can be highly irregular. A kanji that normally reads one way in regular vocabulary might be read completely differently in someone\'s name, since parents have creative freedom in assigning readings. This is why Japanese people are often asked how to read their own name when meeting someone new. Even native speakers cannot always guess correctly from the kanji alone.' : 'Bacaan nama boleh sangat tidak teratur. Kanji yang biasanya dibaca satu cara dalam perkataan biasa mungkin dibaca langsung berbeza dalam nama seseorang, kerana ibu bapa mempunyai kebebasan kreatif dalam memberikan bacaan. Inilah mengapa orang Jepun sering ditanya bagaimana untuk membaca nama mereka sendiri apabila berjumpa orang baru. Bahkan penutur asli tidak selalu boleh meneka dengan tepat dari kanji sahaja.'}</p>
+            <p>${t('kanjiInNames.kanjiInNamesNameReadingsDesc')}</p>
 
           </div>
 
@@ -8237,11 +8237,11 @@ function renderKanjiRulesSubpage3View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="book-open"></i> ${lang === 'en' ? 'Kanji That Exist Almost Only in Names' : 'Kanji Yang Hampir Hanya Wujud dalam Nama'}</h2>
+          <h2><i data-lucide="book-open"></i> ${t('kanjiInNames.kanjiInNamesKanjiOnlyInNamesTitle')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'Some kanji exist almost exclusively in names and rarely appear in everyday vocabulary. Do not be surprised encountering an unfamiliar kanji on a business card or in an address that never shows up in standard study material.' : 'Sesetengah kanji wujud hampir sepenuhnya dalam nama dan jarang muncul dalam perbendaharaan kata harian. Jangan terkejut apabila Jumpa kanji yang tidak dikenali pada kad摸姓名或在地址中，而這些在標準學習資料中永遠不會出現。'}</p>
+            <p>${t('kanjiInNames.kanjiInNamesKanjiOnlyInNamesDesc')}</p>
 
           </div>
 
@@ -8251,7 +8251,7 @@ function renderKanjiRulesSubpage3View() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="users"></i> ${lang === 'en' ? 'Common Japanese Names and Their Kanji' : 'Nama Jepun Biasa dan Kanji Mereka'}</h2>
+          <h2><i data-lucide="users"></i> ${t('kanjiInNames.kanjiInNamesCommonNamesTitle')}</h2>
 
           <div class="levels-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 20px;">
 
@@ -8259,9 +8259,9 @@ function renderKanjiRulesSubpage3View() {
 
               <div style="font-size: 32px; margin-bottom: 8px;">太郎</div>
 
-              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">Tarou</div>
+              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">${t('kanjiInNames.kanjiInNamesTarouLabel')}</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'A classic boy\'s name, literally "big son," historically used for firstborn sons' : 'Nama budak lelaki klasik, secara harfiah "anak besar," secara historis digunakan untuk anak sulung'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${t('kanjiInNames.kanjiInNamesTarouDesc')}</div>
 
             </div>
 
@@ -8269,9 +8269,9 @@ function renderKanjiRulesSubpage3View() {
 
               <div style="font-size: 32px; margin-bottom: 8px;">桜</div>
 
-              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">Sakura</div>
+              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">${t('kanjiInNames.kanjiInNamesSakuraLabel')}</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'A common girl\'s name meaning "cherry blossom," using a kanji everyone recognizes from vocabulary' : 'Nama budak perempuan biasa bermaksud "bunga ceri," menggunakan kanji yang semua orang dikenali dari perkataan'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${t('kanjiInNames.kanjiInNamesSakuraDesc')}</div>
 
             </div>
 
@@ -8279,9 +8279,9 @@ function renderKanjiRulesSubpage3View() {
 
               <div style="font-size: 32px; margin-bottom: 8px;">大輔</div>
 
-              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">Daisuke</div>
+              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">${t('kanjiInNames.kanjiInNamesDaisukeLabel')}</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'A boy\'s name combining "big" (大) and "help/assist" (輔). The second kanji rarely appears outside names.' : 'Nama budak lelaki menggabungkan "besar" (大) dan "bantu" (輔). Kanji kedua jarang muncul di luar nama.'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${t('kanjiInNames.kanjiInNamesDaisukeDesc')}</div>
 
             </div>
 
@@ -8289,9 +8289,9 @@ function renderKanjiRulesSubpage3View() {
 
               <div style="font-size: 32px; margin-bottom: 8px;">美咲</div>
 
-              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">Misaki</div>
+              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">${t('kanjiInNames.kanjiInNamesMisakiLabel')}</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'A girl\'s name combining "beautiful" (美) and "blossom" (咲), a popular modern name choice' : 'Nama budak perempuan menggabungkan "cantik" (美) dan "mekar" (咲), pilihan nama moden yang popular'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${t('kanjiInNames.kanjiInNamesMisakiDesc')}</div>
 
             </div>
 
@@ -8299,9 +8299,9 @@ function renderKanjiRulesSubpage3View() {
 
               <div style="font-size: 32px; margin-bottom: 8px;">健太</div>
 
-              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">Kenta</div>
+              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">${t('kanjiInNames.kanjiInNamesKentaLabel')}</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'Combining "healthy/robust" (健) and "big/thick" (太), common for boys' : 'Menggabungkan "sihat/teguh" (健) dan "besar/tebal" (太), biasa untuk budak lelaki'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${t('kanjiInNames.kanjiInNamesKentaDesc')}</div>
 
             </div>
 
@@ -8309,9 +8309,9 @@ function renderKanjiRulesSubpage3View() {
 
               <div style="font-size: 32px; margin-bottom: 8px;">陽菜</div>
 
-              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">Hina</div>
+              <div style="font-size: 14px; color: var(--primary); font-weight: 600;">${t('kanjiInNames.kanjiInNamesHinaLabel')}</div>
 
-              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${lang === 'en' ? 'Combining "sun/sunshine" (陽) and "greens/vegetable" (菜). A good example of irregular reading!' : 'Menggabungkan "matahari/cahaya" (陽) dan "sayur-sayuran" (菜). Contoh bacaan tidak teratur yang baik!'}</div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${t('kanjiInNames.kanjiInNamesHinaDesc')}</div>
 
             </div>
 
@@ -8325,7 +8325,7 @@ function renderKanjiRulesSubpage3View() {
 
           <a href="/kanji/stroke-order" class="btn-cta-secondary">
 
-            ← ${lang === 'en' ? 'Back: Stroke Order' : 'Kembali: Turutan Lorekan'}
+            ← ${lang === 'en' ? 'Back: Stroke Order' : 'Kembali: Susunan Stroke'}
 
           </a>
 
@@ -8357,33 +8357,47 @@ function renderAnkiView() {
 
   const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('anki.title');
 
-
-
   const appView = document.getElementById("app-view");
 
   const lang = getLanguage();
 
-
-
-  let decksHTML = "";
-
-  ANKI_CONTENT.recommendedDecks.forEach(deck => {
-
-    decksHTML += `
+  const decksHTML = `
 
       <div class="anki-deck-card">
 
         <div class="deck-header">
 
-          <h3>${deck.name}</h3>
+          <h3>${t('anki.deckCore2kName')}</h3>
 
-          <span class="deck-level">${deck.level}</span>
+          <span class="deck-level">${t('anki.deckCore2kLevel')}</span>
 
         </div>
 
-        <p>${deck.description[lang]}</p>
+        <p>${t('anki.deckCore2kDesc')}</p>
 
-        <a href="${deck.url}" target="_blank" rel="noopener" class="resource-link">
+        <a href="https://ankiweb.net/shared/decks/japanese" target="_blank" rel="noopener" class="deck-visit-btn">
+
+          ${t('anki.visit')}
+
+          <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+
+        </a>
+
+      </div>
+
+      <div class="anki-deck-card">
+
+        <div class="deck-header">
+
+          <h3>${t('anki.deckKaishiName')}</h3>
+
+          <span class="deck-level">${t('anki.deckKaishiLevel')}</span>
+
+        </div>
+
+        <p>${t('anki.deckKaishiDesc')}</p>
+
+        <a href="https://ankiweb.net/shared/decks/kaishi" target="_blank" rel="noopener" class="deck-visit-btn">
 
           ${t('anki.visit')}
 
@@ -8395,45 +8409,85 @@ function renderAnkiView() {
 
     `;
 
-  });
 
 
-
-  let stepsHTML = "";
-
-  ANKI_CONTENT.miningSection.steps.forEach(step => {
-
-    let tipHTML = step.tip ? `<p class="step-tip"><em>${step.tip[lang]}</em></p>` : "";
-
-    let exampleHTML = step.example ? `
-
-      <div class="mining-example">
-
-        <div class="example-front"><strong>Front:</strong> ${step.example.front}</div>
-
-        <div class="example-back"><strong>Back:</strong> ${step.example.back}</div>
-
-      </div>
-
-    ` : "";
-
-
-
-    stepsHTML += `
+  const stepsHTML = `
 
       <div class="mining-step">
 
-        <div class="step-number">${step.step}</div>
+        <div class="step-number">1</div>
 
         <div class="step-content">
 
-          <h4>${step.title[lang]}</h4>
+          <h4>${t('anki.step1Title')}</h4>
 
-          <p>${step.description[lang]}</p>
+          <p>${t('anki.step1Desc')}</p>
 
-          ${tipHTML}
+          <p class="step-tip"><em>${t('anki.step1Tip')}</em></p>
 
-          ${exampleHTML}
+        </div>
+
+      </div>
+
+      <div class="mining-step">
+
+        <div class="step-number">2</div>
+
+        <div class="step-content">
+
+          <h4>${t('anki.step2Title')}</h4>
+
+          <p>${t('anki.step2Desc')}</p>
+
+        </div>
+
+      </div>
+
+      <div class="mining-step">
+
+        <div class="step-number">3</div>
+
+        <div class="step-content">
+
+          <h4>${t('anki.step3Title')}</h4>
+
+          <p>${t('anki.step3Desc')}</p>
+
+        </div>
+
+      </div>
+
+      <div class="mining-step">
+
+        <div class="step-number">4</div>
+
+        <div class="step-content">
+
+          <h4>${t('anki.step4Title')}</h4>
+
+          <p>${t('anki.step4Desc')}</p>
+
+          <div class="mining-example">
+
+            <div class="example-front"><strong>${t('anki.step4ExampleFront')}</strong> 彼が遅刻した。</div>
+
+            <div class="example-back"><strong>${t('anki.step4ExampleBack')}</strong> 遅刻 (chikoku) - to be late</div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="mining-step">
+
+        <div class="step-number">5</div>
+
+        <div class="step-content">
+
+          <h4>${t('anki.step5Title')}</h4>
+
+          <p>${t('anki.step5Desc')}</p>
 
         </div>
 
@@ -8441,27 +8495,27 @@ function renderAnkiView() {
 
     `;
 
-  });
 
 
-
-  let toolsHTML = "";
-
-  ANKI_CONTENT.miningSection.recommendedTools.forEach(tool => {
-
-    toolsHTML += `
+  const toolsHTML = `
 
       <div class="mining-tool">
 
-        <h4>${tool.name}</h4>
+        <h4>${t('anki.tool1Name')}</h4>
 
-        <p>${tool.description[lang]}</p>
+        <p>${t('anki.tool1Desc')}</p>
+
+      </div>
+
+      <div class="mining-tool">
+
+        <h4>${t('anki.tool2Name')}</h4>
+
+        <p>${t('anki.tool2Desc')}</p>
 
       </div>
 
     `;
-
-  });
 
 
 
@@ -8485,7 +8539,7 @@ function renderAnkiView() {
 
         <div class="anki-intro-section">
 
-          <p>${ANKI_CONTENT.intro[lang]}</p>
+          <p>${t('anki.intro')}</p>
 
         </div>
 
@@ -8509,9 +8563,9 @@ function renderAnkiView() {
 
             <div style="text-align: center; margin-top: 20px;">
 
-              <img src="references/SRS_Forgetting_Curve.jpg" alt="SRS Forgetting Curve" style="max-width: 100%; height: auto; border-radius: 8px;">
+              <img src="/references/SRS_Forgetting_Curve.jpg" alt="SRS Forgetting Curve" style="max-width: 100%; height: auto; border-radius: 8px;">
 
-              <p style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">${lang === 'en' ? 'The Forgetting Curve: Without review, we lose memories quickly. With spaced repetition (green), we strengthen retention over time.' : 'Lengkung Lupaan: Tanpa ulangkaji, kita lupa memori dengan cepat. Dengan repetisi jarak (hijau), kita kuatkan reten dari masa ke masa.'}</p>
+              <p style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">${t('anki.forgettingCurve')}</p>
 
             </div>
 
@@ -8555,7 +8609,7 @@ function renderAnkiView() {
 
           </h2>
 
-          <p class="mining-intro">${ANKI_CONTENT.miningSection.intro[lang]}</p>
+          <p class="mining-intro">${t('anki.miningIntro')}</p>
 
           <div class="mining-steps">
 
@@ -8571,7 +8625,7 @@ function renderAnkiView() {
 
         <section class="anki-section">
 
-          <h2>Recommended Tools</h2>
+          <h2>${t('anki.recommendedTools')}</h2>
 
           <div class="mining-tools-grid">
 
@@ -8633,7 +8687,7 @@ function renderImmersionView() {
 
         <h1>${t('immersion.title') || 'Comprehensible Input & Immersion'}</h1>
 
-        <p>${lang === 'en' ? 'How to acquire Japanese through immersion and comprehensible input' : 'Bagaimana untuk memperoleh Jepun melalui penjerapan dan input yang boleh difahami'}</p>
+        <p>${t('immersion.subtitle')}</p>
 
       </div>
 
@@ -8643,11 +8697,11 @@ function renderImmersionView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="brain"></i> ${lang === 'en' ? 'What is Comprehensible Input?' : 'Apakah Input Boleh Difahami?'}</h2>
+          <h2><i data-lucide="brain"></i> ${t('immersion.whatIsCI')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? '<strong>Comprehensible input</strong> is language input that you can understand. According to linguist Stephen Krashen, we acquire language when we understand messages, not when we consciously study grammar rules. This is why immersion works: the more you expose yourself to understandable Japanese, the more your brain picks it up naturally.' : '<strong>Input yang boleh difahami</strong> adalah input bahasa yang anda boleh faham. Menurut ahli bahasa Stephen Krashen, kita memperoleh bahasa apabila kita memahami mesej, bukan apabila kita mengkaji peraturan tatabahasa secara sedar. Inilah sebab penjerapan berkesan: lebih anda dedahkan diri kepada Jepun yang boleh difahami, lebih otak anda mengambilnya secara semula jadi.'}</p>
+            <p>${t('immersion.whatIsCIDesc')}</p>
 
           </div>
 
@@ -8657,21 +8711,21 @@ function renderImmersionView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="zap"></i> ${lang === 'en' ? 'The i+1 Theory' : 'Teori i+1'}</h2>
+          <h2><i data-lucide="zap"></i> ${t('immersion.i1Theory')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'Language acquisition happens when you encounter input that is slightly beyond your current level (i+1). If the content is too easy (i+0), you learn nothing new. If it is too hard (i+2 or beyond), you learn nothing either. The sweet spot is when you can grasp the general meaning while encountering new structures naturally.' : 'Perolehan bahasa berlaku apabila anda Jumpa input yang sedikit melebihi tahap semasa anda (i+1). Jika kandungan terlalu mudah (i+0), anda tidak mempelajari apa-apa yang baru. Jika terlalu susah (i+2 atau lebih), anda juga tidak mempelajari apa-apa. Titik manis adalah apabila anda boleh memahami maksud umum sambil encountering struktur baru secara semula jadi.'}</p>
+            <p>${t('immersion.i1TheoryDesc')}</p>
 
             <div class="i1-scale-visual">
 
               <div class="i1-scale-labels">
 
-                <span class="i1-label i1-too-easy">${lang === 'en' ? 'Too Easy' : 'Terlalu Mudah'}</span>
+                <span class="i1-label i1-too-easy">${t('immersion.tooEasy')}</span>
 
-                <span class="i1-label i1-sweet-spot">${lang === 'en' ? 'Sweet Spot' : 'Titik Manis'}</span>
+                <span class="i1-label i1-sweet-spot">${t('immersion.sweetSpot')}</span>
 
-                <span class="i1-label i1-too-hard">${lang === 'en' ? 'Too Hard' : 'Terlalu Susah'}</span>
+                <span class="i1-label i1-too-hard">${t('immersion.tooHard')}</span>
 
               </div>
 
@@ -8707,11 +8761,11 @@ function renderImmersionView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="headphones"></i> ${lang === 'en' ? 'What is Immersion?' : 'Apakah Penjerapan?'}</h2>
+          <h2><i data-lucide="headphones"></i> ${t('immersion.whatIsImmersion')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? '<strong>Immersion</strong> means surrounding yourself with Japanese as much as possible. This does not mean you need to live in Japan. It means changing your environment so Japanese becomes a part of your daily life. The goal is to reach a point where Japanese is the default, not something you have to "switch on" to study.' : '<strong>Penjerapan</strong> bermaksud menyelituri diri anda dengan Jepun sebanyak yang boleh. Ini tidak bermakna anda perlu tinggal di Jepun. Ia bermakna menukar persekitaran anda supaya Jepun menjadi sebahagian daripada kehidupan harian anda. Matlamat adalah untuk mencapai tahap di mana Jepun adalah lalai, bukan sesuatu yang anda perlu "hidupkan" untuk belajar.'}</p>
+            <p>${t('immersion.whatIsImmersionDesc')}</p>
 
           </div>
 
@@ -8721,21 +8775,21 @@ function renderImmersionView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="list"></i> ${lang === 'en' ? 'How to Immerse Effectively' : 'Bagaimana untuk Menjerap dengan Berkesan'}</h2>
+          <h2><i data-lucide="list"></i> ${t('immersion.howToImmerse')}</h2>
 
           <div class="info-card">
 
             <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
 
-              <li style="margin-bottom: 8px;">${lang === 'en' ? '<strong>Watch Japanese media with JP subtitles</strong> - Anime, dramas, and YouTube with JP subtitles let you see words while hearing them, making input clearer' : '<strong>Tonton media Jepun dengan sari kata JP</strong> - Anime, drama, dan YouTube dengan sari kata JP benarkan korang lihat perkataan sambil dengar, menjadikan input lagi jelas'}</li>
+              <li style="margin-bottom: 8px;">${t('immersion.watchWithJP')}</li>
 
-              <li style="margin-bottom: 8px;">${lang === 'en' ? '<strong>Listen to Japanese podcasts and music</strong> - Passive listening while commuting or doing chores helps your ear get used to natural Japanese speed and rhythm' : '<strong>Dengar podcast dan lagu Jepun</strong> - Pendengaran pasif semasa ulang alik atau buat kerja rumah bantu telinga biasa dengan kelajuan dan irama Jepun natural'}</li>
+              <li style="margin-bottom: 8px;">${t('immersion.listenPodcasts')}</li>
 
-              <li style="margin-bottom: 8px;">${lang === 'en' ? '<strong>Read native materials early</strong> - Do not wait until you feel ready. Start with graded readers, manga, or Twitter. You will pick up grammar and vocabulary naturally through context' : '<strong>Baca bahan asli awal</strong> - Jangan tunggu sampai rasa dah sedia. Mula dengan graded readers, manga, atau Twitter. Korang akan pick up tatabahasa dan vocabulary secara natural melalui konteks'}</li>
+              <li style="margin-bottom: 8px;">${t('immersion.readNative')}</li>
 
-              <li style="margin-bottom: 8px;">${lang === 'en' ? '<strong>Think in Japanese</strong> - When you catch yourself thinking, switch to Japanese. Narrate your day, describe what you see around you. It trains your brain to process Japanese directly' : '<strong>Fikir dalam Jepun</strong> - Bila perasan dah berfikir, tukar ke Jepun. Narasikan hari korang, describe apa yang korang tengok. Ia latih otak untuk proses Jepun secara langsung'}</li>
+              <li style="margin-bottom: 8px;">${t('immersion.thinkInJP')}</li>
 
-              <li>${lang === 'en' ? '<strong>Switch your phone and apps to Japanese</strong> - This is not for beginners, but once you are past N5, changing your language settings forces daily interaction with Japanese, even if just through menus and settings' : '<strong>Tukar telefon dan apl kepada Jepun</strong> - Ini bukan untuk pemula, tapi bila dah lepas N5, tukar tetapan bahasa memaksa interaksi harian dengan Jepun, walau cuma melalui menu dan tetapan'}</li>
+              <li>${t('immersion.switchPhone')}</li>
 
             </ul>
 
@@ -8747,13 +8801,13 @@ function renderImmersionView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="target"></i> ${lang === 'en' ? 'Active vs. Passive Immersion' : 'Penjerapan Aktif vs. Pasif'}</h2>
+          <h2><i data-lucide="target"></i> ${t('immersion.activeVsPassive')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? '<strong>Passive immersion</strong> means having Japanese play in the background while you do other things. It helps your ear adapt to the rhythm and sounds, but the acquisition is limited.' : '<strong>Penjerapan pasif</strong> bermaksud mempunyai Jepun bermain di latar belakang semasa anda melakukan perkara lain. Ia membantu telinga anda menyesuaikan dengan irama dan bunyi, tetapi perolehan adalah terhad.'}</p>
+            <p>${t('immersion.passiveImmersion')}</p>
 
-            <p style="margin-top: 12px;">${lang === 'en' ? '<strong>Active immersion</strong> means paying full attention to the content, trying to understand what is happening, looking up unknown words, and making mental connections. This is where real acquisition happens.' : '<strong>Penjerapan aktif</strong> bermaksud memberikan perhatian penuh kepada kandungan, cuba memahami apa yang berlaku, mencari perkataan yang tidak dikenali, dan membuat sambungan mental. Di sinilah perolehan sebenar berlaku.'}</p>
+            <p style="margin-top: 12px;">${t('immersion.activeImmersion')}</p>
 
             <div class="immersion-comparison">
 
@@ -8849,11 +8903,11 @@ function renderImmersionView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="clock"></i> ${lang === 'en' ? 'How Much Immersion Do You Need?' : 'Berapa Banyak Penjerapan yang Anda Perlukan?'}</h2>
+          <h2><i data-lucide="clock"></i> ${t('immersion.howMuchImmersion')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'Many successful learners aim for 2-4 hours of active immersion daily, with passive immersion throughout the rest of the day. Consistency matters more than intensity. Even 30 minutes of focused daily immersion will yield better results than occasional marathon sessions.' : 'Banyak pelajar yang berjaya bertujuan untuk 2-4 jam penjerapan aktif setiap hari, dengan penjerapan pasif sepanjang masa yang tinggal. Konsistensi lebih penting daripada intensiti. Bahkan 30 minit penjerapan harian yang fokus akan memberikan keputusan yang lebih baik daripada sesi maraaton sekali-sekala.'}</p>
+            <p>${t('immersion.howMuchImmersionDesc')}</p>
 
           </div>
 
@@ -8863,19 +8917,19 @@ function renderImmersionView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="lightbulb"></i> ${lang === 'en' ? 'Tips for Beginners' : 'Tip untuk Pemula'}</h2>
+          <h2><i data-lucide="lightbulb"></i> ${t('immersion.tipsForBeginners')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'If you are just starting, do not force yourself to watch raw anime or read native novels immediately. Use these beginner-friendly immersion materials:' : 'Jika anda baru bermula, jangan paksa diri anda untuk menonton anime mentah atau membaca novel asli dengan segera. Gunakan bahan penjerapan mesra pemula ini:'}</p>
+            <p>${t('immersion.tipsForBeginnersDesc')}</p>
 
             <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
 
-              <li style="margin-bottom: 8px;">${lang === 'en' ? '<strong>Anime with Japanese subtitles</strong> - For beginners, try slice-of-life anime like Non Non Biyori or Yuru Camp, designed for children with simpler vocabulary' : '<strong>Anime dengan sari kata Jepun</strong> - Untuk pemula, try anime slice-of-life seperti Non Non Biyori atau Yuru Camp, direka untuk kanak-kanak dengan vocabulary yang lebih simple'}</li>
+              <li style="margin-bottom: 8px;">${t('immersion.tipAnime')}</li>
 
-              <li style="margin-bottom: 8px;">${lang === 'en' ? '<strong>Graded readers</strong> - Books written specifically for JLPT levels with controlled vocabulary' : '<strong>Pembaca bergrad</strong> - Buku yang ditulis khusus untuk tahap JLPT dengan vocab terkawal'}</li>
+              <li style="margin-bottom: 8px;">${t('immersion.tipGradedReaders')}</li>
 
-              <li>${lang === 'en' ? '<strong>Comprehensible Input YouTube channels</strong> - Channels like Japanese Ammo with Misa teach using visual context' : '<strong>Saluran YouTube Input Boleh Difahami</strong> - Saluran seperti Japanese Ammo with Misa mengajar menggunakan konteks visual'}</li>
+              <li>${t('immersion.tipCIYouTube')}</li>
 
             </ul>
 
@@ -8935,7 +8989,7 @@ function renderSelfStudyAIView() {
 
         <h1>${t('selfStudyAI.title') || 'Using AI for Japanese Learning'}</h1>
 
-        <p>${lang === 'en' ? 'How to use AI tools effectively to accelerate your Japanese learning' : 'Bagaimana untuk menggunakan alat AI dengan berkesan untuk mempercepat pembelajaran Jepun anda'}</p>
+        <p>${t('selfStudyAI.subtitle')}</p>
 
       </div>
 
@@ -8945,11 +8999,11 @@ function renderSelfStudyAIView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="bot"></i> ${lang === 'en' ? 'Why Use AI?' : 'Mengapa Gunakan AI?'}</h2>
+          <h2><i data-lucide="bot"></i> ${t('selfStudyAI.whyUseAI')}</h2>
 
           <div class="info-card">
 
-            <p>${lang === 'en' ? 'AI tools like ChatGPT, Claude, and Gemini can act as a personal tutor available 24/7. They can explain grammar in different ways, create custom exercises, have conversations, and give feedback on your writing. The key is knowing how to prompt them effectively.' : 'Alat AI seperti ChatGPT, Claude, dan Gemini boleh bertindak sebagai tutor peribadi yang tersedia 24/7. Mereka boleh terangkan tatabahasa dalam pelbagai cara, buat latihan tersuai, ada perbualan, dan bagi feedback pada penulisan anda. Kuncinya adalah tahu cara untuk prompt mereka dengan berkesan.'}</p>
+            <p>${t('selfStudyAI.whyUseAIDesc')}</p>
 
           </div>
 
@@ -8959,19 +9013,19 @@ function renderSelfStudyAIView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="message-circle"></i> ${lang === 'en' ? 'Best Practices for AI Conversations' : 'Amalan Terbaik untuk Perbualan AI'}</h2>
+          <h2><i data-lucide="message-circle"></i> ${t('selfStudyAI.bestPractices')}</h2>
 
           <div class="info-card">
 
             <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
 
-              <li style="margin-bottom: 8px;">${lang === 'en' ? '<strong>Set the context</strong> - Tell AI your level and goals. "I am N5 level, learning Japanese for 3 months"' : '<strong>Tetapkan konteks</strong> - Beritahu AI tahap dan matlamat anda. "Saya tahap N5, belajar Jepun selama 3 bulan"'}</li>
+              <li style="margin-bottom: 8px;">${t('selfStudyAI.setContext')}</li>
 
-              <li style="margin-bottom: 8px;">${lang === 'en' ? '<strong>Ask for only Japanese responses sometimes</strong> - "Respond only in simple Japanese, I will ask if I do not understand"' : '<strong>Minta jawapan Jepun sahaja kadang-kadang</strong> - "Respon dalam Jepun yang mudah sahaja, saya akan tanya jika tidak faham"'}</li>
+              <li style="margin-bottom: 8px;">${t('selfStudyAI.jpResponses')}</li>
 
-              <li style="margin-bottom: 8px;">${lang === 'en' ? '<strong>Request corrections</strong> - "Correct my Japanese and explain the errors gently"' : '<strong>Minta pembetulan</strong> - "Betulkan Jepun saya dan terangkan kesilapan dengan lembut"'}</li>
+              <li style="margin-bottom: 8px;">${t('selfStudyAI.requestCorrections')}</li>
 
-              <li>${lang === 'en' ? '<strong>Ask for examples</strong> - "Give me 5 example sentences using this grammar pattern"' : '<strong>Minta contoh</strong> - "Berikan saya 5 contoh ayat menggunakan corak tatabahasa ini"'}</li>
+              <li>${t('selfStudyAI.askExamples')}</li>
 
             </ul>
 
@@ -8983,17 +9037,17 @@ function renderSelfStudyAIView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="alert-triangle"></i> ${lang === 'en' ? 'Important Caveats' : 'Amaran Penting'}</h2>
+          <h2><i data-lucide="alert-triangle"></i> ${t('selfStudyAI.importantCaveats')}</h2>
 
           <div class="info-card">
 
             <ul style="margin-top: 12px; padding-left: 20px; line-height: 1.8;">
 
-              <li style="margin-bottom: 8px;">${lang === 'en' ? '<strong>AI can make mistakes</strong> - Always verify important information, especially for kanji readings and nuance' : '<strong>AI boleh buat kesilapan</strong> - Selalu verify maklumat penting, terutama bacaan kanji dan nuansa'}</li>
+              <li style="margin-bottom: 8px;">${t('selfStudyAI.aiMistakes')}</li>
 
-              <li style="margin-bottom: 8px;">${lang === 'en' ? '<strong>AI cannot replace human practice</strong> - You still need to speak with real people for pronunciation and real conversations' : '<strong>AI tidak boleh ganti amalan manusia</strong> - Anda masih perlu bercakap dengan orang sebenar untuk sebutan dan perbualan sebenar'}</li>
+              <li style="margin-bottom: 8px;">${t('selfStudyAI.aiCannotReplace')}</li>
 
-              <li>${lang === 'en' ? '<strong>Do not rely on AI for everything</strong> - Structured textbooks and real immersion are still essential' : '<strong>Jangan bergantung pada AI untuk segalanya</strong> - Buku teks berstruktur dan penjerapan sebenar masih penting'}</li>
+              <li>${t('selfStudyAI.dontRelyOnAI')}</li>
 
             </ul>
 
@@ -9004,11 +9058,11 @@ function renderSelfStudyAIView() {
 
         <section class="info-section">
 
-          <h2><i data-lucide="sparkles"></i> ${lang === 'en' ? 'Recommended AI Prompts' : 'Prompt AI yang Disyorkan'}</h2>
+          <h2><i data-lucide="sparkles"></i> ${t('selfStudyAI.recommendedPrompts')}</h2>
 
           <div class="info-card">
 
-            <p class="prompt-description">${lang === 'en' ? 'Before using the prompt, read it first so that you understand the output. Also, there is a part where you need to change for it to reply based on your level.<br><br>This prompt has been used by me. If you have a better prompt, use the better prompt.' : 'Sebelum menggunakan prompt, baca dulu supaya anda faham output. Juga, ada bahagian yang anda perlu tukar supaya ia reply berdasarkan tahap anda.<br><br>Prompt ini telah digunakan oleh saya. Jika anda ada prompt yang lebih baik, gunakan prompt yang lebih baik.'}</p>
+            <p class="prompt-description">${t('selfStudyAI.promptDescription')}</p>
 
             <div class="prompt-examples">
 
@@ -9016,15 +9070,15 @@ function renderSelfStudyAIView() {
 
                 <div class="prompt-header">
 
-                  <div class="prompt-label">${lang === 'en' ? 'Grammar Explanation' : 'Penjelasan Tatabahasa'}</div>
+                  <div class="prompt-label">${t('selfStudyAI.grammarExplanation')}</div>
 
-                  <span class="prompt-copied">${lang === 'en' ? 'Copied!' : 'Disalin!'}</span>
+                  <span class="prompt-copied">${t('selfStudyAI.copied')}</span>
 
-                  <button class="prompt-copy-btn" type="button">${lang === 'en' ? 'Copy' : 'Salin'}</button>
+                  <button class="prompt-copy-btn" type="button">${t('selfStudyAI.copy')}</button>
 
                 </div>
 
-                <code>${lang === 'en' ? '"Act as a native Japanese language tutor for (Your JLPT Level) candidate.\n\nWhenever I give you a Japanese grammar point provide a breakdown using the following structure:\n\nBrief Introduction: State the grammar point, its JLPT level, and its core function/meaning in 1-2 bold sentences.\n\nStructure Breakdown: Show the conjugation/connection pattern (e.g., Verb-plain + ~からには), explain each component\'s role, then show how they combine logically to create the meaning.\n\nDirect Translations: List equivalent English phrasings or structures.\n\nPopular Usage: Provide categorized bullet points with example sentences, Kanji, Romaji, and English translations - cover at least 2-3 different contexts (formal, casual, written).\n\nMemory Tricks and Nuance Comparisons: Give a vivid mental picture/mnemonic to remember when to use it, and compare it against 2-3 similar grammar points to highlight subtle differences in nuance, formality, or usage restrictions (use a table for this).\n\nCommon Pitfalls: Note 1-2 mistakes learners typically make with this grammar point (e.g., wrong verb form, confusing it with a similar-sounding structure).\n\nTone and Style:\n\nWrite in informal, conversational English (using casual pronouns).\n\nKeep it punchy, visual, and easy to read with Markdown formatting (bolding and bullet points).\n\nAvoid fluff. Jump straight into the explanation."' : '"Terangkan particle の dalam istilah mudah untuk pemula, dengan 3 contoh"'}</code>
+                <code>${t('selfStudyAI.promptGrammar')}</code>
 
               </div>
 
@@ -9032,15 +9086,15 @@ function renderSelfStudyAIView() {
 
                 <div class="prompt-header">
 
-                  <div class="prompt-label">${lang === 'en' ? 'Conversation Practice' : 'Latihan Perbualan'}</div>
+                  <div class="prompt-label">${t('selfStudyAI.conversationPractice')}</div>
 
-                  <span class="prompt-copied">${lang === 'en' ? 'Copied!' : 'Disalin!'}</span>
+                  <span class="prompt-copied">${t('selfStudyAI.copied')}</span>
 
-                  <button class="prompt-copy-btn" type="button">${lang === 'en' ? 'Copy' : 'Salin'}</button>
+                  <button class="prompt-copy-btn" type="button">${t('selfStudyAI.copy')}</button>
 
                 </div>
 
-                <code>${lang === 'en' ? '"Act as a native Japanese conversation partner for (Your JLPT Level) candidates who wants me to actually improve, not just chat.\n\nRespond to me naturally in Japanese first, like a real conversation partner would.\n\nWhen I said "practice complete", respond using the following structure:\n\nCorrection Check: If my message had any errors (grammar, word choice, naturalness, particle usage), point them out clearly. Show my original phrase, the corrected version, and a one line explanation of why. If there were no errors, say so briefly and instead offer a more native or nuanced way I could have phrased it.\n\nLevel Up Suggestion: Offer one alternative expression, idiom, or grammar point I could use next time to sound more natural or advanced in that context.\n\nTone and Style:\n\nSpeak to me like a friend, not a textbook. Casual pronouns and natural phrasing in English.\n\nKeep the Japanese in your Natural Reply, something an actual native speaker would say, not textbook perfect.\n\nAvoid fluff. Jump straight into the reply.\n\nYou start first"' : '"Ada perbualan ringkas dengan saya tentang hari saya. Guna vocabulary N5 sahaja."'}</code>
+                <code>${t('selfStudyAI.promptConversation')}</code>
 
               </div>
 
@@ -9048,15 +9102,15 @@ function renderSelfStudyAIView() {
 
                 <div class="prompt-header">
 
-                  <div class="prompt-label">${lang === 'en' ? 'Writing Correction' : 'Pembetulan Penulisan'}</div>
+                  <div class="prompt-label">${t('selfStudyAI.writingCorrection')}</div>
 
-                  <span class="prompt-copied">${lang === 'en' ? 'Copied!' : 'Disalin!'}</span>
+                  <span class="prompt-copied">${t('selfStudyAI.copied')}</span>
 
-                  <button class="prompt-copy-btn" type="button">${lang === 'en' ? 'Copy' : 'Salin'}</button>
+                  <button class="prompt-copy-btn" type="button">${t('selfStudyAI.copy')}</button>
 
                 </div>
 
-                <code>${lang === 'en' ? '"Act as a native Japanese writing tutor for (Your JLPT Level) candidate.\n\nWhenever I give you a piece of Japanese writing (a sentence, paragraph, or essay), provide a breakdown using the following structure:\n\nOverall Impression: In 1 to 2 bold sentences, tell me what level this writing reads at and whether the meaning came through clearly.\n\nLine by Line Corrections: Go through the text and for each issue, show the original phrase, the corrected phrase, and a short explanation covering what was wrong (grammar, particle, word choice, naturalness, or tone).\n\nNative Rewrite: Provide a full rewritten version of my text the way a native speaker would actually phrase it, keeping my original intent and meaning intact.\n\nStyle and Register Notes: Point out any mismatches in formality or tone (e.g. mixing casual and formal speech, using spoken grammar in written form).\n\nGrowth Focus: Highlight one recurring pattern in my mistakes (if any) that I should focus on improving, with a quick tip or grammar point to study.\n\nTone and Style:\n\nWrite in informal, conversational English with casual pronouns.\n\nBe encouraging but honest. Do not sugarcoat real errors.\n\nKeep it punchy and easy to scan with Markdown formatting (bolding, bullet points, tables where useful for comparing original vs corrected).\n\nAvoid fluff. Jump straight into the breakdown."' : '"Betulkan teks ini: [teks anda]. Terangkan setiap pembetulan."'}</code>
+                <code>${t('selfStudyAI.promptWriting')}</code>
 
               </div>
 
@@ -9064,15 +9118,15 @@ function renderSelfStudyAIView() {
 
                 <div class="prompt-header">
 
-                  <div class="prompt-label">${lang === 'en' ? 'Vocab Definition/Difference' : 'Definisi/Bezakan Vocab'}</div>
+                  <div class="prompt-label">${t('selfStudyAI.vocabDifference')}</div>
 
-                  <span class="prompt-copied">${lang === 'en' ? 'Copied!' : 'Disalin!'}</span>
+                  <span class="prompt-copied">${t('selfStudyAI.copied')}</span>
 
-                  <button class="prompt-copy-btn" type="button">${lang === 'en' ? 'Copy' : 'Salin'}</button>
+                  <button class="prompt-copy-btn" type="button">${t('selfStudyAI.copy')}</button>
 
                 </div>
 
-                <code>${lang === 'en' ? '"Act as a native Japanese language tutor for (Your JLPT Level) candidates.\n\nWhenever I give you a Japanese vocabulary word or a comparison between similar words, provide a breakdown using the following structure:\n\nBrief Introduction: State the word, its JLPT level, and its core English meaning in 1-2 bold sentences.\n\nKanji Breakdown: Break down each individual kanji, explain its core visual meaning and provide another common word containing it, then show how they combine logically.\n\nDirect Translations: List equivalent terms in English.\n\nPopular Usage: Provide categorized bullet points with common collocations/phrases, Kanji, Romaji, and English translations.\n\nMemory Tricks and Nuance Comparisons: Give a vivid mental picture/mnemonic to remember the word, and compare it against 2-3 similar Japanese words to highlight subtle differences in usage.\n\nTone and Style:\n\nWrite in informal, conversational English (using casual pronouns).\n\nKeep it punchy, visual, and easy to read with Markdown formatting (bolding, bullet points, and tables when comparing words).\n\nAvoid fluff. Jump straight into the explanation."' : '"Buat 10 kad imbasan untuk vocabulary N5 tentang makanan dan minuman"'}</code>
+                <code>${t('selfStudyAI.promptVocab')}</code>
 
               </div>
 

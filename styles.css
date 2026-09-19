@@ -7162,6 +7162,29 @@ section.info-content:last-child {
   margin-bottom: 12px;
 }
 
+.deck-visit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: var(--primary);
+  color: var(--on-primary);
+  border-radius: var(--border-radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+}
+
+.deck-visit-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.deck-visit-btn svg {
+  flex-shrink: 0;
+}
+
 .mining-intro {
   font-size: 15px;
   color: var(--text-secondary);

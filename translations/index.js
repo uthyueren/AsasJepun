@@ -54,24 +54,41 @@ export function initI18n() {
 }
 
 export function t(keyPath, lang = currentLang) {
+  // Handle keys with dots (like "Jisho.org") by trying literal key lookup first
   const keys = keyPath.split('.');
   let value = translations[lang];
-  for (const key of keys) {
+
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
     if (value && typeof value === 'object' && key in value) {
       value = value[key];
-    } else if (lang !== 'en') {
-      value = translations.en;
-      for (const k of keys) {
-        if (value && typeof value === 'object' && k in value) {
-          value = value[k];
-        } else {
-          console.warn(`Translation missing: ${keyPath}`);
-          return keyPath;
-        }
-      }
     } else {
-      console.warn(`Translation missing: ${keyPath}`);
-      return keyPath;
+      // Key not found - try remaining keys joined with dot as literal key
+      const remainingKey = keys.slice(i).join('.');
+      if (value && typeof value === 'object' && remainingKey in value) {
+        value = value[remainingKey];
+      } else if (lang !== 'en') {
+        // Fallback to English
+        value = translations.en;
+        for (let j = 0; j < keys.length; j++) {
+          const k = keys[j];
+          if (value && typeof value === 'object' && k in value) {
+            value = value[k];
+          } else {
+            const fallbackKey = keys.slice(j).join('.');
+            if (value && typeof value === 'object' && fallbackKey in value) {
+              value = value[fallbackKey];
+            } else {
+              console.warn(`Translation missing: ${keyPath}`);
+              return keyPath;
+            }
+          }
+        }
+      } else {
+        console.warn(`Translation missing: ${keyPath}`);
+        return keyPath;
+      }
+      break;
     }
   }
   return value || keyPath;
