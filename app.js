@@ -8009,114 +8009,65 @@ function renderKanjiRulesSubpage1View() {
 
   const lang = getLanguage();
 
+  const patterns = [
+    { pattern: "一", meaningKey: "pattern0Meaning" },
+    { pattern: "丨", meaningKey: "pattern1Meaning" },
+    { pattern: "丶", meaningKey: "pattern2Meaning" },
+    { pattern: "ノ", meaningKey: "pattern3Meaning" },
+    { pattern: "口", meaningKey: "pattern4Meaning" },
+    { pattern: "亻", meaningKey: "pattern5Meaning" },
+    { pattern: "氵", meaningKey: "pattern6Meaning" },
+    { pattern: "扌", meaningKey: "pattern7Meaning" }
+  ];
 
+  const directions = [
+    { num: 1, key: "direction1" },
+    { num: 2, key: "direction2" },
+    { num: 3, key: "direction3" },
+    { num: 4, key: "direction4" }
+  ];
 
-  let sectionsHTML = "";
+  const rules = [
+    { nameKey: "rule0Name", descKey: "rule0Desc", example: "十 (juu) - ten: horizontal first, then vertical", svg: `<div style="display: flex; gap: 16px; align-items: center; margin-top: 12px;"><img src="/references/十 stroke order.jpg" alt="十 stroke order" style="height: 120px; width: auto; border-radius: 8px;"></div>` },
+    { nameKey: "rule1Name", descKey: "rule1Desc", example: "川 (kawa) - river: three vertical strokes left to right", svg: `<div style="display: flex; gap: 16px; align-items: center; margin-top: 12px;"><img src="/references/川 stroke order.jpg" alt="川 stroke order" style="height: 120px; width: auto; border-radius: 8px;"></div>` },
+    { nameKey: "rule2Name", descKey: "rule2Desc", example: "国 (kuni) - country: outside box first, then inside contents", svg: `<div style="display: flex; gap: 16px; align-items: center; margin-top: 12px;"><img src="/references/国 stroke order.jpg" alt="国 stroke order" style="height: 120px; width: auto; border-radius: 8px;"></div>` }
+  ];
 
-  KANJI_STROKE_RULES.sections.forEach((section) => {
-
-    let rulesHTML = "";
-
-
-
-    if (section.rules) {
-
-      section.rules.forEach(rule => {
-
-        rulesHTML += `
-
-          <div class="stroke-rule-card">
-
-            <h4>${rule.name[lang]}</h4>
-
-            <p>${rule.description[lang]}</p>
-
-            <code>${rule.example}</code>
-
-            ${rule.svg || ''}
-
-          </div>
-
-        `;
-
-      });
-
-    }
-
-
-
-    if (section.patterns) {
-
-      rulesHTML = '<div class="stroke-patterns-grid">';
-
-      section.patterns.forEach(p => {
-
-        rulesHTML += `
-
-          <div class="stroke-pattern-item">
-
-            <div class="pattern-char">${p.pattern}</div>
-
-            <div class="pattern-meaning">${p.meaning[lang]}</div>
-
-          </div>
-
-        `;
-
-      });
-
-      rulesHTML += '</div>';
-
-    }
-
-
-
-    if (section.directions) {
-
-      rulesHTML = '<div class="direction-rules-list">';
-
-      section.directions.forEach(d => {
-
-        rulesHTML += `
-
-          <div class="direction-rule">
-
-            <span class="direction-num">${d.num}</span>
-
-            <span>${d.rule[lang]}</span>
-
-          </div>
-
-        `;
-
-      });
-
-      rulesHTML += '</div>';
-
-    }
-
-
-
-    sectionsHTML += `
-
-      <div class="kanji-rules-section">
-
-        <h2>${section.title[lang]}</h2>
-
-        <p class="section-intro">${section.content[lang]}</p>
-
-        <div class="rules-content">${rulesHTML}</div>
-
+  let patternsHTML = '<div class="stroke-patterns-grid">';
+  patterns.forEach(p => {
+    patternsHTML += `
+      <div class="stroke-pattern-item">
+        <div class="pattern-char">${p.pattern}</div>
+        <div class="pattern-meaning">${t('strokeOrder.' + p.meaningKey)}</div>
       </div>
-
     `;
+  });
+  patternsHTML += '</div>';
 
+  let directionsHTML = '<div class="direction-rules-list">';
+  directions.forEach(d => {
+    directionsHTML += `
+      <div class="direction-rule">
+        <span class="direction-num">${d.num}</span>
+        <span>${t('strokeOrder.' + d.key)}</span>
+      </div>
+    `;
+  });
+  directionsHTML += '</div>';
+
+  let rulesHTML = '';
+  rules.forEach(r => {
+    rulesHTML += `
+      <div class="stroke-rule-card">
+        <h4>${t('strokeOrder.' + r.nameKey)}</h4>
+        <p>${t('strokeOrder.' + r.descKey)}</p>
+        <code>${r.example}</code>
+        ${r.svg}
+      </div>
+    `;
   });
 
-
-
   appView.innerHTML = `
-
     <div class="fade-in">
 
       <div class="page-header">
@@ -8129,11 +8080,48 @@ function renderKanjiRulesSubpage1View() {
 
       <div class="info-content">
 
-        ${sectionsHTML}
+        <div class="kanji-rules-section">
+          <h2>${t('strokeOrder.whyStrokeOrderMattersTitle')}</h2>
+          <p class="section-intro">${t('strokeOrder.whyStrokeOrderMattersContent')}</p>
+          <div class="rules-content">
+            <div class="stroke-rule-card">
+              <h4>${t('strokeOrder.reason0Title')}</h4>
+              <p>${t('strokeOrder.reason0Desc')}</p>
+            </div>
+            <div class="stroke-rule-card">
+              <h4>${t('strokeOrder.reason1Title')}</h4>
+              <p>${t('strokeOrder.reason1Desc')}</p>
+            </div>
+            <div class="stroke-rule-card">
+              <h4>${t('strokeOrder.reason2Title')}</h4>
+              <p>${t('strokeOrder.reason2Desc')}</p>
+            </div>
+            <div class="stroke-rule-card">
+              <h4>${t('strokeOrder.reason3Title')}</h4>
+              <p>${t('strokeOrder.reason3Desc')}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="kanji-rules-section">
+          <h2>${t('strokeOrder.commonStrokePatternsTitle')}</h2>
+          <p class="section-intro">${t('strokeOrder.commonStrokePatternsContent')}</p>
+          <div class="rules-content">${patternsHTML}</div>
+        </div>
+
+        <div class="kanji-rules-section">
+          <h2>${t('strokeOrder.strokeDirectionBasicsTitle')}</h2>
+          <p class="section-intro">${t('strokeOrder.strokeDirectionBasicsContent')}</p>
+          <div class="rules-content">${directionsHTML}</div>
+        </div>
+
+        <div class="kanji-rules-section">
+          <h2>${t('strokeOrder.threePrinciplesTitle')}</h2>
+          <p class="section-intro">${t('strokeOrder.threePrinciplesContent')}</p>
+          <div class="rules-content">${rulesHTML}</div>
+        </div>
 
       </div>
-
-
 
       <div class="info-content">
 
@@ -8144,8 +8132,6 @@ function renderKanjiRulesSubpage1View() {
           ${t('strokeOrder.strokeOrderTanoshiTip')}
 
         </div>
-
-
 
         <div style="margin-top: 24px; display: flex; justify-content: space-between;">
 
