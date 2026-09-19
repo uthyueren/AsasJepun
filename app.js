@@ -10390,7 +10390,6 @@ function renderAdminSignupsList(container, signups) {
 }
 
 window.fetchSignupDetails = async function(id) {
-  alert('Fetching: ' + id);
   const { data, error } = await supabase
     .from('class_signups')
     .select('*')
@@ -10398,11 +10397,9 @@ window.fetchSignupDetails = async function(id) {
     .single();
 
   if (error || !data) {
-    alert('Error fetching: ' + (error?.message || 'no data'));
     return;
   }
 
-  alert('Got: ' + data.name);
   showSignupDetails(data);
 };
 
@@ -10419,7 +10416,6 @@ document.addEventListener('click', async (e) => {
 });
 
 function showSignupDetails(signup) {
-  alert('Showing details for: ' + signup.name);
   const formatArray = (arr) => Array.isArray(arr) && arr.length ? arr.join(', ') : '-';
   const formatText = (val) => val || '-';
 
@@ -10457,8 +10453,6 @@ function showSignupDetails(signup) {
     </div>
   `;
   document.body.insertAdjacentHTML('beforeend', html);
-  const modal = document.getElementById('signup-details-modal');
-  alert('Modal exists: ' + !!modal + ' display: ' + (modal ? modal.style.display : 'none'));
 }
 
 
