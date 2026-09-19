@@ -2809,7 +2809,7 @@ async function handleBlogCultureRoute(route) {
           <p data-i18n="blogCulture.subtitle">${t('blogCulture.subtitle')}</p>
         </div>
         <div class="empty-state">
-          <img src="images/oops-meme.webp" alt="No posts yet">
+          <img src="/images/oops-meme.webp" alt="No posts yet">
           <p>${lang === 'my' ? 'Tiada blog post... lagi!' : "There's no blog post... yet!"}</p>
         </div>
       </div>
