@@ -10376,7 +10376,7 @@ function renderAdminSignupsList(container, signups) {
 
         <div class="admin-signup-actions">
 
-          <button class="btn-view-signup" onclick="showSignupDetailsFromJson('${signupJson}')">${'View Details'}</button>
+          <button class="btn-view-signup" onclick="fetchSignupDetails('${signup.id}')">${'View Details'}</button>
 
           <button class="btn-delete-signup" data-id="${signup.id}">${'Delete'}</button>
 
@@ -10389,16 +10389,19 @@ function renderAdminSignupsList(container, signups) {
   }).join('');
 }
 
-window.showSignupDetailsFromJson = function(jsonStr) {
-  console.log('showSignupDetailsFromJson called with:', jsonStr);
-  try {
-    const signup = JSON.parse(decodeURIComponent(jsonStr));
-    alert('Parsed signup: ' + signup.name);
-    showSignupDetails(signup);
-  } catch (e) {
-    console.error('Error parsing signup:', e);
-    alert('Error: ' + e);
+window.fetchSignupDetails = async function(id) {
+  const { data, error } = await supabase
+    .from('class_signups')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error || !data) {
+    alert('Error fetching details');
+    return;
   }
+
+  showSignupDetails(data);
 };
 
 // Delete button handler - using event delegation
@@ -10414,7 +10417,6 @@ document.addEventListener('click', async (e) => {
 });
 
 function showSignupDetails(signup) {
-  alert('showSignupDetails called for: ' + signup.name);
   const formatArray = (arr) => Array.isArray(arr) && arr.length ? arr.join(', ') : '-';
   const formatText = (val) => val || '-';
 
