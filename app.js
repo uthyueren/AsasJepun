@@ -2778,6 +2778,7 @@ async function handleBlogCultureRoute(route) {
     const { data } = await supabase
       .from('blog_posts')
       .select('*')
+      .eq('published', true)
       .order('created_at', { ascending: false });
 
     if (data) {
@@ -2964,6 +2965,7 @@ async function renderCultureLessonView(slug) {
       .from('blog_posts')
       .select('*')
       .eq('slug', slug)
+      .eq('published', true)
       .maybeSingle();
 
     if (!error && data) {
@@ -3219,6 +3221,7 @@ async function renderBlogArticleView(slug) {
       .from('blog_posts')
       .select('*')
       .eq('slug', slug)
+      .eq('published', true)
       .maybeSingle();
 
     if (!error && data) {
@@ -10218,13 +10221,16 @@ function renderAdminPostsList(container, posts) {
 
 
 
+    const isPublished = post.published !== false;
+    const publishLabel = isPublished ? 'Unpublish' : 'Publish';
+
     return `
 
       <div class="admin-post-item" data-id="${post.id}" data-slug="${post.slug}">
 
         <div class="admin-post-info">
 
-          <h3>${title}</h3>
+          <h3>${title} ${!isPublished ? '<span style="opacity:0.5;">(Hidden)</span>' : ''}</h3>
 
           <p>${excerpt.substring(0, 100)}${excerpt.length > 100 ? '...' : ''}</p>
 
@@ -10241,6 +10247,8 @@ function renderAdminPostsList(container, posts) {
         </div>
 
         <div class="admin-post-actions">
+
+          ${!post.isLocal ? `<button class="btn-toggle-publish" data-id="${post.id}" data-published="${!isPublished}">${publishLabel}</button>` : ''}
 
           <button class="btn-edit-post" data-id="${post.id}">${'Edit'}</button>
 
@@ -10291,6 +10299,31 @@ function renderAdminPostsList(container, posts) {
 
   });
 
+  container.querySelectorAll('.btn-toggle-publish').forEach(btn => {
+
+    btn.addEventListener('click', async () => {
+
+      const id = btn.dataset.id;
+      const published = btn.dataset.published === 'true';
+      await togglePublishPost(id, published);
+
+    });
+
+  });
+
+}
+
+async function togglePublishPost(id, published) {
+  try {
+    const result = await adminAction('toggle_publish', { id, published });
+    if (result.error) {
+      alert('Error: ' + result.error);
+    } else {
+      await loadAdminPosts();
+    }
+  } catch (e) {
+    alert('Error toggling publish status');
+  }
 }
 
 

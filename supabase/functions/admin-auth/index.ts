@@ -62,6 +62,17 @@ serve(async (req) => {
         result = error ? { error: error.message } : { success: true };
         break;
       }
+      case 'toggle_publish': {
+        const { id, published } = data;
+        const { data: resultData, error } = await supabase
+          .from('blog_posts')
+          .update({ published })
+          .eq('id', id)
+          .select()
+          .single();
+        result = error ? { error: error.message } : { success: true, post: resultData };
+        break;
+      }
       default:
         result = { error: 'Unknown action' };
     }
