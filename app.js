@@ -10419,82 +10419,101 @@ function showSignupDetails(signup) {
   const formatArray = (arr) => Array.isArray(arr) && arr.length ? arr.join(', ') : '-';
   const formatText = (val) => val || '-';
 
-  const section = (title, content) => `
-    <div style="margin-bottom:20px;">
-      <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin:0 0 10px 0;padding-bottom:6px;border-bottom:1px solid var(--border-color);">${title}</h3>
+  const card = (title, icon, content) => `
+    <div style="background:var(--bg-primary);border-radius:12px;padding:16px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span style="font-size:16px;">${icon}</span>
+        <span style="font-weight:600;font-size:14px;">${title}</span>
+      </div>
       <div style="display:grid;gap:8px;">${content}</div>
     </div>
   `;
 
-  const row = (label, value) => `
-    <div style="display:flex;gap:12px;align-items:flex-start;">
-      <span style="font-weight:600;min-width:130px;color:var(--text-secondary);">${label}:</span>
-      <span style="flex:1;">${value}</span>
+  const field = (label, value) => value ? `
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:4px 0;">
+      <span style="color:var(--text-secondary);font-size:13px;">${label}</span>
+      <span style="text-align:right;max-width:60%;font-size:13px;">${value}</span>
     </div>
-  `;
+  ` : '';
 
   const html = `
-    <div id="signup-details-modal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;overflow:auto;padding:20px;">
-      <div style="background:var(--bg-secondary);border-radius:16px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 28px;border-bottom:1px solid var(--border-color);position:sticky;top:0;background:var(--bg-secondary);z-index:1;">
-          <h2 style="margin:0;font-size:22px;">${signup.name}</h2>
-          <button onclick="document.getElementById('signup-details-modal').remove()" style="background:none;border:none;color:var(--text-secondary);font-size:32px;cursor:pointer;padding:0;line-height:1;">&times;</button>
-        </div>
-        <div style="padding:28px;">
-          ${section('Info Pelajar', `
-            ${row('Umur', formatText(signup.age))}
-            ${row('Phone', formatText(signup.phone))}
-            ${row('Tahap', formatText(signup.level))}
-          `)}
-
-          ${section('Keutamaan Kelas', `
-            ${row('Jenis Kelas', signup.class_type === '1on1' ? '1 on 1 (RM200/bulan)' : 'Berkumpulan (RM150/bulan)')}
-            ${row('Jadual', formatArray(signup.schedule))}
-          `)}
-
-          ${section('Pengalaman Jepun', `
-            ${row('Pernah Belajar', formatText(signup.studied_before))}
-            ${row('JLPT Taken', formatText(signup.jlpt_taken))}
-            ${row('JLPT Level', formatText(signup.jlpt_level))}
-            ${row('Pendedahan', formatArray(signup.exposure))}
-          `)}
-
-          ${section('Matlamat & Motivasi', `
-            ${row('Kenapa Jepun', formatArray(signup.why_japanese))}
-            ${signup.why_japanese_other ? row('Lain-lain', formatText(signup.why_japanese_other)) : ''}
-            ${row('Goal', formatText(signup.goal))}
-            ${signup.goal_other ? row('Lain-lain', formatText(signup.goal_other)) : ''}
-          `)}
-
-          ${section('Tabiat Belajar', `
-            ${row('Jam/Minggu', formatText(signup.study_hours))}
-            ${row('Aktiviti', formatArray(signup.activities))}
-          `)}
-
-          ${section('Pengalaman Lalu', `
-            ${row('Quit Before', formatText(signup.quit_before))}
-            ${row('Sebab Quit', formatArray(signup.quit_reason))}
-            ${signup.quit_reason_other ? row('Lain-lain', formatText(signup.quit_reason_other)) : ''}
-          `)}
-
-          ${section('Harapan & Cabaran', `
-            ${row('Cabaran', formatArray(signup.challenges))}
-            ${signup.challenges_other ? row('Lain-lain', formatText(signup.challenges_other)) : ''}
-            ${row('Expectations', formatArray(signup.expectations))}
-            ${signup.expectations_other ? row('Lain-lain', formatText(signup.expectations_other)) : ''}
-          `)}
-
-          ${section('Sumber', `
-            ${row('Referral', formatText(signup.referral))}
-            ${signup.referral_other ? row('Lain-lain', formatText(signup.referral_other)) : ''}
-          `)}
-
-          ${signup.questions ? section('Soalan', `<div style="background:var(--bg-primary);padding:16px;border-radius:8px;white-space:pre-wrap;">${formatText(signup.questions)}</div>`) : ''}
-          ${signup.notes ? section('Notes', `<div style="background:var(--bg-primary);padding:16px;border-radius:8px;white-space:pre-wrap;">${formatText(signup.notes)}</div>`) : ''}
-
-          <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border-color);text-align:center;">
-            <p style="color:var(--text-secondary);font-size:13px;margin:0;">Submitted: ${new Date(signup.created_at).toLocaleString()}</p>
+    <div id="signup-details-modal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.8);z-index:99999;display:flex;align-items:center;justify-content:center;overflow:auto;padding:20px;">
+      <div style="background:var(--bg-secondary);border-radius:20px;max-width:550px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,0.5);">
+        <div style="padding:24px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg-secondary);border-radius:20px 20px 0 0;">
+          <div>
+            <h2 style="margin:0;font-size:22px;font-weight:700;">${signup.name}</h2>
+            <p style="margin:4px 0 0;color:var(--text-secondary);font-size:13px;">${new Date(signup.created_at).toLocaleString()}</p>
           </div>
+          <button onclick="document.getElementById('signup-details-modal').remove()" style="background:var(--bg-primary);border:none;color:var(--text-secondary);font-size:24px;cursor:pointer;padding:8px 14px;border-radius:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">&times;</button>
+        </div>
+        <div style="padding:20px;">
+          ${card('Info Pelajar', '👤', `
+            ${field('Umur', formatText(signup.age))}
+            ${field('Phone', formatText(signup.phone))}
+            ${field('Tahap', formatText(signup.level))}
+          `)}
+
+          ${card('Kelas', '📚', `
+            ${field('Jenis', signup.class_type === '1on1' ? '1 on 1 — RM200/bulan' : 'Berkumpulan — RM150/bulan')}
+            ${field('Jadual', formatArray(signup.schedule))}
+          `)}
+
+          ${card('Pengalaman Jepun', '🎌', `
+            ${field('Pernah Belajar', formatText(signup.studied_before))}
+            ${field('JLPT Taken', formatText(signup.jlpt_taken))}
+            ${field('JLPT Level', formatText(signup.jlpt_level))}
+            ${field('Pendedahan', formatArray(signup.exposure))}
+          `)}
+
+          ${card('Motivasi', '🎯', `
+            ${field('Kenapa Jepun', formatArray(signup.why_japanese))}
+            ${signup.why_japanese_other ? field('Lain-lain', formatText(signup.why_japanese_other)) : ''}
+            ${field('Goal', formatText(signup.goal))}
+            ${signup.goal_other ? field('Goal Lain', formatText(signup.goal_other)) : ''}
+          `)}
+
+          ${card('Tabiat Belajar', '⏰', `
+            ${field('Jam/Minggu', formatText(signup.study_hours))}
+            ${field('Aktiviti', formatArray(signup.activities))}
+          `)}
+
+          ${card('Pengalaman Lalu', '📖', `
+            ${field('Quit Before', formatText(signup.quit_before))}
+            ${field('Sebab Quit', formatArray(signup.quit_reason))}
+            ${signup.quit_reason_other ? field('Sebab Lain', formatText(signup.quit_reason_other)) : ''}
+          `)}
+
+          ${card('Cabaran & Harapan', '💪', `
+            ${field('Cabaran', formatArray(signup.challenges))}
+            ${signup.challenges_other ? field('Cabaran Lain', formatText(signup.challenges_other)) : ''}
+            ${field('Expectations', formatArray(signup.expectations))}
+            ${signup.expectations_other ? field('Harapan Lain', formatText(signup.expectations_other)) : ''}
+          `)}
+
+          ${card('Sumber', '🔗', `
+            ${field('Referral', formatText(signup.referral))}
+            ${signup.referral_other ? field('Sumber Lain', formatText(signup.referral_other)) : ''}
+          `)}
+
+          ${signup.questions ? `
+            <div style="background:var(--bg-primary);border-radius:12px;padding:16px;margin-bottom:12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                <span style="font-size:16px;">❓</span>
+                <span style="font-weight:600;font-size:14px;">Soalan</span>
+              </div>
+              <div style="white-space:pre-wrap;line-height:1.6;font-size:14px;">${formatText(signup.questions)}</div>
+            </div>
+          ` : ''}
+
+          ${signup.notes ? `
+            <div style="background:var(--bg-primary);border-radius:12px;padding:16px;margin-bottom:12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                <span style="font-size:16px;">📝</span>
+                <span style="font-weight:600;font-size:14px;">Notes</span>
+              </div>
+              <div style="white-space:pre-wrap;line-height:1.6;font-size:14px;">${formatText(signup.notes)}</div>
+            </div>
+          ` : ''}
         </div>
       </div>
     </div>
