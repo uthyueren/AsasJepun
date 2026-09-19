@@ -2801,43 +2801,58 @@ async function handleBlogCultureRoute(route) {
 
   const allPosts = [...supabasePosts, ...staticPosts];
 
-  appView.innerHTML = `
-    <div class="fade-in">
-      <div class="page-header">
-        <h1 data-i18n="blogCulture.title">${t('blogCulture.title')}</h1>
-        <p data-i18n="blogCulture.subtitle">${t('blogCulture.subtitle')}</p>
+  if (allPosts.length === 0) {
+    appView.innerHTML = `
+      <div class="fade-in">
+        <div class="page-header">
+          <h1 data-i18n="blogCulture.title">${t('blogCulture.title')}</h1>
+          <p data-i18n="blogCulture.subtitle">${t('blogCulture.subtitle')}</p>
+        </div>
+        <div class="empty-state">
+          <img src="images/oops-meme.webp" alt="No posts yet">
+          <p>${lang === 'my' ? 'Tiada blog post... lagi!' : "There's no blog post... yet!"}</p>
+        </div>
       </div>
+    `;
+  } else {
+    appView.innerHTML = `
+      <div class="fade-in">
+        <div class="page-header">
+          <h1 data-i18n="blogCulture.title">${t('blogCulture.title')}</h1>
+          <p data-i18n="blogCulture.subtitle">${t('blogCulture.subtitle')}</p>
+        </div>
 
-      <div class="blog-culture-grid">
-        ${allPosts.map(item => `
-          <div class="blog-culture-card blog-card-${item.type || 'blog'}" data-slug="${item.slug}" data-type="${item.type || 'blog'}">
-            <div class="blog-card-accent"></div>
-            <div class="blog-card-body">
-              <div class="blog-card-top">
-                <span class="blog-culture-type-badge ${item.type || 'blog'}">${item.type === 'culture' ? t('blogCulture.culture') : t('blogCulture.blog')}</span>
-                ${item.tags && item.tags.length ? `<div class="blog-card-tags">${item.tags.slice(0,3).map(tag => `<span class="blog-tag">${tag}</span>`).join('')}</div>` : ''}
-              </div>
-              <h3>${(item.title || {})[lang] || item.title_en || ''}</h3>
-              <p>${(item.excerpt || {})[lang] || (item.description || {})[lang] || item.excerpt_en || ''}</p>
-              <div class="blog-card-footer">
-                ${item.publishDate ? `<span class="blog-card-date">${new Date(item.publishDate).toLocaleDateString(lang === 'my' ? 'ms-MY' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>` : ''}
-                ${item.readingTime ? `<span class="blog-card-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${item.readingTime} ${t('blogCulture.blogMinRead')}</span>` : ''}
+        <div class="blog-culture-grid">
+          ${allPosts.map(item => `
+            <div class="blog-culture-card blog-card-${item.type || 'blog'}" data-slug="${item.slug}" data-type="${item.type || 'blog'}">
+              <div class="blog-card-accent"></div>
+              <div class="blog-card-body">
+                <div class="blog-card-top">
+                  <span class="blog-culture-type-badge ${item.type || 'blog'}">${item.type === 'culture' ? t('blogCulture.culture') : t('blogCulture.blog')}</span>
+                  ${item.tags && item.tags.length ? `<div class="blog-card-tags">${item.tags.slice(0,3).map(tag => `<span class="blog-tag">${tag}</span>`).join('')}</div>` : ''}
+                </div>
+                <h3>${(item.title || {})[lang] || item.title_en || ''}</h3>
+                <p>${(item.excerpt || {})[lang] || (item.description || {})[lang] || item.excerpt_en || ''}</p>
+                <div class="blog-card-footer">
+                  ${item.publishDate ? `<span class="blog-card-date">${new Date(item.publishDate).toLocaleDateString(lang === 'my' ? 'ms-MY' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>` : ''}
+                  ${item.readingTime ? `<span class="blog-card-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${item.readingTime} ${t('blogCulture.blogMinRead')}</span>` : ''}
+                </div>
               </div>
             </div>
-          </div>
-        `).join('')}
+          `).join('')}
+        </div>
       </div>
-    </div>
-  `;
+    `;
+    }
 
-  // Bind card clicks with proper routing
-  document.querySelectorAll('.blog-culture-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const slug = card.dataset.slug;
-      const type = card.dataset.type;
-      navigateTo(`/${type}/${slug}`);
-    });
-  });
+    // Bind card clicks with proper routing
+      document.querySelectorAll('.blog-culture-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const slug = card.dataset.slug;
+          const type = card.dataset.type;
+          navigateTo(`/${type}/${slug}`);
+        });
+      });
 
 }
 
