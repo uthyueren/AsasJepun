@@ -5520,11 +5520,7 @@ function renderKanaSubpage1View() {
 
           <div class="info-card">
 
-            <p>${t('longVowel.whatIsDesc')}
-
-              : 'Vokal panjang (長音 / chōon) adalah bunyi vokal yang dipegang untuk dua morae bukan satu. Dalam bahasa Jepun, menukar panjang vokal boleh menyebabkan perubahan makna sepenuhnya, jadi ia penting untuk dikuasai awal.'
-
-            }</p>
+            <p>${t('longVowel.whatIsDesc')}</p>
 
           </div>
 
