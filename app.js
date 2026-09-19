@@ -10393,9 +10393,11 @@ window.showSignupDetailsFromJson = function(jsonStr) {
   console.log('showSignupDetailsFromJson called with:', jsonStr);
   try {
     const signup = JSON.parse(decodeURIComponent(jsonStr));
+    alert('Parsed signup: ' + signup.name);
     showSignupDetails(signup);
   } catch (e) {
     console.error('Error parsing signup:', e);
+    alert('Error: ' + e);
   }
 };
 
@@ -10412,6 +10414,7 @@ document.addEventListener('click', async (e) => {
 });
 
 function showSignupDetails(signup) {
+  alert('showSignupDetails called for: ' + signup.name);
   const formatArray = (arr) => Array.isArray(arr) && arr.length ? arr.join(', ') : '-';
   const formatText = (val) => val || '-';
 
