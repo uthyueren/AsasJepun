@@ -10387,35 +10387,24 @@ function renderAdminSignupsList(container, signups) {
 
 
 
-  container.querySelectorAll('.btn-delete-signup').forEach(btn => {
-
-    btn.addEventListener('click', async () => {
-
+  // Use event delegation instead
+  container.onclick = async (e) => {
+    const btn = e.target.closest('.btn-delete-signup');
+    if (btn) {
       const id = btn.dataset.id;
-
       if (confirm('Are you sure you want to delete this?')) {
-
         await adminAction('delete_signup', { id });
-
         loadAdminSignups();
-
       }
+      return;
+    }
 
-    });
-
-  });
-
-  container.querySelectorAll('.btn-view-signup').forEach(btn => {
-
-    btn.addEventListener('click', () => {
-
-      const signup = signups.find(s => s.id === btn.dataset.id);
-
+    const viewBtn = e.target.closest('.btn-view-signup');
+    if (viewBtn) {
+      const signup = signups.find(s => s.id === viewBtn.dataset.id);
       if (signup) showSignupDetails(signup);
-
-    });
-
-  });
+    }
+  };
 
 }
 
