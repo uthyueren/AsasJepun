@@ -10457,7 +10457,8 @@ function showSignupDetails(signup) {
     </div>
   `;
   document.body.insertAdjacentHTML('beforeend', html);
-  alert('Modal added to DOM');
+  const modal = document.getElementById('signup-details-modal');
+  alert('Modal exists: ' + !!modal + ' display: ' + (modal ? modal.style.display : 'none'));
 }
 
 
