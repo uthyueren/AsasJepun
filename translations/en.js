@@ -1,6 +1,5 @@
 // English translations
 export const translations = {
-  // 1. nav
   "nav": {
     "intro": "Home",
     "roadmap": "Learning Path",
@@ -22,13 +21,9 @@ export const translations = {
     "blogCulture": "Blog & Culture",
     "about": "About"
   },
-
-  // 2. footer
   "footer": {
     "tagline": "Learn Japanese the right way"
   },
-
-  // 3. home
   "home": {
     "heroTag": "Konnichiwa! こんにちは",
     "heroTitle": "Your guide to learning Japanese the right way",
@@ -57,8 +52,6 @@ export const translations = {
     "sectionAboutTitle": "About",
     "sectionAboutDesc": "About AsasJepun and the creator behind it"
   },
-
-  // 4. roadmap
   "roadmap": {
     "title": "Japanese Language Learning Roadmap",
     "intro": "A step-by-step guide to take you from zero to intermediate level (N3) and beyond. Click on each phase for details on learning focus.",
@@ -192,8 +185,6 @@ export const translations = {
       ]
     }
   },
-
-  // 5. introduction
   "introduction": {
     "title": "Introduction to Japanese",
     "subtitle": "Your first step to understanding the Japanese language",
@@ -256,8 +247,6 @@ export const translations = {
     "tipDesc": "Don't try to translate word-for-word from English. Instead, try to understand concepts and patterns in their Japanese context.",
     "ctaRoadmap": "Learn Hiragana & Katakana"
   },
-
-  // 6. jlptInfo
   "jlptInfo": {
     "title": "What is JLPT?",
     "subtitle": "Understanding the Japanese-Language Proficiency Test",
@@ -307,8 +296,6 @@ export const translations = {
       "exploreResources": "Explore Learning Resources"
     }
   },
-
-  // 7. kana
   "kana": {
     "title": "Kana Charts",
     "subtitle": "Interactive Hiragana & Katakana reference with audio pronunciation",
@@ -316,12 +303,12 @@ export const translations = {
     "katakana": "Katakana",
     "clickToLearn": "Click any character to hear its pronunciation",
     "pronunciationTips": "Pronunciation Tips",
-    "shiChiTsuTitle": 'し, ち, つ / シ, チ, ツ - Not "si, ti, tu"',
+    "shiChiTsuTitle": "し, ち, つ / シ, チ, ツ - Not \"si, ti, tu\"",
     "shiChiTsuDesc": "Some kana look like they should follow English patterns, but they do not. These three are the most commonly mispronounced:",
     "whyNoWiWuWoTitle": "Why no Wi, Wu, Wo? (and Yi, Ye?)",
     "whyNoWiWuWoDesc": "Yi and Ye never existed in Japanese. They are not missing - they were simply never part of the sound system. Wi and We (ゐ, ヱ) existed historically but were abolished in 1946. を (wo) still exists but only as a particle (pronounced \"o\", same as お).",
     "fuTitle": "ふ (fu) / フ (fu)",
-    "fuDesc": '"ふ / フ" is a difficult sound. It\'s NOT "hu" or "fu" as in English. The Japanese ふ is a soft bilabial fricative: breathe out gently through pursed lips. Listen to the audio repeatedly!',
+    "fuDesc": "\"ふ / フ\" is a difficult sound. It's NOT \"hu\" or \"fu\" as in English. The Japanese ふ is a soft bilabial fricative: breathe out gently through pursed lips. Listen to the audio repeatedly!",
     "pronVs": "vs",
     "pronWrongLabel": "English pattern",
     "learningTips": "Learning Tips",
@@ -335,17 +322,11 @@ export const translations = {
     "tip4Desc": "Don't just drill isolated characters, start reading simple words right away (ねこ, ありがとう, たべる). Context makes the characters meaningful instead of abstract symbols.",
     "tip5Title": "5. Use spaced repetition apps",
     "tip5Desc": "Apps like Anki or Duolingo space out review timing so you review each character right before you'd forget it, which builds long-term retention faster than cramming.",
-    "moreTofuguTips": "More tips on Tofugu: How to Learn Hiragana",
+    "moreTofuguTips": "More tips on Tofugu: How to Learn Hiragana"
+  },
+  "longVowel": {
     "longVowelTitle": "Long Vowel",
     "longVowelSubtitle": "Learn how to extend vowel sounds (chōon / 長音)",
-    "tentenMaruTitle": "Tenten & Maru",
-    "tentenMaruSubtitle": "Learn how dakuten and handakuten change sounds",
-    "smallKanaTitle": "Small Kana",
-    "smallKanaSubtitle": "Katakana small characters for foreign words"
-  },
-
-  // 8. longVowel
-  "longVowel": {
     "whatIsTitle": "What is Long Vowel?",
     "whatIsDesc": "Long vowels (長音 / chōon) are extended vowel sounds where a vowel is held for two morae instead of one. In Japanese, changing a vowel length can completely change the meaning of a word, so it's important to master this early.",
     "hiraganaTitle": "Writing Long Vowel in Hiragana",
@@ -379,13 +360,11 @@ export const translations = {
     "exKeki": "Cake (ケ from ケ + ー)",
     "exKekiWord": "cake",
     "exShiito": "From キ (ki) + ー + パ (pa) + ー",
-    "exShiitoWord": "keeper",
-    "exTerebi": "From テ (te) + レ (re) + ビ (bi)",
-    "exTerebiWord": "television"
+    "exShiitoWord": "keeper"
   },
-
-  // 9. tentenMaru
   "tentenMaru": {
+    "tentenMaruTitle": "Tenten & Maru",
+    "tentenMaruSubtitle": "Learn how dakuten and handakuten change sounds",
     "whatIsTitle": "What are Tenten and Maru?",
     "whatIsDesc": "Tenten (also known as Dakuten) and Maru (also known as Handakuten) are marks that can change the pronunciation of kana characters. Tenten are the two small dashes (゛) placed at the top-right of a kana character and Maru is a small circle (゜) placed at the top-right of a kana character. Both change the sound of consonants.",
     "dakutenTitle": "Dakuten (゛)",
@@ -395,31 +374,67 @@ export const translations = {
     "memoryTrickTitle": "Quick Reference",
     "memoryTrickDesc": "Pronunciation stays the same with tenten: じ and ぢ both sound like \"ji\", ず and づ both sound like \"zu\". The spelling is different, but they sound identical."
   },
-
-  // 10. smallKana
   "smallKana": {
+    "smallKanaTitle": "Small Katakana",
+    "smallKanaSubtitle": "Small Katakana characters for foreign words",
     "title": "Small kana for Foreign Words",
     "desc": "Katakana uses small characters (ァ, ォ, etc.) to write foreign words. These combinations create sounds not found in traditional Japanese. The small vowel versions technically exist in hiragana too and occasionally show up for stylized or emphasis effects, like an elongated exclamation.",
     "examplesTitle": "Common Examples",
     "examples": [
-      "ヴァ", "va", "ヴァルキリー (Valkyrie)",
-      "ヴィ", "vi", "ヴィジュアル (visual)",
-      "ヴェ", "ve", "ヴェスト (vest)",
-      "ヴォ", "vo", "ヴォイス (voice)",
-      "ウィ", "wi", "ウィスキー (whisky)",
-      "ウェ", "we", "ウェディング (wedding)",
-      "ウォ", "wo", "ワーク (work)",
-      "ティ", "ti", "ティッシュ (tissue)",
-      "ディ", "di", "ディズニー (Disney)",
-      "ドゥ", "du", "ドゥーム (doom)",
-      "チェ", "che", "チェック (check)",
-      "ジェ", "je", "ジェット (jet)",
-      "シェ", "she", "シェイク (shake)",
-      "ツァ", "tsa", "モーツァルト (Mozart)",
-      "ファ", "fa", "ファミリー (family)",
-      "フィ", "fi", "フィルター (filter)",
-      "フェ", "fe", "フェンス (fence)",
-      "フォ", "fo", "フォルダー (folder)"
+      "ヴァ",
+      "va",
+      "ヴァルキリー (Valkyrie)",
+      "ヴィ",
+      "vi",
+      "ヴィジュアル (visual)",
+      "ヴェ",
+      "ve",
+      "ヴェスト (vest)",
+      "ヴォ",
+      "vo",
+      "ヴォイス (voice)",
+      "ウィ",
+      "wi",
+      "ウィスキー (whisky)",
+      "ウェ",
+      "we",
+      "ウェディング (wedding)",
+      "ウォ",
+      "wo",
+      "ワーク (work)",
+      "ティ",
+      "ti",
+      "ティッシュ (tissue)",
+      "ディ",
+      "di",
+      "ディズニー (Disney)",
+      "ドゥ",
+      "du",
+      "ドゥーム (doom)",
+      "チェ",
+      "che",
+      "チェック (check)",
+      "ジェ",
+      "je",
+      "ジェット (jet)",
+      "シェ",
+      "she",
+      "シェイク (shake)",
+      "ツァ",
+      "tsa",
+      "モーツァルト (Mozart)",
+      "ファ",
+      "fa",
+      "ファミリー (family)",
+      "フィ",
+      "fi",
+      "フィルター (filter)",
+      "フェ",
+      "fe",
+      "フェンス (fence)",
+      "フォ",
+      "fo",
+      "フォルダー (folder)"
     ],
     "sokuonTitle": "Sokuon (っ) - Consonant Doubling",
     "sokuonDetail": "っ counts as 1 full mora even though it has no sound — it just adds a short stop before the next consonant.",
@@ -427,8 +442,6 @@ export const translations = {
     "yoonDesc": "Youon refers to the combination sounds made when a small ゃ, ゅ, or ょ follows an い-row kana to form a single new sound.",
     "yoonCountsOneMora": "Even though youon is written with two characters, it counts as just 1 mora."
   },
-
-  // 11. kanji
   "kanji": {
     "title": "Kanji",
     "subtitle": "Understand what kanji is and how it works",
@@ -453,18 +466,6 @@ export const translations = {
     "similarKanjiDesc": "Some kanji differ by only one stroke or a slightly different proportion. Mixing them up is one of the most common mistakes even at intermediate levels. Training your eye to spot these differences early saves a lot of confusion later.",
     "mi": "not yet",
     "satsu": "end",
-    "uchi": "inside",
-    "naka": "middle",
-    "hon": "book",
-    "moto": "origin",
-    "sakura": "cherry blossom",
-    "sakuraDesc": "cherry blossom",
-    "yuki": "snow",
-    "yukiDesc": "snow",
-    "shiro": "white",
-    "shiroDesc": "white",
-    "tanuki": "raccoon dog",
-    "tanukiDesc": "raccoon dog",
     "similarKanjiSection1Desc": "Top stroke is shorter in 未, longer in 末. Think: 末 has a longer story to tell.",
     "warrior": "warrior",
     "soil": "soil",
@@ -490,8 +491,6 @@ export const translations = {
     "useMnemonicsDesc": "Think of kanji as pictographs. A mnemonic turns an abstract shape into a story your brain can actually hold onto. Instead of memorizing strokes by rote, you are memorizing a scene. For example, the kanji 休 (rest) looks like a person (亻) leaning against a tree (木). Once you see it, you cannot unsee it.",
     "kanjiDiveDeeper": "Want to dive deeper? Check out <a href=\"https://www.kanji-link.com/en/kanji/intro/\" target=\"_blank\" style=\"color: var(--primary); text-decoration: underline;\">Kanji Link</a> for a comprehensive introduction to kanji."
   },
-
-  // 12. radical
   "radical": {
     "radicalTitle": "Radical",
     "radicalSubtitle": "Learn about kanji radicals and their meanings",
@@ -510,26 +509,8 @@ export const translations = {
     "radicalSquishedKanjiTitle": "Squished Kanji as Radical",
     "radicalSquishedKanjiFullDesc": "Some radicals look completely different from the kanji they came from. These are called <strong>squished kanji</strong> (or abbreviated radicals). They were squeezed and simplified over centuries of handwriting to save space. For example, 金 (gold) became 釒, 肉 (meat) became 月 in compounds, and 人 (person) became 亻. Don't worry about memorizing which is which — just recognize them as you encounter them.",
     "radicalKanjiALiveTip": "Looks like you want to learn more about radicals. Head to <a href=\"https://kanjialive.com/214-traditional-kanji-radicals/\" target=\"_blank\" style=\"color: var(--primary); text-decoration: underline;\">KanjiALive</a> for a comprehensive list.",
-    "radicalTofuguLink": "More tips on Tofugu: Kanji Radicals Mnemonic Method",
-    "radicalGrassRadical": "Grass Radical",
-    "radicalFlower": "flower",
-    "radicalVegetable": "vegetable",
-    "radicalTea": "tea",
-    "radicalTreeRadical": "Tree Radical",
-    "radicalForest": "forest",
-    "radicalWood": "wood",
-    "radicalMelon": "melon",
-    "radicalFireRadical": "Fire Radical",
-    "radicalLight": "light",
-    "radicalToShine": "to shine",
-    "radicalBright": "bright",
-    "radicalGold": "gold",
-    "radicalMoon": "moon",
-    "radicalPerson": "person",
-    "radicalHat": "hat"
+    "radicalTofuguLink": "More tips on Tofugu: Kanji Radicals Mnemonic Method"
   },
-
-  // 13. strokeOrder
   "strokeOrder": {
     "strokeOrderTitle": "Stroke Order",
     "strokeOrderSubtitle": "Learn the correct way to write kanji",
@@ -572,8 +553,6 @@ export const translations = {
     "rule2Desc": "The enclosing frame is drawn before the contents.",
     "rule2Example": "国 (kuni) - country: outside box first, then inside contents"
   },
-
-  // 14. kanjiInNames
   "kanjiInNames": {
     "kanjiInNamesTitle": "Kanji in Names",
     "kanjiInNamesJinmeiyōKanjiTitle": "Jinmeiyō Kanji",
@@ -596,8 +575,6 @@ export const translations = {
     "kanjiInNamesKentaDesc": "Combining \"healthy/robust\" (健) and \"big/thick\" (太), common for boys",
     "kanjiInNamesHinaDesc": "Combining \"sun/sunshine\" (陽) and \"greens/vegetable\" (菜). A good example of irregular reading!"
   },
-
-  // 15. selfStudy
   "selfStudy": {
     "title": "Self Study Guide",
     "subtitle": "Tips and strategies for effective Japanese self-learning",
@@ -643,36 +620,6 @@ export const translations = {
         "desc": "Watch or listen to Japanese media  anime, dramas, podcasts, or YouTube."
       }
     },
-    "resources": {
-      "title": "Recommended Resources by Level",
-      "beginner": {
-        "title": "Beginner (N5)",
-        "items": [
-          "Genki I & II textbooks",
-          "Anki N5 vocabulary deck",
-          "Cure Dolly's Japanese YouTube channel",
-          "Japanese Ammo with Misa"
-        ]
-      },
-      "intermediate": {
-        "title": "Intermediate (N4-N3)",
-        "items": [
-          "Tobira or Shin Nihongo textbooks",
-          "Native manga and novels",
-          "Comprehensible Japanese YouTube",
-          "Japanese podcasts for learners"
-        ]
-      },
-      "advanced": {
-        "title": "Advanced (N2-N1)",
-        "items": [
-          "Native media without subtitles",
-          "Japanese news (NHK Easy)",
-          "Advanced grammar books",
-          "Shadowing practice"
-        ]
-      }
-    },
     "tips": {
       "title": "Pro Tips",
       "mining": "Mine vocabulary from content you enjoy  it makes learning feel less like studying.",
@@ -681,26 +628,22 @@ export const translations = {
       "thinking": "Try to think in Japanese during your daily life. Describe objects around you in your head."
     }
   },
-
-  // 16. anki
   "anki": {
     "title": "Anki & Vocab Mining",
     "subtitle": "Recommended decks and how to mine vocabulary from native content",
+    "intro": "Anki is a spaced repetition system (SRS) that helps you memorize anything efficiently. Combined with active vocab mining from native content, it's the most powerful combo for vocabulary acquisition.",
     "howItWorks": "How Anki Works",
     "howItWorksDesc": "Anki is a spaced repetition system that helps you memorize anything efficiently. It works by showing you cards at increasing intervals just before you'd forget them. New cards appear once a day, and reviews are based on how well you remember each card. The more you struggle with a card, the more often it appears. This method, called spaced repetition, is proven to build long-term memory much faster than cramming.",
-    "recommendedDecks": "Recommended Decks",
-    "howToMine": "How to Mine Vocab",
     "forgettingCurve": "The Forgetting Curve: Without review, we lose memories quickly. With spaced repetition (green), we strengthen retention over time.",
-    "recommendedTools": "Recommended Tools",
-    "visit": "Visit",
-    "intro": "Anki is a spaced repetition system (SRS) that helps you memorize anything efficiently. Combined with active vocab mining from native content, it's the most powerful combo for vocabulary acquisition.",
+    "recommendedDecks": "Recommended Decks",
     "deckCore2kName": "Core 2K/6K Deck",
-    "deckCore2kDesc": "The most common 2000-6000 Japanese words with sentence context. Essential vocabulary for any level.",
     "deckCore2kLevel": "N5-N3",
+    "deckCore2kDesc": "The most common 2000-6000 Japanese words with sentence context. Essential vocabulary for any level.",
     "deckKaishiName": "Kaishi 1.5K Deck",
-    "deckKaishiDesc": "Curated 1500 most practical Japanese words, great for beginners moving beyond basics.",
     "deckKaishiLevel": "N5",
-    "miningTitle": "How to Mine Vocab from Anime & Dramas",
+    "deckKaishiDesc": "Curated 1500 most practical Japanese words, great for beginners moving beyond basics.",
+    "visit": "Visit",
+    "howToMine": "How to Mine Vocab",
     "miningIntro": "Vocab mining is the process of extracting new words from native content and turning them into Anki cards for study.",
     "step1Title": "Choose Your Content",
     "step1Desc": "Start with material slightly below your level, then gradually increase difficulty. Anime with Japanese subtitles is ideal for beginners.",
@@ -715,13 +658,12 @@ export const translations = {
     "step4ExampleBack": "Back:",
     "step5Title": "Review Consistently",
     "step5Desc": "Anki's spaced repetition will show you cards at optimal intervals. Do your reviews daily for best results.",
+    "recommendedTools": "Recommended Tools",
     "tool1Name": "Yomitan + AnkiConnect",
     "tool1Desc": "Yomitan is a browser popup dictionary. AnkiConnect bridges Yomitan and Anki, letting you send vocabulary cards directly to Anki with one click.",
     "tool2Name": "Language Reactor",
     "tool2Desc": "Browser extension for Netflix, YouTube, and more. Shows dual subtitles and lets you mine vocabulary from videos easily."
   },
-
-  // 17. immersion
   "immersion": {
     "title": "Comprehensible Input & Immersion",
     "subtitle": "How to acquire Japanese through immersion and comprehensible input",
@@ -745,7 +687,6 @@ export const translations = {
     "activeImmersion": "<strong>Active immersion</strong> means paying full attention to the content, trying to understand what is happening, looking up unknown words, and making mental connections. This is where real acquisition happens.",
     "forgettingCurve": "The Forgetting Curve: Without review, we lose memories quickly. With spaced repetition (green), we strengthen retention over time.",
     "passive": "Passive",
-    "active": "Active",
     "background": "Background",
     "lowFocus": "Low Focus",
     "musicWhileWorking": "Music while working",
@@ -753,13 +694,14 @@ export const translations = {
     "podcastsOnTheGo": "Podcasts on the go",
     "result": "Result:",
     "limitedAcquisition": "Limited acquisition",
-    "realAcquisition": "Real acquisition",
     "vs": "vs",
+    "active": "Active",
     "focused": "Focused",
     "intentional": "Intentional",
     "watchingWithIntent": "Watching with intent",
     "lookingUpWords": "Looking up words",
     "takingNotes": "Taking notes",
+    "realAcquisition": "Real acquisition",
     "howMuchImmersion": "How Much Immersion Do You Need?",
     "howMuchImmersionDesc": "Many successful learners aim for 2-4 hours of active immersion daily, with passive immersion throughout the rest of the day. Consistency matters more than intensity. Even 30 minutes of focused daily immersion will yield better results than occasional marathon sessions.",
     "tipsForBeginners": "Tips for Beginners",
@@ -768,8 +710,6 @@ export const translations = {
     "tipGradedReaders": "<strong>Graded readers</strong> - Books written specifically for JLPT levels with controlled vocabulary",
     "tipCIYouTube": "<strong>Comprehensible Input YouTube channels</strong> - Channels like Japanese Ammo with Misa teach using visual context"
   },
-
-  // 18. selfStudyAI
   "selfStudyAI": {
     "title": "Using AI for Japanese Learning",
     "subtitle": "How to use AI tools effectively to accelerate your Japanese learning",
@@ -797,8 +737,6 @@ export const translations = {
     "promptWriting": "\"Act as a native Japanese writing tutor for (Your JLPT Level) candidate.\n\nWhenever I give you a piece of Japanese writing (a sentence, paragraph, or essay), provide a breakdown using the following structure:\n\nOverall Impression: In 1 to 2 bold sentences, tell me what level this writing reads at and whether the meaning came through clearly.\n\nLine by Line Corrections: Go through the text and for each issue, show the original phrase, the corrected phrase, and a short explanation covering what was wrong (grammar, particle, word choice, naturalness, or tone).\n\nNative Rewrite: Provide a full rewritten version of my text the way a native speaker would actually phrase it, keeping my original intent and meaning intact.\n\nStyle and Register Notes: Point out any mismatches in formality or tone (e.g. mixing casual and formal speech, using spoken grammar in written form).\n\nGrowth Focus: Highlight one recurring pattern in my mistakes (if any) that I should focus on improving, with a quick tip or grammar point to study.\n\nTone and Style:\n\nWrite in informal, conversational English with casual pronouns.\n\nBe encouraging but honest. Do not sugarcoat real errors.\n\nKeep it punchy and easy to scan with Markdown formatting (bolding, bullet points, tables where useful for comparing original vs corrected).\n\nAvoid fluff. Jump straight into the breakdown.\"",
     "promptVocab": "\"Act as a native Japanese language tutor for (Your JLPT Level) candidates.\n\nWhenever I give you a Japanese vocabulary word or a comparison between similar words, provide a breakdown using the following structure:\n\nBrief Introduction: State the word, its JLPT level, and its core English meaning in 1-2 bold sentences.\n\nKanji Breakdown: Break down each individual kanji, explain its core visual meaning and provide another common word containing it, then show how they combine logically.\n\nDirect Translations: List equivalent terms in English.\n\nPopular Usage: Provide categorized bullet points with common collocations/phrases, Kanji, Romaji, and English translations.\n\nMemory Tricks and Nuance Comparisons: Give a vivid mental picture/mnemonic to remember the word, and compare it against 2-3 similar Japanese words to highlight subtle differences in usage.\n\nTone and Style:\n\nWrite in informal, conversational English (using casual pronouns).\n\nKeep it punchy, visual, and easy to read with Markdown formatting (bolding, bullet points, and tables when comparing words).\n\nAvoid fluff. Jump straight into the explanation.\""
   },
-
-  // 19. resources
   "resources": {
     "title": "Resources",
     "subtitle": "Curated tools organized by what problem they solve.",
@@ -895,34 +833,26 @@ export const translations = {
       "Refold List": "Curated list of Japanese learning resources from the Refold community, covering tools, apps, media, and study guides."
     }
   },
-
-  // 20. blogCulture
   "blogCulture": {
     "title": "Blog & Culture",
     "subtitle": "Articles, lessons, and long-form content on Japanese learning and culture.",
     "blog": "Blog",
     "culture": "Culture"
   },
-
-  // 21. about
   "about": {
     "title": "About Me",
     "subtitle": "The method that actually works, from someone who tried them all.",
     "storyContent": "Hi, I'm <strong>Uthman</strong>, fellow Japanese learner! I know exactly how frustrating learning Japanese can be when kanji looks like squiggles, grammar doesn't make sense, and nothing stays in your head.<br><br>I started learning Japanese in 2018 but <strong>quit</strong> after a few months. Kanji looked terrifying, and I couldn't see how any of it would stick. After a long break, I decided to <strong>push through anyway</strong>  and it wasn't as bad as I expected.<br><br>Since 2021, I've been learning off and on since I'm quite busy with university, but things didn't really come together until <strong>mid 2025</strong>. I started consuming Japanese content <strong>every single day</strong>  whether it was Hololive streams, J-dramas, whatever kept me in the language. My comprehension improved a lot using flashcards with SRS (Spaced Repetition System).<br><br>If you're serious about learning, <strong>join my class</strong> and let's do this together.",
     "connectTitle": "Connect"
   },
-
-  // common
   "common": {
     "loading": "Loading...",
+    "error": "Error! Try again",
     "back": "Back",
     "learnMore": "Learn More",
-    "error": "Error! Try again",
     "audioNotSupported": "Your browser does not support audio playback.",
     "submitting": "Submitting..."
   },
-
-  // signup
   "signup": {
     "title": "Want to learn Japanese?",
     "subtitle": "Fill out the form and I'll contact you within 24 hours",
