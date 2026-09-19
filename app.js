@@ -4584,7 +4584,7 @@ function renderKanaView() {
 
         <div class="info-section">
 
-        <h2><i data-lucide="lightbulb"></i> ${lang === 'en' ? 'Pronunciation Tips' : 'Tips Sebutan'}</h2>
+        <h2><i data-lucide="lightbulb"></i> ${t('kana.pronunciationTips')}</h2>
 
 
 
@@ -4592,15 +4592,9 @@ function renderKanaView() {
 
           <div class="kana-tip-card tip-full">
 
-            <h3>${lang === 'en' ? 'し, ち, つ / シ, チ, ツ - Not "si, ti, tu"' : 'し, ち, つ / シ, チ, ツ - Bukan "si, ti, tu"'}</h3>
+            <h3>${t('kana.shiChiTsuTitle')}</h3>
 
-            <p class="tip-desc">${lang === 'en'
-
-              ? 'Some kana look like they should follow English patterns, but they do not. These three are the most commonly mispronounced:'
-
-              : 'Sesetengah kana kelihatan seperti ikut pola Bahasa Inggeris, tetapi tidak. Ketiga-tiga ini adalah yang paling kerap salah disebut:'
-
-            }</p>
+            <p class="tip-desc">${t('kana.shiChiTsuDesc')}</p>
 
             <div class="pronunciation-comparison">
 
@@ -4614,13 +4608,13 @@ function renderKanaView() {
 
                 </div>
 
-                <div class="pron-vs">vs</div>
+                <div class="pron-vs">${t('kana.pronVs')}</div>
 
                 <div class="pron-wrong-box">
 
                   <span class="pron-wrong-char">si</span>
 
-                  <span class="pron-wrong-label">English pattern</span>
+                  <span class="pron-wrong-label">${t('kana.pronWrongLabel')}</span>
 
                 </div>
 
@@ -4636,13 +4630,13 @@ function renderKanaView() {
 
                 </div>
 
-                <div class="pron-vs">vs</div>
+                <div class="pron-vs">${t('kana.pronVs')}</div>
 
                 <div class="pron-wrong-box">
 
                   <span class="pron-wrong-char">ti</span>
 
-                  <span class="pron-wrong-label">English pattern</span>
+                  <span class="pron-wrong-label">${t('kana.pronWrongLabel')}</span>
 
                 </div>
 
@@ -4658,13 +4652,13 @@ function renderKanaView() {
 
                 </div>
 
-                <div class="pron-vs">vs</div>
+                <div class="pron-vs">${t('kana.pronVs')}</div>
 
                 <div class="pron-wrong-box">
 
                   <span class="pron-wrong-char">tu</span>
 
-                  <span class="pron-wrong-label">English pattern</span>
+                  <span class="pron-wrong-label">${t('kana.pronWrongLabel')}</span>
 
                 </div>
 
@@ -4676,29 +4670,17 @@ function renderKanaView() {
 
           <div class="kana-tip-card">
 
-            <h3>${lang === 'en' ? 'Why no Wi, Wu, Wo? (and Yi, Ye?)' : 'Kenapa tiada Wi, Wu, Wo? (dan Yi, Ye?)'}</h3>
+            <h3>${t('kana.whyNoWiWuWoTitle')}</h3>
 
-            <p>${lang === 'en'
-
-              ? 'Yi and Ye never existed in Japanese. They are not missing - they were simply never part of the sound system. Wi and We (ゐ, ヱ) existed historically but were abolished in 1946. を (wo) still exists but only as a particle (pronounced "o", same as お).'
-
-              : 'Yi dan Ye tidak pernah wujud dalam bahasa Jepun. Ia tidak hilang - ia tidak pernah menjadi sebahagian daripada sistem bunyi. Wi dan We (ゐ, ヱ) wujud secara historis tetapi dihapuskan pada 1946. を (wo) masih ada tetapi hanya sebagai partikel (disebut "o", sama seperti お).'
-
-            }</p>
+            <p>${t('kana.whyNoWiWuWoDesc')}</p>
 
           </div>
 
           <div class="kana-tip-card">
 
-            <h3>${lang === 'en' ? 'ふ (fu) / フ (fu)' : 'ふ (fu) / フ (fu)'}</h3>
+            <h3>${t('kana.fuTitle')}</h3>
 
-            <p>${lang === 'en'
-
-              ? '"ふ / フ" is a difficult sound. It\'s NOT "hu" or "fu" as in English. The Japanese ふ is a soft bilabial fricative: breathe out gently through pursed lips. Listen to the audio repeatedly!'
-
-              : '"ふ / フ" adalah bunyi yang sukar. Ia BUKAN "hu" atau "fu" seperti dalam Bahasa Inggeris. ふ Jepun adalah frikatif bibihari yang lembut.'
-
-            }</p>
+            <p>${t('kana.fuDesc')}</p>
 
           </div>
 
@@ -4710,75 +4692,45 @@ function renderKanaView() {
 
       <section class="info-section">
 
-        <h2><i data-lucide="lightbulb"></i> ${lang === 'en' ? 'Learning Tips' : 'Tip Pembelajaran'}</h2>
+        <h2><i data-lucide="lightbulb"></i> ${t('kana.learningTips')}</h2>
 
         <div class="info-card">
 
-          <h4>${lang === 'en' ? '1. Master hiragana before moving to katakana or kanji' : '1. Kuasai hiragana sebelum bergerak ke katakana atau kanji'}</h4>
+          <h4>${t('kana.tip1Title')}</h4>
 
-          <p>${lang === 'en'
-
-            ? 'Hiragana is the foundation of Japanese, used for grammar particles, verb endings, and native words. Getting it sticks first makes everything after it easier.'
-
-            : 'Hiragana adalah asas Jepun, digunakan untuk partikel tatabahasa, akhiran kata kerja, dan perkataan asli. Menguasainya dulu menjadikan semua yang lepas lebih mudah.'
-
-          }</p>
+          <p>${t('kana.tip1Desc')}</p>
 
         </div>
 
         <div class="info-card" style="margin-top: 12px;">
 
-          <h4>${lang === 'en' ? '2. Learn by sound groups, not the full chart at once' : '2. Belajar mengikut kumpulan bunyi, bukan carta penuh sekali gus'}</h4>
+          <h4>${t('kana.tip2Title')}</h4>
 
-          <p>${lang === 'en'
-
-            ? 'Break it into rows (あ・い・う・え・お, か・き・く・け・こ, etc.) instead of trying to memorize all 46 at once. Small chunks stick better than one giant chart.'
-
-            : 'Pecahkan kepada baris (あ・い・う・え・お, か・き・く・け・こ, dll.) bukan cuba hafal semua 46 sekali gus. Ketulan kecil melekat lebih baik daripada satu carta besar.'
-
-          }</p>
+          <p>${t('kana.tip2Desc')}</p>
 
         </div>
 
         <div class="info-card" style="margin-top: 12px;">
 
-          <h4>${lang === 'en' ? '3. Use mnemonics for tricky shapes' : '3. Gunakan mnemonik untuk bentuk yang susah'}</h4>
+          <h4>${t('kana.tip3Title')}</h4>
 
-          <p>${lang === 'en'
-
-            ? 'Some hiragana look alike and get mixed up easily. Turning shapes into images (め looks like an eye, つ looks like a wave) helps them stick faster than rote repetition alone.'
-
-            : 'Sesetengah hiragana kelihatan sama dan mudah confund. Tukar bentuk kepada imej (め macam mata, つ macam ombak) bantu melekat lebih cepat daripada ulang kaji biasa.'
-
-          }</p>
+          <p>${t('kana.tip3Desc')}</p>
 
         </div>
 
         <div class="info-card" style="margin-top: 12px;">
 
-          <h4>${lang === 'en' ? '4. Read real hiragana words immediately' : '4. Baca perkataan hiragana sebenar dengan segera'}</h4>
+          <h4>${t('kana.tip4Title')}</h4>
 
-          <p>${lang === 'en'
-
-            ? "Don't just drill isolated characters, start reading simple words right away (ねこ, ありがとう, たべる). Context makes the characters meaningful instead of abstract symbols."
-
-            : 'Jangan just drill karakter terpencil, mula baca perkataan mudah segera (ねこ, ありがとう, たべる). Konteks buat aksara bermakna bukan simbol abstrak.'
-
-          }</p>
+          <p>${t('kana.tip4Desc')}</p>
 
         </div>
 
         <div class="info-card" style="margin-top: 12px;">
 
-          <h4>${lang === 'en' ? '5. Use spaced repetition apps' : '5. Gunakan apps spaced repetition'}</h4>
+          <h4>${t('kana.tip5Title')}</h4>
 
-          <p>${lang === 'en'
-
-            ? 'Apps like Anki or Duolingo space out review timing so you review each character right before you\'d forget it, which builds long-term retention faster than cramming.'
-
-            : 'Apps seperti Anki atau Duolingo jarakkan masa ulangkaji supaya korang review setiap aksara tepat sebelum lupa, yang bina reten jangka panjang lebih cepat daripada cram.'
-
-          }</p>
+          <p>${t('kana.tip5Desc')}</p>
 
         </div>
 
@@ -4792,7 +4744,7 @@ function renderKanaView() {
 
           <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
 
-          ${lang === 'en' ? 'More tips on Tofugu: How to Learn Hiragana' : 'Lagi tips di Tofugu: How to Learn Hiragana'}
+          ${t('kana.moreTofuguTips')}
 
         </a>
 
@@ -4804,13 +4756,13 @@ function renderKanaView() {
 
         <a href="/introduction" class="btn-cta-secondary">
 
-          ← ${lang === 'en' ? 'Back: Introduction' : 'Kembali: Pengenalan'}
+          ← ${t('kana.backIntro')}
 
         </a>
 
         <a href="/kana/long-vowel" class="btn-cta-primary">
 
-          ${lang === 'en' ? 'Next: Long Vowel' : 'Seterusnya: Vokal Panjang'} →
+          ${t('kana.nextLongVowel')} →
 
         </a>
 

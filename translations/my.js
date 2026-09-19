@@ -59,8 +59,8 @@ export const translations = {
       "phase9": "Fasa 9"
     },
     "kana": {
-      "title": "Kana (Aksara Jepun)",
-      "desc": "Belajar Hiragana dan Katakana dari sifar.",
+      "title": "Kana (Huruf Jepun)",
+      "desc": "Belajar Hiragana dan Katakana.",
       "duration": "2 - 3 Minggu",
       "activity": "Membaca sahaja",
       "focusTitle": "Fokus Pembelajaran:",
@@ -71,14 +71,14 @@ export const translations = {
       ]
     },
     "basic": {
-      "title": "Frasa Asas + Zarah + Bina Ayat",
+      "title": "Frasa Asas + Partikel + Bina Ayat",
       "desc": "Bina ayat pertama anda dan faham cara Jepun berfungsi.",
       "duration": "1 - 2 Bulan",
-      "activity": "Speaking & Writing",
+      "activity": "Tulis & Cakap",
       "focusTitle": "Fokus Pembelajaran:",
       "items": [
         "Frasa harian penting (salam, intro diri, shopping, arah)",
-        "Zarah asas: は, が, を, に, で, と, から, まで",
+        "Partikel asas: は, が, を, に, で, と, から, まで",
         "Bina ayat pertama: Subjek は Object を Verb",
         "Te-form sebagai pintu masuk ke conversation"
       ]
@@ -98,7 +98,7 @@ export const translations = {
     },
     "n5mastery": {
       "title": "N5 Mastery + Habits + Immersion",
-      "desc": "Kuasai N5, bina habit belajar, dan mulakan rendam diri.",
+      "desc": "Kuasai N5, bina habit belajar, dan mulakan immersion.",
       "duration": "2 - 3 Bulan",
       "activity": "~250 Kanji | ~1,500 Vocab",
       "focusTitle": "Fokus Pembelajaran:",
@@ -111,12 +111,12 @@ export const translations = {
     },
     "n4bridge": {
       "title": "N4 Grammar + Vocab",
-      "desc": "Bina atas asas N5 dengan tatabahasa dan vocabulary pertengahan.",
+      "desc": "Bina atas asas N5 dengan tatabahasa dan vocab pertengahan.",
       "duration": "3 - 4 Bulan",
       "activity": "~300 Kanji | ~3,000 Vocab",
       "focusTitle": "Fokus Pembelajaran:",
       "items": [
-        "Pengloquent (たら, なら, ば)",
+        "Jika (たら, なら, ば)",
         "Kausatif + kausatif-pasif",
         "Daftar pertuturan kasual vs sopan",
         "~3,000 vocab total"
@@ -129,10 +129,10 @@ export const translations = {
       "activity": "~400 Kanji | ~3,000 Vocab",
       "focusTitle": "Fokus Pembelajaran:",
       "items": [
-        "Bentuk pasif, kausatif-pasif, potential",
+        "Bentuk pasif, potensi",
         "Penambahbaikan keigo",
         "~400 Kanji total",
-        "Kandungan asli dengan sari kata, dengar pertuturan natural"
+        "Kandungan asli dengan subtitle, dengar percakapan yang natural"
       ]
     },
     "n2prep": {
@@ -156,20 +156,20 @@ export const translations = {
       "focusTitle": "Fokus Pembelajaran:",
       "items": [
         "Business keigo dan ekspresi formal",
-        "Struktur ayat kompleks (倒置法, 強調, dll)",
+        "Struktur ayat kompleks",
         "~1,000 kanji total",
-        "Reading dan listening tahap native"
+        "Baca dan dengar tahap native"
       ]
     },
     "continues": {
-      "title": "Pembelajaran Berlanjutan",
-      "desc": "Di luar tahap berstruktur. Kandungan asli, pembacaan lanjutan, latihan pertuturan.",
+      "title": "Pembelajaran Berterusan",
+      "desc": "Di luar tahap berstruktur. Kandungan asli, pembacaan berterusan, latihan pertuturan.",
       "duration": "Seumur Hidup",
       "activity": "Perjalanan tidak pernah benar-benar berakhir",
       "focusTitle": "Fokus Pembelajaran:",
       "items": [
         "Kandungan asli yang anda benar-benar suka",
-        "Pembacaan dan pertuturan lanjutan",
+        "Pembacaan dan pertuturan berterusan",
         "Kelancaran di luar tahap buku teks",
         "Perjalanan tidak pernah benar-benar berakhir"
       ]
@@ -179,7 +179,7 @@ export const translations = {
     "title": "Pengenalan Bahasa Jepun",
     "subtitle": "Langkah pertama anda untuk memahami bahasa Jepun",
     "welcomeTitle": "Apa itu Bahasa Jepun?",
-    "welcomeDesc": "Bahasa Jepun digunakan oleh kira-kira 130 juta orang di Jepun dan komuniti Jepun di seluruh dunia. Ia femenino dalam keluarga bahasa Japonic, yang tidak mempunyai hubungan geneologis yang luas diterima dengan mana-mana keluarga bahasa lain.",
+    "welcomeDesc": "Bahasa Jepun digunakan oleh kira-kira 130 juta orang di Jepun dan komuniti Jepun di seluruh dunia. Ia berasal daripada keluarga bahasa Japonic, yang tidak mempunyai hubungan geneologis yang luas diterima dengan mana-mana keluarga bahasa lain.",
     "writingTitle": "Sistem Penulisan",
     "writingDesc": "Bahasa Jepun menggunakan tiga sistem penulisan digabungkan:",
     "writingPoint1": "Hiragana - Digunakan untuk perkataan asli Jepun dan unsur tatabahasa",
@@ -201,39 +201,106 @@ export const translations = {
     "structureWatashi": "Saya",
     "structureGohan": "nasi",
     "structureTabemasu": "makan",
-    "structureWatashiSentence": "Saya wa nasi wo tabemasu",
+    "structureWatashiSentence": "Watashi wa gohan wo tabemasu",
     "structureNoSpaces": "Tiada ruang di antara perkataan",
     "structureNoSpacesExample": "私はご飯を食べます",
     "structureKeigo": "Tahap Kesopanan (Keigo)",
     "structureCasualPolite": "Kasual → Sopan → Rasmi",
     "soundTitle": "Sistem Bunyi",
     "soundDesc": "Bahasa Jepun mempunyai sistem fonologi yang agak mudah:",
-    "soundPoint2": "Tiada kluster konsonan (cth: \"st\", \"tr\", \"gl\")",
-    "soundPoint4": "Nilai nada bukan tekanan aksen (berbeza mengikut dialek)",
     "moraTitle": "Mora: Timing Jepun",
     "moraIntro": "Bahasa Jepun tidak dikira dalam suku kata. Ia dikira dalam morae (拍 / ha-ku). Setiap mora adalah satu beat yang sama rata. Seluruh irama bahasa dibina dengan memberikan setiap mora tempoh pendek yang sama.",
     "moraIntro2": "Kiraan mora yang betul, dan memberikan setiap beat panjang yang sama, adalah apa yang memisahkan pembelajaran semulajadi daripada pembelajaran yang hanya difahami dengan usaha.",
     "moraTomodachi": "ともだち (kawan)",
     "moraListen": "Dengar perkataan ini",
-    "moraEqualTime": "Perhatikan setiap suku ambil masa yang sama",
+    "moraEqualTime": "Perhatikan setiap suku kata ambil masa yang sama",
     "moraBasicKana": "Setiap kana asas = 1 mora",
     "moraNasal": "Bunyi n di hujung (cth, にほん = ni-ho-n = 3 morae)",
-    "soundRule1": "Hanya 5 vokal (a, i, u, e, o)",
-    "soundRule2": "Tiada kluster konsonan (cth: \"st\", \"tr\", \"gl\")",
-    "soundRule3": "Struktur suku kata mudah (hampir selalu konsonan + vokal)",
-    "soundRule4": "Nilai nada bukan tekanan aksen (berbeza mengikut dialek)",
-    "consonantClusters": "Setiap suku kata Jepun sentiasa berakhir dengan vokal atau ん (n). Tiada kluster konsonan dibenarkan. Ini bermakna tiada bunyi \"st\", \"tr\", \"gl\". Sebaliknya, anda memecahnya menjadi suku kata terpisah. Contohnya: \"stop\" menjadi \"su-to-ppu\", \"train\" menjadi \"to-re-i-n\".",
-    "pitchAccentDesc": "Perkataan yang sama boleh mempunyai makna yang berbeza bergantung pada suku kata mana yang mempunyai pitch tinggi. Pitch accent berbeza antara Tokyo, Kansai, dan dialek lain. Mempelajari pitch accent dari awal adalah lebih baik supaya dapat membuang tabiat output yang salah.",
-    "pitchChopsticks": "penyepit",
+    "soundPoint2": "Tiada kluster konsonan (cth: \"st\", \"tr\", \"gl\")",
+    "consonantClusters": "Setiap suku kata Jepun sentiasa berakhir dengan vokal atau ん (n). Tiada kluster konsonan dibenarkan. Ini bermakna tiada bunyi \"st\", \"tr\", \"gl\". Sebaliknya, anda memecahkannya menjadi suku kata terpisah. Contohnya: \"stop\" menjadi \"su-to-ppu\", \"train\" menjadi \"to-re-i-n\".",
+    "soundPoint4": "Pitch accent bukan stress accent",
+    "pitchAccentDesc": "Perkataan yang sama boleh mempunyai makna yang berbeza bergantung pada pitch accent. Pitch accent berbeza mengikut dialek Tokyo, Kansai, dan dialek lain. Mempelajari pitch accent dari awal adalah lebih baik supaya dapat membuang tabiat output yang salah.",
+    "pitchChopsticks": "chopstick",
     "pitchBridge": "jambatan",
     "tipTitle": "Tip Pembelajaran",
     "tipDesc": "Jangan cuba menterjemah perkataan demi perkataan dari Bahasa Melayu. Sebaliknya, cuba fahami konsep dan corak dalam konteks Jepun mereka.",
     "ctaRoadmap": "Belajar Hiragana & Katakana"
   },
+  "jlptInfo": {
+    "title": "Apa itu JLPT?",
+    "subtitle": "Memahami Ujian Kelayakan Bahasa Jepun",
+    "whatIs": {
+      "title": "Mengenai JLPT",
+      "description": "Japanese Language Proficiency Test (JLPT) adalah ujian standard yang menilai dan mengesahkan kecekapan penutur bukan asli bahasa Jepun. Ujian ini dikendalikan oleh Japan Foundation dan Japan Educational Exchanges and Evaluation Services (JEES). Ujian ini diadakan dua kali setahun di Jepun dan negara terpilih, dan sekali setahun di wilayah lain."
+    },
+    "purpose": {
+      "title": "Mengapa Ambil JLPT?",
+      "description": "JLPT diiktiraf di seluruh dunia sebagai standard untuk mengukur kecekapan bahasa Jepun. Ia digunakan oleh universiti, syarikat, dan pihak berkuasa imigresen untuk menilai keupayaan bahasa Jepun. Lulus JLPT N5 atau N4 juga boleh memenuhi syarat visa Jepun untuk kategori visa tertentu.",
+    },
+    "levels": {
+      "title": "Tahap JLPT Diterangkan",
+      "beginner": "- Beginner",
+      "elementary": "- Elementary",
+      "intermediate": "- Intermediate",
+      "upperIntermediate": "- Upper Intermediate",
+      "advanced": "- Advanced",
+      "n5Desc": "Tahap paling asas kecekapan bahasa Jepun. Menguji pengetahuan huruf Jepun asas (hiragana dan katakana) dan perkataan harian.",
+      "n5Kanji": "Kira-kira 100 kanji",
+      "n5Vocab": "Kira-kira 800 perkataan",
+      "n4Desc": "Tahap asas, membina pengetahuan N5. Menguji keupayaan memahami bahasa Jepun asas.",
+      "n4Kanji": "Kira-kira 300 kanji",
+      "n4Vocab": "Kira-kira 1,500 perkataan",
+      "n3Desc": "Tahap pertengahan. Menguji keupayaan memahami bahasa Jepun yang digunakan dalam situasi harian hingga tahap tertentu.",
+      "n3Kanji": "Kira-kira 400 kanji",
+      "n3Vocab": "Kira-kira 3,000 perkataan",
+      "n2Desc": "Tahap pertengahan atas. Menguji keupayaan memahami bahasa Jepun yang digunakan dalam situasi harian dan konteks yang lebih kompleks.",
+      "n2Kanji": "Kira-kira 650 kanji",
+      "n2Vocab": "Kira-kira 6,000 perkataan",
+      "n1Desc": "Tahap berterusan. Menguji keupayaan memahami bahasa Jepun yang digunakan dalam pelbagai konteks akademik dan formal.",
+      "n1Kanji": "Kira-kira 2,000 kanji",
+      "n1Vocab": "Kira-kira 10,000 perkataan"
+    },
+    "format": {
+      "title": "Format Ujian",
+      "descriptionN5N3": "N5-N3 terdiri daripada tiga bahagian:",
+      "descriptionN2N1": "N2-N1 terdiri daripada dua bahagian:",
+      "vocabulary": "Perkataan",
+      "vocabularyDesc": "Menguji pengetahuan perkataan Jepun dan penggunaan perkataan Jepun yang betul dalam ayat.",
+      "grammarReading": "Tatabahasa & Bacaan",
+      "grammarReadingDesc": "Menguji pengetahuan struktur tatabahasa dan pemahaman bacaan Jepun.",
+      "reading": "Pemahaman Bacaan",
+      "readingDesc": "Menguji keupayaan memahami bahan bertulis dari pelbagai konteks.",
+      "listening": "Pendengaran",
+      "listeningDesc": "Menguji keupayaan mendengar dan memahami perbualan dan dialog harian."
+    }
+  },
   "kana": {
     "title": "Jadual Kana",
     "subtitle": "Rujukan interaktif Hiragana & Katakana dengan sebutan audio",
-    "clickToLearn": "Klik mana-mana aksara untuk dengar sebutan",
+    "clickToLearn": "Klik mana-mana huruf untuk dengar sebutan",
+    "pronunciationTips": "Tips Sebutan",
+    "shiChiTsuTitle": "し, ち, つ / シ, チ, ツ - Bukan \"si, ti, tu\"",
+    "shiChiTsuDesc": "Sesetengah kana kelihatan seperti ikut pola Bahasa Inggeris, tetapi tidak. Ketiga-tiga ini adalah yang paling kerap salah disebut:",
+    "whyNoWiWuWoTitle": "Kenapa tiada Wi, Wu, Wo? (dan Yi, Ye?)",
+    "whyNoWiWuWoDesc": "Yi dan Ye tidak pernah wujud dalam bahasa Jepun. Ia tidak hilang - ia tidak pernah menjadi sebahagian daripada sistem bunyi. Wi dan We (ゐ, ヱ) wujud secara historis tetapi dihapuskan pada 1946. を (wo) masih ada tetapi hanya sebagai partikel (disebut \"o\", sama seperti お).",
+    "fuTitle": "ふ (fu) / フ (fu)",
+    "fuDesc": '"ふ / フ" adalah bunyi yang sukar. Ia BUKAN "hu" atau "fu" seperti dalam Bahasa Inggeris. ふ Jepun adalah frikatif bibihari yang lembut. Dengar audio berulang-ulang!',
+    "pronVs": "vs",
+    "pronWrongLabel": "Pola Bahasa Inggeris",
+    "learningTips": "Tip Pembelajaran",
+    "tip1Title": "1. Kuasai hiragana sebelum bergerak ke katakana atau kanji",
+    "tip1Desc": "Hiragana adalah asas Jepun, digunakan untuk partikel tatabahasa, akhiran kata kerja, dan perkataan asli. Menguasainya dulu menjadikan semua yang lepas lebih mudah.",
+    "tip2Title": "2. Belajar mengikut kumpulan bunyi, bukan carta penuh sekali gus",
+    "tip2Desc": "Pecahkan kepada baris (あ・い・う・え・お, か・き・く・け・こ, dll.) bukan cuba hafal semua 46 sekali gus. Ketulan kecil melekat lebih baik daripada satu carta besar.",
+    "tip3Title": "3. Gunakan mnemonik untuk bentuk yang susah",
+    "tip3Desc": "Sesetengah hiragana kelihatan sama dan mudah confund. Tukar bentuk kepada imej (め macam mata, つ macam ombak) bantu melekat lebih cepat daripada ulang kaji biasa.",
+    "tip4Title": "4. Baca perkataan hiragana sebenar dengan segera",
+    "tip4Desc": "Jangan just drill karakter terpencil, mula baca perkataan mudah segera (ねこ, ありがとう, たべる). Konteks buat aksara bermakna bukan simbol abstrak.",
+    "tip5Title": "5. Gunakan apps spaced repetition",
+    "tip5Desc": "Apps seperti Anki atau Duolingo jarakkan masa ulangkaji supaya korang review setiap aksara tepat sebelum lupa, yang bina reten jangka panjang lebih cepat daripada cram.",
+    "moreTofuguTips": "Lagi tips di Tofugu: How to Learn Hiragana",
+    "backIntro": "Kembali: Pengenalan",
+    "nextLongVowel": "Seterusnya: Vokal Panjang",
     "subpage1Title": "Vokal Panjang",
     "subpage1Subtitle": "Belajar cara memanjangkan bunyi vokal (chōon / 長音)",
     "subpage1": {
@@ -241,13 +308,13 @@ export const translations = {
       "whatIsDesc": "Vokal panjang (長音 / chōon) adalah bunyi vokal yang dipegang untuk dua morae bukan satu. Dalam bahasa Jepun, menukar panjang vokal boleh menyebabkan perubahan makna sepenuhnya, jadi ia penting untuk dikuasai awal.",
       "hiraganaTitle": "Menulis Vokal Panjang dalam Hiragana",
       "katakanaTitle": "Menulis Vokal Panjang dalam Katakana",
-      "katakanaDesc": "Katakana menggunakan garis lurus mendatar yang dipanggil tanda vokal panjang (長音符 / chōonpu / ー) menambah huruf tambahan. Garis ini memanjangkan bunyi vokal aksara sebelumnya.",
+      "katakanaDesc": "Katakana menggunakan garis lurus mendatar yang dipanggil tanda vokal panjang (長音符 / chōonpu / ー) menambah huruf tambahan. Garis ini memanjangkan bunyi vokal huruf sebelumnya.",
       "aRow": "Bunyi baris あ (あ段)",
-      "aRowRule": "Tambah satu aksara あ (a)",
+      "aRowRule": "Tambah satu huruf あ (a)",
       "iRow": "Bunyi baris い (い段)",
-      "iRowRule": "Tambah satu aksara い (i)",
+      "iRowRule": "Tambah satu huruf い (i)",
       "uRow": "Bunyi baris う (う段)",
-      "uRowRule": "Tambah satu aksara う (u)",
+      "uRowRule": "Tambah satu huruf う (u)",
       "eRow": "Bunyi baris え (え段)",
       "eRowRule": "Biasanya tambah い (i)",
       "oRow": "Bunyi baris お (お段)",
@@ -280,7 +347,7 @@ export const translations = {
     "subpage3Title": "Kana Kecil",
     "subpage3Subtitle": "Pelajari kana kecil (ァ, ィ, ゥ, ェ, ォ, っ, ゃ, ゅ, ょ) yang mengubah bunyi",
     "subpage3": {
-      "title": "Perkataan Katakana Asing",
+      "title": "Katakana Kecil Untuk Perkataan Asing",
       "desc": "Katakana gunakan huruf kecil (ァ, ィ, ゥ, ェ, ォ) untuk tulis perkataan asing. Kombinasi ini cipta bunyi yang tak ada dalam bahasa Jepun tradisional.",
       "examplesTitle": "Contoh Biasa",
       "examples": [
@@ -359,7 +426,7 @@ export const translations = {
     "overview": {
       "title": "Mengapa Belajar Sendiri?",
       "points": [
-        "<strong>Kelas formal</strong> untuk N2 dan N1 jarang tersedia di luarbandar utama, menjadikan <strong>belajar sendiri penting</strong> untuk pelajar lanjutan.",
+        "<strong>Kelas formal</strong> untuk N2 dan N1 jarang tersedia di luarbandar utama, menjadikan <strong>belajar sendiri penting</strong> untuk pelajar berterusan.",
         "<strong>Belajar sendiri</strong> membolehkan anda belajar pada kelajuan sendiri, fokus pada apa yang menarik minat anda, dan <strong>menyelami budaya Jepun</strong> melalui media yang anda suka.",
         "Ramai pelajar mendapati <strong>gabungan belajar sendiri</strong> dengan kelas atau sesi tutoring sekali-sekala memberikan hasil terbaik."
       ]
@@ -419,11 +486,11 @@ export const translations = {
         ]
       },
       "advanced": {
-        "title": "Lanjutan (N2-N1)",
+        "title": "berterusan (N2-N1)",
         "items": [
           "Media asli tanpa sari kata",
           "Berita Jepun (NHK Easy)",
-          "Buku tatabahasa lanjutan",
+          "Buku tatabahasa berterusan",
           "Latihan shadowing"
         ]
       }
@@ -498,55 +565,6 @@ export const translations = {
     "subtitle": "Kaedah yang sebenarnya berkesan, dari seseorang yang sudah cuba semua.",
     "storyContent": "Hi, saya <strong>Uthman</strong>, student Jepun macam korang! Saya tahu betapa frustrasinya belajar Jepun bila kanji macam garis rawak, grammar tak masuk akal, dan nothing stays in your head.<br><br>Saya mula belajar Jepun pada 2018 tapi <strong>berhenti</strong> selepas beberapa bulan. Kanji kelihatan seram, dan saya tak nampak bagaimana ia akan melekat. Selepas rehat lama, saya decide untuk <strong>paksa belajar</strong>  dan tak jadi seberat yang saya bayang.<br><br>Sejak 2021, saya belajar secara on and off sebab busy dengan universiti, tapi sampai <strong>mid 2025</strong> baru semuanya masuk. Saya mula konsum kandungan Jepun <strong>setiap hari</strong>  sama ada Hololive streams, J-drama, apa je yang saya boleh jejek dalam bahasa tu. Pemahaman saya meningkat banyak dengan flashcards dan SRS (Spaced Repetition System).<br><br>Kalau korang serius nak belajar, <strong>sertai kelas saya</strong> dan kita belajar sama-sama.",
     "connectTitle": "Sambung"
-  },
-  "jlptInfo": {
-    "title": "Apa itu JLPT?",
-    "subtitle": "Memahami Ujian Kelayakan Bahasa Jepun",
-    "whatIs": {
-      "title": "Mengenai JLPT",
-      "description": "Ujian Kelayakan Bahasa Jepun (JLPT) adalah ujian standard yang menilai dan mengesahkan kecekapan penutur bukan asli bahasa Jepun. Ujian ini dikendalikan oleh Japan Foundation dan Japan Educational Exchanges and Evaluation Services (JEES). Ujian ini diadakan dua kali setahun di Jepun dan negara terpilih, dan sekali setahun di wilayah lain."
-    },
-    "levels": {
-      "title": "Tahap JLPT Diterangkan",
-      "beginner": "- Pemula",
-      "elementary": "- Asas",
-      "intermediate": "- Pertengahan",
-      "upperIntermediate": "- Pertengahan Atas",
-      "advanced": "- Lanjutan",
-      "n5Desc": "Tahap paling asas kecekapan bahasa Jepun. Menguji pengetahuan aksara Jepun asas (hiragana dan katakana) dan perkataan harian.",
-      "n5Kanji": "Kira-kira 100 kanji",
-      "n5Vocab": "Kira-kira 800 perkataan",
-      "n4Desc": "Tahap asas, membina pengetahuan N5. Menguji keupayaan memahami bahasa Jepun asas.",
-      "n4Kanji": "Kira-kira 300 kanji",
-      "n4Vocab": "Kira-kira 1,500 perkataan",
-      "n3Desc": "Tahap pertengahan. Menguji keupayaan memahami bahasa Jepun yang digunakan dalam situasi harian hingga tahap tertentu.",
-      "n3Kanji": "Kira-kira 400 kanji",
-      "n3Vocab": "Kira-kira 3,000 perkataan",
-      "n2Desc": "Tahap pertengahan atas. Menguji keupayaan memahami bahasa Jepun yang digunakan dalam situasi harian dan konteks yang lebih kompleks.",
-      "n2Kanji": "Kira-kira 650 kanji",
-      "n2Vocab": "Kira-kira 6,000 perkataan",
-      "n1Desc": "Tahap lanjutan. Menguji keupayaan memahami bahasa Jepun yang digunakan dalam pelbagai konteks akademik dan formal.",
-      "n1Kanji": "Kira-kira 2,000 kanji",
-      "n1Vocab": "Kira-kira 10,000 perkataan"
-    },
-    "format": {
-      "title": "Format Ujian",
-      "descriptionN5N3": "N5-N3 terdiri daripada tiga bahagian:",
-      "descriptionN2N1": "N2-N1 terdiri daripada dua bahagian:",
-      "vocabulary": "Perkataan",
-      "vocabularyDesc": "Menguji pengetahuan perkataan Jepun dan penggunaan perkataan Jepun yang betul dalam ayat.",
-      "grammarReading": "Tatabahasa & Bacaan",
-      "grammarReadingDesc": "Menguji pengetahuan struktur tatabahasa dan pemahaman bacaan Jepun.",
-      "reading": "Pemahaman Bacaan",
-      "readingDesc": "Menguji keupayaan memahami bahan bertulis dari pelbagai konteks.",
-      "listening": "Pendengaran",
-      "listeningDesc": "Menguji keupayaan mendengar dan memahami perbualan dan dialog harian."
-    },
-    "purpose": {
-      "title": "Mengapa Ambil JLPT?",
-      "description": "JLPT diiktiraf di seluruh dunia sebagai standard untuk mengukur kecekapan bahasa Jepun. Ia digunakan oleh universiti, syarikat, dan pihak berkuasa imigresen untuk menilai keupayaan bahasa Jepun. Lulus JLPT N5 atau N4 juga boleh memenuhi syarat visa Jepun untuk kategori visa tertentu.",
-      "exploreResources": "Terokai Sumber Pembelajaran"
-    }
   },
   "privacyPolicy": {
     "title": "Dasar Privasi",
