@@ -10343,7 +10343,8 @@ function renderAdminSignupsList(container, signups) {
 
   }
 
-
+  // Store signups data for event delegation
+  container.dataset.signups = JSON.stringify(signups);
 
   container.innerHTML = signups.map(signup => {
 
@@ -10384,29 +10385,28 @@ function renderAdminSignupsList(container, signups) {
     `;
 
   }).join('');
-
-
-
-  // Use event delegation instead
-  container.onclick = async (e) => {
-    const btn = e.target.closest('.btn-delete-signup');
-    if (btn) {
-      const id = btn.dataset.id;
-      if (confirm('Are you sure you want to delete this?')) {
-        await adminAction('delete_signup', { id });
-        loadAdminSignups();
-      }
-      return;
-    }
-
-    const viewBtn = e.target.closest('.btn-view-signup');
-    if (viewBtn) {
-      const signup = signups.find(s => s.id === viewBtn.dataset.id);
-      if (signup) showSignupDetails(signup);
-    }
-  };
-
 }
+
+// Use document-level event delegation
+document.addEventListener('click', async (e) => {
+  const deleteBtn = e.target.closest('.btn-delete-signup');
+  if (deleteBtn) {
+    const id = deleteBtn.dataset.id;
+    if (confirm('Are you sure you want to delete this?')) {
+      await adminAction('delete_signup', { id });
+      loadAdminSignups();
+    }
+    return;
+  }
+
+  const viewBtn = e.target.closest('.btn-view-signup');
+  if (viewBtn) {
+    const container = document.getElementById('admin-signups-list');
+    const signupData = container ? JSON.parse(container.dataset.signups || '[]') : [];
+    const signup = signupData.find(s => s.id === viewBtn.dataset.id);
+    if (signup) showSignupDetails(signup);
+  }
+});
 
 function showSignupDetails(signup) {
   const formatArray = (arr) => Array.isArray(arr) && arr.length ? arr.join(', ') : '-';
