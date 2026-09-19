@@ -10447,80 +10447,80 @@ function showSignupDetails(signup) {
         </div>
         <div style="padding:28px 32px;">
           <div style="margin-bottom:28px;">
-            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Info Pelajar</div>
+            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Student Info</div>
             <div style="background:var(--bg-primary);border-radius:12px;padding:8px 16px;">
-              ${row('Umur', formatText(signup.age))}
+              ${row('Age', formatText(signup.age))}
               ${row('Phone', formatText(signup.phone))}
-              ${row('Tahap', formatText(signup.level))}
+              ${row('Level', formatText(signup.level))}
             </div>
           </div>
 
           <div style="margin-bottom:28px;">
-            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Keutamaan Kelas</div>
+            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Class Preference</div>
             <div style="background:var(--bg-primary);border-radius:12px;padding:8px 16px;">
-              ${row('Jenis', signup.class_type === '1on1' ? '1 on 1 — RM200/bulan' : 'Berkumpulan — RM150/bulan')}
-              ${row('Jadual', formatArray(signup.schedule))}
+              ${row('Class Type', signup.class_type === '1on1' ? '1 on 1 — RM200/month' : 'Group — RM150/month')}
+              ${row('Schedule', formatArray(signup.schedule))}
             </div>
           </div>
 
           <div style="margin-bottom:28px;">
-            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Pengalaman Jepun</div>
+            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Japanese Experience</div>
             <div style="background:var(--bg-primary);border-radius:12px;padding:8px 16px;">
-              ${row('Pernah Belajar', formatText(signup.studied_before))}
+              ${row('Studied Before', formatText(signup.studied_before))}
               ${row('JLPT Taken', formatText(signup.jlpt_taken))}
               ${row('JLPT Level', formatText(signup.jlpt_level))}
-              ${row('Pendedahan', formatArray(signup.exposure))}
+              ${row('Exposure', formatArray(signup.exposure))}
             </div>
           </div>
 
           <div style="margin-bottom:28px;">
-            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Motivasi</div>
+            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Motivation</div>
             <div style="background:var(--bg-primary);border-radius:12px;padding:8px 16px;">
-              ${row('Kenapa Jepun', formatArray(signup.why_japanese))}
-              ${signup.why_japanese_other ? row('Lain-lain', formatText(signup.why_japanese_other)) : ''}
+              ${row('Why Japanese', formatArray(signup.why_japanese))}
+              ${signup.why_japanese_other ? row('Other', formatText(signup.why_japanese_other)) : ''}
               ${row('Goal', formatText(signup.goal))}
-              ${signup.goal_other ? row('Goal Lain', formatText(signup.goal_other)) : ''}
+              ${signup.goal_other ? row('Goal Other', formatText(signup.goal_other)) : ''}
             </div>
           </div>
 
           <div style="margin-bottom:28px;">
-            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Tabiat Belajar</div>
+            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Study Habits</div>
             <div style="background:var(--bg-primary);border-radius:12px;padding:8px 16px;">
-              ${row('Jam/Minggu', formatText(signup.study_hours))}
-              ${row('Aktiviti', formatArray(signup.activities))}
+              ${row('Hours/Week', formatText(signup.study_hours))}
+              ${row('Activities', formatArray(signup.activities))}
             </div>
           </div>
 
           <div style="margin-bottom:28px;">
-            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Pengalaman Lalu</div>
+            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Past Experience</div>
             <div style="background:var(--bg-primary);border-radius:12px;padding:8px 16px;">
               ${row('Quit Before', formatText(signup.quit_before))}
-              ${row('Sebab Quit', formatArray(signup.quit_reason))}
-              ${signup.quit_reason_other ? row('Sebab Lain', formatText(signup.quit_reason_other)) : ''}
+              ${row('Quit Reason', formatArray(signup.quit_reason))}
+              ${signup.quit_reason_other ? row('Quit Other', formatText(signup.quit_reason_other)) : ''}
             </div>
           </div>
 
           <div style="margin-bottom:28px;">
-            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Cabaran & Harapan</div>
+            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Challenges & Expectations</div>
             <div style="background:var(--bg-primary);border-radius:12px;padding:8px 16px;">
-              ${row('Cabaran', formatArray(signup.challenges))}
-              ${signup.challenges_other ? row('Cabaran Lain', formatText(signup.challenges_other)) : ''}
+              ${row('Challenges', formatArray(signup.challenges))}
+              ${signup.challenges_other ? row('Challenges Other', formatText(signup.challenges_other)) : ''}
               ${row('Expectations', formatArray(signup.expectations))}
-              ${signup.expectations_other ? row('Harapan Lain', formatText(signup.expectations_other)) : ''}
+              ${signup.expectations_other ? row('Expectations Other', formatText(signup.expectations_other)) : ''}
             </div>
           </div>
 
           <div style="margin-bottom:28px;">
-            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Sumber</div>
+            <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Source</div>
             <div style="background:var(--bg-primary);border-radius:12px;padding:8px 16px;">
               ${row('Referral', formatText(signup.referral))}
-              ${signup.referral_other ? row('Sumber Lain', formatText(signup.referral_other)) : ''}
+              ${signup.referral_other ? row('Referral Other', formatText(signup.referral_other)) : ''}
             </div>
           </div>
 
           ${signup.questions ? `
             <div style="margin-bottom:20px;">
-              <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Soalan</div>
+              <div style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-color);margin-bottom:14px;font-weight:600;">Questions</div>
               <div style="background:var(--bg-primary);border-radius:12px;padding:16px 20px;font-size:15px;line-height:1.7;white-space:pre-wrap;">${formatText(signup.questions)}</div>
             </div>
           ` : ''}
