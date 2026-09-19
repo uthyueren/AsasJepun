@@ -4600,7 +4600,7 @@ function renderKanaView() {
 
               <div class="pron-comparison-row">
 
-                <div class="pron-kana-box">
+                <div class="pron-kana-box" data-kana="し" onclick="playPronunciation('し')">
 
                   <span class="pron-kana-char">し / シ</span>
 
@@ -4622,7 +4622,7 @@ function renderKanaView() {
 
               <div class="pron-comparison-row">
 
-                <div class="pron-kana-box">
+                <div class="pron-kana-box" data-kana="ち" onclick="playPronunciation('ち')">
 
                   <span class="pron-kana-char">ち / チ</span>
 
@@ -4644,7 +4644,7 @@ function renderKanaView() {
 
               <div class="pron-comparison-row">
 
-                <div class="pron-kana-box">
+                <div class="pron-kana-box" data-kana="つ" onclick="playPronunciation('つ')">
 
                   <span class="pron-kana-char">つ / ツ</span>
 
