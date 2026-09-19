@@ -10401,10 +10401,16 @@ document.addEventListener('click', async (e) => {
 
   const viewBtn = e.target.closest('.btn-view-signup');
   if (viewBtn) {
+    alert('View clicked: ' + viewBtn.dataset.id);
     const container = document.getElementById('admin-signups-list');
     const signupData = container ? JSON.parse(container.dataset.signups || '[]') : [];
     const signup = signupData.find(s => s.id === viewBtn.dataset.id);
-    if (signup) showSignupDetails(signup);
+    if (signup) {
+      alert('Found signup: ' + signup.name);
+      showSignupDetails(signup);
+    } else {
+      alert('No signup found for id: ' + viewBtn.dataset.id);
+    }
   }
 });
 
