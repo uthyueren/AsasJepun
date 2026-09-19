@@ -3252,8 +3252,13 @@ async function renderBlogArticleView(slug) {
   const rawContent = post.content ? post.content[lang] : post.description ? post.description[lang] : '';
   const content = rawContent || '';
 
+  const escapeHtml = (text) => {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+    return text.replace(/[&<>"']/g, c => map[c]);
+  };
+
   const renderInline = (text) => {
-    return text
+    return escapeHtml(text)
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.+?)\*/g, '<em>$1</em>')
       .replace(/`(.+?)`/g, '<code>$1</code>')
@@ -9210,21 +9215,25 @@ function getAllExistingTags() {
 
 function simpleMarkdownRender(text) {
   if (!text) return '';
+  const escapeHtml = (t) => {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+    return t.replace(/[&<>"']/g, c => map[c]);
+  };
   const lines = text.split('\n');
   let html = '';
   let inPre = false;
   let inBlockquote = false;
   for (let i = 0; i < lines.length; i++) {
-    let line = lines[i];
+    let line = escapeHtml(lines[i]);
     if (line.startsWith('```')) {
       if (inPre) { html += '</pre>'; inPre = false; }
       else { html += '<pre>'; inPre = true; }
       continue;
     }
     if (inPre) { html += line + '\n'; continue; }
-    if (line.startsWith('> ')) {
+    if (line.startsWith('&gt; ')) {
       if (!inBlockquote) { html += '<blockquote>'; inBlockquote = true; }
-      html += '<p>' + line.slice(2) + '</p>';
+      html += '<p>' + line.slice(4) + '</p>';
       continue;
     } else if (inBlockquote) { html += '</blockquote>'; inBlockquote = false; }
     if (line.startsWith('### ')) html += '<h3>' + line.slice(4) + '</h3>';
