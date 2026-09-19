@@ -2820,7 +2820,7 @@ async function handleBlogCultureRoute(route) {
               <p>${(item.excerpt || {})[lang] || (item.description || {})[lang] || item.excerpt_en || ''}</p>
               <div class="blog-card-footer">
                 ${item.publishDate ? `<span class="blog-card-date">${new Date(item.publishDate).toLocaleDateString(lang === 'my' ? 'ms-MY' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>` : ''}
-                ${item.readingTime ? `<span class="blog-card-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${item.readingTime} ${t('blog.minRead')}</span>` : ''}
+                ${item.readingTime ? `<span class="blog-card-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${item.readingTime} ${t('blogCulture.blogMinRead')}</span>` : ''}
               </div>
             </div>
           </div>
@@ -2854,7 +2854,7 @@ function renderCultureView() {
 
   state.currentView = "culture";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('culture.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('blogCulture.cultureTitle');
 
   const lang = getLanguage();
 
@@ -2868,9 +2868,9 @@ function renderCultureView() {
 
       <div class="page-header">
 
-        <h1 data-i18n="culture.title">${t('culture.title')}</h1>
+        <h1 data-i18n="culture.title">${t('blogCulture.cultureTitle')}</h1>
 
-        <p data-i18n="culture.subtitle">${t('culture.subtitle')}</p>
+        <p data-i18n="culture.subtitle">${t('blogCulture.cultureSubtitle')}</p>
 
       </div>
 
@@ -2900,7 +2900,7 @@ function renderCultureView() {
 
               <div class="lesson-card-footer">
 
-                <span class="lesson-vocab-count">${lesson.vocabList.length} ${t('culture.vocabulary')}</span>
+                <span class="lesson-vocab-count">${lesson.vocabList.length} ${t('blogCulture.vocabulary')}</span>
 
                 <span class="grammar-card-link">
 
@@ -2946,7 +2946,7 @@ async function renderCultureLessonView(slug) {
 
   state.currentView = "culture-lesson";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('culture.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('blogCulture.cultureTitle');
 
 
 
@@ -3027,7 +3027,7 @@ async function renderCultureLessonView(slug) {
 
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
 
-              ${t('culture.culturalNotes')}
+              ${t('blogCulture.culturalNotes')}
 
             </h2>
 
@@ -3044,7 +3044,7 @@ async function renderCultureLessonView(slug) {
 
               <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
 
-              ${t('culture.vocabulary')}
+              ${t('blogCulture.vocabulary')}
 
             </h2>
 
@@ -3119,7 +3119,7 @@ function renderBlogView() {
 
   state.currentView = "blog";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('blog.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('blogCulture.blogTitle');
 
   const lang = getLanguage();
 
@@ -3133,9 +3133,9 @@ function renderBlogView() {
 
       <div class="page-header">
 
-        <h1 data-i18n="blog.title">${t('blog.title')}</h1>
+        <h1 data-i18n="blog.title">${t('blogCulture.blogTitle')}</h1>
 
-        <p data-i18n="blog.subtitle">${t('blog.subtitle')}</p>
+        <p data-i18n="blog.subtitle">${t('blogCulture.blogSubtitle')}</p>
 
       </div>
 
@@ -3165,7 +3165,7 @@ function renderBlogView() {
 
               </div>
 
-              <span class="blog-read-time">${post.readingTime} ${t('blog.minRead')}</span>
+              <span class="blog-read-time">${post.readingTime} ${t('blogCulture.blogMinRead')}</span>
 
             </div>
 
@@ -3201,7 +3201,7 @@ async function renderBlogArticleView(slug) {
 
   state.currentView = "blog-article";
 
-  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('blog.title');
+  const _st = document.getElementById("section-title"); if(_st) _st.textContent = t('blogCulture.blogTitle');
 
 
 
@@ -3307,7 +3307,7 @@ async function renderBlogArticleView(slug) {
 
           ${post.publishDate ? `<span class="article-date">${new Date(post.publishDate).toLocaleDateString(lang === 'my' ? 'ms-MY' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>` : ''}
 
-          ${post.readingTime ? `<span class="article-read-time"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${post.readingTime} ${t('blog.minRead')}</span>` : ''}
+          ${post.readingTime ? `<span class="article-read-time"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${post.readingTime} ${t('blogCulture.blogMinRead')}</span>` : ''}
 
         </div>
 
@@ -6721,7 +6721,7 @@ function renderKanaSubpage3View() {
 
           <section class="info-section">
 
-            <h2><i data-lucide="link"></i> ${t('smallKana.yoonSmallTitle')}</h2>
+            <h2><i data-lucide="link"></i> ${t('smallKana.yoonTitle')}</h2>
 
             <div class="info-card">
 
@@ -7187,7 +7187,7 @@ function renderKanaSubpage3View() {
 
           <section class="info-section">
 
-            <h2><i data-lucide="link"></i> ${t('smallKana.yoonSmallTitle')}</h2>
+            <h2><i data-lucide="link"></i> ${t('smallKana.yoonTitle')}</h2>
 
             <div class="info-card">
 
