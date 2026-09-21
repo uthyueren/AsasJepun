@@ -73,6 +73,14 @@ serve(async (req) => {
         result = error ? { error: error.message } : { success: true, post: resultData };
         break;
       }
+      case 'get_posts': {
+        const { data: posts, error } = await supabase
+          .from('blog_posts')
+          .select('*')
+          .order('created_at', { ascending: false });
+        result = error ? { error: error.message } : { posts };
+        break;
+      }
       default:
         result = { error: 'Unknown action' };
     }

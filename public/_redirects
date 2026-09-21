@@ -1,7 +1,1 @@
-# Serve static assets directly
-/images/* /images/:splat 200
-/favicons/* /favicons/:splat 200
-/audios/* /audios/:splat 200
-
-# SPA fallback - all other routes go to index.html
-/*    /index.html   200
+/* /index.html 200
