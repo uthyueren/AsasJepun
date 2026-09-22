@@ -4933,13 +4933,12 @@ body.hide-furigana ruby rt {
     .resource-nav {
         opacity: 1;
         pointer-events: auto;
-        width: 44px;
-        height: 44px;
-        border-radius: var(--border-radius-md);
-        background: var(--primary);
-        border: 1px solid var(--primary);
-        color: white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        width: 36px;
+        height: 36px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 50%;
+        color: var(--text-primary);
     }
 
     .resource-nav-prev {
@@ -4955,13 +4954,14 @@ body.hide-furigana ruby rt {
     }
 
     .resource-nav:hover:not(:disabled) {
-        background: var(--primary-hover);
-        border-color: var(--primary-hover);
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
     }
 
     .resource-nav i {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
     }
 }
 
