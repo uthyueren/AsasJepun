@@ -4933,20 +4933,35 @@ body.hide-furigana ruby rt {
     .resource-nav {
         opacity: 1;
         pointer-events: auto;
-        width: 32px;
-        height: 32px;
+        width: 44px;
+        height: 44px;
+        border-radius: var(--border-radius-md);
+        background: var(--primary);
+        border: 1px solid var(--primary);
+        color: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
     .resource-nav-prev {
-        left: 4px;
+        left: 8px;
     }
 
     .resource-nav-next {
-        right: 4px;
+        right: 8px;
     }
 
     .resource-cards-outer::after {
         display: none;
+    }
+
+    .resource-nav:hover:not(:disabled) {
+        background: var(--primary-hover);
+        border-color: var(--primary-hover);
+    }
+
+    .resource-nav i {
+        width: 20px;
+        height: 20px;
     }
 }
 
@@ -6608,19 +6623,31 @@ section.info-content:last-child {
 /* Responsive */
 @media (max-width: 768px) {
     .levels-grid {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex !important;
+        overflow-x: auto !important;
         gap: 16px;
-        overflow-x: auto;
         padding-bottom: 12px;
         -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+    }
+
+    .levels-grid > * {
+        flex-shrink: 0;
+        scroll-snap-align: start;
     }
 
     .jlpt-levels-grid {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex !important;
+        overflow-x: auto !important;
         gap: 16px;
-        overflow-x: auto;
         padding-bottom: 12px;
         -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+    }
+
+    .jlpt-levels-grid > * {
+        flex-shrink: 0;
+        scroll-snap-align: start;
     }
 
     .format-grid {
@@ -7061,8 +7088,17 @@ section.info-content:last-child {
     }
 
     .mora-breakdown {
-        flex-direction: column;
+        flex-direction: column !important;
         align-items: center;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .mora-connector {
+        transform: rotate(90deg);
+        margin: 4px 0;
     }
 
     .pron-kana-char {
