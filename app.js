@@ -196,20 +196,9 @@ function initMobileNav() {
       updateLangDropdown(newLang);
       updateI18nText();
       reRenderCurrentView();
-    });
-  }
-
-  // Mobile theme toggle
-  const mobileThemeToggle = document.getElementById("mobile-theme-toggle");
-  if (mobileThemeToggle) {
-    mobileThemeToggle.addEventListener("click", () => {
-      const isLight = document.documentElement.classList.toggle("light-theme");
-      document.documentElement.classList.toggle("dark-theme", !isLight);
-      if (isLight) {
-        localStorage.setItem("theme", "light");
-      } else {
-        localStorage.setItem("theme", "dark");
-      }
+      // Update mobile lang label
+      const langLabel = mobileLangToggle.querySelector('.lang-label');
+      if (langLabel) langLabel.textContent = newLang.toUpperCase();
     });
   }
 
