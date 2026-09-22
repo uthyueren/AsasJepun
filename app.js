@@ -7660,7 +7660,7 @@ function renderKanjiRulesSubpage2View() {
 
     { original: "肉", meaning: "meat, flesh", example: "肌 (skin)" },
 
-    { original: "肉", meaning: "meat, flesh", example: "腐 (rotten)" }
+    { original: "石", meaning: "stone", example: "岩 (rock)" }
 
   ];
 
