@@ -660,6 +660,48 @@ textarea:focus {
     height: 18px;
 }
 
+.mobile-nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.mobile-nav-logo .logo-icon {
+    font-size: 24px;
+}
+
+.mobile-nav-logo .logo-text {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.mobile-nav-logo .logo-text span {
+    color: var(--primary);
+}
+
+.mobile-nav-kofi {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #ff5e5b;
+    border: none;
+    border-radius: var(--border-radius-md);
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    flex: 1;
+    justify-content: center;
+}
+
+.mobile-nav-kofi:hover {
+    background: #ff4543;
+}
+
 /* Theme Toggle */
 .theme-toggle-btn {
     display: flex;
