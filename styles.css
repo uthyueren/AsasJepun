@@ -6623,17 +6623,14 @@ section.info-content:last-child {
 /* Responsive */
 @media (max-width: 768px) {
     .levels-grid {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        max-height: calc(3 * 120px);
-        overflow-y: auto;
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 16px;
         padding: 0 16px 16px 16px;
-        -webkit-overflow-scrolling: touch;
     }
 
     .levels-grid > * {
-        flex: 0 0 calc(50% - 8px);
+        flex: none;
     }
 
     .jlpt-levels-grid {
