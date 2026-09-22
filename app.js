@@ -6599,7 +6599,7 @@ function renderKanaSubpage3View() {
 
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;">
+          <div class="small-kana-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;">
 
             ${(function() {
               const examples = t('smallKana.examples');
