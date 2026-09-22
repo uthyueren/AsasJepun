@@ -6770,65 +6770,25 @@ function renderKanaSubpage3View() {
 
             <div class="mora-visual" style="margin: 20px 0;">
 
-              <div class="yoon-comparison-wrap" style="display: flex; flex-direction: column; gap: 24px;">
+              <div class="yoon-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
 
-                <div style="text-align: center;">
+                <div><div style="font-size: 48px; margin-bottom: 8px;">や</div><div style="font-size: 14px; color: var(--text-secondary);">Normal ya</div></div>
 
-                  <div style="font-size: 48px; margin-bottom: 8px;">や</div>
+                <div><div style="font-size: 48px; margin-bottom: 8px;">ゆ</div><div style="font-size: 14px; color: var(--text-secondary);">Normal yu</div></div>
 
-                  <div style="font-size: 14px; color: var(--text-secondary);">Normal ya</div>
+                <div><div style="font-size: 48px; margin-bottom: 8px;">よ</div><div style="font-size: 14px; color: var(--text-secondary);">Normal yo</div></div>
 
-                </div>
+                <div><div style="font-size: 36px; color: var(--text-muted);">≠</div></div>
 
-                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
+                <div><div style="font-size: 36px; color: var(--text-muted);">≠</div></div>
 
-                <div style="text-align: center;">
+                <div><div style="font-size: 36px; color: var(--text-muted);">≠</div></div>
 
-                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ゃ</div>
+                <div><div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ゃ</div><div style="font-size: 14px; color: var(--text-secondary);">Small ya</div></div>
 
-                  <div style="font-size: 14px; color: var(--text-secondary);">Small ya</div>
+                <div><div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ゅ</div><div style="font-size: 14px; color: var(--text-secondary);">Small yu</div></div>
 
-                </div>
-
-                <div style="width: 1px; height: 80px; background: var(--border-color); align-self: center;"></div>
-
-                <div style="text-align: center;">
-
-                  <div style="font-size: 48px; margin-bottom: 8px;">ゆ</div>
-
-                  <div style="font-size: 14px; color: var(--text-secondary);">Normal yu</div>
-
-                </div>
-
-                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
-
-                <div style="text-align: center;">
-
-                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ゅ</div>
-
-                  <div style="font-size: 14px; color: var(--text-secondary);">Small yu</div>
-
-                </div>
-
-                <div style="width: 1px; height: 80px; background: var(--border-color); align-self: center;"></div>
-
-                <div style="text-align: center;">
-
-                  <div style="font-size: 48px; margin-bottom: 8px;">よ</div>
-
-                  <div style="font-size: 14px; color: var(--text-secondary);">Normal yo</div>
-
-                </div>
-
-                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
-
-                <div style="text-align: center;">
-
-                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ょ</div>
-
-                  <div style="font-size: 14px; color: var(--text-secondary);">Small yo</div>
-
-                </div>
+                <div><div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ょ</div><div style="font-size: 14px; color: var(--text-secondary);">Small yo</div></div>
 
               </div>
 
@@ -7236,65 +7196,25 @@ function renderKanaSubpage3View() {
 
             <div class="mora-visual" style="margin: 20px 0;">
 
-              <div class="yoon-comparison-wrap" style="display: flex; flex-direction: column; gap: 24px;">
+              <div class="yoon-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
 
-                <div style="text-align: center;">
+                <div><div style="font-size: 48px; margin-bottom: 8px;">ヤ</div><div style="font-size: 14px; color: var(--text-secondary);">Normal ya</div></div>
 
-                  <div style="font-size: 48px; margin-bottom: 8px;">ヤ</div>
+                <div><div style="font-size: 48px; margin-bottom: 8px;">ユ</div><div style="font-size: 14px; color: var(--text-secondary);">Normal yu</div></div>
 
-                  <div style="font-size: 14px; color: var(--text-secondary);">Normal ya</div>
+                <div><div style="font-size: 48px; margin-bottom: 8px;">ヨ</div><div style="font-size: 14px; color: var(--text-secondary);">Normal yo</div></div>
 
-                </div>
+                <div><div style="font-size: 36px; color: var(--text-muted);">≠</div></div>
 
-                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
+                <div><div style="font-size: 36px; color: var(--text-muted);">≠</div></div>
 
-                <div style="text-align: center;">
+                <div><div style="font-size: 36px; color: var(--text-muted);">≠</div></div>
 
-                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ャ</div>
+                <div><div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ャ</div><div style="font-size: 14px; color: var(--text-secondary);">Small ya</div></div>
 
-                  <div style="font-size: 14px; color: var(--text-secondary);">Small ya</div>
+                <div><div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ュ</div><div style="font-size: 14px; color: var(--text-secondary);">Small yu</div></div>
 
-                </div>
-
-                <div style="width: 1px; height: 80px; background: var(--border-color); align-self: center;"></div>
-
-                <div style="text-align: center;">
-
-                  <div style="font-size: 48px; margin-bottom: 8px;">ユ</div>
-
-                  <div style="font-size: 14px; color: var(--text-secondary);">Normal yu</div>
-
-                </div>
-
-                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
-
-                <div style="text-align: center;">
-
-                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ュ</div>
-
-                  <div style="font-size: 14px; color: var(--text-secondary);">Small yu</div>
-
-                </div>
-
-                <div style="width: 1px; height: 80px; background: var(--border-color); align-self: center;"></div>
-
-                <div style="text-align: center;">
-
-                  <div style="font-size: 48px; margin-bottom: 8px;">ヨ</div>
-
-                  <div style="font-size: 14px; color: var(--text-secondary);">Normal yo</div>
-
-                </div>
-
-                <div style="font-size: 36px; color: var(--text-muted); align-self: center;">≠</div>
-
-                <div style="text-align: center;">
-
-                  <div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ョ</div>
-
-                  <div style="font-size: 14px; color: var(--text-secondary);">Small yo</div>
-
-                </div>
+                <div><div style="font-size: 48px; color: var(--accent-purple); margin-bottom: 8px;">ョ</div><div style="font-size: 14px; color: var(--text-secondary);">Small yo</div></div>
 
               </div>
 

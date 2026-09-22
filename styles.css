@@ -7089,6 +7089,18 @@ section.info-content:last-child {
         justify-content: center;
     }
 
+    .yoon-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        text-align: center;
+        padding: 0 16px 16px 16px;
+    }
+
+    .yoon-grid > div {
+        flex-shrink: 0;
+    }
+
     .yoon-comparison {
         display: flex !important;
         flex-wrap: nowrap;
