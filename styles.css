@@ -6626,6 +6626,7 @@ section.info-content:last-child {
         display: flex !important;
         overflow-x: auto !important;
         gap: 16px;
+        padding-left: 16px;
         padding-bottom: 12px;
         -webkit-overflow-scrolling: touch;
         scroll-snap-type: x mandatory;
@@ -7083,8 +7084,9 @@ section.info-content:last-child {
     .yoon-comparison {
         flex-wrap: nowrap;
         overflow-x: auto;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 16px;
+        padding-left: 16px;
         padding-bottom: 8px;
         -webkit-overflow-scrolling: touch;
     }
@@ -7104,8 +7106,9 @@ section.info-content:last-child {
         flex-direction: row !important;
         flex-wrap: nowrap !important;
         overflow-x: auto;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 8px;
+        padding-left: 16px;
         padding-bottom: 8px;
         -webkit-overflow-scrolling: touch;
     }
@@ -7127,6 +7130,7 @@ section.info-content:last-child {
         flex-wrap: nowrap !important;
         overflow-x: auto;
         gap: 12px;
+        padding-left: 16px;
         padding-bottom: 12px;
         -webkit-overflow-scrolling: touch;
         scroll-snap-type: x mandatory;
