@@ -7126,19 +7126,15 @@ section.info-content:last-child {
     }
 
     .small-kana-grid {
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
         gap: 12px;
         padding-left: 16px;
-        padding-bottom: 12px;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
+        padding-right: 16px;
     }
 
     .small-kana-grid > * {
-        flex: 0 0 160px;
-        scroll-snap-align: start;
+        min-width: 0;
     }
 
     .pron-vs {
