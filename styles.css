@@ -4874,6 +4874,23 @@ body.hide-furigana ruby rt {
     right: 8px;
 }
 
+@media (max-width: 768px) {
+    .resource-nav {
+        opacity: 1;
+        pointer-events: auto;
+        width: 32px;
+        height: 32px;
+    }
+
+    .resource-nav-prev {
+        left: 4px;
+    }
+
+    .resource-nav-next {
+        right: 4px;
+    }
+}
+
 .resource-card {
     display: flex;
     align-items: center;
