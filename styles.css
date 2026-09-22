@@ -6761,7 +6761,7 @@ section.info-content:last-child {
 /* ==========================================================================
    MEDIA QUERIES (RESPONSIVE LAYOUTS)
    ========================================================================== */
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (orientation: portrait) {
     .app-header {
         padding: 0 24px;
     }
