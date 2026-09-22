@@ -544,6 +544,7 @@ textarea:focus {
 }
 
 .mobile-nav-drawer.active {
+    display: flex;
     transform: translateX(0);
 }
 
