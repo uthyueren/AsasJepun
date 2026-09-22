@@ -4946,14 +4946,7 @@ body.hide-furigana ruby rt {
     }
 
     .resource-cards-outer::after {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 16px;
-        width: 60px;
-        background: linear-gradient(to right, transparent, var(--bg-primary));
-        pointer-events: none;
+        display: none;
     }
 }
 
@@ -6615,13 +6608,19 @@ section.info-content:last-child {
 /* Responsive */
 @media (max-width: 768px) {
     .levels-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 16px;
+        overflow-x: auto;
+        padding-bottom: 12px;
+        -webkit-overflow-scrolling: touch;
     }
 
     .jlpt-levels-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 16px;
+        overflow-x: auto;
+        padding-bottom: 12px;
+        -webkit-overflow-scrolling: touch;
     }
 
     .format-grid {
@@ -7011,15 +7010,18 @@ section.info-content:last-child {
         font-size: 0.75em;
         border-collapse: separate;
         border-spacing: 6px;
+        table-layout: auto;
+        width: max-content;
+        min-width: 100%;
     }
 
     .kana-cell {
-        padding: 10px 4px;
+        padding: 12px 8px;
         border-radius: var(--border-radius-lg);
     }
 
     .kana-cell .kana-char {
-        font-size: 16px;
+        font-size: 18px;
     }
 
     .kana-vowel-label {
@@ -7042,16 +7044,25 @@ section.info-content:last-child {
     }
 
     .pron-comparison-row {
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
         text-align: center;
         gap: 10px;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
     }
 
     .pron-kana-box,
     .pron-wrong-box {
         min-width: 80px;
         padding: 12px 16px;
+        flex-shrink: 0;
+    }
+
+    .mora-breakdown {
+        flex-direction: column;
+        align-items: center;
     }
 
     .pron-kana-char {
