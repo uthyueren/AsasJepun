@@ -627,6 +627,7 @@ textarea:focus {
 
 .mobile-nav-footer {
     display: flex;
+    flex-direction: column;
     gap: 12px;
     padding: 12px 16px;
 }
@@ -686,20 +687,25 @@ textarea:focus {
     align-items: center;
     gap: 8px;
     padding: 8px 12px;
-    background: #ff5e5b;
-    border: none;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
-    color: white;
+    color: var(--text-secondary);
     cursor: pointer;
     font-size: 14px;
-    font-weight: 600;
     text-decoration: none;
-    flex: 1;
     justify-content: center;
 }
 
 .mobile-nav-kofi:hover {
-    background: #ff4543;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--primary);
+}
+
+.mobile-nav-kofi i {
+    width: 18px;
+    height: 18px;
 }
 
 /* Theme Toggle */
@@ -6897,6 +6903,10 @@ section.info-content:last-child {
     }
 
     .theme-toggle-btn {
+        display: none;
+    }
+
+    .kofi-btn {
         display: none;
     }
 
