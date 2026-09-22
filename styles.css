@@ -7080,6 +7080,19 @@ section.info-content:last-child {
         -webkit-overflow-scrolling: touch;
     }
 
+    .yoon-comparison {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        gap: 24px;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .yoon-comparison > div {
+        flex-shrink: 0;
+    }
+
     .pron-kana-box,
     .pron-wrong-box {
         min-width: 80px;

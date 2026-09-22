@@ -6770,7 +6770,7 @@ function renderKanaSubpage3View() {
 
             <div class="mora-visual" style="margin: 20px 0;">
 
-              <div style="display: flex; justify-content: center; gap: 40px;">
+              <div class="yoon-comparison" style="display: flex; justify-content: center; gap: 40px;">
 
                 <div style="text-align: center;">
 
@@ -7236,7 +7236,7 @@ function renderKanaSubpage3View() {
 
             <div class="mora-visual" style="margin: 20px 0;">
 
-              <div style="display: flex; justify-content: center; gap: 40px;">
+              <div class="yoon-comparison" style="display: flex; justify-content: center; gap: 40px;">
 
                 <div style="text-align: center;">
 
