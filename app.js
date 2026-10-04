@@ -9378,17 +9378,20 @@ function renderPostEditorView() {
 </div>`;
 
   if (post) {
-    document.getElementById('post-title-en').value = post.title?.en || '';
-    document.getElementById('post-title-my').value = post.title?.my || '';
+    const postTitle = typeof post.title === 'string' ? JSON.parse(post.title) : post.title;
+    const postExcerpt = typeof post.excerpt === 'string' ? JSON.parse(post.excerpt) : post.excerpt;
+    const postContent = typeof post.content === 'string' ? JSON.parse(post.content) : post.content;
+    document.getElementById('post-title-en').value = postTitle?.en || '';
+    document.getElementById('post-title-my').value = postTitle?.my || '';
     document.getElementById('post-slug').value = post.slug || '';
-    document.getElementById('post-excerpt-en').value = post.excerpt?.en || '';
-    document.getElementById('post-excerpt-my').value = post.excerpt?.my || '';
+    document.getElementById('post-excerpt-en').value = postExcerpt?.en || '';
+    document.getElementById('post-excerpt-my').value = postExcerpt?.my || '';
     document.getElementById('post-date').value = post.publishDate || '';
     document.getElementById('post-reading-time').value = post.readingTime || 5;
     document.getElementById('post-cover-url').value = post.coverImage || '';
     document.getElementById('post-status').value = post.status || 'draft';
-    document.getElementById('post-content-en').value = post.content?.en || '';
-    document.getElementById('post-content-my').value = post.content?.my || '';
+    document.getElementById('post-content-en').value = postContent?.en || '';
+    document.getElementById('post-content-my').value = postContent?.my || '';
     editorTags = post.tags || [];
     renderTagChips();
   } else {
@@ -10014,9 +10017,11 @@ function renderAdminPostsList(container, posts) {
 
   container.innerHTML = posts.map(post => {
 
-    const title = typeof post.title === 'object' ? (post.title.en || post.title.my || 'Untitled') : post.title;
+    const parsedTitle = typeof post.title === 'string' ? JSON.parse(post.title) : post.title;
+    const title = typeof parsedTitle === 'object' ? (parsedTitle.en || parsedTitle.my || 'Untitled') : post.title;
 
-    const excerpt = typeof post.excerpt === 'object' ? (post.excerpt.en || post.excerpt.my || '') : (post.excerpt || '');
+    const parsedExcerpt = typeof post.excerpt === 'string' ? JSON.parse(post.excerpt) : post.excerpt;
+    const excerpt = typeof parsedExcerpt === 'object' ? (parsedExcerpt.en || parsedExcerpt.my || '') : (post.excerpt || '');
 
     const date = post.publishDate || post.created_at || '';
 
