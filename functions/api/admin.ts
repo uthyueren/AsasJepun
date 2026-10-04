@@ -1,8 +1,6 @@
 // functions/api/admin.ts
 // Cloudflare Pages Function — handles /api/admin routes
 
-import bcrypt from 'bcryptjs';
-
 export async function onRequest(context) {
   const { request, env } = context;
   const url = new URL(request.url);
@@ -24,11 +22,6 @@ export async function onRequest(context) {
     return new Response('Method not allowed', { status: 405 });
   }
 
-  async function d1(query, ...params) {
-    const result = await env.DB.prepare(query).bind(...params).run();
-    return result;
-  }
-
   async function d1All(query, ...params) {
     const result = await env.DB.prepare(query).bind(...params).all();
     return result.results;
@@ -47,6 +40,20 @@ export async function onRequest(context) {
     return match ? match[1] : null;
   }
 
+  // Web Crypto API helpers for password hashing (SHA-256)
+  async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function verifyPassword(password, hash) {
+    const passwordHash = await hashPassword(password);
+    return passwordHash === hash;
+  }
+
   try {
     const body = await request.json();
     const { action, password, ...data } = body;
@@ -58,7 +65,7 @@ export async function onRequest(context) {
         return json({ error: 'Unauthorized' }, 401);
       }
       const stored = rows[0].password_hash;
-      const passwordMatch = await bcrypt.compare(password, stored);
+      const passwordMatch = await verifyPassword(password, stored);
       if (!passwordMatch) {
         return json({ error: 'Unauthorized' }, 401);
       }
@@ -82,21 +89,23 @@ export async function onRequest(context) {
         const { postData } = data;
         const now = new Date().toISOString();
         if (postData.id) {
-          await d1(
-            `UPDATE blog_posts SET slug=?, title=?, excerpt=?, content=?, author=?, tags=?, publish_date=?, reading_time=?, published=?, updated_at=? WHERE id=?`,
+          const result = await env.DB.prepare(
+            `UPDATE blog_posts SET slug=?, title=?, excerpt=?, content=?, author=?, tags=?, publish_date=?, reading_time=?, published=?, updated_at=? WHERE id=?`
+          ).bind(
             postData.slug, postData.title, postData.excerpt, postData.content,
             postData.author || 'Admin',
             postData.tags ? JSON.stringify(postData.tags) : null,
             postData.publish_date, postData.reading_time || 5,
             postData.published !== undefined ? (postData.published ? 1 : 0) : 1,
             now, postData.id
-          );
+          ).run();
           return json({ success: true });
         } else {
           const id = crypto.randomUUID();
-          await d1(
+          await env.DB.prepare(
             `INSERT INTO blog_posts (id, slug, title, excerpt, content, author, tags, publish_date, reading_time, published, created_at, updated_at)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+          ).bind(
             id, postData.slug, postData.title, postData.excerpt, postData.content,
             postData.author || 'Admin',
             postData.tags ? JSON.stringify(postData.tags) : null,
@@ -104,17 +113,17 @@ export async function onRequest(context) {
             postData.reading_time || 5,
             postData.published !== undefined ? (postData.published ? 1 : 0) : 1,
             now, now
-          );
+          ).run();
           return json({ success: true, post: { id, ...postData } });
         }
       }
       case 'delete_post': {
-        await d1('DELETE FROM blog_posts WHERE id=?', data.id);
+        await env.DB.prepare('DELETE FROM blog_posts WHERE id=?').bind(data.id).run();
         return json({ success: true });
       }
       case 'toggle_publish': {
         const { id, published } = data;
-        await d1('UPDATE blog_posts SET published=?, updated_at=? WHERE id=?', published ? 1 : 0, new Date().toISOString(), id);
+        await env.DB.prepare('UPDATE blog_posts SET published=?, updated_at=? WHERE id=?').bind(published ? 1 : 0, new Date().toISOString(), id).run();
         return json({ success: true });
       }
       case 'get_signups': {
@@ -122,7 +131,7 @@ export async function onRequest(context) {
         return json({ signups });
       }
       case 'delete_signup': {
-        await d1('DELETE FROM class_signups WHERE id=?', data.id);
+        await env.DB.prepare('DELETE FROM class_signups WHERE id=?').bind(data.id).run();
         return json({ success: true });
       }
       default:
