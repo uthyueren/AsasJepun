@@ -83,7 +83,17 @@ export async function onRequest(context) {
     switch (action) {
       case 'get_posts': {
         const posts = await d1All('SELECT * FROM blog_posts ORDER BY created_at DESC');
-        return json({ posts: posts.map(p => ({ ...p, tags: p.tags ? JSON.parse(p.tags) : [] })) });
+        function tryParse(val) {
+          if (typeof val !== 'string') return val;
+          try { return JSON.parse(val); } catch { return val; }
+        }
+        return json({ posts: posts.map(p => ({
+          ...p,
+          title: tryParse(p.title),
+          excerpt: tryParse(p.excerpt),
+          content: tryParse(p.content),
+          tags: p.tags ? tryParse(p.tags) : []
+        })) });
       }
       case 'upsert_post': {
         const { postData } = data;
