@@ -16,7 +16,7 @@ An interactive Japanese learning website for Malaysian beginners, featuring Hira
 - Vanilla JavaScript (ES modules)
 - Vite
 - CSS (UI/UX Pro Max Design System)
-- Supabase (backend)
+- Cloudflare Workers + D1 (backend)
 
 ## Development
 
@@ -51,13 +51,29 @@ git push -u origin main
 
 Your site will be available at `https://your-project.pages.dev`
 
-## Supabase Setup
+## Cloudflare Setup
 
-Configure your Supabase project URL and anon key in `supabase.js`:
+Backend uses Cloudflare Workers + D1. The D1 database `asasjepun-db` is already configured in `wrangler.toml`.
 
-```javascript
-const SUPABASE_URL = 'https://your-project.supabase.co';
-const SUPABASE_ANON_KEY = 'your-anon-key';
+### Setting Up Admin Password
+
+Passwords are hashed with bcrypt. To set your admin password:
+
+1. Generate a bcrypt hash locally (requires Node.js):
+```bash
+node -e "const bcrypt = require('bcryptjs'); console.log(bcrypt.hashSync('YOUR_PASSWORD', 10))"
+```
+
+2. Update the D1 database with the generated hash:
+```bash
+npx wrangler d1 execute asasjepun-db --command="UPDATE admin_users SET password_hash='YOUR_HASH' WHERE username='admin';"
+```
+
+Replace `YOUR_PASSWORD` with your desired password and `YOUR_HASH` with the hash output from step 1.
+
+### Deploy the Pages Function (Worker API):
+```bash
+npx wrangler pages deploy dist
 ```
 
 ## License
