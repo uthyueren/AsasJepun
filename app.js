@@ -4,7 +4,6 @@ import { t, setLanguage, getLanguage, toggleLanguage, initI18n } from './transla
 
 import { CULTURE_LESSONS, BLOG_POSTS, RESOURCES, KANJI_STROKE_RULES, ANKI_CONTENT } from './content.js';
 
-import { supabase } from './supabase.js';
 
 
 
@@ -972,46 +971,46 @@ async function handleSignupSubmit(e) {
 
   try {
 
-    const { data: result, error } = await supabase
+    const signupData = {
+      name: rawData.name,
+      age: rawData.age,
+      phone: rawData.phone,
+      level: rawData.level,
+      class_type: rawData.classType,
+      schedule: schedule,
+      studied_before: rawData.studiedBefore,
+      studied_duration: rawData.studiedDuration,
+      studied_methods: getChipValues("studiedMethods"),
+      studied_methods_other: getOtherInput("studiedMethodsOther"),
+      jlpt_taken: rawData.jlptTaken,
+      jlpt_level: rawData.jlptLevel,
+      exposure: getChipValues("exposure"),
+      why_japanese: getChipValues("whyJapanese"),
+      why_japanese_other: getOtherInput("whyJapaneseOther"),
+      goal: rawData.goal,
+      goal_other: getOtherInput("goalOther"),
+      study_hours: rawData.studyHours,
+      activities: getChipValues("activities"),
+      quit_before: rawData.quitBefore,
+      quit_reason: getChipValues("quitReason"),
+      quit_reason_other: getOtherInput("quitReasonOther"),
+      challenges: getChipValues("challenges"),
+      challenges_other: getOtherInput("challengesOther"),
+      expectations: getChipValues("expectations"),
+      expectations_other: getOtherInput("expectationsOther"),
+      referral: rawData.referral,
+      referral_other: getOtherInput("referralOther"),
+      questions: rawData.questions,
+      notes: rawData.notes
+    };
 
-      .from('class_signups')
+    const signupRes = await fetch('/api/signups', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(signupData)
+    });
 
-      .insert([{
-        name: rawData.name,
-        age: rawData.age,
-        phone: rawData.phone,
-        level: rawData.level,
-        class_type: rawData.classType,
-        schedule: schedule,
-        studied_before: rawData.studiedBefore,
-        studied_duration: rawData.studiedDuration,
-        studied_methods: getChipValues("studiedMethods"),
-        studied_methods_other: getOtherInput("studiedMethodsOther"),
-        jlpt_taken: rawData.jlptTaken,
-        jlpt_level: rawData.jlptLevel,
-        exposure: getChipValues("exposure"),
-        why_japanese: getChipValues("whyJapanese"),
-        why_japanese_other: getOtherInput("whyJapaneseOther"),
-        goal: rawData.goal,
-        goal_other: getOtherInput("goalOther"),
-        study_hours: rawData.studyHours,
-        activities: getChipValues("activities"),
-        quit_before: rawData.quitBefore,
-        quit_reason: getChipValues("quitReason"),
-        quit_reason_other: getOtherInput("quitReasonOther"),
-        challenges: getChipValues("challenges"),
-        challenges_other: getOtherInput("challengesOther"),
-        expectations: getChipValues("expectations"),
-        expectations_other: getOtherInput("expectationsOther"),
-        referral: rawData.referral,
-        referral_other: getOtherInput("referralOther"),
-        questions: rawData.questions,
-        notes: rawData.notes
-      }]);
-
-
-
-    if (error) throw error;
+    if (!signupRes.ok) throw new Error('Signup failed');
 
 
 
@@ -2788,17 +2787,13 @@ async function handleBlogCultureRoute(route) {
     </div>
   `;
 
-  // Fetch from Supabase first, merge with static data
-  let supabasePosts = [];
+  // Fetch from Worker API first, merge with static data
+  let apiPosts = [];
   try {
-    const { data } = await supabase
-      .from('blog_posts')
-      .select('*')
-      .eq('published', true)
-      .order('created_at', { ascending: false });
-
-    if (data) {
-      supabasePosts = data.map(post => ({
+    const res = await fetch('/api/posts');
+    const { posts } = await res.json();
+    if (posts) {
+      apiPosts = posts.map(post => ({
         ...post,
         title: { en: post.title_en || post.title?.en || '', my: post.title_my || post.title?.my || '' },
         excerpt: { en: post.excerpt_en || post.excerpt?.en || '', my: post.excerpt_my || post.excerpt?.my || '' },
@@ -2809,13 +2804,13 @@ async function handleBlogCultureRoute(route) {
     // Use empty array, fall back to static
   }
 
-  // Merge: supabase posts first, then static posts that don't exist in supabase
-  const supabaseSlugs = new Set(supabasePosts.map(p => p.slug));
+  // Merge: api posts first, then static posts that don't exist in api
+  const apiSlugs = new Set(apiPosts.map(p => p.slug));
   const staticPosts = [...BLOG_POSTS, ...CULTURE_LESSONS]
-    .filter(item => !supabaseSlugs.has(item.slug))
+    .filter(item => !apiSlugs.has(item.slug))
     .map(item => ({ ...item, type: item.type || 'blog' }));
 
-  const allPosts = [...supabasePosts, ...staticPosts];
+  const allPosts = [...apiPosts, ...staticPosts];
 
   if (allPosts.length === 0) {
     appView.innerHTML = `
@@ -2988,23 +2983,18 @@ async function renderCultureLessonView(slug) {
 
 
 
-  // Try to fetch from Supabase first, then fall back to static data
+  // Try to fetch from Worker API first, then fall back to static data
   let lesson = null;
 
   try {
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .select('*')
-      .eq('slug', slug)
-      .eq('published', true)
-      .maybeSingle();
-
-    if (!error && data) {
+    const res = await fetch(`/api/posts/${encodeURIComponent(slug)}`);
+    const { post, error } = await res.json();
+    if (!error && post) {
       lesson = {
-        ...data,
-        title: data.title || { en: data.title_en || '', my: data.title_my || '' },
-        description: data.excerpt || { en: data.excerpt_en || '', my: data.excerpt_my || '' },
-        content: data.content || { en: data.content_en || '', my: data.content_my || '' }
+        ...post,
+        title: post.title || { en: post.title_en || '', my: post.title_my || '' },
+        description: post.excerpt || { en: post.excerpt_en || '', my: post.excerpt_my || '' },
+        content: post.content || { en: post.content_en || '', my: post.content_my || '' }
       };
     }
   } catch (e) {
@@ -3244,17 +3234,12 @@ async function renderBlogArticleView(slug) {
 
 
 
-  // Try to fetch from Supabase first, then fall back to static data
+  // Try to fetch from Worker API first, then fall back to static data
   let post = null;
 
   try {
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .select('*')
-      .eq('slug', slug)
-      .eq('published', true)
-      .maybeSingle();
-
+    const res = await fetch(`/api/posts/${encodeURIComponent(slug)}`);
+    const { post: data, error } = await res.json();
     if (!error && data) {
       post = {
         ...data,
@@ -9224,18 +9209,13 @@ function renderTagChips() {
 
 // --- ADMIN PAGE ---
 
-// Server-side admin action wrapper
+// Server-side admin action wrapper — uses Cloudflare Worker API
 async function adminAction(action, data = {}) {
   const password = localStorage.getItem('adminPassword') || '';
-  const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://cctnkujlnhcqwbgekibq.supabase.co';
-  const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO';
-  const response = await fetch(`${SUPABASE_URL}/functions/v1/admin-auth`, {
+  const response = await fetch('/api/admin', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-    },
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'same-origin',
     body: JSON.stringify({ action, password, ...data })
   });
   if (!response.ok) {
@@ -9544,100 +9524,6 @@ function renderPostEditorView() {
 
 
 
-async function loadAnalytics() {
-  const container = document.getElementById('analytics-container');
-
-  async function fetchStat(startDate, endDate, metric = 'sessions') {
-    try {
-      const res = await fetch(`/api/analytics?startDate=${startDate}&endDate=${endDate}&metric=${metric}`);
-      const data = await res.json();
-      if (data.error) return '—';
-      const rows = data.rows || [];
-      if (!rows.length) return '0';
-      return parseInt(rows[0].metricValues?.[0]?.value || 0).toLocaleString();
-    } catch {
-      return '—';
-    }
-  }
-
-  async function fetchTopPages(startDate, endDate) {
-    try {
-      const res = await fetch(`/api/analytics?startDate=${startDate}&endDate=${endDate}&metric=screenPageViews&dimension=pagePath`);
-      const data = await res.json();
-      if (data.error) return [];
-      return (data.rows || []).map(r => ({
-        path: r.dimensionValues?.[0]?.value || '',
-        views: parseInt(r.metricValues?.[0]?.value || 0).toLocaleString()
-      })).slice(0, 5);
-    } catch {
-      return [];
-    }
-  }
-
-  const [today, yesterday, last7, last28, last30, last90, last365, allTime] = await Promise.all([
-    fetchStat('today', 'today'),
-    fetchStat('yesterday', 'yesterday'),
-    fetchStat('7daysAgo', 'today'),
-    fetchStat('28daysAgo', 'today'),
-    fetchStat('30daysAgo', '30daysAgo'),
-    fetchStat('90daysAgo', '90daysAgo'),
-    fetchStat('365daysAgo', '365daysAgo'),
-    fetchStat('2010-01-01', 'today'),
-  ]);
-
-  const topPages = await fetchTopPages('365daysAgo', 'today');
-
-  container.innerHTML = `
-    <div class="analytics-header">
-      <h2>Website Analytics</h2>
-      <p class="analytics-subtitle">Your website traffic overview from Google Analytics 4</p>
-    </div>
-    <div class="analytics-grid">
-      <div class="analytics-card">
-        <div class="analytics-card-label">Today</div>
-        <div class="analytics-card-value">${today}</div>
-      </div>
-      <div class="analytics-card">
-        <div class="analytics-card-label">Yesterday</div>
-        <div class="analytics-card-value">${yesterday}</div>
-      </div>
-      <div class="analytics-card">
-        <div class="analytics-card-label">Last 7 days</div>
-        <div class="analytics-card-value">${last7}</div>
-      </div>
-      <div class="analytics-card">
-        <div class="analytics-card-label">Last 30 days</div>
-        <div class="analytics-card-value">${last30}</div>
-      </div>
-      <div class="analytics-card">
-        <div class="analytics-card-label">Last 90 days</div>
-        <div class="analytics-card-value">${last90}</div>
-      </div>
-      <div class="analytics-card">
-        <div class="analytics-card-label">Last 365 days</div>
-        <div class="analytics-card-value">${last365}</div>
-      </div>
-      <div class="analytics-card highlight">
-        <div class="analytics-card-label">All Time</div>
-        <div class="analytics-card-value">${allTime}</div>
-      </div>
-    </div>
-    <div class="analytics-section">
-      <h3>Top Pages (Last 365 Days)</h3>
-      ${topPages.length ? `
-        <table class="analytics-table">
-          <thead><tr><th>Page</th><th>Views</th></tr></thead>
-          <tbody>
-            ${topPages.map(p => `<tr><td>${p.path || '/'}</td><td>${p.views}</td></tr>`).join('')}
-          </tbody>
-        </table>
-      ` : '<p class="analytics-no-data">No data available yet</p>'}
-    </div>
-  `;
-}
-
-
-
 function renderAdminView() {
 
   state.currentView = "admin";
@@ -9719,17 +9605,12 @@ function renderAdminLogin(appView) {
     e.preventDefault();
 
     const pw = document.getElementById('admin-password').value;
-    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://cctnkujlnhcqwbgekibq.supabase.co';
-    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_YVVnB0TFMMUbe7yZFvSiYQ_y5GbCEkO';
 
     try {
-      const response = await fetch(`${SUPABASE_URL}/functions/v1/admin-auth`, {
+      const response = await fetch('/api/admin', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-        },
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
         body: JSON.stringify({ password: pw })
       });
 
@@ -9790,8 +9671,6 @@ async function renderAdminDashboard(appView) {
 
         <button class="admin-tab-btn" data-tab="signups">${'Class Signups'}</button>
 
-        <button class="admin-tab-btn" data-tab="analytics">Analytics</button>
-
       </div>
 
 
@@ -9825,16 +9704,6 @@ async function renderAdminDashboard(appView) {
         <div class="admin-signups-list" id="admin-signups-list">
 
           <div class="admin-loading">${'Loading signups...'}</div>
-
-        </div>
-
-      </div>
-
-      <div class="admin-tab-content" id="tab-analytics">
-
-        <div class="analytics-page" id="analytics-container">
-
-          <div class="analytics-loading">Loading analytics...</div>
 
         </div>
 
@@ -9993,10 +9862,6 @@ async function renderAdminDashboard(appView) {
 
         loadAdminSignups();
 
-      } else if (btn.dataset.tab === 'analytics') {
-
-        loadAnalytics();
-
       }
 
     });
@@ -10068,20 +9933,10 @@ async function loadAdminPosts() {
 
   try {
 
-    const { data, error } = await supabase
+    const { posts } = await adminAction('get_posts');
 
-      .from('blog_posts')
-
-      .select('*')
-
-      .order('created_at', { ascending: false });
-
-
-
-    if (!error && data && data.length > 0) {
-
-      renderAdminPostsList(container, data);
-
+    if (posts && posts.length > 0) {
+      renderAdminPostsList(container, posts);
     } else {
       const localPosts = [
 
@@ -10286,20 +10141,10 @@ async function loadAdminSignups() {
 
   try {
 
-    const { data, error } = await supabase
+    const { signups } = await adminAction('get_signups');
 
-      .from('class_signups')
-
-      .select('*')
-
-      .order('created_at', { ascending: false });
-
-
-
-    if (!error && data && data.length > 0) {
-
-      renderAdminSignupsList(container, data);
-
+    if (signups && signups.length > 0) {
+      renderAdminSignupsList(container, signups);
     } else {
 
       container.innerHTML = `<div class="admin-empty"><p>${'No signups yet'}</p></div>`;
@@ -10373,16 +10218,9 @@ function renderAdminSignupsList(container, signups) {
 }
 
 window.fetchSignupDetails = async function(id) {
-  const { data, error } = await supabase
-    .from('class_signups')
-    .select('*')
-    .eq('id', id)
-    .single();
-
-  if (error || !data) {
-    return;
-  }
-
+  const { signups } = await adminAction('get_signups');
+  const data = signups?.find(s => s.id === id);
+  if (!data) return;
   showSignupDetails(data);
 };
 
